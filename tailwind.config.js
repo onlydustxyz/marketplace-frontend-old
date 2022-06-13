@@ -25,7 +25,21 @@ module.exports = {
         secondary: colors.slate,
         ...customColor,
       },
+      backgroundImage: {
+        "button-primary": 'url("src/assets/img/button/primary.png")',
+        "button-primary-hover": 'url("src/assets/img/button/primary-hover.png")',
+        "button-secondary-hover": 'url("src/assets/img/button/secondary-hover.png")',
+      },
+      boxShadow: {
+        "button-primary": "0 0 30px 0 #dc2626",
+      },
+      textShadow: {
+        "button-primary": "0px 0px 2px #00FFE4, 0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",
+      },
     },
   },
-  plugins: [],
+  variants: {
+    textShadow: ["responsive", "hover", "focus", "disabled"],
+  },
+  plugins: [require("tailwindcss-textshadow")],
 };

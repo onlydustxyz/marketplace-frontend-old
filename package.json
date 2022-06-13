@@ -8,11 +8,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@starknet-react/core": "^0.11.0",
+    "classnames": "^2.3.1",
+    "get-starknet": "^1.4.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "6"
+    "react-router-dom": "6",
+    "starknet": "^3.9.0"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@rollup/plugin-inject": "^4.0.4",
     "@types/node": "^17.0.41",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",

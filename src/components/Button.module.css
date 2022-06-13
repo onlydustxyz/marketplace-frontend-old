@@ -1,0 +1,52 @@
+.button {
+  height: 65px;
+  width: 243.75px;
+
+  background-repeat: no-repeat;
+  background-size: 243.75px;
+
+  font-size: 20px;
+  text-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff;
+}
+
+.button.medium {
+  @apply h-[48px] w-[180px] text-[18px];
+}
+
+.button.small {
+  @apply h-[32px] w-[120px] text-[14px];
+}
+
+.primary {
+  background-image: url("src/assets/img/button/primary.png");
+  background-size: cover;
+  color: #23113f;
+  box-shadow: 0 0 30px 0 #dc2626;
+}
+
+.primary:hover:not(:disabled) {
+  background-image: url("src/assets/img/button/primary-hover.png");
+}
+
+.primary:disabled {
+  opacity: 20%;
+}
+
+.secondary {
+  background-image: none;
+  background-color: #0e0d2e;
+  color: #00ffe4;
+  box-shadow: none;
+}
+
+.secondary:hover {
+  background-image: url("src/assets/img/button/secondary-hover.png");
+  background-size: cover;
+  color: #ebddff;
+}
+
+.secondary:disabled {
+  background-image: none;
+  background-color: #0e0d2e;
+  color: #0009bc;
+}

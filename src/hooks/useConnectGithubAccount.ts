@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
-import BN from "bn.js";
 
 import config from "src/config";
 import { toBN } from "starknet/dist/utils/number";

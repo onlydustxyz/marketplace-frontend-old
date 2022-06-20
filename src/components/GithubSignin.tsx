@@ -33,8 +33,8 @@ export default function GithubSignin({ className }: GithubSigninProps) {
 
     const { hash, signature } = await signMessage(
       starknet.account,
-      account
-      // "0x3b2683cae726e17671233e0180ac3163abc64a6ad55245b36e86357f7aeaac3"
+      account,
+      config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
     );
 
     call({

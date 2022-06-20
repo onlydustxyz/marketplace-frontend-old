@@ -1,12 +1,11 @@
 import { AccountInterface } from "starknet";
 import { getMessageHash } from "starknet/dist/utils/typedData";
 
-export async function signMessage(account: AccountInterface, message: string) {
+export async function signMessage(account: AccountInterface, message: string, chainId: string) {
   const typedMessage = {
     domain: {
       name: "Deathnote",
-      // chainId: networkId() === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI",
-      chainId: "SN_GOERLI",
+      chainId,
       version: "0.0.1",
     },
     types: {

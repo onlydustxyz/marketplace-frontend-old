@@ -14,9 +14,9 @@ export default function StarknetLocalProvider({ children }: { children?: ReactNo
 }
 
 function getProvider() {
-  if (config.PROVIDER_NETWORK === "localhost") {
-    return new Provider({ baseUrl: config.PROVIDER_HOSTNAME });
+  if (config.STARKNET_NETWORK === "localhost") {
+    return new Provider({ baseUrl: config.STARKNET_HOSTNAME });
   }
 
-  return new Provider({ network: config.PROVIDER_NETWORK });
+  return new Provider({ network: config.STARKNET_NETWORK });
 }

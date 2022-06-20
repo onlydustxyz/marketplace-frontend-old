@@ -10,12 +10,7 @@ import useGetUserInformation from "src/hooks/useGetUserInformation";
 export default function HomePage() {
   const { account } = useStarknet();
 
-  // const {
-  //   data,
-  //   loading: badgeLoading,
-  //   isGithubRegistered,
-  // } = useGetUserInformation("0x65f1506b7f974a1355aeebc1314579326c84a029cd8257a91f82384a6a0ace");
-  const { data, loading: badgeLoading, isGithubRegistered } = useGetUserInformation(account);
+  const { loading: badgeLoading, isGithubRegistered } = useGetUserInformation(account);
 
   return (
     <div className="max-w-screen-lg w-full mx-auto">

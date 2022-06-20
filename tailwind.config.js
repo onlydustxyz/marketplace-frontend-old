@@ -56,6 +56,10 @@ module.exports = {
         ],
         alfreda: ["Alfreda"],
       },
+      zIndex: {
+        m1: "-1",
+        m2: "-2",
+      },
     },
   },
   variants: {

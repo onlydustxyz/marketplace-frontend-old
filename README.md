@@ -31,7 +31,10 @@ Install [yarn](https://classic.yarnpkg.com/en/docs/install).
 
 ```bash
 yarn install
+cp .env.example .env
 ```
+
+Then modify your `.env` file to match with your environment.
 
 ## 🔬 Usage
 

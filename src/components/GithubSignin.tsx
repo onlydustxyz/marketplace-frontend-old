@@ -20,7 +20,7 @@ export default function GithubSignin({ className }: GithubSigninProps) {
   const { account } = useStarknet();
   const starknet = getStarknet();
 
-  const { call, abort, isLoading, data, error } = useConnectGithubAccount();
+  const { call, isLoading, data, error, isSuccess } = useConnectGithubAccount();
 
   const [displayError, setDisplayError] = useState(false);
   const prevHasError = usePrevious(!!error);
@@ -55,11 +55,19 @@ export default function GithubSignin({ className }: GithubSigninProps) {
     }
   }, [error]);
 
+  if (isSuccess) {
+    return (
+      <div className="flex flex-col justify-center items-center text-4xl text-center text-green-500 mt-12">
+        Your Github account has been linked to your NFT profile
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="flex flex-col justify-center items-center text-4xl text-center text-blue-500 mt-12">
         <Loader className="animate-spin mr-4 mb-4" size={62} />
-        <div>We are verifying your information before minting your NFT</div>
+        <div>We are verifying your information before minting your NFT profile</div>
       </div>
     );
   }

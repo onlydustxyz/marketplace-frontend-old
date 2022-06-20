@@ -27,7 +27,7 @@ export default function HomePage() {
   function renderContent() {
     if (!account) {
       return (
-        <div className="text-4xl text-center pt-24 text-red-800">
+        <div className="text-4xl text-center pt-24 text-red-800 mt-12">
           To be able to create your NFT profile, you have to connect your wallet.
         </div>
       );
@@ -35,7 +35,7 @@ export default function HomePage() {
 
     if (badgeLoading) {
       return (
-        <div className="flex flex-row justify-center items-center text-4xl text-center text-blue-500">
+        <div className="flex flex-row justify-center items-center text-4xl text-center text-blue-500 mt-12">
           <Loader className="animate-spin mr-4" size={24} />
           <div>Your transaction is being processed</div>
         </div>
@@ -44,7 +44,9 @@ export default function HomePage() {
 
     if (isGithubRegistered) {
       return (
-        <div className="text-4xl text-center pt-24 text-green-800">You already registered your Github account</div>
+        <div className="text-4xl text-center pt-24 text-green-800 mt-12">
+          You already registered your Github account
+        </div>
       );
     }
 

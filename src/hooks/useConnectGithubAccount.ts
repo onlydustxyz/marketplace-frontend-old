@@ -32,6 +32,7 @@ export function useConnectGithubAccount() {
   const [data, setData] = useState<GithubEndpointReturn>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const controller = new AbortController();
 
@@ -58,6 +59,7 @@ export function useConnectGithubAccount() {
         }
       );
 
+      setIsSuccess(true);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -74,5 +76,6 @@ export function useConnectGithubAccount() {
     isLoading,
     data,
     error,
+    isSuccess,
   };
 }

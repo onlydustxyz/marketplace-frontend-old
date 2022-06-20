@@ -1,0 +1,290 @@
+[
+  {
+    "members": [
+      {
+        "name": "low",
+        "offset": 0,
+        "type": "felt"
+      },
+      {
+        "name": "high",
+        "offset": 1,
+        "type": "felt"
+      }
+    ],
+    "name": "Uint256",
+    "size": 2,
+    "type": "struct"
+  },
+  {
+    "members": [
+      {
+        "name": "badge_contract",
+        "offset": 0,
+        "type": "felt"
+      },
+      {
+        "name": "token_id",
+        "offset": 1,
+        "type": "Uint256"
+      },
+      {
+        "name": "identifiers",
+        "offset": 3,
+        "type": "Identifiers"
+      }
+    ],
+    "name": "UserInformation",
+    "size": 4,
+    "type": "struct"
+  },
+  {
+    "members": [
+      {
+        "name": "github",
+        "offset": 0,
+        "type": "felt"
+      }
+    ],
+    "name": "Identifiers",
+    "size": 1,
+    "type": "struct"
+  },
+  {
+    "data": [
+      {
+        "name": "role",
+        "type": "felt"
+      },
+      {
+        "name": "account",
+        "type": "felt"
+      },
+      {
+        "name": "sender",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "role",
+        "type": "felt"
+      },
+      {
+        "name": "account",
+        "type": "felt"
+      },
+      {
+        "name": "sender",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "role",
+        "type": "felt"
+      },
+      {
+        "name": "previousAdminRole",
+        "type": "felt"
+      },
+      {
+        "name": "newAdminRole",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "badge_contract",
+        "type": "felt"
+      },
+      {
+        "name": "token_id",
+        "type": "Uint256"
+      },
+      {
+        "name": "identifier",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "GithubIdentifierRegistered",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "badge_contract",
+        "type": "felt"
+      },
+      {
+        "name": "token_id",
+        "type": "Uint256"
+      },
+      {
+        "name": "identifier",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "GithubIdentifierUnregistered",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "name": "admin",
+        "type": "felt"
+      }
+    ],
+    "name": "constructor",
+    "outputs": [],
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "name": "address",
+        "type": "felt"
+      }
+    ],
+    "name": "grant_admin_role",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "address",
+        "type": "felt"
+      }
+    ],
+    "name": "revoke_admin_role",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "address",
+        "type": "felt"
+      }
+    ],
+    "name": "grant_register_role",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "address",
+        "type": "felt"
+      }
+    ],
+    "name": "revoke_register_role",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "badge_contract",
+        "type": "felt"
+      }
+    ],
+    "name": "set_badge_contract",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "user_address",
+        "type": "felt"
+      },
+      {
+        "name": "identifier",
+        "type": "felt"
+      }
+    ],
+    "name": "register_github_identifier",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "user_address",
+        "type": "felt"
+      },
+      {
+        "name": "identifier",
+        "type": "felt"
+      }
+    ],
+    "name": "unregister_github_identifier",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "badge_contract",
+    "outputs": [
+      {
+        "name": "badge_contract",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "user_address",
+        "type": "felt"
+      }
+    ],
+    "name": "get_user_information",
+    "outputs": [
+      {
+        "name": "user",
+        "type": "UserInformation"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "identifier",
+        "type": "felt"
+      }
+    ],
+    "name": "get_user_information_from_github_identifier",
+    "outputs": [
+      {
+        "name": "user",
+        "type": "UserInformation"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

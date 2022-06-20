@@ -6,7 +6,7 @@ interface ImportMetaEnv {
   readonly DEATHNOTE_API_HOSTNAME: string;
   readonly DEATHNOTE_REGISTRY_CONTRACT_ADDRESS: string;
 
-  readonly DEATHNOTE_PROVIDER_NETWORK: "mainnet-alpha" | "goerli-alpha" | "localhost";
+  readonly DEATHNOTE_STARKNET_NETWORK: "mainnet-alpha" | "goerli-alpha" | "localhost";
   readonly DEATHNOTE_STARKNET_HOSTNAME: string;
 }
 

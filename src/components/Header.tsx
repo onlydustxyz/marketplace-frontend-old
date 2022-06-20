@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className="flex flex-row items-center mb-12">
       <div className="grow h-[120px] flex flex-row items-center">
-        <div className="ml-6 text-4xl">Deathnote</div>
+        <div className="ml-6 text-4xl font-alfreda">Deathnote</div>
       </div>
       {renderButton()}
     </header>

@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("GTWalsheimPro-Light.eot");
+  src: local("GT Walsheim Pro Light"), local("GTWalsheimPro-Light"),
+    url("GTWalsheimPro-Light.eot?#iefix") format("embedded-opentype"), url("GTWalsheimPro-Light.woff2") format("woff2"),
+    url("GTWalsheimPro-Light.woff") format("woff"), url("GTWalsheimPro-Light.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("GTWalsheimPro-LightOblique.eot");
+  src: local("GT Walsheim Pro Light Oblique"), local("GTWalsheimPro-LightOblique"),
+    url("GTWalsheimPro-LightOblique.eot?#iefix") format("embedded-opentype"),
+    url("GTWalsheimPro-LightOblique.woff2") format("woff2"), url("GTWalsheimPro-LightOblique.woff") format("woff"),
+    url("GTWalsheimPro-LightOblique.ttf") format("truetype");
+  font-style: italic;
+}

@@ -36,6 +36,26 @@ module.exports = {
       textShadow: {
         "button-primary": "0px 0px 2px #00FFE4, 0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",
       },
+      fontFamily: {
+        sans: [
+          "GT Walsheim Pro",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          '"Helvetica Neue"',
+          "Arial",
+          '"Noto Sans"',
+          "sans-serif",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+          '"Noto Color Emoji"',
+        ],
+        alfreda: ["Alfreda"],
+      },
     },
   },
   variants: {

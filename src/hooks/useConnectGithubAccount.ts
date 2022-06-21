@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 
 import config from "src/config";
-import { toBN } from "starknet/dist/utils/number";
+import { toBN, toHex } from "starknet/dist/utils/number";
 
 interface ConnectGithubAccountParams {
   address: string;
@@ -44,12 +44,12 @@ export function useConnectGithubAccount() {
         `${config.API_HOSTNAME}/registrations/github`,
         {
           authorization_code: code,
-          account_address: toBN(address).toString(),
+          account_address: address,
           signed_data: {
-            hash: toBN(hash).toString(),
+            hash: hash,
             signature: {
-              r: toBN(signature[0]).toString(),
-              s: toBN(signature[1]).toString(),
+              r: toHex(toBN(signature[0])),
+              s: toHex(toBN(signature[1])),
             },
           },
         },

@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "test": "echo 'Test not implemented'",
     "preview": "vite preview",
     "postinstall": "patch-package"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
     "@starknet-react/core": "^0.11.0",
+    "axios": "^0.27.2",
     "bn.js": "^5.2.1",
     "classnames": "^2.3.1",
     "get-starknet": "^1.4.1",

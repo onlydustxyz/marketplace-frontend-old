@@ -19,3 +19,5 @@ jobs:
       - name: Copy files to the test website with the AWS CLI
         run: |
           aws s3 sync dist s3://onlydust-deathnote-frontend
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id E26UTVUNWI160B --paths "/*"

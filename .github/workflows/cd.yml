@@ -1,0 +1,21 @@
+name: Build and deploy
+
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Setup yarn
+        run: npm install -g yarn
+      - run: yarn install
+      - run: yarn build
+      - name: Copy files to the test website with the AWS CLI
+        run: |
+          aws s3 sync dist s3://onlydust-deathnote-frontend

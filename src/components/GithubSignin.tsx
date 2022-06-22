@@ -74,7 +74,7 @@ export default function GithubSignin({ className }: GithubSigninProps) {
 
   return (
     <GitHubLogin
-      redirectUri="http://localhost:3000?action=login%26provider=github"
+      redirectUri={`${config.GITHUB_REDIRECT_URI}?action=login%26provider=github`}
       clientId={config.GITHUB_CLIENT_ID}
       onSuccess={onSuccess}
       onFailure={onFailure}

@@ -15,7 +15,14 @@ jobs:
       - name: Setup yarn
         run: npm install -g yarn
       - run: yarn install
-      - run: yarn build
+      - name: Build project
+        run: yarn build
+        env:
+          DEATHNOTE_API_HOSTNAME: ${{ secrets.DEATHNOTE_API_HOSTNAME }}
+          DEATHNOTE_GITHUB_CLIENT_ID: ${{ secrets.DEATHNOTE_GITHUB_CLIENT_ID }}
+          DEATHNOTE_GITHUB_REDIRECT_URI: ${{ secrets.DEATHNOTE_GITHUB_REDIRECT_URI }}
+          DEATHNOTE_PROVIDER_NETWORK: ${{ secrets.DEATHNOTE_PROVIDER_NETWORK }}
+          DEATHNOTE_REGISTRY_CONTRACT_ADDRESS: ${{ secrets.DEATHNOTE_REGISTRY_CONTRACT_ADDRESS }}
       - name: Copy files to the test website with the AWS CLI
         run: |
           aws s3 sync dist s3://onlydust-deathnote-frontend

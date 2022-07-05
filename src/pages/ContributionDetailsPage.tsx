@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import useContribution from "src/hooks/useContributionMock";
-import NotFoundError from "src/utils/errors/NotFoundError";
+import { useRecoilValue } from "recoil";
+import { contributionQuery } from "src/state";
 
 type ContributionDetailsPageParams = {
   contributionId: string;
@@ -8,15 +8,10 @@ type ContributionDetailsPageParams = {
 
 export default function ContributionDetailsPage() {
   const { contributionId } = useParams<ContributionDetailsPageParams>();
+  const contribution = useRecoilValue(contributionQuery(contributionId));
 
-  const { contribution, isLoading, error } = useContribution(contributionId);
-
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
-
-  if (error instanceof NotFoundError) {
-    return <div>There is no contribution for this id</div>;
+  if (!contribution) {
+    return null;
   }
 
   return (

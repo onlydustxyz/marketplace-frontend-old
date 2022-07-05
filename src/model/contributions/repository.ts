@@ -4,6 +4,7 @@ export type Project = {
   id: string;
   title: string;
   description: string;
+  githubLink: string;
 };
 
 export type Contribution = {

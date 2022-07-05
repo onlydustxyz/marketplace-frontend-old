@@ -19,7 +19,7 @@ declare module "react-github-login" {
         scope?: string,
     }
 
-    declare class ReactGithubLogin extends React.Component<ReactGithubLoginProps, any> {}
+    declare class ReactGithubLogin extends React.Component<ReactGithubLoginProps, unknown> {}
 
 
     export default ReactGithubLogin;

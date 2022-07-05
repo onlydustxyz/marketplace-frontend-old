@@ -6,7 +6,7 @@ import GitHubLogin from "react-github-login";
 import { usePrevious } from "react-use";
 
 import config from "src/config";
-import { useConnectGithubAccount } from "src/hooks/github-account";
+import { useGithubAccount } from "src/hooks/github-account";
 import GithubIcon from "src/icons/Github";
 import { signMessage } from "src/utils/wallet";
 import Modal from "src/components/Modal";
@@ -20,7 +20,7 @@ export default function GithubSignin({ className }: GithubSigninProps) {
   const { account } = useStarknet();
   const starknet = getStarknet();
 
-  const { call, isLoading, data, error, isSuccess } = useConnectGithubAccount();
+  const { connect, isLoading, error, isSuccess } = useGithubAccount();
 
   const [displayError, setDisplayError] = useState(false);
   const prevHasError = usePrevious(!!error);
@@ -37,7 +37,7 @@ export default function GithubSignin({ className }: GithubSigninProps) {
       config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
     );
 
-    call({
+    connect({
       address: account,
       code,
       hash,

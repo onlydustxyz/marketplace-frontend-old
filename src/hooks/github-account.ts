@@ -27,7 +27,7 @@ interface GithubEndpointReturn {
   data: any;
 }
 
-export function useConnectGithubAccount() {
+export function useGithubAccount() {
   const [data, setData] = useState<GithubEndpointReturn>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
@@ -35,7 +35,7 @@ export function useConnectGithubAccount() {
 
   const controller = new AbortController();
 
-  const call = async ({ address, code, hash, signature }: ConnectGithubAccountParams) => {
+  const connect = async ({ address, code, hash, signature }: ConnectGithubAccountParams) => {
     setIsLoading(true);
     setError(undefined);
 
@@ -68,7 +68,7 @@ export function useConnectGithubAccount() {
   };
   // cancel the request
   return {
-    call,
+    connect,
     abort: () => {
       controller.abort();
     },

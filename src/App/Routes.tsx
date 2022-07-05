@@ -18,7 +18,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/contribution/:contributionId"
+          path="/contributions/:contributionId"
           element={
             <Suspense fallback={<>...</>}>
               <ContributionDetailsPage />
@@ -26,7 +26,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/project/:projectId"
+          path="/projects/:projectId"
           element={
             <Suspense fallback={<>...</>}>
               <ProjectDetailsPage />

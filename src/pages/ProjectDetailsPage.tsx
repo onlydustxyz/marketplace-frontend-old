@@ -16,7 +16,7 @@ export default function ProjectDetailsPage() {
 
   return (
     <div>
-      <h2>Contribution detail : {project.title}</h2>
+      <h2>Project details: {project.title}</h2>
       <h3>Project info</h3>
       <ul>
         <li>Project: {project.title}</li>

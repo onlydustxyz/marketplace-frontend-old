@@ -16,14 +16,14 @@ export default function ContributionDetailsPage() {
 
   return (
     <div>
-      <h2>Contribution detail : {contribution.title}</h2>
+      <h2>Contribution details: {contribution.title}</h2>
       <h3>Contribution info</h3>
       <ul>
         <li>
           Project:{" "}
           <Link
             to={{
-              pathname: `/project/${contribution.project.id}`,
+              pathname: `/projects/${contribution.project.id}`,
             }}
           >
             {contribution.project.title}

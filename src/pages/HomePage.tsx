@@ -6,6 +6,8 @@ import ContentContainer from "src/components/ContentContainer";
 
 import Loader from "src/icons/Loader";
 import useUserInformation from "src/hooks/user-information";
+import { Suspense } from "react";
+import ContributionList from "src/components/ContributionList";
 
 export default function HomePage() {
   const { account } = useStarknet();
@@ -60,6 +62,9 @@ export default function HomePage() {
           <p>Once it's done, we will call our backend to verify the information and mint your NFT.</p>
         </ContentContainer>
         <GithubSignin className="mt-8" />
+        <Suspense fallback={"Loading contributions..."}>
+          <ContributionList />
+        </Suspense>
       </>
     );
   }

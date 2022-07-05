@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "lint": "eslint '**/*.{js,jsx,json,ts,tsx}'",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register -r tsconfig-paths/register \"src/**/*.test.ts\"",
     "preview": "vite preview",
-    "postinstall": "patch-package"
+    "postinstall": "husky install; patch-package"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
@@ -47,6 +48,8 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "mocha": "^10.0.0",
     "postcss": "^8.4.14",
     "prettier": "^2.6.2",

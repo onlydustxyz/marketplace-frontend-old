@@ -7,7 +7,7 @@ export default function ButtonConnect() {
   const { account, connect } = useStarknet();
 
   const onConnect = useCallback(async () => {
-    await connect(new InjectedConnector());
+    await connect(new InjectedConnector({ options: { id: "argent-x" } }));
   }, [connect]);
 
   if (account) {

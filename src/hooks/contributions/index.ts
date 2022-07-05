@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Contribution, repository } from "./repository";
 
 export const useContributions = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [contributions, setContributions] = useState<Contribution[]>([]);
 
   useEffect(() => {

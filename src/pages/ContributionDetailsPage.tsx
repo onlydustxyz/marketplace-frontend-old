@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { contributionQuery } from "src/state";
 
@@ -19,7 +19,16 @@ export default function ContributionDetailsPage() {
       <h2>Contribution detail : {contribution.title}</h2>
       <h3>Contribution info</h3>
       <ul>
-        <li>Project: {contribution.project.title}</li>
+        <li>
+          Project:{" "}
+          <Link
+            to={{
+              pathname: `/project/${contribution.project.id}`,
+            }}
+          >
+            {contribution.project.title}
+          </Link>
+        </li>
         <li>Title: {contribution.title}</li>
         <li>Description: {contribution.description}</li>
       </ul>

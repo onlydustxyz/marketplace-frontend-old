@@ -20,6 +20,16 @@ jobs:
           DEATHNOTE_GITHUB_REDIRECT_URI: ${{ secrets.DEATHNOTE_GITHUB_REDIRECT_URI }}
           DEATHNOTE_PROVIDER_NETWORK: ${{ secrets.DEATHNOTE_PROVIDER_NETWORK }}
           DEATHNOTE_REGISTRY_CONTRACT_ADDRESS: ${{ secrets.DEATHNOTE_REGISTRY_CONTRACT_ADDRESS }}
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
   test:
     runs-on: ubuntu-latest
     steps:

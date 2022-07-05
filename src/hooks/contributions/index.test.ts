@@ -1,19 +1,17 @@
 import { expect } from "chai";
-import { stub } from "sinon";
-import { repository } from "./repository";
+import { renderHook } from "@testing-library/react-hooks";
+import { useContributions } from ".";
 
 describe("The useContributions hook", () => {
-  let listStub: sinon.SinonStub;
-
-  beforeEach(() => {
-    listStub = stub(repository, "list");
-  });
-
-  afterEach(() => {
-    listStub.restore();
-  });
-
   it("uses the repository to fetch the contributions list", async () => {
-    expect(true).to.be.true;
+    const { result, waitForValueToChange } = renderHook(() => useContributions());
+
+    expect(result.current.loading).to.be.true;
+    expect(result.current.contributions).to.be.empty;
+
+    await waitForValueToChange(() => result.current.loading);
+
+    expect(result.current.loading).to.be.false;
+    expect(result.current.contributions).not.to.be.empty;
   });
 });

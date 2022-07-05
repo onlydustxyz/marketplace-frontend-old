@@ -2,8 +2,9 @@ name: Build and deploy
 
 on:
   push:
-    tags:
-      - v*
+    branches:
+      - "main"
+
 jobs:
   deploy:
     runs-on: self-hosted

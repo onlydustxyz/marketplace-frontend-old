@@ -8,16 +8,15 @@
     "lint": "eslint '**/*.{js,jsx,json,ts,tsx}'",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register -r tsconfig-paths/register \"src/**/*.test.ts\"",
     "preview": "vite preview",
-    "postinstall": "husky install; patch-package"
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
-    "@starknet-react/core": "^0.11.0",
+    "@starknet-react/core": "0.12.0",
     "axios": "^0.27.2",
     "bn.js": "^5.2.1",
     "classnames": "^2.3.1",
     "get-starknet": "^1.4.1",
-    "patch-package": "^6.4.7",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-github-login": "^1.0.3",

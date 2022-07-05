@@ -3,7 +3,7 @@ import NotFoundError from "src/utils/errors/NotFoundError";
 
 export default function useContribution(contributionId: string | undefined) {
   const [contribution, setContribution] = useState<any>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error>();
 
   useEffect(() => {
@@ -19,15 +19,14 @@ export default function useContribution(contributionId: string | undefined) {
         setError(new NotFoundError());
       } else {
         setContribution({
-          contributionId,
-          projectId: "a54be8c",
+          id: contributionId,
           title: "Contribution title",
           description: "#The MD content",
-          status: "assigned",
-          gates: [],
-          metadata: {
-            //everything that varies with the status
-            assignee: "0x1234",
+          project: {
+            id: "13546",
+            title: "the first project",
+            description: "# The MD content\nYolo",
+            githubLink: "http://example.com/githublink",
           },
         });
       }

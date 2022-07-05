@@ -6,7 +6,7 @@ import GitHubLogin from "react-github-login";
 import { usePrevious } from "react-use";
 
 import config from "src/config";
-import { useConnectGithubAccount } from "src/hooks/useConnectGithubAccount";
+import { useConnectGithubAccount } from "src/hooks/github-account";
 import GithubIcon from "src/icons/Github";
 import { signMessage } from "src/utils/wallet";
 import Modal from "src/components/Modal";

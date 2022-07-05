@@ -5,12 +5,12 @@ import GithubSignin from "src/components/GithubSignin";
 import ContentContainer from "src/components/ContentContainer";
 
 import Loader from "src/icons/Loader";
-import useGetUserInformation from "src/hooks/useGetUserInformation";
+import useUserInformation from "src/hooks/user-information";
 
 export default function HomePage() {
   const { account } = useStarknet();
 
-  const { loading: badgeLoading, isGithubRegistered } = useGetUserInformation(account);
+  const { loading: badgeLoading, isGithubRegistered } = useUserInformation(account);
 
   return (
     <div className="max-w-screen-lg w-full mx-auto">

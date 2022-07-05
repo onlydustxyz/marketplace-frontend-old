@@ -24,7 +24,7 @@ interface GithubEndpointData {
 }
 
 interface GithubEndpointReturn {
-  data: any;
+  data: unknown;
 }
 
 export function useGithubAccount() {

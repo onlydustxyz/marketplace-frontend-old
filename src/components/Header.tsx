@@ -1,16 +1,10 @@
-import { useCallback } from "react";
 import { useStarknet } from "@starknet-react/core";
 
 import ButtonConnect from "src/components/ButtonConnect";
-import Button from "src/components/Button";
 import { minimizeAddress } from "src/utils/web3";
 
 export default function Header() {
-  const { account, disconnect } = useStarknet();
-
-  const handleDisconnect = useCallback(() => {
-    disconnect();
-  }, [disconnect]);
+  const { account } = useStarknet();
 
   return (
     <header className="flex flex-row items-center mb-12">
@@ -32,9 +26,6 @@ export default function Header() {
           <span>Your wallet address: </span>
           {minimizeAddress(account)}
         </div>
-        {/* <Button theme="secondary" size="medium" className="ml-8" onClick={handleDisconnect}>
-          Disconnect
-        </Button> */}
       </div>
     );
   }

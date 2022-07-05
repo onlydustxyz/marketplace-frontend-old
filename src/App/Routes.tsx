@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const HomePage = lazy(() => import("src/pages/HomePage"));
 const ContributionDetailsPage = lazy(() => import("src/pages/ContributionDetailsPage"));
+const ProjectDetailsPage = lazy(() => import("src/pages/ProjectDetailsPage"));
 
 export default function AppRoutes() {
   return (
@@ -21,6 +22,14 @@ export default function AppRoutes() {
           element={
             <Suspense fallback={<>...</>}>
               <ContributionDetailsPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/project/:projectId"
+          element={
+            <Suspense fallback={<>...</>}>
+              <ProjectDetailsPage />
             </Suspense>
           }
         />

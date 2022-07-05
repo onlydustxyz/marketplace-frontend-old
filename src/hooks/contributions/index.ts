@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { Contribution, ContributionRepository } from "./repository";
-
-let repository: ContributionRepository;
+import { Contribution, repository } from "./repository";
 
 export const useContributions = () => {
   const [loading, setLoading] = useState<boolean>(false);

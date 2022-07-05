@@ -22,7 +22,7 @@ export default function ContributionDetailsPage() {
   }
 
   if (!contribution || !project) {
-    return <div></div>;
+    return null;
   }
 
   return (

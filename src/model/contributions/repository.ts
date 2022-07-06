@@ -30,6 +30,9 @@ type AssignedStatus = {
 
 type CompletedStatus = {
   status: "completed";
+  metadata: {
+    assignee: string;
+  };
 };
 
 export interface ContributionRepository {

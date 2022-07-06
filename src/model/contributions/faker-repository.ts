@@ -18,6 +18,9 @@ export class FakerContributionRepository implements ContributionRepository {
         },
         {
           status: "completed",
+          metadata: {
+            assignee: faker.datatype.hexadecimal(62),
+          },
         },
       ]);
       return {

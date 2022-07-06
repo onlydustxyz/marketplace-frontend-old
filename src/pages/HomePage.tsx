@@ -11,7 +11,7 @@ import ContributionList from "src/components/ContributionList";
 export default function HomePage() {
   const { account } = useStarknet();
 
-  const { loading: badgeLoading, isGithubRegistered } = useUserInformation(account);
+  const { loading: profileLoading, isGithubRegistered } = useUserInformation(account);
 
   if (!account) {
     return (
@@ -21,7 +21,7 @@ export default function HomePage() {
     );
   }
 
-  if (badgeLoading) {
+  if (profileLoading) {
     return (
       <div className="flex flex-row justify-center items-center text-4xl text-center text-blue-500 mt-12">
         <Loader className="animate-spin mr-4" size={24} />

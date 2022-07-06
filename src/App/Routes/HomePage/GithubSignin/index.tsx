@@ -1,22 +1,18 @@
 import { useStarknet } from "@starknet-react/core";
-import cn from "classnames";
 import { getStarknet } from "get-starknet";
-import { useCallback, useEffect, useState } from "react";
-import GitHubLogin from "react-github-login";
+import { FC, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "react-use";
 
 import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
-import GithubIcon from "src/icons/Github";
 import { signMessage } from "src/utils/wallet";
-import Modal from "./Modal";
-import Loader from "src/icons/Loader";
+import GithubSignin from "src/App/Routes/HomePage/GithubSignin/View";
 
-interface GithubSigninProps {
+type Props = {
   className?: string;
-}
+};
 
-export default function GithubSignin({ className }: GithubSigninProps) {
+const GithubSigninContainer: FC<Props> = ({ className }) => {
   const { account } = useStarknet();
   const starknet = getStarknet();
 
@@ -49,57 +45,28 @@ export default function GithubSignin({ className }: GithubSigninProps) {
     console.warn(error);
   }, []);
 
+  const onClose = useCallback(() => {
+    setDisplayError(false);
+  }, []);
+
   useEffect(() => {
     if (error && !prevHasError) {
       setDisplayError(true);
     }
   }, [error]);
 
-  if (isSuccess) {
-    return (
-      <div className="flex flex-col justify-center items-center text-4xl text-center text-green-500 mt-12">
-        Your Github account has been linked to your NFT profile
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex flex-col justify-center items-center text-4xl text-center text-blue-500 mt-12">
-        <Loader className="animate-spin mr-4 mb-4" size={62} />
-        <div>We are verifying your information before minting your NFT profile</div>
-      </div>
-    );
-  }
-
   return (
-    <GitHubLogin
-      redirectUri={`${config.GITHUB_REDIRECT_URI}?action=login%26provider=github`}
-      clientId={config.GITHUB_CLIENT_ID}
+    <GithubSignin
+      isLoading={isLoading}
+      isSuccess={isSuccess}
+      onClose={onClose}
       onSuccess={onSuccess}
       onFailure={onFailure}
-      className={cn(
-        className,
-        "flex flex-row bg-black px-8 py-4 rounded-md text-xl shadow-white/20 shadow-md hover:bg-neutral-900"
-      )}
-    >
-      <GithubIcon className="fill-white" />
-      <div className="ml-4 font-bold">Sign In With Github</div>
-      {renderError()}
-    </GitHubLogin>
+      error={error}
+      displayError={displayError}
+      className={className}
+    />
   );
+};
 
-  function renderError() {
-    if (error) {
-      return (
-        <Modal isOpen={displayError} onClose={() => setDisplayError(false)}>
-          <div className="text-2xl text-red-300">
-            An error occurred while trying to verify your request and minting your NFT.
-            <br />
-            <p className="text-xl mt-2">Please try again or contact us if the problem still occurred.</p>
-          </div>
-        </Modal>
-      );
-    }
-  }
-}
+export default GithubSigninContainer;

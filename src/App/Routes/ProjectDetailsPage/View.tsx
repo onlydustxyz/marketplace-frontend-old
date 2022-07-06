@@ -1,15 +1,10 @@
-import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { projectQuery } from "src/state";
+import { FC } from "react";
+import { Project } from "src/model/contributions/repository";
 
-type ProjectDetailsPageParams = {
-  projectId: string;
+type Props = {
+  project?: Project;
 };
-
-export default function ProjectDetailsPage() {
-  const { projectId } = useParams<ProjectDetailsPageParams>();
-  const project = useRecoilValue(projectQuery(projectId));
-
+const ProjectDetailsPage: FC<Props> = ({ project }) => {
   if (!project) {
     return null;
   }
@@ -30,4 +25,6 @@ export default function ProjectDetailsPage() {
       </ul>
     </div>
   );
-}
+};
+
+export default ProjectDetailsPage;

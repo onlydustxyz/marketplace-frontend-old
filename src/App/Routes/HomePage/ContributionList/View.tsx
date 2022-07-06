@@ -1,23 +1,65 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import { Contribution } from "src/model/contributions/repository";
+import Contribution from "./Contribution";
+import { AssignedContribution, CompletedContribution, OpenContribution } from "src/model/contributions/repository";
 
 type Props = {
-  contributions: Contribution[];
+  openContributions: OpenContribution[];
+  myOngoingContributions: AssignedContribution[];
+  foreignOngoingContributions: AssignedContribution[];
+  myCompletedContributions: CompletedContribution[];
+  foreignCompletedContributions: CompletedContribution[];
 };
 
-const ContributionList: FC<Props> = ({ contributions }) => {
+const ContributionList: FC<Props> = ({
+  openContributions,
+  myOngoingContributions,
+  foreignOngoingContributions,
+  myCompletedContributions,
+  foreignCompletedContributions,
+}) => {
   return (
-    <ul>
-      {contributions.map(contribution => (
-        <li key={contribution.id} className="my-4">
-          <Link to={`/contributions/${contribution.id}`}>
-            <h1>{contribution.title}</h1>
-            <p>{contribution.status}</p>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div className="w-full">
+      <h1 className="mt-8 mb-4 text-xl">Open contributions</h1>
+      <ul>
+        {openContributions.map(contribution => (
+          <li key={contribution.id} className="my-2">
+            <Contribution {...contribution} />
+          </li>
+        ))}
+      </ul>
+      <h1 className="mt-8 mb-4 text-xl">My ongoing contributions</h1>
+      <ul>
+        {myOngoingContributions.map(contribution => (
+          <li key={contribution.id} className="my-2">
+            <Contribution {...contribution} />
+          </li>
+        ))}
+      </ul>
+      <h1 className="mt-8 mb-4 text-xl">Other ongoing contributions</h1>
+      <ul>
+        {foreignOngoingContributions.map(contribution => (
+          <li key={contribution.id} className="my-2">
+            <Contribution {...contribution} />
+          </li>
+        ))}
+      </ul>
+      <h1 className="mt-8 mb-4 text-xl">My completed contributions</h1>
+      <ul>
+        {myCompletedContributions.map(contribution => (
+          <li key={contribution.id} className="my-2">
+            <Contribution {...contribution} />
+          </li>
+        ))}
+      </ul>
+      <h1 className="mt-8 mb-4 text-xl">Other completed contributions</h1>
+      <ul>
+        {foreignCompletedContributions.map(contribution => (
+          <li key={contribution.id} className="my-2">
+            <Contribution {...contribution} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

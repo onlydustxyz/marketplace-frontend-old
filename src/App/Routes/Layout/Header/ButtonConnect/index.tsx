@@ -1,6 +1,6 @@
 import { InjectedConnector, useStarknet } from "@starknet-react/core";
 
-import Button from "src/components/Button";
+import Button from "./Button";
 import { useCallback } from "react";
 
 export default function ButtonConnect() {

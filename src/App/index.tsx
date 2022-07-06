@@ -1,5 +1,5 @@
 import { RecoilRoot } from "recoil";
-import AppRoutes from "src/App/Routes";
+import AppRoutes from "./Routes";
 import StarknetLocalProvider from "src/App/StarknetLocalProvider";
 
 export default function App() {

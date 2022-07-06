@@ -2,9 +2,9 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 
-const HomePage = lazy(() => import("src/pages/HomePage"));
-const ContributionDetailsPage = lazy(() => import("src/pages/ContributionDetailsPage"));
-const ProjectDetailsPage = lazy(() => import("src/pages/ProjectDetailsPage"));
+const HomePage = lazy(() => import("./HomePage"));
+const ContributionDetailsPage = lazy(() => import("./ContributionDetailsPage"));
+const ProjectDetailsPage = lazy(() => import("./ProjectDetailsPage"));
 
 export default function AppRoutes() {
   return (

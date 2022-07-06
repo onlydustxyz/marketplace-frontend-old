@@ -1,12 +1,12 @@
 import { useStarknet } from "@starknet-react/core";
 
-import GithubSignin from "src/components/GithubSignin";
+import GithubSignin from "./GithubSignin";
 import ContentContainer from "src/components/ContentContainer";
 
 import Loader from "src/icons/Loader";
 import useUserInformation from "src/hooks/user-information";
 import { Suspense } from "react";
-import ContributionList from "src/components/ContributionList";
+import ContributionList from "./ContributionList";
 
 export default function HomePage() {
   const { account } = useStarknet();

@@ -1,3 +1,4 @@
+import { FakerContributionRepository } from "src/model/contributions/faker-repository";
 import { InMemoryContributionRepository } from "./in-memory-repository";
 
 export type Project = {
@@ -14,7 +15,7 @@ export type Contribution = {
   project: Project;
 } & ContributionStatus;
 
-type ContributionStatus = OpenStatus | AssignedStatus | CompletedStatus;
+export type ContributionStatus = OpenStatus | AssignedStatus | CompletedStatus;
 
 type OpenStatus = {
   status: "open";
@@ -35,4 +36,5 @@ export interface ContributionRepository {
   list(): Promise<Contribution[]>;
 }
 
-export const repository: ContributionRepository = new InMemoryContributionRepository();
+export const repository: ContributionRepository =
+  process.env.NODE_ENV === "test" ? new InMemoryContributionRepository() : new FakerContributionRepository();

@@ -1,15 +1,10 @@
-import { Link, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { contributionQuery } from "src/state";
+import { FC } from "react";
+import { Link } from "react-router-dom";
+import { Contribution } from "src/model/contributions/repository";
 
-type ContributionDetailsPageParams = {
-  contributionId: string;
-};
+type Props = { contribution?: Contribution };
 
-export default function ContributionDetailsPage() {
-  const { contributionId } = useParams<ContributionDetailsPageParams>();
-  const contribution = useRecoilValue(contributionQuery(contributionId));
-
+const ContributionDetailsPage: FC<Props> = ({ contribution }) => {
   if (!contribution) {
     return null;
   }
@@ -45,4 +40,6 @@ export default function ContributionDetailsPage() {
       </ul>
     </div>
   );
-}
+};
+
+export default ContributionDetailsPage;

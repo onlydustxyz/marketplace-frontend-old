@@ -1,10 +1,12 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { contributionsQuery } from "src/state";
+import { Contribution } from "src/model/contributions/repository";
 
-const ContributionList = () => {
-  const contributions = useRecoilValue(contributionsQuery);
+type Props = {
+  contributions: Contribution[];
+};
 
+const ContributionList: FC<Props> = ({ contributions }) => {
   return (
     <ul className="mt-10">
       {contributions.map(contribution => (

@@ -9,7 +9,7 @@ import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
 import GithubIcon from "src/icons/Github";
 import { signMessage } from "src/utils/wallet";
-import Modal from "src/components/Modal";
+import Modal from "./Modal";
 import Loader from "src/icons/Loader";
 
 interface GithubSigninProps {

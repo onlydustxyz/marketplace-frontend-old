@@ -1,6 +1,6 @@
 import { useStarknet } from "@starknet-react/core";
 
-import ButtonConnect from "src/components/ButtonConnect";
+import ButtonConnect from "./ButtonConnect";
 import { minimizeAddress } from "src/utils/web3";
 
 export default function Header() {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Header from "src/components/Header";
+import Header from "./Header";
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (

@@ -28,3 +28,59 @@ export const projectQuery = selectorFamily({
       return contributions.find(contribution => contribution.project.id === id)?.project;
     },
 });
+
+export const openedContributionsQuery = selector({
+  key: "OpenedContributions",
+  get: ({ get }) => {
+    const contributions = get(contributionsQuery);
+    return contributions.filter(contribution => contribution.status === "open");
+  },
+});
+
+export const myCurrentContributionsQuery = selectorFamily({
+  key: "MyCurrentContributions",
+  get:
+    myAddress =>
+    ({ get }) => {
+      const contributions = get(contributionsQuery);
+      return contributions.filter(
+        contribution => contribution.status === "assigned" && contribution.metadata.assignee === myAddress
+      );
+    },
+});
+
+export const foreignOngoingContributionsQuery = selectorFamily({
+  key: "ForeignOngoingContributions",
+  get:
+    myAddress =>
+    ({ get }) => {
+      const contributions = get(contributionsQuery);
+      return contributions.filter(
+        contribution => contribution.status === "assigned" && contribution.metadata.assignee !== myAddress
+      );
+    },
+});
+
+export const myCompletedContributionsQuery = selectorFamily({
+  key: "MyCompletedContributions",
+  get:
+    myAddress =>
+    ({ get }) => {
+      const contributions = get(contributionsQuery);
+      return contributions.filter(
+        contribution => contribution.status === "completed" && contribution.metadata.assignee === myAddress
+      );
+    },
+});
+
+export const foreignCompletedContributionsQuery = selectorFamily({
+  key: "ForeignCompletedContributions",
+  get:
+    myAddress =>
+    ({ get }) => {
+      const contributions = get(contributionsQuery);
+      return contributions.filter(
+        contribution => contribution.status === "completed" && contribution.metadata.assignee !== myAddress
+      );
+    },
+});

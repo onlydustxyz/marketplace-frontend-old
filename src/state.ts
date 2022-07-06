@@ -1,5 +1,10 @@
 import { selector, selectorFamily } from "recoil";
-import { repository } from "src/model/contributions/repository";
+import {
+  AssignedContribution,
+  CompletedContribution,
+  OpenContribution,
+  repository,
+} from "src/model/contributions/repository";
 
 export const contributionsQuery = selector({
   key: "Contributions",
@@ -33,19 +38,19 @@ export const openedContributionsQuery = selector({
   key: "OpenedContributions",
   get: ({ get }) => {
     const contributions = get(contributionsQuery);
-    return contributions.filter(contribution => contribution.status === "open");
+    return contributions.filter(contribution => contribution.status === "open") as OpenContribution[];
   },
 });
 
-export const myCurrentContributionsQuery = selectorFamily({
-  key: "MyCurrentContributions",
+export const myOngoingContributionsQuery = selectorFamily({
+  key: "MyOngoingContributions",
   get:
     myAddress =>
     ({ get }) => {
       const contributions = get(contributionsQuery);
       return contributions.filter(
         contribution => contribution.status === "assigned" && contribution.metadata.assignee === myAddress
-      );
+      ) as AssignedContribution[];
     },
 });
 
@@ -57,7 +62,7 @@ export const foreignOngoingContributionsQuery = selectorFamily({
       const contributions = get(contributionsQuery);
       return contributions.filter(
         contribution => contribution.status === "assigned" && contribution.metadata.assignee !== myAddress
-      );
+      ) as AssignedContribution[];
     },
 });
 
@@ -69,7 +74,7 @@ export const myCompletedContributionsQuery = selectorFamily({
       const contributions = get(contributionsQuery);
       return contributions.filter(
         contribution => contribution.status === "completed" && contribution.metadata.assignee === myAddress
-      );
+      ) as CompletedContribution[];
     },
 });
 
@@ -81,6 +86,6 @@ export const foreignCompletedContributionsQuery = selectorFamily({
       const contributions = get(contributionsQuery);
       return contributions.filter(
         contribution => contribution.status === "completed" && contribution.metadata.assignee !== myAddress
-      );
+      ) as CompletedContribution[];
     },
 });

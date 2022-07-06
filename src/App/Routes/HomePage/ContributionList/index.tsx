@@ -1,12 +1,32 @@
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
 import ContributionList from "./View";
-import { contributionsQuery } from "src/state";
+import {
+  foreignOngoingContributionsQuery,
+  foreignCompletedContributionsQuery,
+  myCompletedContributionsQuery,
+  myOngoingContributionsQuery,
+  openedContributionsQuery,
+} from "src/state";
+import { useStarknet } from "@starknet-react/core";
 
 const ContributionListContainer: FC = () => {
-  const contributions = useRecoilValue(contributionsQuery);
+  const { account } = useStarknet();
+  const openContributions = useRecoilValue(openedContributionsQuery);
+  const myOngoingContributions = useRecoilValue(myOngoingContributionsQuery(account));
+  const foreignOngoingContributions = useRecoilValue(foreignOngoingContributionsQuery(account));
+  const myCompletedContributions = useRecoilValue(myCompletedContributionsQuery(account));
+  const foreignCompletedContributions = useRecoilValue(foreignCompletedContributionsQuery(account));
 
-  return <ContributionList contributions={contributions} />;
+  return (
+    <ContributionList
+      openContributions={openContributions}
+      myOngoingContributions={myOngoingContributions}
+      foreignOngoingContributions={foreignOngoingContributions}
+      myCompletedContributions={myCompletedContributions}
+      foreignCompletedContributions={foreignCompletedContributions}
+    />
+  );
 };
 
 export default ContributionListContainer;

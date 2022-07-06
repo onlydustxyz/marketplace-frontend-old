@@ -8,14 +8,19 @@ export type Project = {
   githubLink: string;
 };
 
-export type Contribution = {
+export type ContributionBase = {
   id: string;
   title: string;
   description: string;
   project: Project;
-} & ContributionStatus;
+};
+
+export type Contribution = ContributionBase & ContributionStatus;
 
 export type ContributionStatus = OpenStatus | AssignedStatus | CompletedStatus;
+export type OpenContribution = Contribution & OpenStatus;
+export type AssignedContribution = Contribution & AssignedStatus;
+export type CompletedContribution = Contribution & CompletedStatus;
 
 type OpenStatus = {
   status: "open";

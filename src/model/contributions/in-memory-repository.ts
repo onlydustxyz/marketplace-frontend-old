@@ -6,6 +6,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       id: "1",
       title: "Contribution 1",
       description: "Description 1",
+      status: "open",
       project: {
         id: "1",
         title: "Project 1",

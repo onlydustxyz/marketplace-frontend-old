@@ -12,6 +12,23 @@ export type Contribution = {
   title: string;
   description: string;
   project: Project;
+} & ContributionStatus;
+
+type ContributionStatus = OpenStatus | AssignedStatus | CompletedStatus;
+
+type OpenStatus = {
+  status: "open";
+};
+
+type AssignedStatus = {
+  status: "assigned";
+  metadata: {
+    assignee: string;
+  };
+};
+
+type CompletedStatus = {
+  status: "completed";
 };
 
 export interface ContributionRepository {

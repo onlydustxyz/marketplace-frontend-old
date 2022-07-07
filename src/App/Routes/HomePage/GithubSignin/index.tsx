@@ -1,20 +1,20 @@
-import { useStarknet } from "@starknet-react/core";
-import { getStarknet } from "get-starknet";
 import { FC, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "react-use";
+import { useRecoilValue } from "recoil";
 
 import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
 import { signMessage } from "src/utils/wallet";
 import GithubSignin from "src/App/Routes/HomePage/GithubSignin/View";
+import { accountAddressAtom, accountAtom } from "src/state";
 
 type Props = {
   className?: string;
 };
 
 const GithubSigninContainer: FC<Props> = ({ className }) => {
-  const { account } = useStarknet();
-  const starknet = getStarknet();
+  const accountAddress = useRecoilValue(accountAddressAtom);
+  const account = useRecoilValue(accountAtom);
 
   const { connect, isLoading, error, isSuccess } = useGithubAccount();
 
@@ -22,19 +22,19 @@ const GithubSigninContainer: FC<Props> = ({ className }) => {
   const prevHasError = usePrevious(!!error);
 
   const onSuccess = async ({ code }: { code: string }) => {
-    if (!account) {
+    if (!accountAddress || !account) {
       console.warn("First ensure wallet is connected before displaying this component");
       return;
     }
 
     const { hash, signature } = await signMessage(
-      starknet.account,
       account,
+      accountAddress,
       config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
     );
 
     connect({
-      address: account,
+      address: accountAddress,
       code,
       hash,
       signature,

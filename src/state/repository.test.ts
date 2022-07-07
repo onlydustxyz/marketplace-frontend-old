@@ -1,8 +1,8 @@
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { spy, restore } from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
-import { contributionQuery, contributionsQuery } from "./state";
-import { repository } from "./model/contributions/repository";
+import { contributionQuery, contributionsQuery } from "./repository";
+import { repository } from "src/model/contributions/repository";
 import { expect } from "chai";
 
 describe("The recoil state", () => {

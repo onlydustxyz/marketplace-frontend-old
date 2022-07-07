@@ -7,16 +7,16 @@ import {
   myCompletedContributionsQuery,
   myOngoingContributionsQuery,
   openedContributionsQuery,
+  accountAddressAtom,
 } from "src/state";
-import { useStarknet } from "@starknet-react/core";
 
 const ContributionListContainer: FC = () => {
-  const { account } = useStarknet();
+  const accountAddress = useRecoilValue(accountAddressAtom);
   const openContributions = useRecoilValue(openedContributionsQuery);
-  const myOngoingContributions = useRecoilValue(myOngoingContributionsQuery(account));
-  const foreignOngoingContributions = useRecoilValue(foreignOngoingContributionsQuery(account));
-  const myCompletedContributions = useRecoilValue(myCompletedContributionsQuery(account));
-  const foreignCompletedContributions = useRecoilValue(foreignCompletedContributionsQuery(account));
+  const myOngoingContributions = useRecoilValue(myOngoingContributionsQuery(accountAddress));
+  const foreignOngoingContributions = useRecoilValue(foreignOngoingContributionsQuery(accountAddress));
+  const myCompletedContributions = useRecoilValue(myCompletedContributionsQuery(accountAddress));
+  const foreignCompletedContributions = useRecoilValue(foreignCompletedContributionsQuery(accountAddress));
 
   return (
     <ContributionList

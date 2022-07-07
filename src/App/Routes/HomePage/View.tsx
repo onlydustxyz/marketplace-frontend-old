@@ -1,30 +1,20 @@
-import GithubSignin from "./GithubSignin";
+import { FC, Suspense } from "react";
+
 import ContentContainer from "src/components/ContentContainer";
 
-import Loader from "src/icons/Loader";
-import { FC, Suspense } from "react";
+import GithubSignin from "./GithubSignin";
 import ContributionList from "./ContributionList";
 
 type Props = {
-  account?: string;
-  profileLoading: boolean;
+  accountAddress?: string;
   isGithubRegistered?: boolean;
 };
 
-const HomePage: FC<Props> = ({ account, profileLoading, isGithubRegistered }) => {
-  if (!account) {
+const HomePage: FC<Props> = ({ accountAddress, isGithubRegistered }) => {
+  if (!accountAddress) {
     return (
       <div className="text-4xl text-center pt-24 text-red-800 mt-12">
         To be able to create your NFT profile, you have to connect your wallet.
-      </div>
-    );
-  }
-
-  if (profileLoading) {
-    return (
-      <div className="flex flex-row justify-center items-center text-4xl text-center text-blue-500 mt-12">
-        <Loader className="animate-spin mr-4" size={24} />
-        <div>Your transaction is being processed</div>
       </div>
     );
   }

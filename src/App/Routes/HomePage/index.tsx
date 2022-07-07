@@ -1,15 +1,14 @@
-import { useStarknet } from "@starknet-react/core";
-
-import useUserInformation from "src/hooks/user-information";
 import { FC } from "react";
+import { useRecoilValue } from "recoil";
+
 import HomePage from "src/App/Routes/HomePage/View";
+import { accountAddressAtom, isGithubRegisteredSelector } from "src/state";
 
 const HomePageContainer: FC = () => {
-  const { account } = useStarknet();
+  const accountAddress = useRecoilValue(accountAddressAtom);
+  const isGithubRegistered = useRecoilValue(isGithubRegisteredSelector);
 
-  const { loading: profileLoading, isGithubRegistered } = useUserInformation(account);
-
-  return <HomePage account={account} profileLoading={profileLoading} isGithubRegistered={isGithubRegistered} />;
+  return <HomePage accountAddress={accountAddress} isGithubRegistered={isGithubRegistered} />;
 };
 
 export default HomePageContainer;

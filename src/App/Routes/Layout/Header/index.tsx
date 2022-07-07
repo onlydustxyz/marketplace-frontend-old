@@ -1,11 +1,14 @@
-import { useStarknet } from "@starknet-react/core";
 import { FC } from "react";
+import { useRecoilValue } from "recoil";
+
+import { accountAddressAtom } from "src/state";
+
 import Header from "./View";
 
 const HeaderContainer: FC = () => {
-  const { account } = useStarknet();
+  const accountAddress = useRecoilValue(accountAddressAtom);
 
-  return <Header account={account} />;
+  return <Header accountAddress={accountAddress} />;
 };
 
 export default HeaderContainer;

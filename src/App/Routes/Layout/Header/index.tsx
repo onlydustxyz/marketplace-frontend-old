@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
 
-import { accountAddressAtom } from "src/state";
+import { accountAddressSelector } from "src/state";
 
 import Header from "./View";
 
 const HeaderContainer: FC = () => {
-  const accountAddress = useRecoilValue(accountAddressAtom);
+  const accountAddress = useRecoilValue(accountAddressSelector);
 
   return <Header accountAddress={accountAddress} />;
 };

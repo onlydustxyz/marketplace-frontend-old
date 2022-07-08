@@ -6,14 +6,13 @@ import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
 import { signMessage } from "src/utils/wallet";
 import GithubSignin from "src/App/Routes/HomePage/GithubSignin/View";
-import { accountAddressAtom, accountAtom } from "src/state";
+import { accountAtom } from "src/state";
 
 type Props = {
   className?: string;
 };
 
 const GithubSigninContainer: FC<Props> = ({ className }) => {
-  const accountAddress = useRecoilValue(accountAddressAtom);
   const account = useRecoilValue(accountAtom);
 
   const { connect, isLoading, error, isSuccess } = useGithubAccount();
@@ -22,19 +21,19 @@ const GithubSigninContainer: FC<Props> = ({ className }) => {
   const prevHasError = usePrevious(!!error);
 
   const onSuccess = async ({ code }: { code: string }) => {
-    if (!accountAddress || !account) {
+    if (!account) {
       console.warn("First ensure wallet is connected before displaying this component");
       return;
     }
 
     const { hash, signature } = await signMessage(
       account,
-      accountAddress,
+      account.address,
       config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
     );
 
     connect({
-      address: accountAddress,
+      address: account.address,
       code,
       hash,
       signature,

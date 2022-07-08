@@ -5,6 +5,7 @@ import {
   OpenContribution,
   repository,
 } from "src/model/contributions/repository";
+import { accountAddressAtom } from "./starknet";
 
 export const contributionsQuery = selector({
   key: "Contributions",
@@ -42,50 +43,46 @@ export const openedContributionsQuery = selector({
   },
 });
 
-export const myOngoingContributionsQuery = selectorFamily({
+export const myOngoingContributionsQuery = selector({
   key: "MyOngoingContributions",
-  get:
-    myAddress =>
-    ({ get }) => {
-      const contributions = get(contributionsQuery);
-      return contributions.filter(
-        contribution => contribution.status === "assigned" && contribution.metadata.assignee === myAddress
-      ) as AssignedContribution[];
-    },
+  get: ({ get }) => {
+    const accountAddress = get(accountAddressAtom);
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === "assigned" && contribution.metadata.assignee === accountAddress
+    ) as AssignedContribution[];
+  },
 });
 
-export const foreignOngoingContributionsQuery = selectorFamily({
+export const foreignOngoingContributionsQuery = selector({
   key: "ForeignOngoingContributions",
-  get:
-    myAddress =>
-    ({ get }) => {
-      const contributions = get(contributionsQuery);
-      return contributions.filter(
-        contribution => contribution.status === "assigned" && contribution.metadata.assignee !== myAddress
-      ) as AssignedContribution[];
-    },
+  get: ({ get }) => {
+    const accountAddress = get(accountAddressAtom);
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === "assigned" && contribution.metadata.assignee !== accountAddress
+    ) as AssignedContribution[];
+  },
 });
 
-export const myCompletedContributionsQuery = selectorFamily({
+export const myCompletedContributionsQuery = selector({
   key: "MyCompletedContributions",
-  get:
-    myAddress =>
-    ({ get }) => {
-      const contributions = get(contributionsQuery);
-      return contributions.filter(
-        contribution => contribution.status === "completed" && contribution.metadata.assignee === myAddress
-      ) as CompletedContribution[];
-    },
+  get: ({ get }) => {
+    const accountAddress = get(accountAddressAtom);
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === "completed" && contribution.metadata.assignee === accountAddress
+    ) as CompletedContribution[];
+  },
 });
 
-export const foreignCompletedContributionsQuery = selectorFamily({
+export const foreignCompletedContributionsQuery = selector({
   key: "ForeignCompletedContributions",
-  get:
-    myAddress =>
-    ({ get }) => {
-      const contributions = get(contributionsQuery);
-      return contributions.filter(
-        contribution => contribution.status === "completed" && contribution.metadata.assignee !== myAddress
-      ) as CompletedContribution[];
-    },
+  get: ({ get }) => {
+    const accountAddress = get(accountAddressAtom);
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === "completed" && contribution.metadata.assignee !== accountAddress
+    ) as CompletedContribution[];
+  },
 });

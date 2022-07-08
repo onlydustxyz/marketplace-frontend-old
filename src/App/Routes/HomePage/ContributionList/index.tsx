@@ -7,16 +7,14 @@ import {
   myCompletedContributionsQuery,
   myOngoingContributionsQuery,
   openedContributionsQuery,
-  accountAddressAtom,
 } from "src/state";
 
 const ContributionListContainer: FC = () => {
-  const accountAddress = useRecoilValue(accountAddressAtom);
   const openContributions = useRecoilValue(openedContributionsQuery);
-  const myOngoingContributions = useRecoilValue(myOngoingContributionsQuery(accountAddress));
-  const foreignOngoingContributions = useRecoilValue(foreignOngoingContributionsQuery(accountAddress));
-  const myCompletedContributions = useRecoilValue(myCompletedContributionsQuery(accountAddress));
-  const foreignCompletedContributions = useRecoilValue(foreignCompletedContributionsQuery(accountAddress));
+  const myOngoingContributions = useRecoilValue(myOngoingContributionsQuery);
+  const foreignOngoingContributions = useRecoilValue(foreignOngoingContributionsQuery);
+  const myCompletedContributions = useRecoilValue(myCompletedContributionsQuery);
+  const foreignCompletedContributions = useRecoilValue(foreignCompletedContributionsQuery);
 
   return (
     <ContributionList

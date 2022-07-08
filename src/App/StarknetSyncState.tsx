@@ -5,10 +5,9 @@ import { useConnectors, useContract, useStarknet } from "@starknet-react/core";
 import config from "src/config";
 import profileRegistryAbi from "src/abis/profileRegistry.json";
 import { useSetRecoilState } from "recoil";
-import { accountAddressAtom, accountAtom, profileRegistryContractAtom } from "src/state";
+import { accountAtom, profileRegistryContractAtom } from "src/state";
 
 const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
-  const setAccountAddress = useSetRecoilState(accountAddressAtom);
   const setAccount = useSetRecoilState(accountAtom);
   const setProfileRegistryContract = useSetRecoilState(profileRegistryContractAtom);
 
@@ -20,10 +19,6 @@ const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
   });
 
   const { connectors } = useConnectors();
-
-  useEffect(() => {
-    setAccountAddress(accountAddress);
-  }, [accountAddress]);
 
   useEffect(() => {
     setProfileRegistryContract(profileRegistryContract);

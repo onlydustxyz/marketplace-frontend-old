@@ -5,7 +5,7 @@ import {
   OpenContribution,
   repository,
 } from "src/model/contributions/repository";
-import { accountAddressAtom } from "./starknet";
+import { accountAddressSelector } from "./starknet";
 
 export const contributionsQuery = selector({
   key: "Contributions",
@@ -46,7 +46,7 @@ export const openedContributionsQuery = selector({
 export const myOngoingContributionsQuery = selector({
   key: "MyOngoingContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressAtom);
+    const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution => contribution.status === "assigned" && contribution.metadata.assignee === accountAddress
@@ -57,7 +57,7 @@ export const myOngoingContributionsQuery = selector({
 export const foreignOngoingContributionsQuery = selector({
   key: "ForeignOngoingContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressAtom);
+    const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution => contribution.status === "assigned" && contribution.metadata.assignee !== accountAddress
@@ -68,7 +68,7 @@ export const foreignOngoingContributionsQuery = selector({
 export const myCompletedContributionsQuery = selector({
   key: "MyCompletedContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressAtom);
+    const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution => contribution.status === "completed" && contribution.metadata.assignee === accountAddress
@@ -79,7 +79,7 @@ export const myCompletedContributionsQuery = selector({
 export const foreignCompletedContributionsQuery = selector({
   key: "ForeignCompletedContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressAtom);
+    const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution => contribution.status === "completed" && contribution.metadata.assignee !== accountAddress

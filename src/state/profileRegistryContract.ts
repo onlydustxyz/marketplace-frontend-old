@@ -2,7 +2,7 @@ import { atom, selector } from "recoil";
 import { ContractInterface } from "starknet";
 import { Uint256 } from "starknet/dist/utils/uint256";
 
-import { accountAddressAtom } from "./starknet";
+import { accountAddressSelector } from "./starknet";
 
 interface UserInformation {
   badge_contract: string;
@@ -21,7 +21,7 @@ export const userInformationSelector = selector({
   key: "UserInformation",
   get: async ({ get }) => {
     const profileRegistryContract = get(profileRegistryContractAtom);
-    const accountAddress = get(accountAddressAtom);
+    const accountAddress = get(accountAddressSelector);
 
     if (!profileRegistryContract || !accountAddress) {
       return undefined;

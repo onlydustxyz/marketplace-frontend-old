@@ -14,3 +14,13 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      import: {
+        meta: ImportMeta;
+      };
+    }
+  }
+}

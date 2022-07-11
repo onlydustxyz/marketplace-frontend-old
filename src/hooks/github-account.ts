@@ -24,7 +24,7 @@ interface GithubEndpointData {
 }
 
 interface GithubEndpointReturn {
-  data: unknown;
+  transaction_hash: string;
 }
 
 export function useGithubAccount() {
@@ -61,9 +61,13 @@ export function useGithubAccount() {
       setIsSuccess(true);
       setData(response.data);
       setIsLoading(false);
+
+      return response.data.transaction_hash;
     } catch (error) {
       setError(error as Error);
       setIsLoading(false);
+
+      return null;
     }
   };
   // cancel the request

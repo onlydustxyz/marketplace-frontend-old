@@ -1,17 +1,16 @@
-import { Fragment, ReactNode } from "react";
+import { FC, Fragment, PropsWithChildren } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 import CrossIcon from "src/icons/Cross";
 import ContentContainer from "src/components/ContentContainer";
 
-export interface ModalProps {
+export interface Props {
   title?: string;
   isOpen: boolean;
   onClose: () => void;
-  children: ReactNode;
 }
 
-export default function Modal({ title, isOpen, onClose, children }: ModalProps) {
+const Modal: FC<PropsWithChildren<Props>> = ({ title, isOpen, onClose, children }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto " onClose={onClose}>
@@ -55,4 +54,6 @@ export default function Modal({ title, isOpen, onClose, children }: ModalProps) 
       </Dialog>
     </Transition>
   );
-}
+};
+
+export default Modal;

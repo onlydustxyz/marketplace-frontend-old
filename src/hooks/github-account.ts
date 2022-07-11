@@ -41,7 +41,7 @@ export function useGithubAccount() {
 
     try {
       const response = await axios.post<GithubEndpointReturn, AxiosResponse<GithubEndpointReturn>, GithubEndpointData>(
-        `${config.API_HOSTNAME}/registrations/github`,
+        `${config.SIGNUP_API_HOSTNAME}/registrations/github`,
         {
           authorization_code: code,
           account_address: address,

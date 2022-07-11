@@ -1,4 +1,4 @@
-import { Contribution, ContributionRepository } from "./repository";
+import { Contribution, ContributionRepository, ContributionStatusEnum } from "./repository";
 
 export class InMemoryContributionRepository implements ContributionRepository {
   private contributions: Contribution[] = [
@@ -6,7 +6,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       id: "1",
       title: "Contribution 1",
       description: "Description 1",
-      status: "open",
+      status: ContributionStatusEnum.OPEN,
       project: {
         id: "1",
         title: "Project 1",

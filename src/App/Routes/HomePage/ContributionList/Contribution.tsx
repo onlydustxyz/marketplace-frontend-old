@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { Contribution as ContributionType } from "src/model/contributions/repository";
+import { Contribution as ContributionType, ContributionStatusEnum } from "src/model/contributions/repository";
 
 type Props = ContributionType;
 
@@ -11,7 +11,7 @@ const Contribution: FC<Props> = contribution => {
         <Link to={`/contributions/${contribution.id}`} className="flex-1">
           <h1>{contribution.title}</h1>
         </Link>
-        {contribution.status !== "open" && <div>{contribution.metadata.assignee}</div>}
+        {contribution.status !== ContributionStatusEnum.OPEN && <div>{contribution.metadata.assignee}</div>}
       </div>
       <div>
         <i>

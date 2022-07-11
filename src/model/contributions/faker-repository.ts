@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import { Contribution, ContributionRepository, ContributionStatus } from "./repository";
+import { Contribution, ContributionRepository, ContributionStatus, ContributionStatusEnum } from "./repository";
 
 export class FakerContributionRepository implements ContributionRepository {
   private contributions: Contribution[] = Array(20)
@@ -8,16 +8,16 @@ export class FakerContributionRepository implements ContributionRepository {
     .map((_, index) => {
       const contributionStatus: ContributionStatus = faker.helpers.arrayElement([
         {
-          status: "open",
+          status: ContributionStatusEnum.OPEN,
         },
         {
-          status: "assigned",
+          status: ContributionStatusEnum.ASSIGNED,
           metadata: {
             assignee: faker.datatype.hexadecimal(62),
           },
         },
         {
-          status: "completed",
+          status: ContributionStatusEnum.COMPLETED,
           metadata: {
             assignee: faker.datatype.hexadecimal(62),
           },

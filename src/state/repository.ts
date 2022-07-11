@@ -2,6 +2,7 @@ import { selector, selectorFamily } from "recoil";
 import {
   AssignedContribution,
   CompletedContribution,
+  ContributionStatusEnum,
   OpenContribution,
   repository,
 } from "src/model/contributions/repository";
@@ -39,7 +40,9 @@ export const openedContributionsQuery = selector({
   key: "OpenedContributions",
   get: ({ get }) => {
     const contributions = get(contributionsQuery);
-    return contributions.filter(contribution => contribution.status === "open") as OpenContribution[];
+    return contributions.filter(
+      contribution => contribution.status === ContributionStatusEnum.OPEN
+    ) as OpenContribution[];
   },
 });
 
@@ -49,7 +52,8 @@ export const myOngoingContributionsQuery = selector({
     const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
-      contribution => contribution.status === "assigned" && contribution.metadata.assignee === accountAddress
+      contribution =>
+        contribution.status === ContributionStatusEnum.ASSIGNED && contribution.metadata.assignee === accountAddress
     ) as AssignedContribution[];
   },
 });
@@ -60,7 +64,8 @@ export const foreignOngoingContributionsQuery = selector({
     const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
-      contribution => contribution.status === "assigned" && contribution.metadata.assignee !== accountAddress
+      contribution =>
+        contribution.status === ContributionStatusEnum.ASSIGNED && contribution.metadata.assignee !== accountAddress
     ) as AssignedContribution[];
   },
 });
@@ -71,7 +76,8 @@ export const myCompletedContributionsQuery = selector({
     const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
-      contribution => contribution.status === "completed" && contribution.metadata.assignee === accountAddress
+      contribution =>
+        contribution.status === ContributionStatusEnum.COMPLETED && contribution.metadata.assignee === accountAddress
     ) as CompletedContribution[];
   },
 });
@@ -82,7 +88,8 @@ export const foreignCompletedContributionsQuery = selector({
     const accountAddress = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
-      contribution => contribution.status === "completed" && contribution.metadata.assignee !== accountAddress
+      contribution =>
+        contribution.status === ContributionStatusEnum.COMPLETED && contribution.metadata.assignee !== accountAddress
     ) as CompletedContribution[];
   },
 });

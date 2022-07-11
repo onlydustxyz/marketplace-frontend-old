@@ -2,7 +2,7 @@ import { atom, selector } from "recoil";
 import { ContractInterface } from "starknet";
 import { Uint256 } from "starknet/dist/utils/uint256";
 
-import { accountAddressSelector } from "./starknet";
+import { accountAddressSelector, blockNumberAtom } from "./starknet";
 
 interface UserInformation {
   badge_contract: string;
@@ -20,6 +20,8 @@ export const profileRegistryContractAtom = atom<ContractInterface | undefined>({
 export const userInformationSelector = selector({
   key: "UserInformation",
   get: async ({ get }) => {
+    get(blockNumberAtom);
+
     const profileRegistryContract = get(profileRegistryContractAtom);
     const accountAddress = get(accountAddressSelector);
 
@@ -40,10 +42,10 @@ export const userInformationSelector = selector({
 });
 
 export const isGithubRegisteredSelector = selector<boolean>({
-  key: "isrGithubRegistered",
+  key: "isGithubRegistered",
   get: ({ get }) => {
     const userInformation = get(userInformationSelector);
 
-    return !!userInformation?.identifiers.github;
+    return !!userInformation?.identifiers.github && userInformation?.identifiers.github.toString() !== "0";
   },
 });

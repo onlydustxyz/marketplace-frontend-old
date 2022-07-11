@@ -1,19 +1,19 @@
 import Button from "./Button";
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 
 type Props = {
   account?: string;
   onConnect: () => void;
 };
 
-const ConnectButton: FC<Props> = ({ account, onConnect }) => {
+const ConnectButton: FC<PropsWithChildren<Props>> = ({ account, children, onConnect }) => {
   if (account) {
     return null;
   }
 
   return (
     <Button theme="secondary" onClick={onConnect}>
-      Connect wallet
+      {children}
     </Button>
   );
 };

@@ -1,14 +1,13 @@
-import { FC } from "react";
-import { useRecoilValue } from "recoil";
+import { FC, Suspense } from "react";
 
-import HomePage from "src/App/Routes/HomePage/View";
-import { accountAddressSelector, isGithubRegisteredSelector } from "src/state";
+import ContributionList from "./ContributionList";
 
-const HomePageContainer: FC = () => {
-  const accountAddress = useRecoilValue(accountAddressSelector);
-  const isGithubRegistered = useRecoilValue(isGithubRegisteredSelector);
-
-  return <HomePage accountAddress={accountAddress} isGithubRegistered={isGithubRegistered} />;
+const HomePage: FC = () => {
+  return (
+    <Suspense fallback={"Loading contributions..."}>
+      <ContributionList />
+    </Suspense>
+  );
 };
 
-export default HomePageContainer;
+export default HomePage;

@@ -4,8 +4,9 @@ import GitHubLogin from "react-github-login";
 
 import config from "src/config";
 import GithubIcon from "src/icons/Github";
-import Modal from "./Modal";
 import Loader from "src/icons/Loader";
+
+import Modal from "src/components/Modal";
 
 type Props = {
   isSuccess: boolean;
@@ -57,7 +58,7 @@ const GithubSignin: FC<Props> = ({
       )}
     >
       <GithubIcon className="fill-white" />
-      <div className="ml-4 font-bold">Sign In With Github</div>
+      <div className="ml-4 font-bold">Connect your Github account</div>
       {renderError()}
     </GitHubLogin>
   );
@@ -67,9 +68,9 @@ const GithubSignin: FC<Props> = ({
       return (
         <Modal isOpen={displayError} onClose={onClose}>
           <div className="text-2xl text-red-300">
-            An error occurred while trying to verify your request and minting your NFT.
+            It seems you can't perform this task as your Github account is already linked to a wallet.
             <br />
-            <p className="text-xl mt-2">Please try again or contact us if the problem still occurred.</p>
+            <p className="text-xl mt-2">Please refresh your page or contact us if the problem still occurred.</p>
           </div>
         </Modal>
       );

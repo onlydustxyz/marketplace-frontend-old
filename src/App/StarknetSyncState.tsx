@@ -1,17 +1,20 @@
 import { FC, PropsWithChildren, ReactElement, useEffect } from "react";
 import { Abi } from "starknet";
-import { useConnectors, useContract, useStarknet } from "@starknet-react/core";
+import { useConnectors, useContract, useStarknet, useStarknetBlock } from "@starknet-react/core";
 
 import config from "src/config";
 import profileRegistryAbi from "src/abis/profileRegistry.json";
 import { useSetRecoilState } from "recoil";
-import { accountAtom, profileRegistryContractAtom } from "src/state";
+import { accountAtom, blockNumberAtom, profileRegistryContractAtom, providerAtom } from "src/state";
 
 const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
   const setAccount = useSetRecoilState(accountAtom);
+  const setProvider = useSetRecoilState(providerAtom);
   const setProfileRegistryContract = useSetRecoilState(profileRegistryContractAtom);
+  const setBlockNumber = useSetRecoilState(blockNumberAtom);
+  const { data: blockData } = useStarknetBlock();
 
-  const { account: accountAddress } = useStarknet();
+  const { account: accountAddress, library: provider } = useStarknet();
 
   const { contract: profileRegistryContract } = useContract({
     abi: profileRegistryAbi as Abi,
@@ -21,8 +24,18 @@ const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
   const { connectors } = useConnectors();
 
   useEffect(() => {
+    if (blockData) {
+      setBlockNumber(blockData.block_number.toString());
+    }
+  }, [blockData]);
+
+  useEffect(() => {
     setProfileRegistryContract(profileRegistryContract);
   }, [profileRegistryContract]);
+
+  useEffect(() => {
+    setProvider(provider);
+  }, [provider]);
 
   useEffect(() => {
     (async () => {

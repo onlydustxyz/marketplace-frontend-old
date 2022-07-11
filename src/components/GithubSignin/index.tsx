@@ -1,12 +1,15 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "react-use";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
 import { signMessage } from "src/utils/wallet";
-import GithubSignin from "src/App/Routes/HomePage/GithubSignin/View";
-import { accountAtom } from "src/state";
+
+import { accountAtom, displayRegisterModalAtom } from "src/state";
+
+import GithubSignin from "./View";
+import { waitForTransaction } from "src/utils/starknet";
 
 type Props = {
   className?: string;
@@ -14,8 +17,11 @@ type Props = {
 
 const GithubSigninContainer: FC<Props> = ({ className }) => {
   const account = useRecoilValue(accountAtom);
+  const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
-  const { connect, isLoading, error, isSuccess } = useGithubAccount();
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  const { connect, error, isSuccess } = useGithubAccount();
 
   const [displayError, setDisplayError] = useState(false);
   const prevHasError = usePrevious(!!error);
@@ -26,18 +32,27 @@ const GithubSigninContainer: FC<Props> = ({ className }) => {
       return;
     }
 
+    setIsRegistering(true);
+
     const { hash, signature } = await signMessage(
       account,
       account.address,
       config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
     );
 
-    connect({
+    const transactionHash = await connect({
       address: account.address,
       code,
       hash,
       signature,
     });
+
+    if (transactionHash) {
+      await waitForTransaction(transactionHash, account);
+      setDisplayRegisterModal(false);
+    }
+
+    setIsRegistering(false);
   };
 
   const onFailure = useCallback((error: Error) => {
@@ -56,8 +71,8 @@ const GithubSigninContainer: FC<Props> = ({ className }) => {
 
   return (
     <GithubSignin
-      isLoading={isLoading}
-      isSuccess={isSuccess}
+      isLoading={isRegistering}
+      isSuccess={!isRegistering && isSuccess}
       onClose={onClose}
       onSuccess={onSuccess}
       onFailure={onFailure}

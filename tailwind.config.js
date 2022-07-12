@@ -32,9 +32,10 @@ module.exports = {
       },
       boxShadow: {
         "button-primary": "0 0 30px 0 #dc2626",
+        connected: "0px 0px 12px 3px rgba(0, 204, 155, 0.66)",
       },
       textShadow: {
-        "button-primary": "0px 0px 2px #00FFE4, 0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",
+        "button-primary": "0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",
       },
       fontFamily: {
         sans: [

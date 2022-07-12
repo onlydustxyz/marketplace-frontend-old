@@ -24,6 +24,11 @@
     background-image: image-set(url("src/assets/img/default.jpg") 1x, url("src/assets/img/default@2x.jpg") 2x);
   }
 
+  .header {
+    background: url("src/assets/img/header-top-frame.png") repeat-x top center,
+      linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+  }
+
   input,
   textarea,
   select {

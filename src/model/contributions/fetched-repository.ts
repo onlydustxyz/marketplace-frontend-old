@@ -23,7 +23,14 @@ export class FetchedContributionRepository implements ContributionRepository {
             contribution =>
               ({
                 ...contribution,
-                project: projectFields,
+                title: contribution.title || "Fake contribution title",
+                description: contribution.description || "## Description\n\nFake description with **markdown**",
+                project: {
+                  ...projectFields,
+                  description:
+                    projectFields.description ||
+                    `## ${projectFields.title}\n\nFake project description with **markdown**`,
+                },
               } as Contribution)
           ),
         ];

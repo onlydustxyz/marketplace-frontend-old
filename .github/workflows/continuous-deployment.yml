@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install yarn
+        run: npm install -g yarn
       - run: yarn install --from-lockfile
       - name: Build project
         run: yarn build
@@ -28,3 +30,5 @@ jobs:
           aws s3 sync dist s3://onlydust-deathnote-frontend
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E26UTVUNWI160B --paths "/*"
+      - name: Uninstall yarn
+        run: npm uninstall -g yarn

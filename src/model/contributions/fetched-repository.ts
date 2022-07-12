@@ -45,6 +45,6 @@ export class FetchedContributionRepository implements ContributionRepository {
   }
 
   public async add(contribution: Contribution): Promise<void> {
-    console.warn("This feature is not yet implemented : contribution.add");
+    console.warn("This feature is not yet implemented : contribution.add", contribution);
   }
 }

@@ -14,6 +14,7 @@ const customColor = {
   black: "#000000",
   nickel: "#666666",
   snow: "#F4F4F4",
+  gold: "#E3CD8F",
 };
 
 module.exports = {
@@ -33,6 +34,10 @@ module.exports = {
       boxShadow: {
         "button-primary": "0 0 30px 0 #dc2626",
         connected: "0px 0px 12px 3px rgba(0, 204, 155, 0.66)",
+        "assigned-badge-1": "0px 1px 20px 5px rgba(0, 71, 255, 0.5)",
+        "assigned-badge-2": "0px 1px 4px #00089C",
+        "assigned-badge-3": "0px 1px 4px #0033B6",
+        "contribution-card-hover": "0px 20px 40px -10px #000000, 0px 20px 120px -40px rgba(174, 0, 255, 0.8)",
       },
       textShadow: {
         "button-primary": "0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",

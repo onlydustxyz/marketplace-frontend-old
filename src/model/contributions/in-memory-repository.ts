@@ -7,6 +7,14 @@ export class InMemoryContributionRepository implements ContributionRepository {
       title: "Contribution 1",
       description: "Description 1",
       status: ContributionStatusEnum.OPEN,
+      githubLink: "https://github.com/onlydustxyz/deathnote-ui",
+      metadata: {
+        context: "isolated",
+        difficulty: "easy",
+        duration: "under a day",
+        technology: "cairo",
+        type: "feature",
+      },
       project: {
         id: "1",
         title: "Project 1",

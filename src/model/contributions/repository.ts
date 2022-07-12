@@ -13,12 +13,14 @@ export type ContributionBase = {
   title: string;
   description: string;
   project: Project;
+  githubLink: string;
 };
 
 export enum ContributionStatusEnum {
   OPEN = "OPEN",
   ASSIGNED = "ASSIGNED",
   COMPLETED = "COMPLETED",
+  ABANDONED = "ABANDONED",
 }
 
 export type Contribution = ContributionBase & ContributionStatus;
@@ -28,22 +30,32 @@ export type OpenContribution = Contribution & OpenStatus;
 export type AssignedContribution = Contribution & AssignedStatus;
 export type CompletedContribution = Contribution & CompletedStatus;
 
+export type ContributionMetadata = {
+  context: string;
+  difficulty: string;
+  duration: string;
+  technology: string;
+  type: string;
+};
+
+export type ContributionMetadataAssignee = {
+  assignee: string;
+  github_username: string;
+};
+
 type OpenStatus = {
   status: ContributionStatusEnum.OPEN;
+  metadata: ContributionMetadata;
 };
 
 type AssignedStatus = {
   status: ContributionStatusEnum.ASSIGNED;
-  metadata: {
-    assignee: string;
-  };
+  metadata: ContributionMetadata & ContributionMetadataAssignee;
 };
 
 type CompletedStatus = {
   status: ContributionStatusEnum.COMPLETED;
-  metadata: {
-    assignee: string;
-  };
+  metadata: ContributionMetadata & ContributionMetadataAssignee;
 };
 
 export interface ContributionRepository {

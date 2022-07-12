@@ -6,7 +6,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="mx-auto">
       <Header />
-      <div className="flex flex-col items-center">{children}</div>
+      <div className="flex flex-col items-center mx-28">{children}</div>
     </div>
   );
 };

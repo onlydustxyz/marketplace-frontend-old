@@ -1,12 +1,20 @@
 import config from "src/config";
-import { Contribution, ContributionRepository, Project } from "./repository";
+import { Contribution, ContributionRepository, ContributionStatus, Project } from "./repository";
 
-type ApiContribution = Omit<Contribution, "project">;
+type ApiContribution = {
+  id: string;
+  title: string;
+  description: string;
+  github_link: string;
+} & ContributionStatus;
 
-type ApiProject = Project & {
+type ApiProject = {
+  id: string;
+  title: string;
+  description: string;
+  github_link: string;
   contributions: ApiContribution[];
 };
-
 export class FetchedContributionRepository implements ContributionRepository {
   public async list(): Promise<Contribution[]> {
     try {
@@ -19,20 +27,21 @@ export class FetchedContributionRepository implements ContributionRepository {
 
         return [
           ...aggregatedContributions,
-          ...contributions.map(
-            contribution =>
-              ({
-                ...contribution,
-                title: contribution.title || "Fake contribution title",
-                description: contribution.description || "## Description\n\nFake description with **markdown**",
-                project: {
-                  ...projectFields,
-                  description:
-                    projectFields.description ||
-                    `## ${projectFields.title}\n\nFake project description with **markdown**`,
-                },
-              } as Contribution)
-          ),
+          ...contributions.map(contribution => {
+            const project: Project = {
+              ...projectFields,
+              githubLink: projectFields.github_link,
+              description:
+                projectFields.description || `## ${projectFields.title}\n\nFake project description with **markdown**`,
+            };
+            return {
+              ...contribution,
+              title: contribution.title || "Fake contribution title",
+              description: contribution.description || "## Description\n\nFake description with **markdown**",
+              githubLink: contribution.github_link,
+              project: project,
+            } as Contribution;
+          }),
         ];
       }, [] as Contribution[]);
 
@@ -40,8 +49,6 @@ export class FetchedContributionRepository implements ContributionRepository {
     } catch (error) {
       return [];
     }
-
-    return [];
   }
 
   public async add(contribution: Contribution): Promise<void> {

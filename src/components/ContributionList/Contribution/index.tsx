@@ -11,7 +11,7 @@ type Props = ContributionType;
 const Contribution: FC<Props> = contribution => {
   return (
     <Link to={`/contributions/${contribution.id}`} className="flex-1">
-      <div className="group flex flex-col w-[368px] h-[424px] bg-mid-blue/30 backdrop-blur-[2px] shadow-2xl shadow-black hover:bg-mid-blue/40 hover:translate-y-[-14px] hover:rotate-[-1deg]">
+      <div className="group flex flex-col h-[424px] bg-mid-blue/30 backdrop-blur-[2px] shadow-2xl shadow-black hover:bg-mid-blue/40 hover:translate-y-[-14px] hover:rotate-[-1deg]">
         <div className="h-[72px] grid grid-cols-2 items-center text-xs uppercase mx-8">
           <ContributionStatus status={contribution.status} />
           <div className="flex flex-row items-center justify-end">

@@ -10,7 +10,12 @@ type Props = {
 
 const ContributionList: FC<Props> = ({ className, contributions }) => {
   return (
-    <ul className={classNames(className, "w-full flex flex-row gap-8 flex-wrap justify-between")}>
+    <ul
+      className={classNames(
+        className,
+        "w-full grid grid-cols-[repeat(auto-fit,_minmax(360px,_1fr))] gap-x-[2%] gap-y-4 justify-between "
+      )}
+    >
       {contributions.map(contribution => (
         <li key={contribution.id} className="my-2">
           <Contribution {...contribution} />

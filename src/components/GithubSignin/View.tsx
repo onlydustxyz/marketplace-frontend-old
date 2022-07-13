@@ -54,7 +54,7 @@ const GithubSignin: FC<Props> = ({
       onFailure={onFailure}
       className={cn(
         className,
-        "flex flex-row bg-black px-8 py-4 rounded-md text-xl shadow-white/20 shadow-md hover:bg-neutral-900"
+        "flex flex-row bg-black px-8 py-4 rounded-md text-xl shadow-white/20 shadow-sm hover:bg-neutral-900 outline-0"
       )}
     >
       <GithubIcon className="fill-white" />

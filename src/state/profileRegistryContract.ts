@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { uint256ToString } from "src/utils/uint256";
 import { ContractInterface } from "starknet";
 import { Uint256 } from "starknet/dist/utils/uint256";
 
@@ -38,6 +39,15 @@ export const userInformationSelector = selector({
     }
 
     return undefined;
+  },
+});
+
+export const userContributorIdSelector = selector<string | null>({
+  key: "userContributorId",
+  get: ({ get }) => {
+    const userInformation = get(userInformationSelector);
+
+    return userInformation?.token_id ? uint256ToString(userInformation?.token_id) : null;
   },
 });
 

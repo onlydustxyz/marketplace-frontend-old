@@ -1,14 +1,15 @@
 import { FC } from "react";
-import { useRecoilState } from "recoil";
-import { displayRegisterModalAtom } from "src/state";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
 import RegisterModal from "./View";
 
 const RegisterModalContainer: FC = () => {
   const [displayModal, setDisplayModal] = useRecoilState(displayRegisterModalAtom);
+  const isGithubRegistered = useRecoilValue(isGithubRegisteredSelector);
 
   return (
     <RegisterModal
-      displayModal={displayModal}
+      displayModal={displayModal && !isGithubRegistered}
       onClose={() => {
         setDisplayModal(false);
       }}

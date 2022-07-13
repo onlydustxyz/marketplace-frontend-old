@@ -1,28 +1,34 @@
 import { FC } from "react";
-import { Project } from "src/model/contributions/repository";
+
+import { Contribution, Project } from "src/model/contributions/repository";
+import logoPlaceholder from "src/assets/img/project-logo-placeholder.png";
+import ContributionList from "src/components/ContributionList";
+import BackButton from "src/components/BackButton";
+
+import Link from "./Link";
 
 type Props = {
+  contributions: Contribution[];
   project?: Project;
 };
-const ProjectDetailsPage: FC<Props> = ({ project }) => {
+const ProjectDetailsPage: FC<Props> = ({ contributions, project }) => {
   if (!project) {
     return null;
   }
 
   return (
-    <div>
-      <h2>Project details: {project.title}</h2>
-      <h3>Project info</h3>
-      <ul>
-        <li>Project: {project.title}</li>
-        <li>Description: {project.description}</li>
-        <li>
-          Github:
-          <a href={project.githubLink} target="_blank">
-            {project.githubLink}
-          </a>
-        </li>
-      </ul>
+    <div className="relative flex flex-col items-center mt-8">
+      <BackButton className="absolute left-4 top-4" />
+      <img className="rounded-full" src={project.logo || logoPlaceholder} width={93} />
+      <h2 className="mt-6 font-alfreda text-5xl capitalize leading-snug">{project.title}</h2>
+      <div className="mt-6 text-light-purple text-xl text-center leading-8 max-w-[560px]">{project.description}</div>
+      <div className="mt-10 flex flex-row gap-4 items-center justify-center">
+        {project.websiteLink && <Link url={project.websiteLink}>Website</Link>}
+        {project.githubLink && <Link url={project.githubLink}>Github</Link>}
+        {project.discordLink && <Link url={project.discordLink}>Discord</Link>}
+      </div>
+      <h2 className="mt-20 text-4xl font-alfreda">Contributions</h2>
+      <ContributionList className="mt-12" contributions={contributions} />
     </div>
   );
 };

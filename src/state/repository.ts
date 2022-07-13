@@ -36,6 +36,16 @@ export const projectQuery = selectorFamily({
     },
 });
 
+export const projectContributionsQuery = selectorFamily({
+  key: "ProjectContributions",
+  get:
+    projectId =>
+    ({ get }) => {
+      const contributions = get(contributionsQuery);
+      return contributions.filter(contribution => contribution.project.id === projectId);
+    },
+});
+
 export const openedContributionsQuery = selector({
   key: "OpenedContributions",
   get: ({ get }) => {

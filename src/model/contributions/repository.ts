@@ -5,7 +5,10 @@ export type Project = {
   id: string;
   title: string;
   description: string;
-  githubLink: string;
+  logo?: string;
+  githubLink?: string;
+  discordLink?: string;
+  websiteLink?: string;
 };
 
 export type ContributionBase = {

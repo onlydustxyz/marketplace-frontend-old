@@ -36,14 +36,14 @@ const Modal: FC<PropsWithChildren<Props>> = ({ title, isOpen, onClose, children 
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <ContentContainer className="w-full max-w-screen-lg px-4 py-4">
-              <div className="px-8">
+            <ContentContainer className="w-[86%] max-w-screen-lg px-16 pt-6 pb-8">
+              <div>
                 {!!title && (
-                  <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-red-300 mb-8">
+                  <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-light-blue mb-8">
                     {title}
                   </Dialog.Title>
                 )}
-                <div className="absolute right-4 cursor-pointer font-sans" onClick={onClose}>
+                <div className="absolute top-4 right-3 cursor-pointer font-sans" onClick={onClose}>
                   <CrossIcon className="fill-white" size={18} />
                 </div>
               </div>

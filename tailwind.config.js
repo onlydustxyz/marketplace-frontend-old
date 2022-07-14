@@ -15,6 +15,7 @@ const customColor = {
   nickel: "#666666",
   snow: "#F4F4F4",
   gold: "#E3CD8F",
+  green: "#1FA67D",
 };
 
 module.exports = {
@@ -38,9 +39,15 @@ module.exports = {
         "assigned-badge-2": "0px 1px 4px #00089C",
         "assigned-badge-3": "0px 1px 4px #0033B6",
         "contribution-card-hover": "0px 20px 40px -10px #000000, 0px 20px 120px -40px rgba(174, 0, 255, 0.8)",
+        "contribution-metadata": " 0px 14px 54px rgb(0, 0, 0)",
+        "contribution-description": " 0px 25px 100px #00000",
       },
       textShadow: {
         "button-primary": "0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",
+      },
+      opacity: {
+        66: ".66",
+        7: ".07",
       },
       fontFamily: {
         sans: [

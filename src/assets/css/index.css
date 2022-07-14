@@ -34,6 +34,18 @@
   select {
     @apply bg-snow/20 border-2 border-solid border-light-blue/20 rounded px-2;
   }
+
+  .markdown-body {
+    background-color: transparent !important;
+  }
+
+  .markdown-body ul {
+    list-style: disc;
+  }
+
+  .markdown-body ol {
+    list-style: auto;
+  }
 }
 
 @layer components {
@@ -51,5 +63,9 @@
       #ff9000 92.0393%,
       #fff
     );
+  }
+
+  .bg-contribution-apply-gradient {
+    background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
   }
 }

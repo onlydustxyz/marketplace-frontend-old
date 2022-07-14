@@ -10,7 +10,7 @@ const Header: FC = () => {
       className="header grid h-[120px] pt-[14px] px-12 items-center"
       style={{ gridTemplateColumns: "1fr 60px 1fr" }}
     >
-      <div className="text-light-purple/70">
+      <div className="text-light-purple/66">
         <NavLink to="/" className={({ isActive }) => (isActive ? "text-white" : undefined)}>
           All contributions
         </NavLink>

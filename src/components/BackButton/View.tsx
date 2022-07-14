@@ -12,7 +12,7 @@ const BackButton: FC<Props> = ({ className, onClick }) => {
     <div
       className={cn(
         className,
-        "group flex flex-row items-center justify-center h-[74px] w-[74px] bg-black text-light-purple/40 cursor-pointer hover:bg-black/50"
+        "group flex flex-row items-center justify-center h-[66px] w-[66px] bg-black text-light-purple/40 cursor-pointer hover:bg-black/50"
       )}
       onClick={onClick}
     >

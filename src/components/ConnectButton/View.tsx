@@ -1,5 +1,6 @@
-import Button from "./Button";
 import { FC, PropsWithChildren } from "react";
+
+import Button from "src/components/Button";
 
 type Props = {
   onConnect: () => void;

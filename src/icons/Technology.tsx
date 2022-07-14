@@ -5,21 +5,21 @@ interface Props {
 
 export default function Technology({ className, size = 24 }: Props) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" className={className}>
+    <svg width={size} height={size} viewBox="0 0 18 18" className={className}>
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M5.0801 6.96482L5.98839 7.90711L1.88637 11.859L5.95757 15.7813L5.04928 16.7236L0 11.859L5.0801 6.96482Z"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M3.87692 5.245L4.57349 5.96248L1.43559 9.00894L4.54996 12.0326L3.85338 12.75L0 9.00894L3.87692 5.245Z"
       />
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M22.1125 11.8585L18.0111 7.90711L18.9194 6.96482L24 11.8596L18.9394 16.7241L18.0321 15.7808L22.1125 11.8585Z"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M16.5575 9.00854L13.42 5.96248L14.1166 5.245L17.9939 9.00935L14.1319 12.7504L13.4361 12.0322L16.5575 9.00854Z"
       />
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M8.01688 19.2334L14.7853 3.92585L15.9826 4.45493L9.21408 19.7625L8.01688 19.2334Z"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5.955 14.6849L11.1259 2.89999L12.0416 3.30179L6.87073 15.0867L5.955 14.6849Z"
       />
     </svg>
   );

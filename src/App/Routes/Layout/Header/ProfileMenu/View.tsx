@@ -16,7 +16,7 @@ const ProfileMenu: FC<Props> = ({ accountAddress }) => {
 
   return (
     <>
-      <div className="text-light-purple/70">
+      <div className="text-light-purple/66">
         <NavLink className={({ isActive }) => (isActive ? "text-white mr-10" : "mr-10")} to="/my-contributions">
           My contributions
         </NavLink>

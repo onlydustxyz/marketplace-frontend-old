@@ -6,6 +6,7 @@ import SharedModals from "./SharedModals";
 const HomePage = lazy(() => import("./HomePage"));
 const ContributionDetailsPage = lazy(() => import("./ContributionDetailsPage"));
 const ProjectDetailsPage = lazy(() => import("./ProjectDetailsPage"));
+const MyContributionsPage = lazy(() => import("./MyContributionsPage"));
 
 export default function AppRoutes() {
   return (
@@ -34,6 +35,14 @@ export default function AppRoutes() {
               element={
                 <Suspense fallback={<>...</>}>
                   <ProjectDetailsPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/my-contributions"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <MyContributionsPage />
                 </Suspense>
               }
             />

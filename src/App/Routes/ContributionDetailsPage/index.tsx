@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
-import { contributionQuery } from "src/state";
-import { FC } from "react";
+import { contributionQuery, displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
+import { FC, useCallback } from "react";
 
 type PageParams = {
   contributionId: string;
@@ -11,8 +11,20 @@ type PageParams = {
 const ContributionDetailsPageContainer: FC = () => {
   const { contributionId } = useParams<PageParams>();
   const contribution = useRecoilValue(contributionQuery(contributionId));
+  const isGithubRegistered = useRecoilValue(isGithubRegisteredSelector);
+  const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
-  return <ContributionDetailsPage contribution={contribution} />;
+  const apply = useCallback(() => {
+    if (!isGithubRegistered) {
+      setDisplayRegisterModal(true);
+      return;
+    }
+
+    // @TODO = implement contribution application
+    console.log("Apply to contribution", contributionId);
+  }, [contributionId, isGithubRegistered]);
+
+  return <ContributionDetailsPage contribution={contribution} apply={apply} />;
 };
 
 export default ContributionDetailsPageContainer;

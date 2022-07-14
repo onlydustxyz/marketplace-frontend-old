@@ -34,11 +34,11 @@ export type AssignedContribution = Contribution & AssignedStatus;
 export type CompletedContribution = Contribution & CompletedStatus;
 
 export type ContributionMetadata = {
-  context: string;
-  difficulty: string;
-  duration: string;
-  technology: string;
-  type: string;
+  context?: string;
+  difficulty?: string;
+  duration?: string;
+  technology?: string;
+  type?: string;
 };
 
 export type ContributionMetadataAssignee = {

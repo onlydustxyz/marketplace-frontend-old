@@ -1,5 +1,5 @@
 import config from "src/config";
-import { Contribution, ContributionRepository, ContributionStatus, Project } from "./repository";
+import { Contribution, ContributionRepository, ContributionStatus, ListParams, Project } from "./repository";
 
 type ApiContribution = {
   id: string;
@@ -15,10 +15,14 @@ type ApiProject = {
   github_link: string;
   contributions: ApiContribution[];
 };
+
 export class FetchedContributionRepository implements ContributionRepository {
-  public async list(): Promise<Contribution[]> {
+  public async list({ contributorId }: ListParams = {}): Promise<Contribution[]> {
     try {
-      const response = await fetch(`${config.DATA_API_HOSTNAME}/projects`);
+      const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/projects`);
+      contributorId && endpointUrl.searchParams.set("contributor_id", contributorId);
+
+      const response = await fetch(endpointUrl.toString());
 
       const projectsWithContributions = (await response.json()) as ApiProject[];
 
@@ -28,17 +32,9 @@ export class FetchedContributionRepository implements ContributionRepository {
         return [
           ...aggregatedContributions,
           ...contributions.map(contribution => {
-            const project: Project = {
-              ...projectFields,
-              githubLink: projectFields.github_link,
-              description:
-                projectFields.description || `## ${projectFields.title}\n\nFake project description with **markdown**`,
-            };
+            const project: Project = projectFields;
             return {
               ...contribution,
-              title: contribution.title || "Fake contribution title",
-              description: contribution.description || "## Description\n\nFake description with **markdown**",
-              githubLink: contribution.github_link,
               project: project,
             } as Contribution;
           }),

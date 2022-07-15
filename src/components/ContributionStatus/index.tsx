@@ -4,25 +4,31 @@ import cn from "classnames";
 import { Contribution, ContributionStatusEnum } from "src/model/contributions/repository";
 import AssignedBadge from "./AssignedBadge";
 import CompletedBadge from "./CompletedBadge";
+import GatedBadge from "./GatedBadge";
 import OpenBadge from "./OpenBadge";
 
 type Props = {
+  gated: boolean;
   status: Contribution["status"];
   className?: string;
 };
 
-const ContributionStatus: FC<Props> = ({ className, status }) => {
+const ContributionStatus: FC<Props> = ({ className, gated, status }) => {
+  const statusLabel = status === ContributionStatusEnum.OPEN && gated ? "GATED" : status;
+
+  const statusClassName = status === ContributionStatusEnum.OPEN && !gated ? "text-white" : "text-white/50";
+
   return (
     <div className={cn(className, "flex flex-row items-center")}>
-      {renderBadge(status)}
-      <div className="ml-2.5 text-white/50 text-[11px] leading-[14px]">{status}</div>
+      {renderBadge()}
+      <div className={cn("ml-2.5 text-[11px] leading-[14px]", statusClassName)}>{statusLabel}</div>
     </div>
   );
 
-  function renderBadge(status: Props["status"]) {
+  function renderBadge() {
     switch (status) {
       case ContributionStatusEnum.OPEN:
-        return <OpenBadge />;
+        return gated ? <GatedBadge /> : <OpenBadge />;
       case ContributionStatusEnum.ASSIGNED:
         return <AssignedBadge />;
       case ContributionStatusEnum.COMPLETED:

@@ -42,12 +42,12 @@ export const userInformationSelector = selector({
   },
 });
 
-export const userContributorIdSelector = selector<string | null>({
+export const userContributorIdSelector = selector<string | undefined>({
   key: "userContributorId",
   get: ({ get }) => {
     const userInformation = get(userInformationSelector);
 
-    return userInformation?.token_id ? uint256ToString(userInformation?.token_id) : null;
+    return userInformation?.token_id ? uint256ToString(userInformation?.token_id) : undefined;
   },
 });
 

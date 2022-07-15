@@ -1,19 +1,28 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import cn from "classnames";
+
 import Reward from "src/components/Reward";
 import Difficulty from "src/icons/Difficulty";
 import Technology from "src/icons/Technology";
-import { Contribution as ContributionType } from "src/model/contributions/repository";
+import { Contribution as ContributionType, ContributionStatusEnum } from "src/model/contributions/repository";
 import ContributionStatus from "../../ContributionStatus";
 
 type Props = ContributionType;
 
 const Contribution: FC<Props> = contribution => {
+  const cardClassName = contribution.status !== ContributionStatusEnum.OPEN ? "opacity-50" : "";
+
   return (
     <Link to={`/contributions/${contribution.id}`} className="flex-1">
-      <div className="group flex flex-col h-[424px] bg-mid-blue/30 backdrop-blur-[2px] shadow-2xl shadow-black hover:bg-mid-blue/40 hover:translate-y-[-14px] hover:rotate-[-1deg]">
-        <div className="h-[72px] grid grid-cols-2 items-center uppercase mx-8">
-          <ContributionStatus status={contribution.status} />
+      <div
+        className={cn(
+          "group flex flex-col h-[424px] bg-mid-blue/30 backdrop-blur-[2px] shadow-2xl shadow-black hover:bg-mid-blue/40 hover:translate-y-[-14px] hover:rotate-[-1deg]",
+          cardClassName
+        )}
+      >
+        <div className="h-[72px] grid grid-cols-2 items-center uppercase mx-8 ">
+          <ContributionStatus status={contribution.status} gated={contribution.eligible === false} />
           <Reward token="USDC" value={50} />
         </div>
         <h2 className="grow font-alfreda text-3xl leading-[42px] text-center px-8">{contribution.title}</h2>

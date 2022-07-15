@@ -22,6 +22,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
         title: "Project 1",
         description: "Description 1",
         github_link: "https://github.com/onlydustxyz/deathnote-ui",
+        openedContributionsAmount: 1,
       },
     },
   ];

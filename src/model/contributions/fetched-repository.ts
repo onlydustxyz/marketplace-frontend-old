@@ -32,7 +32,7 @@ export class FetchedContributionRepository implements ContributionRepository {
         return [
           ...aggregatedContributions,
           ...contributions.map(contribution => {
-            const project: Project = projectFields;
+            const project: Project = { ...projectFields, openedContributionsAmount: 5 };
             return {
               ...contribution,
               project: project,

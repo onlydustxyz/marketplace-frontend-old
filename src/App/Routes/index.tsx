@@ -4,6 +4,7 @@ import Layout from "./Layout";
 import SharedModals from "./SharedModals";
 
 const HomePage = lazy(() => import("./HomePage"));
+const ProjectsPage = lazy(() => import("./ProjectsPage"));
 const ContributionDetailsPage = lazy(() => import("./ContributionDetailsPage"));
 const ProjectDetailsPage = lazy(() => import("./ProjectDetailsPage"));
 const MyContributionsPage = lazy(() => import("./MyContributionsPage"));
@@ -19,6 +20,14 @@ export default function AppRoutes() {
               element={
                 <Suspense fallback={<>...</>}>
                   <HomePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <ProjectsPage />
                 </Suspense>
               }
             />

@@ -6,6 +6,7 @@ export type Project = {
   title: string;
   description: string;
   logo?: string;
+  openedContributionsAmount: number;
   github_link?: string;
   discord_link?: string;
   website_link?: string;

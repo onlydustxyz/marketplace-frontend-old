@@ -18,10 +18,10 @@ describe("The recoil state", () => {
       });
 
       expect(result.current).to.be.undefined;
-      expect(listSpy).toHaveBeenCalled();
 
       await waitForValueToChange(() => result.current);
 
+      expect(listSpy).toHaveBeenCalled();
       expect(result.current).to.have.length(1);
     });
   });

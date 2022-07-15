@@ -4,6 +4,7 @@ import {
   CompletedContribution,
   ContributionStatusEnum,
   OpenContribution,
+  Project,
   repository,
 } from "src/model/contributions/repository";
 import { userContributorIdSelector } from "./profileRegistryContract";
@@ -26,6 +27,27 @@ export const contributionQuery = selectorFamily({
       const contributions = get(contributionsQuery);
       return contributions.find(contribution => contribution.id === id);
     },
+});
+
+export const projectsQuery = selector({
+  key: "Projects",
+  get: ({ get }) => {
+    const contributions = get(contributionsQuery);
+
+    const addedProjectsId = new Set();
+    const projects: Project[] = [];
+
+    contributions.forEach(contribution => {
+      const { project } = contribution;
+
+      if (!addedProjectsId.has(project.id)) {
+        addedProjectsId.add(project.id);
+        projects.push(project);
+      }
+    });
+
+    return projects;
+  },
 });
 
 export const projectQuery = selectorFamily({

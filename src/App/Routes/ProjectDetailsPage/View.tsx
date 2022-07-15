@@ -23,9 +23,9 @@ const ProjectDetailsPage: FC<Props> = ({ contributions, project }) => {
       <h2 className="mt-6 font-alfreda text-5xl capitalize leading-snug">{project.title}</h2>
       <div className="mt-6 text-light-purple text-xl text-center leading-8 max-w-[560px]">{project.description}</div>
       <div className="mt-10 flex flex-row gap-4 items-center justify-center">
-        {project.websiteLink && <Link url={project.websiteLink}>Website</Link>}
-        {project.githubLink && <Link url={project.githubLink}>Github</Link>}
-        {project.discordLink && <Link url={project.discordLink}>Discord</Link>}
+        {project.website_link && <Link url={project.website_link}>Website</Link>}
+        {project.github_link && <Link url={project.github_link}>Github</Link>}
+        {project.discord_link && <Link url={project.discord_link}>Discord</Link>}
       </div>
       <h2 className="mt-20 text-4xl font-alfreda">Contributions</h2>
       <ContributionList className="mt-12" contributions={contributions} />

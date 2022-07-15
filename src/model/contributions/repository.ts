@@ -6,9 +6,9 @@ export type Project = {
   title: string;
   description: string;
   logo?: string;
-  githubLink?: string;
-  discordLink?: string;
-  websiteLink?: string;
+  github_link?: string;
+  discord_link?: string;
+  website_link?: string;
 };
 
 export type ContributionBase = {
@@ -16,7 +16,9 @@ export type ContributionBase = {
   title: string;
   description: string;
   project: Project;
-  githubLink: string;
+  github_link: string;
+  eligible: boolean | null;
+  gate: number;
 };
 
 export enum ContributionStatusEnum {
@@ -43,7 +45,7 @@ export type ContributionMetadata = {
 
 export type ContributionMetadataAssignee = {
   assignee: string;
-  github_username: string;
+  github_username?: string;
 };
 
 type OpenStatus = {
@@ -61,8 +63,11 @@ type CompletedStatus = {
   metadata: ContributionMetadata & ContributionMetadataAssignee;
 };
 
+export type ListParams = {
+  contributorId?: string;
+};
 export interface ContributionRepository {
-  list(): Promise<Contribution[]>;
+  list(params?: ListParams): Promise<Contribution[]>;
 }
 
 export const repository: ContributionRepository =

@@ -6,12 +6,14 @@ import {
   OpenContribution,
   repository,
 } from "src/model/contributions/repository";
-import { accountAddressSelector } from "./starknet";
+import { userContributorIdSelector } from "./profileRegistryContract";
 
 export const contributionsQuery = selector({
   key: "Contributions",
-  get: async () => {
-    const contributions = await repository.list();
+  get: async ({ get }) => {
+    const userContributorId = get(userContributorIdSelector);
+
+    const contributions = await repository.list({ contributorId: userContributorId });
     return contributions;
   },
 });
@@ -51,7 +53,17 @@ export const openedContributionsQuery = selector({
   get: ({ get }) => {
     const contributions = get(contributionsQuery);
     return contributions.filter(
-      contribution => contribution.status === ContributionStatusEnum.OPEN
+      contribution => contribution.status === ContributionStatusEnum.OPEN && contribution.eligible !== false
+    ) as OpenContribution[];
+  },
+});
+
+export const gatedContributionsQuery = selector({
+  key: "GatedContributions",
+  get: ({ get }) => {
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === ContributionStatusEnum.OPEN && contribution.eligible === false
     ) as OpenContribution[];
   },
 });
@@ -59,11 +71,12 @@ export const openedContributionsQuery = selector({
 export const myOngoingContributionsQuery = selector({
   key: "MyOngoingContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressSelector);
+    const userContributorId = get(userContributorIdSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution =>
-        contribution.status === ContributionStatusEnum.ASSIGNED && contribution.metadata.assignee === accountAddress
+        contribution.status === ContributionStatusEnum.ASSIGNED &&
+        contribution.metadata.assignee === userContributorId?.toString()
     ) as AssignedContribution[];
   },
 });
@@ -71,11 +84,12 @@ export const myOngoingContributionsQuery = selector({
 export const foreignOngoingContributionsQuery = selector({
   key: "ForeignOngoingContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressSelector);
+    const userContributorId = get(userContributorIdSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution =>
-        contribution.status === ContributionStatusEnum.ASSIGNED && contribution.metadata.assignee !== accountAddress
+        contribution.status === ContributionStatusEnum.ASSIGNED &&
+        contribution.metadata.assignee !== userContributorId?.toString()
     ) as AssignedContribution[];
   },
 });
@@ -83,11 +97,12 @@ export const foreignOngoingContributionsQuery = selector({
 export const myCompletedContributionsQuery = selector({
   key: "MyCompletedContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressSelector);
+    const userContributorId = get(userContributorIdSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution =>
-        contribution.status === ContributionStatusEnum.COMPLETED && contribution.metadata.assignee === accountAddress
+        contribution.status === ContributionStatusEnum.COMPLETED &&
+        contribution.metadata.assignee === userContributorId?.toString()
     ) as CompletedContribution[];
   },
 });
@@ -95,11 +110,12 @@ export const myCompletedContributionsQuery = selector({
 export const foreignCompletedContributionsQuery = selector({
   key: "ForeignCompletedContributions",
   get: ({ get }) => {
-    const accountAddress = get(accountAddressSelector);
+    const userContributorId = get(userContributorIdSelector);
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution =>
-        contribution.status === ContributionStatusEnum.COMPLETED && contribution.metadata.assignee !== accountAddress
+        contribution.status === ContributionStatusEnum.COMPLETED &&
+        contribution.metadata.assignee !== userContributorId?.toString()
     ) as CompletedContribution[];
   },
 });

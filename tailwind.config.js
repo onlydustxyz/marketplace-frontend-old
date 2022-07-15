@@ -35,9 +35,9 @@ module.exports = {
       boxShadow: {
         "button-primary": "0 0 30px 0 #dc2626",
         connected: "0px 0px 12px 3px rgba(0, 204, 155, 0.66)",
-        "assigned-badge-1": "0px 1px 20px 5px rgba(0, 71, 255, 0.5)",
-        "assigned-badge-2": "0px 1px 4px #00089C",
-        "assigned-badge-3": "0px 1px 4px #0033B6",
+        "assigned-badge-1": "0px 1px 20px 5px rgba(53, 213, 150, 0.5)",
+        "assigned-badge-2": "0px 1px 4px #04A575",
+        "assigned-badge-3": "0px 1px 4px #008E53",
         "contribution-card-hover": "0px 20px 40px -10px #000000, 0px 20px 120px -40px rgba(174, 0, 255, 0.8)",
         "contribution-metadata": " 0px 14px 54px rgb(0, 0, 0)",
         "contribution-description": " 0px 25px 100px #00000",

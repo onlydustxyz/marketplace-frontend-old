@@ -2,8 +2,8 @@ import { FC } from "react";
 import { useRecoilValue } from "recoil";
 import ContributionList from "src/components/ContributionList";
 import {
-  foreignCompletedContributionsQuery,
-  foreignOngoingContributionsQuery,
+  completedContributionsQuery,
+  ongoingContributionsQuery,
   gatedContributionsQuery,
   openedContributionsQuery,
 } from "src/state";
@@ -11,14 +11,14 @@ import {
 const HomePage: FC = () => {
   const openedContributions = useRecoilValue(openedContributionsQuery);
   const gatedContributions = useRecoilValue(gatedContributionsQuery);
-  const foreignOngoingContributions = useRecoilValue(foreignOngoingContributionsQuery);
-  const foreignCompletedContributions = useRecoilValue(foreignCompletedContributionsQuery);
+  const allOngoingContributions = useRecoilValue(ongoingContributionsQuery);
+  const allCompletedContributions = useRecoilValue(completedContributionsQuery);
 
   const allContributions = [
     ...openedContributions,
     ...gatedContributions,
-    ...foreignOngoingContributions,
-    ...foreignCompletedContributions,
+    ...allOngoingContributions,
+    ...allCompletedContributions,
   ];
 
   return (

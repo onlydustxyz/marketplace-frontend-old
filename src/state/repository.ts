@@ -90,6 +90,16 @@ export const gatedContributionsQuery = selector({
   },
 });
 
+export const ongoingContributionsQuery = selector({
+  key: "OngoingContributions",
+  get: ({ get }) => {
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === ContributionStatusEnum.ASSIGNED
+    ) as AssignedContribution[];
+  },
+});
+
 export const myOngoingContributionsQuery = selector({
   key: "MyOngoingContributions",
   get: ({ get }) => {
@@ -98,7 +108,7 @@ export const myOngoingContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.ASSIGNED &&
-        contribution.metadata.assignee === userContributorId?.toString()
+        contribution.metadata.assignee === `0x${userContributorId?.toString(16)}`
     ) as AssignedContribution[];
   },
 });
@@ -111,8 +121,18 @@ export const foreignOngoingContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.ASSIGNED &&
-        contribution.metadata.assignee !== userContributorId?.toString()
+        contribution.metadata.assignee !== `0x${userContributorId?.toString(16)}`
     ) as AssignedContribution[];
+  },
+});
+
+export const completedContributionsQuery = selector({
+  key: "CompletedContributions",
+  get: ({ get }) => {
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === ContributionStatusEnum.COMPLETED
+    ) as CompletedContribution[];
   },
 });
 
@@ -124,7 +144,7 @@ export const myCompletedContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.COMPLETED &&
-        contribution.metadata.assignee === userContributorId?.toString()
+        contribution.metadata.assignee === `0x${userContributorId?.toString(16)}`
     ) as CompletedContribution[];
   },
 });
@@ -137,7 +157,7 @@ export const foreignCompletedContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.COMPLETED &&
-        contribution.metadata.assignee !== userContributorId?.toString()
+        contribution.metadata.assignee !== `0x${userContributorId?.toString(16)}`
     ) as CompletedContribution[];
   },
 });

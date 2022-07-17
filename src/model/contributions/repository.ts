@@ -65,7 +65,7 @@ type CompletedStatus = {
 };
 
 export type ListParams = {
-  contributorId?: string;
+  contributorId?: number;
 };
 export interface ContributionRepository {
   list(params?: ListParams): Promise<Contribution[]>;

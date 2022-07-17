@@ -29,8 +29,7 @@ module.exports = {
       },
       backgroundImage: {
         "button-primary": 'url("src/assets/img/button/primary.png")',
-        "button-primary-hover": 'url("src/assets/img/button/primary-hover.png")',
-        "button-secondary-hover": 'url("src/assets/img/button/secondary-hover.png")',
+        "button-secondary": 'url("src/assets/img/button/secondary.png")',
       },
       boxShadow: {
         "button-primary": "0 0 30px 0 #dc2626",

@@ -13,16 +13,14 @@ export interface ButtonProps extends ButtonExtends {
 }
 
 const classesBySize = {
-  small: "h-[32px] w-[120px] text-[14px]",
-  medium: "h-[48px] w-[180px] text-[18px]",
-  regular: "h-[65px] w-[243.75px] text-[20px]",
+  small: "h-[31px] min-w-[157px] text-[13px] px-3",
+  medium: "h-[48px] min-w-[200px] text-base px-5",
+  regular: "h-[65px] min-w-[244px] text-lg px-7",
 } as Record<Required<ButtonProps>["size"], string>;
 
 const classesByTheme = {
-  primary:
-    "text-[#23113f] bg-button-primary text-shadow-button-primary shadow-button-primary hover:[&:not(:disabled)]:bg-button-primary-hover disabled:opacity-20 disabled:shadow-none",
-  secondary:
-    "h-[48px] w-[180px] text-[18px] text-light-blue bg-space-blue bg-none hover:bg-button-secondary-hover hover:text-light-purple disabled:text-mid-blue disabled:bg-none ",
+  primary: "bg-button-primary tracking-[0.08em]",
+  secondary: "bg-button-secondary tracking-[0.1em]",
 } as Record<Required<ButtonProps>["theme"], string>;
 
 export default function Button({
@@ -36,10 +34,10 @@ export default function Button({
 }: ButtonProps) {
   const props = {
     className: cn(
-      className,
       classesBySize[size] ?? null,
       classesByTheme[theme] ?? null,
-      "relative flex items-center justify-center cursor-pointer font-bold uppercase text-base outline-none focus:outline-none border-none bg-no-repeat bg-cover"
+      "relative flex items-center justify-center cursor-pointer font-bold uppercase outline-none focus:outline-none border-none bg-no-repeat bg-cover hover:opacity-70",
+      className
     ),
     ...buttonProps,
   };

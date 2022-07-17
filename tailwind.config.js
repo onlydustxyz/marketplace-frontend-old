@@ -50,7 +50,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          "GT Walsheim Pro",
+          "GT Walsheim",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",

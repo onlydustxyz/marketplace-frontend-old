@@ -8,7 +8,7 @@ type Props = {
 
 const ConnectButton: FC<PropsWithChildren<Props>> = ({ children, onConnect }) => {
   return (
-    <Button theme="primary" onClick={onConnect} size="medium">
+    <Button theme="secondary" onClick={onConnect} size="small">
       {children}
     </Button>
   );

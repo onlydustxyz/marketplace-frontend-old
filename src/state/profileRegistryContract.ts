@@ -1,13 +1,13 @@
 import { atom, selector } from "recoil";
-import { uint256ToString } from "src/utils/uint256";
+import { uint256ToNumber } from "src/utils/uint256";
 import { ContractInterface } from "starknet";
 import { Uint256 } from "starknet/dist/utils/uint256";
 
 import { accountAddressSelector, blockNumberAtom } from "./starknet";
 
 interface UserInformation {
-  badge_contract: string;
-  token_id: Uint256;
+  profile_contract: string;
+  contributor_id: Uint256;
   identifiers: {
     github: string;
   };
@@ -42,12 +42,12 @@ export const userInformationSelector = selector({
   },
 });
 
-export const userContributorIdSelector = selector<string | undefined>({
+export const userContributorIdSelector = selector<number | undefined>({
   key: "userContributorId",
   get: ({ get }) => {
     const userInformation = get(userInformationSelector);
 
-    return userInformation?.token_id ? uint256ToString(userInformation?.token_id) : undefined;
+    return userInformation?.contributor_id ? uint256ToNumber(userInformation?.contributor_id) : undefined;
   },
 });
 

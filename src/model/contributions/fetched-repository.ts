@@ -20,7 +20,7 @@ export class FetchedContributionRepository implements ContributionRepository {
   public async list({ contributorId }: ListParams = {}): Promise<Contribution[]> {
     try {
       const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/projects`);
-      contributorId && endpointUrl.searchParams.set("contributor_id", contributorId);
+      contributorId && endpointUrl.searchParams.set("contributor_id", contributorId.toString(10));
 
       const response = await fetch(endpointUrl.toString());
 

@@ -16,7 +16,7 @@ const MetadataItem: FC<Props> = ({ label, value, renderIcon }) => {
         {renderIcon()}
         <span className="text-light-blue text-[11px] leading-[14px] uppercase">{label}</span>
       </div>
-      <div className={cn("text-[22px] leading-[27px] font-bold text-center capitalize", valueClassName)}>
+      <div className={cn("text-[22px] leading-[27px] font-medium text-center capitalize", valueClassName)}>
         {value || "unknown"}
       </div>
     </div>

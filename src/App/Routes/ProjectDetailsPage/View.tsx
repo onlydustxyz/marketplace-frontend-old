@@ -21,7 +21,9 @@ const ProjectDetailsPage: FC<Props> = ({ contributions, project }) => {
       <BackButton className="absolute left-4 top-4" />
       <img className="rounded-full" src={project.logo || logoPlaceholder} width={93} />
       <h2 className="mt-6 font-alfreda text-5xl capitalize leading-snug">{project.title}</h2>
-      <div className="mt-6 text-light-purple text-xl text-center leading-8 max-w-[560px]">{project.description}</div>
+      <div className="mt-6 text-light-purple text-xl text-center font-light leading-8 max-w-[560px]">
+        {project.description}
+      </div>
       <div className="mt-10 flex flex-row gap-4 items-center justify-center">
         {project.website_link && <Link url={project.website_link}>Website</Link>}
         {project.github_link && <Link url={project.github_link}>Github</Link>}

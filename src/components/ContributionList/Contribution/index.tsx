@@ -23,7 +23,9 @@ const Contribution: FC<Props> = contribution => {
         <ContributionStatus status={contribution.status} gated={contribution.eligible === false} />
         <Reward token="USDC" value={50} />
       </div>
-      <h2 className="grow font-alfreda text-3xl leading-[42px] text-center px-8">{contribution.title}</h2>
+      <div className="grow flex flex-col justify-center mb-8">
+        <h2 className="font-alfreda text-3xl leading-[42px] text-center px-8 line-clamp-4">{contribution.title}</h2>
+      </div>
 
       <div className="flex flex-col items-center mb-4">
         <span className="text-light-purple/66 uppercase text-[10px] tracking-widest	">Project</span>

@@ -8,7 +8,7 @@ import {
   Project,
 } from "./repository";
 
-type DtoContribution = {
+type ContributionDto = {
   id: string;
   title: string;
   description: string;
@@ -16,13 +16,13 @@ type DtoContribution = {
   gate: number;
 } & ContributionStatusAndMetadata;
 
-type DtoProject = {
+type ProjectDto = {
   id: string;
   title: string;
   description: string;
   github_link: string;
   logo: string;
-  contributions: DtoContribution[];
+  contributions: ContributionDto[];
 };
 
 export class FetchedContributionRepository implements ContributionRepository {
@@ -33,7 +33,7 @@ export class FetchedContributionRepository implements ContributionRepository {
 
       const response = await fetch(endpointUrl.toString());
 
-      const projectsWithContributions: DtoProject[] = await response.json();
+      const projectsWithContributions: ProjectDto[] = await response.json();
 
       const completedContributionsAmount = countCompletedContributions(projectsWithContributions, contributorId);
 
@@ -43,14 +43,14 @@ export class FetchedContributionRepository implements ContributionRepository {
 
           return [
             ...aggregatedContributions,
-            ...contributions.map(dtoContribution => {
+            ...contributions.map(contributionDto => {
               const project: Project = { ...projectFields, openedContributionsAmount: 5 };
               const contribution: Contribution = {
-                ...dtoContribution,
+                ...contributionDto,
                 project: project,
                 eligible:
-                  completedContributionsAmount === null ? null : completedContributionsAmount >= dtoContribution.gate,
-                gateMissingCompletedContributions: dtoContribution.gate - (completedContributionsAmount || 0),
+                  completedContributionsAmount === null ? null : completedContributionsAmount >= contributionDto.gate,
+                gateMissingCompletedContributions: contributionDto.gate - (completedContributionsAmount || 0),
               };
 
               return contribution;
@@ -71,7 +71,7 @@ export class FetchedContributionRepository implements ContributionRepository {
   }
 }
 
-function countCompletedContributions(projectsWithContributions: DtoProject[], contributorId: number | undefined) {
+function countCompletedContributions(projectsWithContributions: ProjectDto[], contributorId: number | undefined) {
   if (!contributorId) {
     return null;
   }

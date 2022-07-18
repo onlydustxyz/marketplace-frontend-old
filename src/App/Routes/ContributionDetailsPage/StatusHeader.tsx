@@ -12,7 +12,7 @@ const classNamesByStatus: Record<ContributionStatusEnum | "gated", string> = {
   [ContributionStatusEnum.OPEN]: "",
   [ContributionStatusEnum.ABANDONED]: "",
   [ContributionStatusEnum.ASSIGNED]: "bg-orange/7 backdrop-blur-[6px]",
-  [ContributionStatusEnum.COMPLETED]: "bg-green/7 backdrop-blur-[6px]",
+  [ContributionStatusEnum.COMPLETED]: "bg-white/4 backdrop-blur-[6px]",
   gated: "bg-[#0038FF]/10 backdrop-blur-[6px]",
 };
 

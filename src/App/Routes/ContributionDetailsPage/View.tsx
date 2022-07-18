@@ -5,12 +5,11 @@ import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-dark.css";
 
 import BackButton from "src/components/BackButton";
-import { Contribution } from "src/model/contributions/repository";
+import { Contribution, ContributionStatusEnum } from "src/model/contributions/repository";
 import logoPlaceholder from "src/assets/img/project-logo-placeholder.png";
 import Button from "src/components/Button";
 import StatusHeader from "./StatusHeader";
 import MetadataList from "./MetadataList";
-import Reward from "src/components/Reward";
 
 type Props = {
   apply: () => void;
@@ -23,6 +22,8 @@ const ContributionDetailsPage: FC<Props> = ({ apply, contribution }) => {
   }
 
   const content = `# test h1 title\r\n## Test h2 title\r\n${contribution.description}`;
+
+  const isApplicable = ContributionStatusEnum.OPEN === contribution.status && contribution.eligible !== false;
 
   return (
     <div className="mt-10 flex flex-col items-center w-full">
@@ -53,10 +54,9 @@ const ContributionDetailsPage: FC<Props> = ({ apply, contribution }) => {
         </div>
       </div>
       <div className="fixed bottom-0 w-full h-[158px] pt-[48px] flex flex-col items-center justify-stretch bg-contribution-apply-gradient">
-        <Button onClick={apply}>Apply</Button>
-        <div className="flex flex-row flex-grow items-center justify-center">
-          <Reward token="USDC" value={50} iconLeft={true} />
-        </div>
+        <Button onClick={apply} disabled={!isApplicable}>
+          Apply
+        </Button>
       </div>
     </div>
   );

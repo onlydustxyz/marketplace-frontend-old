@@ -34,19 +34,11 @@ const Contribution: FC<Props> = contribution => {
       <div className="relative h-[80px] grid grid-cols-2 items-center text-center text-xl bg-mid-blue/20 group-hover:bg-mid-blue/40">
         <div className="flex flex-col items-center">
           <Difficulty size={18} className="fill-light-blue" />
-          {contribution.metadata.difficulty ? (
-            <div className="capitalize mt-2.5 font-medium">{contribution.metadata.difficulty}</div>
-          ) : (
-            <div className="capitalize mt-2.5 font-medium text-white/25 italic">unknown</div>
-          )}
+          <div className="capitalize mt-2.5 font-medium">{contribution.metadata.difficulty || "-"}</div>
         </div>
         <div className="flex flex-col items-center">
           <Technology size={18} className="fill-light-blue" />
-          {contribution.metadata.technology ? (
-            <div className="capitalize mt-2.5 font-medium">{contribution.metadata.technology}</div>
-          ) : (
-            <div className="capitalize mt-2.5 font-medium text-white/25 italic">unknown</div>
-          )}
+          <div className="capitalize mt-2.5 font-medium">{contribution.metadata.technology || "-"}</div>
         </div>
         {renderDivider()}
       </div>

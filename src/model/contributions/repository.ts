@@ -20,6 +20,7 @@ export type ContributionBase = {
   github_link: string;
   eligible: boolean | null;
   gate: number;
+  gateMissingCompletedContributions: number;
 };
 
 export enum ContributionStatusEnum {
@@ -29,9 +30,9 @@ export enum ContributionStatusEnum {
   ABANDONED = "ABANDONED",
 }
 
-export type Contribution = ContributionBase & ContributionStatus;
+export type Contribution = ContributionBase & ContributionStatusAndMetadata;
 
-export type ContributionStatus = OpenStatus | AssignedStatus | CompletedStatus;
+export type ContributionStatusAndMetadata = OpenStatus | AssignedStatus | CompletedStatus;
 export type OpenContribution = Contribution & OpenStatus;
 export type AssignedContribution = Contribution & AssignedStatus;
 export type CompletedContribution = Contribution & CompletedStatus;

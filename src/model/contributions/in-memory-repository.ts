@@ -10,6 +10,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       github_link: "https://github.com/onlydustxyz/deathnote-ui",
       gate: 0,
       eligible: true,
+      gateMissingCompletedContributions: 0,
       metadata: {
         context: "isolated",
         difficulty: "easy",

@@ -1,7 +1,6 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import Reward from "src/components/Reward";
 import Difficulty from "src/icons/Difficulty";
 import Technology from "src/icons/Technology";
 import { Contribution as ContributionType, ContributionStatusEnum } from "src/model/contributions/repository";
@@ -21,7 +20,6 @@ const Contribution: FC<Props> = contribution => {
     >
       <div className="h-[72px] grid grid-cols-2 items-center uppercase mx-8 ">
         <ContributionStatus status={contribution.status} gated={contribution.eligible === false} />
-        <Reward token="USDC" value={50} />
       </div>
       <div className="grow flex flex-col justify-center mb-8">
         <h2 className="font-alfreda text-3xl leading-[42px] text-center px-8 line-clamp-4">{contribution.title}</h2>

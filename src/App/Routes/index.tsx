@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
-import SharedModals from "./SharedModals";
+import Modals from "./Modals";
 
 const HomePage = lazy(() => import("./HomePage"));
 const ProjectsPage = lazy(() => import("./ProjectsPage"));
@@ -13,7 +13,7 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Layout>
-        <SharedModals>
+        <Modals>
           <Routes>
             <Route
               path="/"
@@ -56,7 +56,7 @@ export default function AppRoutes() {
               }
             />
           </Routes>
-        </SharedModals>
+        </Modals>
       </Layout>
     </BrowserRouter>
   );

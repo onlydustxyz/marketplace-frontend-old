@@ -17,8 +17,8 @@ const ProjectDetailsPage: FC<Props> = ({ contributions, project }) => {
   }
 
   return (
-    <div className="relative flex flex-col items-center mt-8">
-      <BackButton className="absolute left-4 top-4" />
+    <div className="relative flex flex-col items-center mt-8 max-w-screen-xl w-full">
+      <BackButton className="absolute left-[-48px] top-0" />
       <img className="rounded-full" src={project.logo || logoPlaceholder} width={93} />
       <h2 className="mt-6 font-alfreda text-5xl capitalize leading-snug">{project.title}</h2>
       <div className="mt-6 text-light-purple text-xl text-center font-light leading-8 max-w-[560px]">

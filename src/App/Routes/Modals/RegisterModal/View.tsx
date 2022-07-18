@@ -1,5 +1,5 @@
 import { FC } from "react";
-import GithubSignin from "src/components/GithubSignin";
+import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 
 import Modal from "src/components/Modal";
 

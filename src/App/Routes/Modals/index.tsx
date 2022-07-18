@@ -2,7 +2,7 @@ import { FC, PropsWithChildren, Suspense } from "react";
 
 import RegisterModal from "./RegisterModal";
 
-const SharedModals: FC<PropsWithChildren> = ({ children }) => {
+const Modals: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       {children}
@@ -13,4 +13,4 @@ const SharedModals: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default SharedModals;
+export default Modals;

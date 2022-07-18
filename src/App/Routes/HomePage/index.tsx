@@ -22,7 +22,7 @@ const HomePage: FC = () => {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-screen-2xl">
       <h1 className="mt-10 text-3xl font-alfreda">All contributions</h1>
 
       <ContributionList className="mt-16" contributions={allContributions} />

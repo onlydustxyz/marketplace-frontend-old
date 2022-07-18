@@ -6,9 +6,9 @@ import Technology from "src/icons/Technology";
 import { Contribution as ContributionType, ContributionStatusEnum } from "src/model/contributions/repository";
 import ContributionStatus from "../../ContributionStatus";
 
-type Props = ContributionType;
+type Props = { contribution: ContributionType };
 
-const Contribution: FC<Props> = contribution => {
+const Contribution: FC<Props> = ({ contribution }) => {
   const cardClassName = contribution.status !== ContributionStatusEnum.OPEN ? "opacity-50" : "";
 
   return (

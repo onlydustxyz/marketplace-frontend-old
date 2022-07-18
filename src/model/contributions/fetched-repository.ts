@@ -1,19 +1,28 @@
 import config from "src/config";
-import { Contribution, ContributionRepository, ContributionStatus, ListParams, Project } from "./repository";
+import {
+  Contribution,
+  ContributionRepository,
+  ContributionStatusAndMetadata,
+  ContributionStatusEnum,
+  ListParams,
+  Project,
+} from "./repository";
 
-type ApiContribution = {
+type DtoContribution = {
   id: string;
   title: string;
   description: string;
   github_link: string;
-} & ContributionStatus;
+  gate: number;
+} & ContributionStatusAndMetadata;
 
-type ApiProject = {
+type DtoProject = {
   id: string;
   title: string;
   description: string;
   github_link: string;
-  contributions: ApiContribution[];
+  logo: string;
+  contributions: DtoContribution[];
 };
 
 export class FetchedContributionRepository implements ContributionRepository {
@@ -24,22 +33,32 @@ export class FetchedContributionRepository implements ContributionRepository {
 
       const response = await fetch(endpointUrl.toString());
 
-      const projectsWithContributions = (await response.json()) as ApiProject[];
+      const projectsWithContributions: DtoProject[] = await response.json();
 
-      const contributionsWithProjects = projectsWithContributions.reduce((aggregatedContributions, project) => {
-        const { contributions, ...projectFields } = project;
+      const completedContributionsAmount = countCompletedContributions(projectsWithContributions, contributorId);
 
-        return [
-          ...aggregatedContributions,
-          ...contributions.map(contribution => {
-            const project: Project = { ...projectFields, openedContributionsAmount: 5 };
-            return {
-              ...contribution,
-              project: project,
-            } as Contribution;
-          }),
-        ];
-      }, [] as Contribution[]);
+      const contributionsWithProjects = projectsWithContributions.reduce<Contribution[]>(
+        (aggregatedContributions, project) => {
+          const { contributions, ...projectFields } = project;
+
+          return [
+            ...aggregatedContributions,
+            ...contributions.map(dtoContribution => {
+              const project: Project = { ...projectFields, openedContributionsAmount: 5 };
+              const contribution: Contribution = {
+                ...dtoContribution,
+                project: project,
+                eligible:
+                  completedContributionsAmount === null ? null : completedContributionsAmount >= dtoContribution.gate,
+                gateMissingCompletedContributions: dtoContribution.gate - (completedContributionsAmount || 0),
+              };
+
+              return contribution;
+            }),
+          ];
+        },
+        []
+      );
 
       return contributionsWithProjects;
     } catch (error) {
@@ -50,4 +69,25 @@ export class FetchedContributionRepository implements ContributionRepository {
   public async add(contribution: Contribution): Promise<void> {
     console.warn("This feature is not yet implemented : contribution.add", contribution);
   }
+}
+
+function countCompletedContributions(projectsWithContributions: DtoProject[], contributorId: number | undefined) {
+  if (!contributorId) {
+    return null;
+  }
+
+  return projectsWithContributions.reduce((amount, project) => {
+    return (
+      amount +
+      project.contributions.reduce((subAmount, contribution) => {
+        if (
+          contribution.status === ContributionStatusEnum.COMPLETED &&
+          contribution.metadata.assignee === `0x${contributorId?.toString(16)}`
+        ) {
+          return subAmount + 1;
+        }
+        return subAmount;
+      }, 0)
+    );
+  }, 0);
 }

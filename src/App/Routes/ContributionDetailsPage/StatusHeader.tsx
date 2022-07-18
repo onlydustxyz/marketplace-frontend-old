@@ -33,7 +33,11 @@ const StatusHeader: FC<Props> = ({ contribution }) => {
     switch (contribution.status) {
       case ContributionStatusEnum.OPEN:
         if (contribution.eligible === false) {
-          return <div className="flex-grow text-right">Complete ? more contributions to unlock</div>;
+          return (
+            <div className="flex-grow text-right">
+              Complete {contribution.gateMissingCompletedContributions} more contributions to unlock
+            </div>
+          );
         }
         break;
       case ContributionStatusEnum.ASSIGNED:

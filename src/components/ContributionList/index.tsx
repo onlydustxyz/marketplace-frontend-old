@@ -20,7 +20,7 @@ const ContributionList: FC<Props> = ({ className, contributions }) => {
       {contributions.map(contribution => (
         <li key={contribution.id} className="my-2">
           <Link to={`/contributions/${contribution.id}`} className="flex-1">
-            <Contribution {...contribution} />
+            <Contribution contribution={contribution} />
           </Link>
         </li>
       ))}

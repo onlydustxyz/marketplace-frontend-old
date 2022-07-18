@@ -26,10 +26,15 @@ const ContributionDetailsPage: FC<Props> = ({ apply, contribution }) => {
   const isApplicable = ContributionStatusEnum.OPEN === contribution.status && contribution.eligible !== false;
 
   return (
-    <div className="mt-10 flex flex-col items-center w-full">
+    <div className="relative mt-10 px-8 flex flex-col items-center max-w-screen-2xl w-full">
+      <div className="flex flex-row max-w-[1410px] w-full justify-start">
+        <BackButton />
+
+        <div className="relative flex flex-col items-center px-12 max-w-screen-xl w-full">
+          <StatusHeader contribution={contribution} />
+        </div>
+      </div>
       <div className="relative flex flex-col items-center px-12 max-w-screen-xl w-full">
-        <BackButton className="absolute left-[-48px] top-0" />
-        <StatusHeader contribution={contribution} />
         <div className="mt-8 mx-12 font-alfreda text-[52px] leading-[68px] capitalize text-center">
           {contribution.title}
         </div>

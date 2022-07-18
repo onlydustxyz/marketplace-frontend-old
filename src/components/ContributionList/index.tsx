@@ -13,8 +13,8 @@ const ContributionList: FC<Props> = ({ className, contributions }) => {
   return (
     <ul
       className={classNames(
-        className,
-        "w-full grid grid-cols-[repeat(auto-fill,_minmax(360px,1fr))] gap-x-[2%] gap-y-4 justify-between"
+        "w-full grid grid-cols-[repeat(auto-fill,_minmax(360px,1fr))] gap-x-[3%] gap-y-4 justify-between",
+        className
       )}
     >
       {contributions.map(contribution => (

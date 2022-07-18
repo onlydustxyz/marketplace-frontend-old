@@ -1,3 +1,4 @@
+import BN from "bn.js";
 import { atom, selector } from "recoil";
 import { uint256ToNumber } from "src/utils/uint256";
 import { ContractInterface } from "starknet";
@@ -6,10 +7,10 @@ import { Uint256 } from "starknet/dist/utils/uint256";
 import { accountAddressSelector, blockNumberAtom } from "./starknet";
 
 interface UserInformation {
-  profile_contract: string;
+  profile_contract: BN;
   contributor_id: Uint256;
   identifiers: {
-    github: string;
+    github: BN;
   };
 }
 
@@ -48,6 +49,15 @@ export const userContributorIdSelector = selector<number | undefined>({
     const userInformation = get(userInformationSelector);
 
     return userInformation?.contributor_id ? uint256ToNumber(userInformation?.contributor_id) : undefined;
+  },
+});
+
+export const userGithubHandleSelector = selector<number | undefined>({
+  key: "userGithubHandle",
+  get: ({ get }) => {
+    const userInformation = get(userInformationSelector);
+
+    return userInformation?.identifiers.github ? userInformation?.identifiers.github.toNumber() : undefined;
   },
 });
 

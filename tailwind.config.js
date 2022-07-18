@@ -47,6 +47,7 @@ module.exports = {
       opacity: {
         66: ".66",
         7: ".07",
+        4: ".04",
       },
       fontFamily: {
         sans: [

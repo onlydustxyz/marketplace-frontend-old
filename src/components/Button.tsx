@@ -38,7 +38,7 @@ export default function Button({
     className: cn(
       classesBySize[size] ?? null,
       classesByTheme[theme] ?? null,
-      "relative flex items-center justify-center cursor-pointer font-bold uppercase outline-none focus:outline-none border-none bg-no-repeat bg-cover hover:opacity-70",
+      "relative flex items-center justify-center cursor-pointer font-bold uppercase outline-none focus:outline-none border-none bg-no-repeat bg-cover hover:opacity-70 disabled:opacity-40 disabled:cursor-default",
       className
     ),
     ...buttonProps,

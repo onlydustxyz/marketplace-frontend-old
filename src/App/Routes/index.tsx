@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Loader from "src/icons/Loader";
 import Layout from "./Layout";
 import Modals from "./Modals";
 
@@ -18,7 +19,7 @@ export default function AppRoutes() {
             <Route
               path="/"
               element={
-                <Suspense fallback={<>...</>}>
+                <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                   <HomePage />
                 </Suspense>
               }
@@ -26,7 +27,7 @@ export default function AppRoutes() {
             <Route
               path="/projects"
               element={
-                <Suspense fallback={<>...</>}>
+                <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                   <ProjectsPage />
                 </Suspense>
               }
@@ -34,7 +35,7 @@ export default function AppRoutes() {
             <Route
               path="/contributions/:contributionId"
               element={
-                <Suspense fallback={<>...</>}>
+                <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                   <ContributionDetailsPage />
                 </Suspense>
               }
@@ -42,7 +43,7 @@ export default function AppRoutes() {
             <Route
               path="/projects/:projectId"
               element={
-                <Suspense fallback={<>...</>}>
+                <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                   <ProjectDetailsPage />
                 </Suspense>
               }
@@ -50,7 +51,7 @@ export default function AppRoutes() {
             <Route
               path="/my-contributions"
               element={
-                <Suspense fallback={<>...</>}>
+                <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                   <MyContributionsPage />
                 </Suspense>
               }

@@ -40,6 +40,8 @@ module.exports = {
         "contribution-card-hover": "0px 20px 40px -10px #000000, 0px 20px 120px -40px rgba(174, 0, 255, 0.8)",
         "contribution-metadata": " 0px 14px 54px rgb(0, 0, 0)",
         "contribution-description": " 0px 25px 100px #00000",
+        "dot-connected": "0px 0px 12px 3px #00FFE4",
+        "dot-not-connected": "0px 0px 12px 3px #000CFF",
       },
       textShadow: {
         "button-primary": "0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",
@@ -47,6 +49,7 @@ module.exports = {
       opacity: {
         66: ".66",
         7: ".07",
+        5: ".05",
         4: ".04",
       },
       fontFamily: {

@@ -1,14 +1,16 @@
 import { FC, PropsWithChildren } from "react";
 
-import Button from "src/components/Button";
+import Button, { ButtonProps } from "src/components/Button";
 
 type Props = {
+  theme?: ButtonProps["theme"];
+  size?: ButtonProps["size"];
   onConnect: () => void;
 };
 
-const ConnectButton: FC<PropsWithChildren<Props>> = ({ children, onConnect }) => {
+const ConnectButton: FC<PropsWithChildren<Props>> = ({ children, onConnect, size, theme }) => {
   return (
-    <Button theme="secondary" onClick={onConnect} size="small">
+    <Button theme={theme} onClick={onConnect} size={size}>
       {children}
     </Button>
   );

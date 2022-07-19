@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 type ButtonExtends = ButtonHTMLAttributes<HTMLButtonElement> & AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export interface ButtonProps extends ButtonExtends {
+  as?: "div";
   theme?: "primary" | "secondary";
   children: ReactNode;
   size?: "small" | "medium" | "regular";
@@ -24,6 +25,7 @@ const classesByTheme = {
 } as Record<Required<ButtonProps>["theme"], string>;
 
 export default function Button({
+  as,
   href,
   target,
   children,
@@ -41,6 +43,10 @@ export default function Button({
     ),
     ...buttonProps,
   };
+
+  if (as) {
+    return createElement(as, { ...props, href, target }, children);
+  }
 
   if (href) {
     if (target) {

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
+import { accountAtom, displayRegisterModalAtom, userGithubHandleSelector } from "src/state";
 import RegisterModal from "./View";
 
 const RegisterModalContainer: FC = () => {
@@ -10,7 +10,9 @@ const RegisterModalContainer: FC = () => {
   const [displayModal, setDisplayModal] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(displayRegisterModalAtom);
   return (
     <RegisterModal
-      displayModal={displayModal && !isGithubRegistered}
+      account={account}
+      githubHandle={userGithubHandle?.toString()}
+      displayModal={displayModal}
       onClose={() => {
         setDisplayModal(false);
       }}

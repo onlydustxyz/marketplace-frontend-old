@@ -11,7 +11,11 @@ type Props = {
 
 const ProfileMenu: FC<Props> = ({ accountAddress }) => {
   if (!accountAddress) {
-    return <ConnectButton>Connect Wallet</ConnectButton>;
+    return (
+      <ConnectButton theme="secondary" size="small">
+        Connect Wallet
+      </ConnectButton>
+    );
   }
 
   return (

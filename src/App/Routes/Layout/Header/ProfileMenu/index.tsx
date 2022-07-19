@@ -1,10 +1,10 @@
 import { FC, useCallback } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import { accountAddressSelector, displayRegisterModalAtom } from "src/state";
 import ProfileMenu from "./View";
 
 const ProfileMenuContainer: FC = () => {
-  const accountAddress = useRecoilValue(accountAddressSelector);
+  const accountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAddressSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
   const onFinalizeRegistration = useCallback(() => {

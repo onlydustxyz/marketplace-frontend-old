@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
   accountAtom,
@@ -16,11 +16,11 @@ type PageParams = {
 };
 const ContributionDetailsPageContainer: FC = () => {
   const { contributionId } = useParams<PageParams>();
-  const contribution = useRecoilValue(contributionQuery(contributionId));
-  const contributorId = useRecoilValue(userContributorIdSelector);
-  const account = useRecoilValue(accountAtom);
-  const isGithubRegistered = useRecoilValue(isGithubRegisteredSelector);
-  const userGithubHandle = useRecoilValue(userGithubHandleSelector);
+  const contribution = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributionQuery(contributionId));
+  const contributorId = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userContributorIdSelector);
+  const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
+  const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
+  const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
   const apply = useCallback(() => {

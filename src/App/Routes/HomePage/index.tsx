@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import ContributionList from "src/components/ContributionList";
 import {
   completedContributionsQuery,
@@ -9,10 +9,10 @@ import {
 } from "src/state";
 
 const HomePage: FC = () => {
-  const openedContributions = useRecoilValue(openedContributionsQuery);
-  const gatedContributions = useRecoilValue(gatedContributionsQuery);
-  const allOngoingContributions = useRecoilValue(ongoingContributionsQuery);
-  const allCompletedContributions = useRecoilValue(completedContributionsQuery);
+  const openedContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(openedContributionsQuery);
+  const gatedContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(gatedContributionsQuery);
+  const allOngoingContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(ongoingContributionsQuery);
+  const allCompletedContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(completedContributionsQuery);
 
   const allContributions = [
     ...openedContributions,

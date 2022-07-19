@@ -1,6 +1,6 @@
 import { InjectedConnector, useStarknet } from "@starknet-react/core";
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
 import ConnectButton from "./View";
 
@@ -8,7 +8,7 @@ const ConnectButtonContainer: FC<PropsWithChildren> = ({ children }) => {
   const { account, connect } = useStarknet();
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const isGithubRegistered = useRecoilValue(isGithubRegisteredSelector);
+  const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
   useEffect(() => {

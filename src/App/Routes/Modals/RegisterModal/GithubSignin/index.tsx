@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "react-use";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 
 import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const GithubSigninContainer: FC<Props> = ({ className }) => {
-  const account = useRecoilValue(accountAtom);
+  const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
   const [isRegistering, setIsRegistering] = useState(false);

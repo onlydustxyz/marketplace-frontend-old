@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import { projectsQuery } from "src/state";
 import ProjectsPage from "./View";
 
 const ProjectsPageContainer: FC = () => {
-  const projects = useRecoilValue(projectsQuery);
+  const projects = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(projectsQuery);
 
   return <ProjectsPage projects={projects} />;
 };

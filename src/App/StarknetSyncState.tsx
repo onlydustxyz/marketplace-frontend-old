@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactElement, useEffect } from "react";
+import { FC, PropsWithChildren, ReactElement, useEffect, useTransition } from "react";
 import { Abi } from "starknet";
 import { useConnectors, useContract, useStarknet, useStarknetBlock } from "@starknet-react/core";
 
@@ -13,6 +13,7 @@ const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
   const setProfileRegistryContract = useSetRecoilState(profileRegistryContractAtom);
   const setBlockNumber = useSetRecoilState(blockNumberAtom);
   const { data: blockData } = useStarknetBlock();
+  const [, startTransition] = useTransition();
 
   const { account: accountAddress, library: provider } = useStarknet();
 
@@ -25,16 +26,22 @@ const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (blockData) {
-      setBlockNumber(blockData.block_number.toString());
+      startTransition(() => {
+        setBlockNumber(blockData.block_number.toString());
+      });
     }
   }, [blockData]);
 
   useEffect(() => {
-    setProfileRegistryContract(profileRegistryContract);
+    startTransition(() => {
+      setProfileRegistryContract(profileRegistryContract);
+    });
   }, [profileRegistryContract]);
 
   useEffect(() => {
-    setProvider(provider);
+    startTransition(() => {
+      setProvider(provider);
+    });
   }, [provider]);
 
   useEffect(() => {
@@ -42,11 +49,15 @@ const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
       for (const connector of connectors) {
         const account = await connector.account();
         if (account?.address === accountAddress) {
-          setAccount(account);
+          startTransition(() => {
+            setAccount(account);
+          });
           return;
         }
       }
-      setAccount(undefined);
+      startTransition(() => {
+        setAccount(undefined);
+      });
     })();
   }, [accountAddress, connectors]);
 

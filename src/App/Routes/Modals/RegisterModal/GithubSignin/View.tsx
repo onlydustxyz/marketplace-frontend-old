@@ -1,12 +1,11 @@
-import cn from "classnames";
 import { FC } from "react";
 import GitHubLogin from "react-github-login";
 
 import config from "src/config";
-import GithubIcon from "src/icons/Github";
 import Loader from "src/icons/Loader";
 
 import Modal from "src/components/Modal";
+import Button from "src/components/Button";
 
 type Props = {
   isSuccess: boolean;
@@ -52,13 +51,9 @@ const GithubSignin: FC<Props> = ({
       clientId={config.GITHUB_CLIENT_ID}
       onSuccess={onSuccess}
       onFailure={onFailure}
-      className={cn(
-        className,
-        "flex flex-row bg-black px-8 py-4 rounded-md text-xl shadow-white/20 shadow-sm hover:bg-neutral-900 outline-0"
-      )}
+      className={className}
     >
-      <GithubIcon className="fill-white" />
-      <div className="ml-4 font-bold">Connect your Github account</div>
+      <Button as="div">Connect to Github</Button>
       {renderError()}
     </GitHubLogin>
   );
@@ -66,7 +61,7 @@ const GithubSignin: FC<Props> = ({
   function renderError() {
     if (error) {
       return (
-        <Modal isOpen={displayError} onClose={onClose}>
+        <Modal contentClassName="px-16 pt-6 pb-8" isOpen={displayError} onClose={onClose}>
           <div className="text-2xl text-red-300">
             It seems you can't perform this task as your Github account is already linked to a wallet.
             <br />

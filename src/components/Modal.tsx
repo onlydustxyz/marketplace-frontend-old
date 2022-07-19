@@ -1,19 +1,20 @@
 import { FC, Fragment, PropsWithChildren } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import cn from "classnames";
 
 import CrossIcon from "src/icons/Cross";
-import ContentContainer from "src/components/ContentContainer";
 
 export interface Props {
+  contentClassName?: string;
   title?: string;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const Modal: FC<PropsWithChildren<Props>> = ({ title, isOpen, onClose, children }) => {
+const Modal: FC<PropsWithChildren<Props>> = ({ contentClassName, title, isOpen, onClose, children }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto " onClose={onClose}>
+      <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto " onClose={onClose}>
         <div className="min-h-screen px-4 text-center flex flex-col items-center justify-center ">
           <Transition.Child
             as={Fragment}
@@ -36,7 +37,12 @@ const Modal: FC<PropsWithChildren<Props>> = ({ title, isOpen, onClose, children 
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <ContentContainer className="w-[86%] max-w-screen-lg px-16 pt-6 pb-8">
+            <div
+              className={cn(
+                "relative w-[86%] max-w-screen-lg bg-space-blue bg-opacity-20 border-[2px] after:inset-[-2px] before:absolute before:bg-space-blue before:inset-0 before:z-m1 text-light-purple  border-solid border-transparent bg-clip-padding after:absolute after:bg-gradient-modal after:z-m2",
+                contentClassName
+              )}
+            >
               <div>
                 {!!title && (
                   <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-light-blue mb-8">
@@ -48,7 +54,7 @@ const Modal: FC<PropsWithChildren<Props>> = ({ title, isOpen, onClose, children 
                 </div>
               </div>
               <div className="text-lg">{children}</div>
-            </ContentContainer>
+            </div>
           </Transition.Child>
         </div>
       </Dialog>

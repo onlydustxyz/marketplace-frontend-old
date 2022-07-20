@@ -22,6 +22,16 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontSize: {
+        xs: [
+          "11px",
+          {
+            letterSpacing: "0.08em",
+            lineHeight: "14px",
+            uppercase: true,
+          },
+        ],
+      },
       colors: {
         primary: colors.indigo,
         secondary: colors.slate,

@@ -40,7 +40,7 @@ const ContributionDetailsPage: FC<Props> = ({ apply, contribution }) => {
           <Link to={`/projects/${contribution.project.id}`}>
             <img className="rounded-full" src={contribution.project.logo || logoPlaceholder} width={54} />
           </Link>
-          <span className="mt-5 text-light-purple/66 text-[11px] leading-[14px] uppercase">Proposed by</span>
+          <span className="mt-5 text-light-purple/66 text-xs uppercase">Proposed by</span>
           <Link
             className="mt-2 font-medium text-white text-[28px] leading-[34px] capitalize"
             to={`/projects/${contribution.project.id}`}

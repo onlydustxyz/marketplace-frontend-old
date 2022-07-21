@@ -108,7 +108,7 @@ export const myOngoingContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.ASSIGNED &&
-        contribution.metadata.assignee.toLowerCase() === `0x${userContributorId?.toString(16).toLowerCase()}`
+        parseInt(contribution.metadata.assignee, 16) === userContributorId
     ) as AssignedContribution[];
   },
 });
@@ -121,7 +121,7 @@ export const foreignOngoingContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.ASSIGNED &&
-        contribution.metadata.assignee.toLowerCase() !== `0x${userContributorId?.toString(16).toLowerCase()}`
+        parseInt(contribution.metadata.assignee, 16) === userContributorId
     ) as AssignedContribution[];
   },
 });
@@ -144,7 +144,7 @@ export const myCompletedContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.COMPLETED &&
-        contribution.metadata.assignee.toLowerCase() === `0x${userContributorId?.toString(16).toLowerCase()}`
+        parseInt(contribution.metadata.assignee, 16) === userContributorId
     ) as CompletedContribution[];
   },
 });
@@ -157,7 +157,7 @@ export const foreignCompletedContributionsQuery = selector({
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.COMPLETED &&
-        contribution.metadata.assignee.toLowerCase() !== `0x${userContributorId?.toString(16).toLowerCase()}`
+        parseInt(contribution.metadata.assignee, 16) === userContributorId
     ) as CompletedContribution[];
   },
 });

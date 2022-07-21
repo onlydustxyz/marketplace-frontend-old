@@ -82,7 +82,7 @@ function countCompletedContributions(projectsWithContributions: ProjectDto[], co
       project.contributions.reduce((subAmount, contribution) => {
         if (
           contribution.status === ContributionStatusEnum.COMPLETED &&
-          contribution.metadata.assignee === `0x${contributorId?.toString(16)}`
+          parseInt(contribution.metadata.assignee, 16) === contributorId
         ) {
           return subAmount + 1;
         }

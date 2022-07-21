@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "react-use";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 
@@ -15,7 +15,7 @@ type Props = {
   className?: string;
 };
 
-const GithubSigninContainer: FC<Props> = ({ className }) => {
+const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, className }) => {
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
@@ -34,32 +34,38 @@ const GithubSigninContainer: FC<Props> = ({ className }) => {
 
     setIsRegistering(true);
 
-    const { hash, signature } = await signMessage(
-      account,
-      account.address,
-      config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
-    );
+    try {
+      const { hash, signature } = await signMessage(
+        account,
+        account.address,
+        config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
+      );
 
-    const transactionHash = await connect({
-      address: account.address,
-      code,
-      hash,
-      signature,
-    });
+      const transactionHash = await connect({
+        address: account.address,
+        code,
+        hash,
+        signature,
+      });
 
-    if (transactionHash) {
-      await waitForTransaction(transactionHash, account);
-      setDisplayRegisterModal(false);
+      if (transactionHash) {
+        await waitForTransaction(transactionHash, account);
+        setDisplayRegisterModal(false);
+      }
+    } catch (error) {
+      console.warn(error);
+      setIsRegistering(false);
     }
-
-    setIsRegistering(false);
   };
 
   const onFailure = useCallback((error: Error) => {
     console.warn(error);
+    setIsRegistering(false);
+    setDisplayError(true);
   }, []);
 
   const onClose = useCallback(() => {
+    setIsRegistering(false);
     setDisplayError(false);
   }, []);
 
@@ -79,7 +85,9 @@ const GithubSigninContainer: FC<Props> = ({ className }) => {
       error={error}
       displayError={displayError}
       className={className}
-    />
+    >
+      {children}
+    </GithubSignin>
   );
 };
 

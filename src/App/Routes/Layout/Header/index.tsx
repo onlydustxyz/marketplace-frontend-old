@@ -2,7 +2,7 @@ import { FC, Suspense } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import logo from "src/assets/img/onlydust-logo.png";
-import ProfileMenu from "./ProfileMenu";
+import ProfileHeader from "./ProfileHeader";
 
 const Header: FC = () => {
   return (
@@ -25,7 +25,7 @@ const Header: FC = () => {
       </div>
       <div className="flex flex-row justify-end">
         <Suspense fallback={"Connection..."}>
-          <ProfileMenu />
+          <ProfileHeader />
         </Suspense>
       </div>
     </header>

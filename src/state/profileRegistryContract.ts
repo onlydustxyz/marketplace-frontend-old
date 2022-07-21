@@ -57,7 +57,9 @@ export const userGithubHandleSelector = selector<number | undefined>({
   get: ({ get }) => {
     const userInformation = get(userInformationSelector);
 
-    return userInformation?.identifiers.github ? userInformation?.identifiers.github.toNumber() : undefined;
+    return userInformation?.identifiers.github && userInformation?.identifiers.github.toString() !== "0"
+      ? userInformation?.identifiers.github.toNumber()
+      : undefined;
   },
 });
 

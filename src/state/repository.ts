@@ -161,3 +161,20 @@ export const foreignCompletedContributionsQuery = selector({
     ) as CompletedContribution[];
   },
 });
+
+export const technologiesQuery = selector({
+  key: "Technologies",
+  get: ({ get }) => {
+    const contributions = get(contributionsQuery);
+
+    const technologies = new Set<string>();
+
+    contributions.forEach(contribution => {
+      if (contribution.metadata.technology && !technologies.has(contribution.metadata.technology)) {
+        technologies.add(contribution.metadata.technology);
+      }
+    });
+
+    return Array.from(technologies);
+  },
+});

@@ -23,7 +23,7 @@ const ListBoxFilter: FC<Props> = ({ label, values, selectedValues, setSelectedVa
       <label className="text-light-purple/66 text-xs-upper mb-3.5">{label}</label>
       <Listbox value={selectedValues} onChange={setSelectedValues} multiple={multiple}>
         {({ open }) => (
-          <div className="relative max-w-[160px] flex flex-col">
+          <div className="relative flex flex-col">
             <Listbox.Button className="w-full">
               <div
                 className={cn(
@@ -31,7 +31,7 @@ const ListBoxFilter: FC<Props> = ({ label, values, selectedValues, setSelectedVa
                   open && "border-b-0"
                 )}
               >
-                <div className="ml-4 flex-grow line-clamp-1 text-start text-xs uppercase">
+                <div className="ml-4 flex-grow line-clamp-2 text-start text-xs uppercase">
                   {selectedValues.length === 0 ? "All" : selectedValues.map(value => value.label).join(", ")}
                 </div>
                 <div className="w-[12px] mx-4">

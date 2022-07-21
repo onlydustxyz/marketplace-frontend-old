@@ -1,0 +1,45 @@
+import { FC } from "react";
+
+import { ContributionTypeEnum } from "src/model/contributions/repository";
+import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
+import { contributionsFilterTypeAtom } from "src/state/contributions-filters";
+import ListBoxFilter from "src/components/ListBoxFilter";
+
+const statuses: Array<ContributionTypeEnum> = [
+  ContributionTypeEnum.BUG,
+  ContributionTypeEnum.BUILD,
+  ContributionTypeEnum.DOCUMENTATION,
+  ContributionTypeEnum.FEATURE,
+  ContributionTypeEnum.PRFOMANCE,
+  ContributionTypeEnum.REFACTOR,
+  ContributionTypeEnum.TEST,
+];
+
+const TypeFilter: FC = () => {
+  const [selectedDifficulties, setSelectedDifficulties] =
+    useRecoilState_TRANSITION_SUPPORT_UNSTABLE(contributionsFilterTypeAtom);
+
+  const values = statuses.map(status => ({
+    id: status,
+    label: status,
+    data: status,
+  }));
+
+  const selectedValues = values.filter(value => selectedDifficulties.includes(value.id));
+
+  const setSelectedValues = (newValues: typeof values) => {
+    setSelectedDifficulties(newValues.map(newValue => newValue.id));
+  };
+
+  return (
+    <ListBoxFilter
+      values={values}
+      selectedValues={selectedValues}
+      setSelectedValues={setSelectedValues}
+      label="Type"
+      multiple
+    />
+  );
+};
+
+export default TypeFilter;

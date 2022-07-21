@@ -1,4 +1,12 @@
-import { Contribution, ContributionRepository, ContributionStatusEnum } from "./repository";
+import {
+  Contribution,
+  ContributionContextEnum,
+  ContributionDifficultyEnum,
+  ContributionDurationEnum,
+  ContributionRepository,
+  ContributionStatusEnum,
+  ContributionTypeEnum,
+} from "./repository";
 
 export class InMemoryContributionRepository implements ContributionRepository {
   private contributions: Contribution[] = [
@@ -12,11 +20,11 @@ export class InMemoryContributionRepository implements ContributionRepository {
       eligible: true,
       gateMissingCompletedContributions: 0,
       metadata: {
-        context: "isolated",
-        difficulty: "easy",
-        duration: "under a day",
+        context: ContributionContextEnum.ISOLATED,
+        difficulty: ContributionDifficultyEnum.EASY,
+        duration: ContributionDurationEnum.UNDER_A_DAY,
         technology: "cairo",
-        type: "feature",
+        type: ContributionTypeEnum.FEATURE,
       },
       project: {
         id: "1",

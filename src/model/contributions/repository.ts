@@ -30,6 +30,34 @@ export enum ContributionStatusEnum {
   ABANDONED = "ABANDONED",
 }
 
+export enum ContributionContextEnum {
+  ISOLATED = "isolated",
+  COUPLED = "coupled",
+  INTRICATED = "intricated",
+}
+
+export enum ContributionDifficultyEnum {
+  EASY = "easy",
+  INTERMEDIATE = "intermediate",
+  HARD = "hard",
+}
+
+export enum ContributionDurationEnum {
+  UNDER_A_DAY = "under a day",
+  FEW_DAYS = "few days",
+  WEEKS = "weeks",
+}
+
+export enum ContributionTypeEnum {
+  BUG = "bug",
+  BUILD = "build",
+  DOCUMENTATION = "documentation",
+  FEATURE = "feature",
+  PRFOMANCE = "performance",
+  REFACTOR = "refactor",
+  TEST = "test",
+}
+
 export type Contribution = ContributionBase & ContributionStatusAndMetadata;
 
 export type ContributionStatusAndMetadata = OpenStatus | AssignedStatus | CompletedStatus;
@@ -38,11 +66,11 @@ export type AssignedContribution = Contribution & AssignedStatus;
 export type CompletedContribution = Contribution & CompletedStatus;
 
 export type ContributionMetadata = {
-  context?: string;
-  difficulty?: string;
-  duration?: string;
+  context?: ContributionContextEnum;
+  difficulty?: ContributionDifficultyEnum;
+  duration?: ContributionDurationEnum;
   technology?: string;
-  type?: string;
+  type?: ContributionTypeEnum;
 };
 
 export type ContributionMetadataAssignee = {

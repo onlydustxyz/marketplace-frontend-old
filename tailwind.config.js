@@ -40,6 +40,8 @@ module.exports = {
       backgroundImage: {
         "button-primary": 'url("src/assets/img/button/primary.png")',
         "button-secondary": 'url("src/assets/img/button/secondary.png")',
+        "profile-button": 'url("src/assets/img/profile-button.png")',
+        "profile-menu": 'url("src/assets/img/profile-menu.png")',
       },
       boxShadow: {
         "button-primary": "0 0 30px 0 #dc2626",

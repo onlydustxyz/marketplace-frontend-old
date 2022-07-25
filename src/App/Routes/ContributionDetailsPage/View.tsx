@@ -13,16 +13,12 @@ import MetadataList from "./MetadataList";
 
 type Props = {
   apply: () => void;
-  contribution?: Contribution;
+  submit: () => void;
+  contribution: Contribution;
+  contributorId?: number;
 };
 
-const ContributionDetailsPage: FC<Props> = ({ apply, contribution }) => {
-  if (!contribution) {
-    return null;
-  }
-
-  const isApplicable = ContributionStatusEnum.OPEN === contribution.status && contribution.eligible !== false;
-
+const ContributionDetailsPage: FC<Props> = ({ apply, submit, contribution, contributorId }) => {
   return (
     <div className="relative mt-10 px-8 flex flex-col items-center max-w-screen-2xl w-full">
       <div className="flex flex-row max-w-[1410px] w-full justify-start">
@@ -57,12 +53,28 @@ const ContributionDetailsPage: FC<Props> = ({ apply, contribution }) => {
         </div>
       </div>
       <div className="fixed bottom-0 w-full h-[158px] pt-[48px] flex flex-col items-center justify-stretch bg-contribution-apply-gradient">
-        <Button onClick={apply} disabled={!isApplicable}>
-          Apply
-        </Button>
+        {renderActionButton()}
       </div>
     </div>
   );
+
+  function renderActionButton() {
+    if (
+      contribution?.status === ContributionStatusEnum.ASSIGNED &&
+      parseInt(contribution.metadata.assignee, 16) === contributorId
+    ) {
+      return <Button onClick={submit}>Submit work</Button>;
+    }
+
+    return (
+      <Button
+        onClick={apply}
+        disabled={ContributionStatusEnum.OPEN !== contribution.status || contribution.eligible === false}
+      >
+        Apply
+      </Button>
+    );
+  }
 };
 
 export default ContributionDetailsPage;

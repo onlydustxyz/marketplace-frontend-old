@@ -10,6 +10,7 @@ import {
   userGithubHandleSelector,
 } from "src/state";
 import { FC, useCallback } from "react";
+import config from "src/config";
 
 type PageParams = {
   contributionId: string;
@@ -23,18 +24,40 @@ const ContributionDetailsPageContainer: FC = () => {
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
+  const buildTypeformParams = () => {
+    const typeformParams = new URLSearchParams();
+    account?.address && typeformParams.set("wallet", account.address);
+    userGithubHandle && typeformParams.set("github", userGithubHandle.toString(10));
+    contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
+    contributorId && typeformParams.set("contributorid", contributorId.toString(10));
+
+    return typeformParams.toString();
+  };
+
   const apply = useCallback(() => {
     if (!isGithubRegistered) {
       setDisplayRegisterModal(true);
       return;
     }
 
-    const applyUrl = `https://1q4jfbhi7he.typeform.com/to/glbmGLMH#wallet=${account?.address}&github=${userGithubHandle}&githubissue=${contribution?.github_link}&contributorid=${contributorId}`;
+    const applyUrl = `${config.TYPEFORM_APPLY_URL}#${buildTypeformParams()}`;
 
     window.open(applyUrl, "_blank");
   }, [contributionId, isGithubRegistered]);
 
-  return <ContributionDetailsPage contribution={contribution} apply={apply} />;
+  const submit = useCallback(() => {
+    const submitUrl = `${config.TYPEFORM_SUBMIT_URL}#${buildTypeformParams()}`;
+
+    window.open(submitUrl, "_blank");
+  }, [contributionId, isGithubRegistered]);
+
+  if (!contribution) {
+    return null;
+  }
+
+  return (
+    <ContributionDetailsPage contribution={contribution} apply={apply} submit={submit} contributorId={contributorId} />
+  );
 };
 
 export default ContributionDetailsPageContainer;

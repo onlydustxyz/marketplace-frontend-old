@@ -9,6 +9,9 @@ interface ImportMetaEnv {
 
   readonly DEATHNOTE_STARKNET_NETWORK: "mainnet-alpha" | "goerli-alpha" | "localhost";
   readonly DEATHNOTE_STARKNET_HOSTNAME: string;
+
+  readonly DEATHNOTE_TYPEFORM_APPLY_URL: string;
+  readonly DEATHNOTE_TYPEFORM_SUBMIT_URL: string;
 }
 
 interface ImportMeta {

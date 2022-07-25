@@ -66,14 +66,15 @@ const ContributionDetailsPage: FC<Props> = ({ apply, submit, contribution, contr
       return <Button onClick={submit}>Submit work</Button>;
     }
 
-    return (
-      <Button
-        onClick={apply}
-        disabled={ContributionStatusEnum.OPEN !== contribution.status || contribution.eligible === false}
-      >
-        Apply
-      </Button>
-    );
+    if (ContributionStatusEnum.OPEN === contribution.status) {
+      return (
+        <Button onClick={apply} disabled={contribution.eligible === false}>
+          Apply
+        </Button>
+      );
+    }
+
+    return null;
   }
 };
 

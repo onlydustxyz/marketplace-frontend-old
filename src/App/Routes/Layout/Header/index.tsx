@@ -23,7 +23,7 @@ const Header: FC = () => {
           <img src={logo} width="68px" />
         </Link>
       </div>
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row justify-end items-center">
         <Suspense fallback={"Connection..."}>
           <ProfileHeader />
         </Suspense>

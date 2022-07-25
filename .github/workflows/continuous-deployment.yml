@@ -25,6 +25,8 @@ jobs:
           DEATHNOTE_GITHUB_REDIRECT_URI: ${{ secrets.DEATHNOTE_GITHUB_REDIRECT_URI }}
           DEATHNOTE_PROVIDER_NETWORK: ${{ secrets.DEATHNOTE_PROVIDER_NETWORK }}
           DEATHNOTE_REGISTRY_CONTRACT_ADDRESS: ${{ secrets.DEATHNOTE_REGISTRY_CONTRACT_ADDRESS }}
+          DEATHNOTE_TYPEFORM_APPLY_URL: ${{ secrets.DEATHNOTE_TYPEFORM_APPLY_URL }}
+          DEATHNOTE_TYPEFORM_SUBMIT_URL: ${{ secrets.DEATHNOTE_TYPEFORM_SUBMIT_URL }}
       - name: Copy files to the test website with the AWS CLI
         run: |
           aws s3 sync dist s3://onlydust-deathnote-frontend

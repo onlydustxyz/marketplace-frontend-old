@@ -49,7 +49,7 @@ const ContributionDetailsPage: FC<Props> = ({ apply, submit, contribution, contr
 
       <div className="mb-32 flex flex-col items-center max-w-screen-xl px-20 w-full shadow-contribution-description">
         <div className="p-20 bg-mid-blue/30 backdrop-blur-[7px] w-full">
-          <ReactMarkdown className="markdown-body" children={contribution.description} />
+          <ReactMarkdown linkTarget="_blank" className="markdown-body" children={contribution.description} />
         </div>
       </div>
       <div className="fixed bottom-0 w-full h-[158px] pt-[48px] flex flex-col items-center justify-stretch bg-contribution-apply-gradient">

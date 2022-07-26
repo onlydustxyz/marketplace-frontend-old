@@ -5,6 +5,7 @@ import Loader from "src/icons/Loader";
 import ErrorFallbackRouterAware from "./ErrorFallbackRouterAware";
 import Layout from "./Layout";
 import Modals from "./Modals";
+import ScrollTop from "./ScrollTop";
 
 const HomePage = lazy(() => import("./HomePage"));
 const ProjectsPage = lazy(() => import("./ProjectsPage"));
@@ -15,6 +16,7 @@ const MyContributionsPage = lazy(() => import("./MyContributionsPage"));
 export default function AppRoutes() {
   return (
     <BrowserRouter>
+      <ScrollTop />
       <Layout>
         <Modals>
           <ErrorBoundary FallbackComponent={ErrorFallbackRouterAware}>

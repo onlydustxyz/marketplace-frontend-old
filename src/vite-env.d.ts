@@ -12,6 +12,10 @@ interface ImportMetaEnv {
 
   readonly DEATHNOTE_TYPEFORM_APPLY_URL: string;
   readonly DEATHNOTE_TYPEFORM_SUBMIT_URL: string;
+  readonly DEATHNOTE_SENTRY_DSN: string;
+  readonly DEATHNOTE_SENTRY_ENVIRONMENT: string;
+  readonly DEATHNOTE_SENTRY_RELEASE: string;
+  readonly DEATHNOTE_SENTRY_TRACES_SAMPLE_RATE: string;
 }
 
 interface ImportMeta {

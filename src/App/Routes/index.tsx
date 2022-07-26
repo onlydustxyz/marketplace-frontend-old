@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Loader from "src/icons/Loader";
+import { trackingErrorHandler } from "src/utils/error-boundary";
 import ErrorFallbackRouterAware from "./ErrorFallbackRouterAware";
 import Layout from "./Layout";
 import Modals from "./Modals";
@@ -19,7 +20,7 @@ export default function AppRoutes() {
       <ScrollTop />
       <Layout>
         <Modals>
-          <ErrorBoundary FallbackComponent={ErrorFallbackRouterAware}>
+          <ErrorBoundary FallbackComponent={ErrorFallbackRouterAware} onError={trackingErrorHandler}>
             <Routes>
               <Route
                 path="/"

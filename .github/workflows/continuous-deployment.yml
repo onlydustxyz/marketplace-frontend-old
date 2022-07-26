@@ -17,7 +17,7 @@ jobs:
         run: npm install -g yarn
       - run: yarn install --from-lockfile
       - name: Build project
-        run: yarn build
+        run: yarn build:prod
         env:
           DEATHNOTE_DATA_API_HOSTNAME: ${{ secrets.DEATHNOTE_DATA_API_HOSTNAME }}
           DEATHNOTE_SIGNUP_API_HOSTNAME: ${{ secrets.DEATHNOTE_SIGNUP_API_HOSTNAME }}
@@ -27,6 +27,13 @@ jobs:
           DEATHNOTE_REGISTRY_CONTRACT_ADDRESS: ${{ secrets.DEATHNOTE_REGISTRY_CONTRACT_ADDRESS }}
           DEATHNOTE_TYPEFORM_APPLY_URL: ${{ secrets.DEATHNOTE_TYPEFORM_APPLY_URL }}
           DEATHNOTE_TYPEFORM_SUBMIT_URL: ${{ secrets.DEATHNOTE_TYPEFORM_SUBMIT_URL }}
+          DEATHNOTE_SENTRY_DSN: ${{ secrets.DEATHNOTE_SENTRY_DSN }}
+          DEATHNOTE_SENTRY_ENVIRONMENT: ${{ secrets.DEATHNOTE_SENTRY_ENVIRONMENT }}
+          DEATHNOTE_SENTRY_RELEASE: ${{ secrets.GITHUB_SHA }}
+          DEATHNOTE_SENTRY_TRACES_SAMPLE_RATE: ${{ secrets.DEATHNOTE_SENTRY_TRACES_SAMPLE_RATE }}
+          DEATHNOTE_SENTRY_AUTH_TOKEN: ${{ secrets.DEATHNOTE_SENTRY_AUTH_TOKEN }}
+          DEATHNOTE_SENTRY_ORG: ${{ secrets.DEATHNOTE_SENTRY_ORG }}
+          DEATHNOTE_SENTRY_PROJECT: ${{ secrets.DEATHNOTE_SENTRY_PROJECT }}
       - name: Copy files to the test website with the AWS CLI
         run: |
           aws s3 sync dist s3://onlydust-deathnote-frontend

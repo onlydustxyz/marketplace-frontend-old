@@ -34,5 +34,12 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-dom": ["react-dom"],
+        },
+      },
+    },
   },
 });

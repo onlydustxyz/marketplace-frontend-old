@@ -13,7 +13,7 @@ jobs:
           node-version: 16
           cache: "yarn"
       - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - run: yarn build:prod
         env:
           DEATHNOTE_DATA_API_HOSTNAME: ${{ secrets.DEATHNOTE_DATA_API_HOSTNAME }}
           DEATHNOTE_SIGNUP_API_HOSTNAME: ${{ secrets.DEATHNOTE_SIGNUP_API_HOSTNAME }}

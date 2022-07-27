@@ -2,7 +2,7 @@ import { afterEach, describe, it, expect, vi } from "vitest";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { renderHook } from "@testing-library/react-hooks";
 import { contributionQuery, contributionsQuery } from "./repository";
-import { repository } from "src/model/contributions/repository";
+import { repository } from "src/model/projects/repository";
 
 describe("The recoil state", () => {
   afterEach(() => {
@@ -22,7 +22,7 @@ describe("The recoil state", () => {
       await waitForValueToChange(() => result.current);
 
       expect(listSpy).toHaveBeenCalled();
-      expect(result.current).to.have.length(1);
+      expect(result.current).to.have.length(3);
     });
   });
 

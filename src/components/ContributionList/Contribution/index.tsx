@@ -3,7 +3,8 @@ import cn from "classnames";
 
 import Difficulty from "src/icons/Difficulty";
 import Technology from "src/icons/Technology";
-import { Contribution as ContributionType, ContributionStatusEnum } from "src/model/contributions/repository";
+import { ContributionStatusEnum } from "src/model/projects/repository";
+import { Contribution as ContributionType } from "src/state";
 import ContributionStatus from "../../ContributionStatus";
 
 type Props = { contribution: ContributionType };

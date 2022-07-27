@@ -1,20 +1,20 @@
 import { atom, selector } from "recoil";
 
 import {
-  Contribution,
   ContributionContextEnum,
   ContributionDifficultyEnum,
   ContributionDurationEnum,
   ContributionMetadata,
   ContributionStatusEnum,
   ContributionTypeEnum,
-  Project,
-} from "src/model/contributions/repository";
+} from "src/model/projects/repository";
 import {
   completedContributionsQuery,
+  Contribution,
   gatedContributionsQuery,
   ongoingContributionsQuery,
   openedContributionsQuery,
+  Project,
 } from "./repository";
 
 export const contributionsFilterContextAtom = atom<ContributionContextEnum[]>({

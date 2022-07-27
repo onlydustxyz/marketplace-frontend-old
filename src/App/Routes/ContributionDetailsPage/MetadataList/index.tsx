@@ -2,7 +2,7 @@ import { FC } from "react";
 import cn from "classnames";
 
 import Difficulty from "src/icons/Difficulty";
-import { Contribution } from "src/model/contributions/repository";
+import { Contribution } from "src/state";
 import MetadataItem from "./MetadataItem";
 import Technology from "src/icons/Technology";
 import Type from "src/icons/Type";

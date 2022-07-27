@@ -5,7 +5,8 @@ import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-dark.css";
 
 import BackButton from "src/components/BackButton";
-import { Contribution, ContributionStatusEnum } from "src/model/contributions/repository";
+import { ContributionStatusEnum } from "src/model/projects/repository";
+import { Contribution } from "src/state";
 import logoPlaceholder from "src/assets/img/project-logo-placeholder.png";
 import Button from "src/components/Button";
 import StatusHeader from "./StatusHeader";

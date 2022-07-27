@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Contribution from "./Contribution";
-import { Contribution as ContributionType } from "src/model/contributions/repository";
+import { Contribution as ContributionType } from "src/state";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 

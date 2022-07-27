@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { ContributionStatusEnum } from "src/model/contributions/repository";
+import { ContributionStatusEnum } from "src/model/projects/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import { contributionsFilterStatusAtom } from "src/state/contributions-filters";
 import ListBoxFilter from "src/components/ListBoxFilter";

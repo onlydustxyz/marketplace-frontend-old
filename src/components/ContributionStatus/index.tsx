@@ -1,7 +1,9 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { Contribution, ContributionStatusEnum } from "src/model/contributions/repository";
+import { ContributionStatusEnum } from "src/model/projects/repository";
+import { Contribution } from "src/state";
+
 import AssignedBadge from "./AssignedBadge";
 import CompletedBadge from "./CompletedBadge";
 import GatedBadge from "./GatedBadge";

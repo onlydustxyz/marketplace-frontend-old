@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { Project } from "src/model/contributions/repository";
+import { Project } from "src/state";
+
 import ProjectCard from "./ProjectCard";
 
 type Props = {

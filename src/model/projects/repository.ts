@@ -1,26 +1,21 @@
-import { InMemoryContributionRepository } from "./in-memory-repository";
-import { FetchedContributionRepository } from "./fetched-repository";
+import { InMemoryProjectRepository } from "./in-memory-repository";
+import { FetchedProjectRepository } from "./fetched-repository";
 
-export type Project = {
+export type ContributionDto = {
   id: string;
   title: string;
   description: string;
-  logo?: string;
-  openedContributionsAmount: number;
-  github_link?: string;
-  discord_link?: string;
-  website_link?: string;
-};
-
-export type ContributionBase = {
-  id: string;
-  title: string;
-  description: string;
-  project: Project;
   github_link: string;
-  eligible: boolean | null;
   gate: number;
-  gateMissingCompletedContributions: number;
+} & ContributionStatusAndMetadata;
+
+export type ProjectDto = {
+  id: string;
+  title: string;
+  description: string;
+  github_link: string;
+  logo?: string;
+  contributions: ContributionDto[];
 };
 
 export enum ContributionStatusEnum {
@@ -58,12 +53,7 @@ export enum ContributionTypeEnum {
   TEST = "test",
 }
 
-export type Contribution = ContributionBase & ContributionStatusAndMetadata;
-
 export type ContributionStatusAndMetadata = OpenStatus | AssignedStatus | CompletedStatus;
-export type OpenContribution = Contribution & OpenStatus;
-export type AssignedContribution = Contribution & AssignedStatus;
-export type CompletedContribution = Contribution & CompletedStatus;
 
 export type ContributionMetadata = {
   context?: ContributionContextEnum;
@@ -78,27 +68,24 @@ export type ContributionMetadataAssignee = {
   github_username?: string;
 };
 
-type OpenStatus = {
+export type OpenStatus = {
   status: ContributionStatusEnum.OPEN;
   metadata: ContributionMetadata;
 };
 
-type AssignedStatus = {
+export type AssignedStatus = {
   status: ContributionStatusEnum.ASSIGNED;
   metadata: ContributionMetadata & ContributionMetadataAssignee;
 };
 
-type CompletedStatus = {
+export type CompletedStatus = {
   status: ContributionStatusEnum.COMPLETED;
   metadata: ContributionMetadata & ContributionMetadataAssignee;
 };
 
-export type ListParams = {
-  contributorId?: number;
-};
-export interface ContributionRepository {
-  list(params?: ListParams): Promise<Contribution[]>;
+export interface ProjectRepository {
+  list(): Promise<ProjectDto[]>;
 }
 
-export const repository: ContributionRepository =
-  process.env.NODE_ENV === "test" ? new InMemoryContributionRepository() : new FetchedContributionRepository();
+export const repository: ProjectRepository =
+  process.env.NODE_ENV === "test" ? new InMemoryProjectRepository() : new FetchedProjectRepository();

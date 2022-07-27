@@ -2,7 +2,8 @@ import { FC } from "react";
 import cn from "classnames";
 
 import ContributionStatus from "src/components/ContributionStatus";
-import { Contribution, ContributionMetadataAssignee, ContributionStatusEnum } from "src/model/contributions/repository";
+import { ContributionMetadataAssignee, ContributionStatusEnum } from "src/model/projects/repository";
+import { Contribution } from "src/state";
 
 type Props = {
   contribution: Contribution;

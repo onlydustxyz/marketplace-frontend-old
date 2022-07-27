@@ -37,8 +37,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
+          starknet: ["@starknet-react/core", "get-starknet", "starknet"],
           "react-dom": ["react-dom"],
         },
+        sourcemapExcludeSources: true,
       },
     },
   },

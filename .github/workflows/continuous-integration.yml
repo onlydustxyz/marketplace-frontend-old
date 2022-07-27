@@ -5,15 +5,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: "yarn"
+      - name: Install yarn
+        run: npm install -g yarn
       - run: yarn install --frozen-lockfile
-      - run: yarn build:prod
+      - name: Build project
+        run: yarn build
         env:
           DEATHNOTE_DATA_API_HOSTNAME: ${{ secrets.DEATHNOTE_DATA_API_HOSTNAME }}
           DEATHNOTE_SIGNUP_API_HOSTNAME: ${{ secrets.DEATHNOTE_SIGNUP_API_HOSTNAME }}

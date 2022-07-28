@@ -87,5 +87,5 @@ export interface ProjectRepository {
   list(): Promise<ProjectDto[]>;
 }
 
-export const repository: ProjectRepository =
+export const projectRepository: ProjectRepository =
   process.env.NODE_ENV === "test" ? new InMemoryProjectRepository() : new FetchedProjectRepository();

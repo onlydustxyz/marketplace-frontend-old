@@ -1,4 +1,5 @@
 import { selector, selectorFamily } from "recoil";
+import { applicationRepository } from "src/model/applications/repository";
 import {
   AssignedStatus,
   CompletedStatus,
@@ -8,7 +9,7 @@ import {
   ContributionStatusEnum,
   OpenStatus,
   ProjectDto,
-  repository,
+  projectRepository,
 } from "src/model/projects/repository";
 import {
   contributionsFilterContextAtom,
@@ -63,7 +64,7 @@ type RawProjectWithContributions = {
 const rawProjectsWithContributionsQuery = selector<RawProjectWithContributions[]>({
   key: "RawProjects",
   get: async () => {
-    const projects = await repository.list();
+    const projects = await projectRepository.list();
 
     return projects.map(project => {
       const { contributions, ...projectFields } = project;
@@ -329,6 +330,21 @@ function filterProjectByProperty(propertyName: keyof Project, filteredValues: Ar
     return filteredValues.includes(project[propertyName]);
   };
 }
+
+export const hasContributorAppliedToContributionSelector = selectorFamily({
+  key: "HasContributorAppliedToContribution",
+  get:
+    (contributionId?: Contribution["id"] | undefined) =>
+    async ({ get }) => {
+      const contributorId = get(userContributorIdSelector);
+
+      if (!contributorId || !contributionId) {
+        return false;
+      }
+
+      return await applicationRepository.hasContributorAppliedToContribution({ contributionId, contributorId });
+    },
+});
 
 function countCompletedContributions(
   rawProjectsWithContributions: RawProjectWithContributions[],

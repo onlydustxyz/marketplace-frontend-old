@@ -44,7 +44,12 @@ export class FetchedContributionRepository implements ContributionRepository {
           return [
             ...aggregatedContributions,
             ...contributions.map(contributionDto => {
-              const project: Project = { ...projectFields, openedContributionsAmount: 5 };
+              const project: Project = {
+                ...projectFields,
+                openedContributionsAmount: contributions.filter(
+                  contribution => contribution.status === ContributionStatusEnum.OPEN
+                ).length,
+              };
               const contribution: Contribution = {
                 ...contributionDto,
                 project: project,

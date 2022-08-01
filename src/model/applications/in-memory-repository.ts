@@ -1,5 +1,5 @@
-import { ContributionDto } from "src/model/projects/repository";
-import { ApplicationRepository, HasContributorAppliedToContributionParams } from "./repository";
+import { ContributionDto } from "../projects/repository";
+import { ApplicationRepository, CreateParams, HasContributorAppliedToContributionParams } from "./repository";
 
 export class InMemoryApplicationRepository implements ApplicationRepository {
   private contributionsApplications: Record<ContributionDto["id"], Set<number>> = {
@@ -12,5 +12,14 @@ export class InMemoryApplicationRepository implements ApplicationRepository {
     contributorId,
   }: HasContributorAppliedToContributionParams) {
     return this.contributionsApplications[contributionId]?.has(contributorId);
+  }
+
+  public async create({ contributionId, contributorId }: CreateParams) {
+    if (!this.contributionsApplications[contributionId]) {
+      this.contributionsApplications[contributionId] = new Set<number>();
+    }
+    this.contributionsApplications[contributionId].add(contributorId);
+
+    return true;
   }
 }

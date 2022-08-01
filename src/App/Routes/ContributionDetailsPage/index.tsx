@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
@@ -10,8 +10,10 @@ import {
   userContributorIdSelector,
   userGithubHandleSelector,
 } from "src/state";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useState } from "react";
 import config from "src/config";
+import { applicationRepository } from "src/model/applications/repository";
+import { toastPromise } from "src/lib/toast-promise";
 
 type PageParams = {
   contributionId: string;
@@ -28,6 +30,8 @@ const ContributionDetailsPageContainer: FC = () => {
     hasContributorAppliedToContributionSelector(contributionId)
   );
 
+  const [appliying, setApplying] = useState(false);
+
   const buildTypeformParams = () => {
     const typeformParams = new URLSearchParams();
     account?.address && typeformParams.set("wallet", account.address);
@@ -38,15 +42,35 @@ const ContributionDetailsPageContainer: FC = () => {
     return typeformParams.toString();
   };
 
-  const apply = useCallback(() => {
-    if (!isGithubRegistered) {
+  const apply = useCallback(async () => {
+    if (!isGithubRegistered || !contribution || !contributorId) {
       setDisplayRegisterModal(true);
       return;
     }
+    setApplying(true);
 
-    const applyUrl = `${config.TYPEFORM_APPLY_URL}#${buildTypeformParams()}`;
+    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
+      success: () => {
+        return (
+          <div className="leading-[1rem] line-clamp-3">
+            Your application has been saved for the contribution{" "}
+            <Link to={`/contributions/${contribution.id}`} className="italic underline">
+              {contribution.title}
+            </Link>
+          </div>
+        );
+      },
+      pending: () => "Your application is being processed",
+      error: () => (
+        <>
+          An error occured while appliying to this contribution
+          <br />
+          Please try again
+        </>
+      ),
+    });
 
-    window.open(applyUrl, "_blank");
+    setApplying(false);
   }, [contributionId, isGithubRegistered]);
 
   const submit = useCallback(() => {
@@ -64,6 +88,7 @@ const ContributionDetailsPageContainer: FC = () => {
       contribution={contribution}
       apply={apply}
       submit={submit}
+      appliying={appliying}
       contributorId={contributorId}
       hasAppliedToContribution={hasAppliedToContribution}
     />

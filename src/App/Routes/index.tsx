@@ -1,8 +1,11 @@
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
 import Loader from "src/icons/Loader";
 import { trackingErrorHandler } from "src/utils/error-boundary";
+
 import ErrorFallbackRouterAware from "./ErrorFallbackRouterAware";
 import Layout from "./Layout";
 import Modals from "./Modals";
@@ -17,6 +20,7 @@ const MyContributionsPage = lazy(() => import("./MyContributionsPage"));
 export default function AppRoutes() {
   return (
     <BrowserRouter>
+      <Toaster position="bottom-right" />
       <ScrollTop />
       <Layout>
         <Modals>

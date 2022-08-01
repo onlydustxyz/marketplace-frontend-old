@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import Loader from "src/icons/Loader";
 import { trackingErrorHandler } from "src/utils/error-boundary";
 import ErrorFallbackRouterAware from "./ErrorFallbackRouterAware";
@@ -23,15 +23,16 @@ export default function AppRoutes() {
           <ErrorBoundary FallbackComponent={ErrorFallbackRouterAware} onError={trackingErrorHandler}>
             <Routes>
               <Route
-                path="/"
+                path="/contributions"
                 element={
                   <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                     <HomePage />
                   </Suspense>
                 }
               />
+              <Route path="/projects" element={<Navigate to="/" replace />} />
               <Route
-                path="/projects"
+                path="/"
                 element={
                   <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                     <ProjectsPage />
@@ -59,6 +60,17 @@ export default function AppRoutes() {
                 element={
                   <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
                     <MyContributionsPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
+                    <div className="mt-40 mb-8 text-4xl text-red-400/50">This page does not exists</div>
+                    <Link to="/" className="text-2xl text-light-purple/90 underline">
+                      Go back to the Home page
+                    </Link>
                   </Suspense>
                 }
               />

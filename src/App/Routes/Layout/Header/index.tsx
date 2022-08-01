@@ -11,10 +11,10 @@ const Header: FC = () => {
       style={{ gridTemplateColumns: "1fr 60px 1fr" }}
     >
       <div className="text-light-purple/66">
-        <NavLink to="/" className={({ isActive }) => (isActive ? "text-white" : undefined)}>
+        <NavLink to="/contributions" className={({ isActive }) => (isActive ? "text-white" : undefined)}>
           All contributions
         </NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "text-white ml-8" : "ml-8")} to="/projects">
+        <NavLink className={({ isActive }) => (isActive ? "text-white ml-8" : "ml-8")} to="/">
           All projects
         </NavLink>
       </div>

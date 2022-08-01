@@ -20,6 +20,7 @@ if (config.SENTRY_DSN) {
     environment: config.SENTRY_ENVIRONMENT,
     dist: import.meta.env.VITE_PLUGIN_SENTRY_CONFIG.dist,
     release: import.meta.env.VITE_PLUGIN_SENTRY_CONFIG.release,
+    enabled: process.env.NODE_ENV === "production",
   });
 }
 

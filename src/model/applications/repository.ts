@@ -6,8 +6,15 @@ export type HasContributorAppliedToContributionParams = {
   contributionId: ContributionDto["id"];
   contributorId: number;
 };
+
+export type CreateParams = {
+  contributionId: string;
+  contributorId: number;
+};
+
 export interface ApplicationRepository {
   hasContributorAppliedToContribution(params: HasContributorAppliedToContributionParams): Promise<boolean>;
+  create(params: CreateParams): Promise<boolean>;
 }
 
 export const applicationRepository: ApplicationRepository =

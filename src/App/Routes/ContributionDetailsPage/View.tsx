@@ -11,10 +11,12 @@ import logoPlaceholder from "src/assets/img/project-logo-placeholder.png";
 import Button from "src/components/Button";
 import StatusHeader from "./StatusHeader";
 import MetadataList from "./MetadataList";
+import Loader from "src/icons/Loader";
 
 type Props = {
   apply: () => void;
   submit: () => void;
+  appliying: boolean;
   contribution: Contribution;
   contributorId?: number;
   hasAppliedToContribution: boolean;
@@ -23,6 +25,7 @@ type Props = {
 const ContributionDetailsPage: FC<Props> = ({
   apply,
   submit,
+  appliying,
   contribution,
   contributorId,
   hasAppliedToContribution = false,
@@ -69,6 +72,14 @@ const ContributionDetailsPage: FC<Props> = ({
   );
 
   function renderActionButton() {
+    if (appliying) {
+      return (
+        <Button onClick={apply} disabled>
+          Applying
+          <Loader className="animate-spin ml-4" />
+        </Button>
+      );
+    }
     if (
       contribution?.status === ContributionStatusEnum.ASSIGNED &&
       parseInt(contribution.metadata.assignee, 16) === contributorId

@@ -1,9 +1,10 @@
-import * as path from "path";
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
+
+import * as path from "path";
 import react from "@vitejs/plugin-react";
 import viteSentry from "vite-plugin-sentry";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   envPrefix: "MARKETPLACE_",
   plugins: [
@@ -35,6 +36,7 @@ export default defineConfig({
   resolve: {
     alias: {
       src: path.resolve(__dirname, "./src"),
+      tests: path.resolve(__dirname, "./tests"),
     },
   },
   build: {
@@ -48,5 +50,9 @@ export default defineConfig({
         sourcemapExcludeSources: true,
       },
     },
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
   },
 });

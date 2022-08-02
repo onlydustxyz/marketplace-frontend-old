@@ -1,21 +1,21 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly DEATHNOTE_GITHUB_CLIENT_ID: string;
-  readonly DEATHNOTE_GITHUB_REDIRECT_URI: string;
-  readonly DEATHNOTE_DATA_API_HOSTNAME: string;
-  readonly DEATHNOTE_SIGNUP_API_HOSTNAME: string;
-  readonly DEATHNOTE_REGISTRY_CONTRACT_ADDRESS: string;
+  readonly MARKETPLACE_GITHUB_CLIENT_ID: string;
+  readonly MARKETPLACE_GITHUB_REDIRECT_URI: string;
+  readonly MARKETPLACE_DATA_API_HOSTNAME: string;
+  readonly MARKETPLACE_SIGNUP_API_HOSTNAME: string;
+  readonly MARKETPLACE_REGISTRY_CONTRACT_ADDRESS: string;
 
-  readonly DEATHNOTE_STARKNET_NETWORK: "mainnet-alpha" | "goerli-alpha" | "localhost";
-  readonly DEATHNOTE_STARKNET_HOSTNAME: string;
+  readonly MARKETPLACE_STARKNET_NETWORK: "mainnet-alpha" | "goerli-alpha" | "localhost";
+  readonly MARKETPLACE_STARKNET_HOSTNAME: string;
 
-  readonly DEATHNOTE_TYPEFORM_APPLY_URL: string;
-  readonly DEATHNOTE_TYPEFORM_SUBMIT_URL: string;
-  readonly DEATHNOTE_SENTRY_DSN: string;
-  readonly DEATHNOTE_SENTRY_ENVIRONMENT: string;
-  readonly DEATHNOTE_SENTRY_RELEASE: string;
-  readonly DEATHNOTE_SENTRY_TRACES_SAMPLE_RATE: string;
+  readonly MARKETPLACE_TYPEFORM_APPLY_URL: string;
+  readonly MARKETPLACE_TYPEFORM_SUBMIT_URL: string;
+  readonly MARKETPLACE_SENTRY_DSN: string;
+  readonly MARKETPLACE_SENTRY_ENVIRONMENT: string;
+  readonly MARKETPLACE_SENTRY_RELEASE: string;
+  readonly MARKETPLACE_SENTRY_TRACES_SAMPLE_RATE: string;
 }
 
 interface ImportMeta {

@@ -6,10 +6,10 @@ import viteSentry from "vite-plugin-sentry";
 
 const sentryConfig: ViteSentryPluginOptions = {
   url: "https://sentry.io",
-  authToken: process.env.DEATHNOTE_SENTRY_AUTH_TOKEN,
-  org: process.env.DEATHNOTE_SENTRY_ORG,
-  project: process.env.DEATHNOTE_SENTRY_PROJECT,
-  release: process.env.DEATHNOTE_SENTRY_RELEASE,
+  authToken: process.env.MARKETPLACE_SENTRY_AUTH_TOKEN,
+  org: process.env.MARKETPLACE_SENTRY_ORG,
+  project: process.env.MARKETPLACE_SENTRY_PROJECT,
+  release: process.env.MARKETPLACE_SENTRY_RELEASE,
   deploy: {
     env: "production",
   },
@@ -25,7 +25,7 @@ const sentryConfig: ViteSentryPluginOptions = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  envPrefix: "DEATHNOTE_",
+  envPrefix: "MARKETPLACE_",
   plugins: [react(), viteSentry(sentryConfig)],
   resolve: {
     alias: {

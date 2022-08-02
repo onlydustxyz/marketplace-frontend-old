@@ -1,12 +1,14 @@
-name: Continuous integration
+name: Build and deploy for production
 
 on:
-  pull_request: ~
+  push:
+    tags:
+      - v*
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    environment: staging
+  deploy:
+    runs-on: self-hosted
+    environment: production
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -14,9 +16,9 @@ jobs:
           node-version: 16
       - name: Install yarn
         run: npm install -g yarn
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --from-lockfile
       - name: Build project
-        run: yarn build
+        run: yarn build:prod
         env:
           MARKETPLACE_DATA_API_HOSTNAME: ${{ secrets.MARKETPLACE_DATA_API_HOSTNAME }}
           MARKETPLACE_SIGNUP_API_HOSTNAME: ${{ secrets.MARKETPLACE_SIGNUP_API_HOSTNAME }}
@@ -33,23 +35,10 @@ jobs:
           MARKETPLACE_SENTRY_AUTH_TOKEN: ${{ secrets.MARKETPLACE_SENTRY_AUTH_TOKEN }}
           MARKETPLACE_SENTRY_ORG: ${{ secrets.MARKETPLACE_SENTRY_ORG }}
           MARKETPLACE_SENTRY_PROJECT: ${{ secrets.MARKETPLACE_SENTRY_PROJECT }}
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "yarn"
-      - run: yarn install --frozen-lockfile
-      - run: yarn lint
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "yarn"
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
+      - name: Copy files to the production frontend with the AWS CLI
+        run: |
+          aws s3 sync --delete dist s3://onlydust-marketplace-frontend
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id E2CSPLZPZT8HV9 --paths "/*"
+      - name: Uninstall yarn
+        run: npm uninstall -g yarn

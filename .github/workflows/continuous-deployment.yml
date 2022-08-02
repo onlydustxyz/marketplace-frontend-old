@@ -1,4 +1,4 @@
-name: Build and deploy
+name: Build and deploy for staging
 
 on:
   push:
@@ -7,7 +7,8 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    environment: staging
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -34,10 +35,8 @@ jobs:
           MARKETPLACE_SENTRY_AUTH_TOKEN: ${{ secrets.MARKETPLACE_SENTRY_AUTH_TOKEN }}
           MARKETPLACE_SENTRY_ORG: ${{ secrets.MARKETPLACE_SENTRY_ORG }}
           MARKETPLACE_SENTRY_PROJECT: ${{ secrets.MARKETPLACE_SENTRY_PROJECT }}
-      - name: Copy files to the test website with the AWS CLI
+      - name: Copy files to the staging frontend with the AWS CLI
         run: |
-          aws s3 sync dist s3://onlydust-deathnote-frontend
+          aws s3 sync --delete dist s3://onlydust-staging-marketplace-frontend
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E26UTVUNWI160B --paths "/*"
-      - name: Uninstall yarn
-        run: npm uninstall -g yarn

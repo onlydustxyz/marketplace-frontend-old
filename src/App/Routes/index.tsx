@@ -8,7 +8,7 @@ import Layout from "./Layout";
 import Modals from "./Modals";
 import ScrollTop from "./ScrollTop";
 
-const HomePage = lazy(() => import("./HomePage"));
+const ContributionsPage = lazy(() => import("./ContributionsPage"));
 const ProjectsPage = lazy(() => import("./ProjectsPage"));
 const ContributionDetailsPage = lazy(() => import("./ContributionDetailsPage"));
 const ProjectDetailsPage = lazy(() => import("./ProjectDetailsPage"));
@@ -26,7 +26,7 @@ export default function AppRoutes() {
                 path="/contributions"
                 element={
                   <Suspense fallback={<Loader className="animate-spin mt-[30vh]" size={62} />}>
-                    <HomePage />
+                    <ContributionsPage />
                   </Suspense>
                 }
               />

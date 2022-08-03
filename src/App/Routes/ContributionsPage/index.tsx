@@ -6,7 +6,7 @@ import FilterIcon from "src/icons/Filter";
 import { filteredContributionsSelector } from "src/state/contributions-filters";
 import Filters from "./Filters";
 
-const HomePage: FC = () => {
+const ContributionsPage: FC = () => {
   const contributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(filteredContributionsSelector);
 
   const [displayFilters, setDisplayFilters] = useState(false);
@@ -41,4 +41,4 @@ const HomePage: FC = () => {
   );
 };
 
-export default HomePage;
+export default ContributionsPage;

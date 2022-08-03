@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "src/config";
+import { padLeft } from "starknet/dist/utils/encode";
 
 import { ApplicationRepository, CreateParams, HasContributorAppliedToContributionParams } from "./repository";
 
@@ -20,7 +21,7 @@ export class FetchedApplicationRepository implements ApplicationRepository {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/contributions/${contributionId}/applications`);
 
     const response = await axios.post(endpointUrl.toString(), {
-      contributorId: contributorId.toString(10),
+      contributor_id: padLeft(contributorId.toString(16), 64),
     });
 
     return response.status === 204;

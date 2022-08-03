@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
   accountAtom,
@@ -10,7 +10,7 @@ import {
   userContributorIdSelector,
   userGithubHandleSelector,
 } from "src/state";
-import { FC, useCallback, useState } from "react";
+import { FC, startTransition, useCallback, useState } from "react";
 import config from "src/config";
 import { applicationRepository } from "src/model/applications/repository";
 import { toastPromise } from "src/lib/toast-promise";
@@ -30,6 +30,7 @@ const ContributionDetailsPageContainer: FC = () => {
     hasContributorAppliedToContributionSelector(contributionId)
   );
 
+  const refreshApplication = useRecoilRefresher_UNSTABLE(hasContributorAppliedToContributionSelector(contributionId));
   const [appliying, setApplying] = useState(false);
 
   const buildTypeformParams = () => {
@@ -70,6 +71,9 @@ const ContributionDetailsPageContainer: FC = () => {
       ),
     });
 
+    startTransition(() => {
+      refreshApplication();
+    });
     setApplying(false);
   }, [contributionId, isGithubRegistered]);
 

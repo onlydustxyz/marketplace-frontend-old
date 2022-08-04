@@ -3,12 +3,22 @@ import {
   AssignedStatus,
   CompletedStatus,
   ContributionDto,
+  ContributionMetadata,
   ContributionStatusAndMetadata,
   ContributionStatusEnum,
   OpenStatus,
   ProjectDto,
   repository,
 } from "src/model/projects/repository";
+import {
+  contributionsFilterContextAtom,
+  contributionsFilterDifficultyAtom,
+  contributionsFilterDurationAtom,
+  contributionsFilterProjectAtom,
+  contributionsFilterStatusAtom,
+  contributionsFilterTechnologyAtom,
+  contributionsFilterTypeAtom,
+} from "./contributions-filters";
 import { userContributorIdSelector } from "./profileRegistryContract";
 
 type ProjectBase = {
@@ -23,7 +33,12 @@ type ProjectBase = {
 
 export type Project = ProjectBase & {
   openedContributionsAmount: number;
-  technologies: string[];
+  statuses: Array<Contribution["status"] | "gated">;
+  technologies: Contribution["metadata"]["technology"][];
+  durations: Contribution["metadata"]["duration"][];
+  contexts: Contribution["metadata"]["context"][];
+  difficulties: Contribution["metadata"]["difficulty"][];
+  types: Contribution["metadata"]["type"][];
 };
 
 export type Contribution = {
@@ -65,7 +80,10 @@ const rawProjectsWithContributionsQuery = selector<RawProjectWithContributions[]
 export const projectsQuery = selector({
   key: "Projects",
   get: ({ get }) => {
+    const userContributorId = get(userContributorIdSelector);
     const rawProjectsWithContributions = get(rawProjectsWithContributionsQuery);
+
+    const completedContributionsAmount = countCompletedContributions(rawProjectsWithContributions, userContributorId);
 
     return rawProjectsWithContributions.map(({ project, contributions }) => {
       const formattedProject: Project = {
@@ -74,6 +92,11 @@ export const projectsQuery = selector({
           contribution => contribution.status === ContributionStatusEnum.OPEN
         ).length,
         technologies: formatProjectTechnologies(contributions),
+        statuses: formatProjectStatuses(contributions, completedContributionsAmount),
+        durations: formatProjectMetadata("duration", contributions),
+        contexts: formatProjectMetadata("context", contributions),
+        difficulties: formatProjectMetadata("difficulty", contributions),
+        types: formatProjectMetadata("type", contributions),
       };
 
       return formattedProject;
@@ -252,6 +275,62 @@ export const technologiesQuery = selector({
   },
 });
 
+export const filteredProjectsSelector = selector({
+  key: "FilteredProjects",
+
+  get: ({ get }) => {
+    const projects = get(projectsQuery);
+
+    const contributionsFilterContext = get(contributionsFilterContextAtom("projects"));
+    const contributionsFilterDifficulty = get(contributionsFilterDifficultyAtom("projects"));
+    const contributionsFilterDuration = get(contributionsFilterDurationAtom("projects"));
+    const contributionsFilterStatus = get(contributionsFilterStatusAtom("projects"));
+    const contributionsFilterTechnology = get(contributionsFilterTechnologyAtom("projects"));
+    const contributionsFilterType = get(contributionsFilterTypeAtom("projects"));
+
+    console.log({ contributionsFilterTechnology });
+    return projects
+      .filter(filterProjectByStatuses(contributionsFilterStatus))
+      .filter(filterProjectByProperty("contexts", contributionsFilterContext))
+      .filter(filterProjectByProperty("difficulties", contributionsFilterDifficulty))
+      .filter(filterProjectByProperty("durations", contributionsFilterDuration))
+      .filter(filterProjectByProperty("technologies", contributionsFilterTechnology))
+      .filter(filterProjectByProperty("types", contributionsFilterType));
+  },
+});
+
+function filterProjectByStatuses(statuses: Array<ContributionStatusEnum | "gated">) {
+  return (project: Project) => {
+    if (statuses.length === 0) {
+      return true;
+    }
+
+    return project.statuses.some(status => {
+      return statuses.includes(status);
+    });
+  };
+}
+
+function filterProjectByProperty(propertyName: keyof Project, filteredValues: Array<Project[typeof propertyName]>) {
+  return (project: Project) => {
+    if (filteredValues.length === 0) {
+      return true;
+    }
+
+    if (!project[propertyName]) {
+      return false;
+    }
+
+    if (Array.isArray(project[propertyName])) {
+      return (project[propertyName] as Array<Project[typeof propertyName]>).some(propertyValue => {
+        return filteredValues.includes(propertyValue);
+      });
+    }
+
+    return filteredValues.includes(project[propertyName]);
+  };
+}
+
 function countCompletedContributions(
   rawProjectsWithContributions: RawProjectWithContributions[],
   contributorId: number | undefined
@@ -274,6 +353,25 @@ function countCompletedContributions(
       }, 0)
     );
   }, 0);
+}
+
+function formatProjectMetadata<T extends keyof ContributionMetadata>(
+  metadataName: T,
+  contributions: ContributionDto[]
+) {
+  const metadataSet = new Set<ContributionMetadata[T]>();
+
+  contributions.forEach(contribution => {
+    const metadataValue = contribution.metadata[metadataName];
+
+    if (!metadataValue) {
+      return;
+    }
+
+    metadataSet.add(metadataValue);
+  });
+
+  return Array.from(metadataSet);
 }
 
 function formatProjectTechnologies(contributions: ContributionDto[]) {
@@ -300,4 +398,21 @@ function formatProjectTechnologies(contributions: ContributionDto[]) {
       return count1 < count2 ? 1 : -1;
     })
     .map(([technology]) => technology);
+}
+
+function formatProjectStatuses(contributions: ContributionDto[], completedContributionsAmount: number | null) {
+  const statuses = new Set<Contribution["status"] | "gated">();
+
+  contributions.forEach(contribution => {
+    const finalStatus =
+      contribution.status === ContributionStatusEnum.OPEN &&
+      completedContributionsAmount !== null &&
+      completedContributionsAmount < contribution.gate
+        ? "gated"
+        : contribution.status;
+
+    statuses.add(finalStatus);
+  });
+
+  return Array.from(statuses);
 }

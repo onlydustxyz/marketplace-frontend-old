@@ -1,24 +1,29 @@
 import { FC } from "react";
 
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributionsFilterProjectAtom } from "src/state/contributions-filters";
+import { contributionsFilterTechnologyAtom } from "src/state/contributions-filters";
 import ListBoxFilter from "src/components/ListBoxFilter";
-import { projectsQuery } from "src/state";
+import { technologiesQuery } from "src/state";
+import { FilterProps } from ".";
 
-const ProjectFilter: FC = () => {
-  const projects = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(projectsQuery);
+type Props = {
+  sourceKey: FilterProps["sourceKey"];
+};
+
+const TechnologyFilter: FC<Props> = ({ sourceKey }) => {
+  const technologies = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(technologiesQuery);
   const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
-    contributionsFilterProjectAtom("contributions")
+    contributionsFilterTechnologyAtom(sourceKey)
   );
 
-  const values = projects
-    .map(project => ({
-      id: project.id,
-      label: project.title,
-      data: project,
+  const values = technologies
+    .map(technology => ({
+      id: technology,
+      label: technology,
+      data: technology,
     }))
-    .sort((project1, project2) => {
-      return project1.label < project2.label ? -1 : 1;
+    .sort((technology1, technology2) => {
+      return technology1.label < technology2.label ? -1 : 1;
     });
 
   const selectedValues = values.filter(value => selectedDifficulties.includes(value.id));
@@ -32,10 +37,10 @@ const ProjectFilter: FC = () => {
       values={values}
       selectedValues={selectedValues}
       setSelectedValues={setSelectedValues}
-      label="Project"
+      label="Technology"
       multiple
     />
   );
 };
 
-export default ProjectFilter;
+export default TechnologyFilter;

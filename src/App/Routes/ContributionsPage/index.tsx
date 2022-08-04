@@ -4,7 +4,7 @@ import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import ContributionList from "src/components/ContributionList";
 import FilterIcon from "src/icons/Filter";
 import { filteredContributionsSelector } from "src/state/contributions-filters";
-import Filters from "./Filters";
+import Filters from "src/components/Filters";
 
 const ContributionsPage: FC = () => {
   const contributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(filteredContributionsSelector);
@@ -34,7 +34,7 @@ const ContributionsPage: FC = () => {
         </div>
       </div>
 
-      <Filters className={cn("mt-5", !displayFilters && "hidden")} />
+      <Filters className={cn("mt-5", !displayFilters && "hidden")} sourceKey="contributions" />
 
       <ContributionList className="mt-12" contributions={contributions} />
     </div>

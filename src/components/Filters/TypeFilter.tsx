@@ -4,6 +4,11 @@ import { ContributionTypeEnum } from "src/model/projects/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import { contributionsFilterTypeAtom } from "src/state/contributions-filters";
 import ListBoxFilter from "src/components/ListBoxFilter";
+import { FilterProps } from ".";
+
+type Props = {
+  sourceKey: FilterProps["sourceKey"];
+};
 
 const statuses: Array<ContributionTypeEnum> = [
   ContributionTypeEnum.BUG,
@@ -15,9 +20,9 @@ const statuses: Array<ContributionTypeEnum> = [
   ContributionTypeEnum.TEST,
 ];
 
-const TypeFilter: FC = () => {
+const TypeFilter: FC<Props> = ({ sourceKey }) => {
   const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
-    contributionsFilterTypeAtom("contributions")
+    contributionsFilterTypeAtom(sourceKey)
   );
 
   const values = statuses.map(status => ({

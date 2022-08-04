@@ -4,6 +4,11 @@ import { ContributionStatusEnum } from "src/model/projects/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import { contributionsFilterStatusAtom } from "src/state/contributions-filters";
 import ListBoxFilter from "src/components/ListBoxFilter";
+import { FilterProps } from ".";
+
+type Props = {
+  sourceKey: FilterProps["sourceKey"];
+};
 
 const statuses: Array<ContributionStatusEnum | "gated"> = [
   ContributionStatusEnum.OPEN,
@@ -12,9 +17,9 @@ const statuses: Array<ContributionStatusEnum | "gated"> = [
   ContributionStatusEnum.COMPLETED,
 ];
 
-const StatusFilter: FC = () => {
+const StatusFilter: FC<Props> = ({ sourceKey }) => {
   const [selectedStatuses, setSelectedStatuses] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
-    contributionsFilterStatusAtom("contributions")
+    contributionsFilterStatusAtom(sourceKey)
   );
 
   const values = statuses.map(status => ({

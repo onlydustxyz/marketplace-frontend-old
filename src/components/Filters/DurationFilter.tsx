@@ -1,19 +1,24 @@
 import { FC } from "react";
 
-import { ContributionContextEnum } from "src/model/projects/repository";
+import { ContributionDurationEnum } from "src/model/projects/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributionsFilterContextAtom } from "src/state/contributions-filters";
+import { contributionsFilterDurationAtom } from "src/state/contributions-filters";
 import ListBoxFilter from "src/components/ListBoxFilter";
+import { FilterProps } from ".";
 
-const statuses: Array<ContributionContextEnum> = [
-  ContributionContextEnum.ISOLATED,
-  ContributionContextEnum.COUPLED,
-  ContributionContextEnum.INTRICATED,
+type Props = {
+  sourceKey: FilterProps["sourceKey"];
+};
+
+const statuses: Array<ContributionDurationEnum> = [
+  ContributionDurationEnum.UNDER_A_DAY,
+  ContributionDurationEnum.FEW_DAYS,
+  ContributionDurationEnum.WEEKS,
 ];
 
-const ContextFilter: FC = () => {
+const DurationFilter: FC<Props> = ({ sourceKey }) => {
   const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
-    contributionsFilterContextAtom("contributions")
+    contributionsFilterDurationAtom(sourceKey)
   );
 
   const values = statuses.map(status => ({
@@ -33,10 +38,10 @@ const ContextFilter: FC = () => {
       values={values}
       selectedValues={selectedValues}
       setSelectedValues={setSelectedValues}
-      label="Context"
+      label="Duration"
       multiple
     />
   );
 };
 
-export default ContextFilter;
+export default DurationFilter;

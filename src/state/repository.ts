@@ -14,7 +14,6 @@ import {
   contributionsFilterContextAtom,
   contributionsFilterDifficultyAtom,
   contributionsFilterDurationAtom,
-  contributionsFilterProjectAtom,
   contributionsFilterStatusAtom,
   contributionsFilterTechnologyAtom,
   contributionsFilterTypeAtom,

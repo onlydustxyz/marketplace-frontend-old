@@ -1,9 +1,9 @@
+import { ContributionDto } from "src/model/projects/repository";
 import { InMemoryApplicationRepository } from "./in-memory-repository";
 import { FetchedApplicationRepository } from "./fetched-repository";
-import { Contribution } from "src/state";
 
 export type HasContributorAppliedToContributionParams = {
-  contributionId: Contribution["id"];
+  contributionId: ContributionDto["id"];
   contributorId: number;
 };
 export interface ApplicationRepository {

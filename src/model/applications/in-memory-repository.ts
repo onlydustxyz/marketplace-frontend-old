@@ -1,8 +1,8 @@
-import { Contribution } from "src/state";
+import { ContributionDto } from "src/model/projects/repository";
 import { ApplicationRepository, HasContributorAppliedToContributionParams } from "./repository";
 
 export class InMemoryApplicationRepository implements ApplicationRepository {
-  private contributionsApplications: Record<Contribution["id"], Set<number>> = {
+  private contributionsApplications: Record<ContributionDto["id"], Set<number>> = {
     "1": new Set([38]),
     "3": new Set([1]),
   };

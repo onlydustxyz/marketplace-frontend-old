@@ -9,12 +9,25 @@ export interface Props {
   title?: string;
   isOpen: boolean;
   onClose: () => void;
+  disableClose?: boolean;
 }
 
-const Modal: FC<PropsWithChildren<Props>> = ({ contentClassName, title, isOpen, onClose, children }) => {
+const Modal: FC<PropsWithChildren<Props>> = ({
+  contentClassName,
+  disableClose = false,
+  title,
+  isOpen,
+  onClose,
+  children,
+}) => {
+  const closeAction = disableClose
+    ? () => {
+        return;
+      }
+    : onClose;
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto " onClose={onClose}>
+      <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto " onClose={closeAction}>
         <div className="min-h-screen px-4 text-center flex flex-col items-center justify-center ">
           <Transition.Child
             as={Fragment}
@@ -49,9 +62,11 @@ const Modal: FC<PropsWithChildren<Props>> = ({ contentClassName, title, isOpen, 
                     {title}
                   </Dialog.Title>
                 )}
-                <div className="absolute top-4 right-3 cursor-pointer font-sans" onClick={onClose}>
-                  <CrossIcon className="fill-white" size={18} />
-                </div>
+                {!disableClose && (
+                  <div className="absolute top-4 right-3 cursor-pointer font-sans" onClick={closeAction}>
+                    <CrossIcon className="fill-white" size={18} />
+                  </div>
+                )}
               </div>
               <div className="text-lg">{children}</div>
             </div>

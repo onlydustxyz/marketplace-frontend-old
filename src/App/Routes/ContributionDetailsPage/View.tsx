@@ -30,9 +30,11 @@ const ContributionDetailsPage: FC<Props> = ({ apply, submit, contribution, contr
         </div>
       </div>
       <div className="relative flex flex-col items-center px-12 max-w-screen-xl w-full">
-        <div className="mt-8 mx-12 font-alfreda text-[52px] leading-[68px] capitalize text-center">
-          {contribution.title}
-        </div>
+        <a href={contribution.github_link} target="_blank">
+          <div className="mt-8 mx-12 font-alfreda text-[52px] leading-[68px] capitalize text-center">
+            {contribution.title}
+          </div>
+        </a>
         <div className="mt-8 flex flex-col items-center">
           <Link to={`/projects/${contribution.project.id}`}>
             <img className="rounded-full" src={contribution.project.logo || logoPlaceholder} width={54} />

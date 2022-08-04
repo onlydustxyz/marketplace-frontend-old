@@ -1,14 +1,21 @@
 import { FC, PropsWithChildren, ReactElement, useEffect, useTransition } from "react";
-import { Abi } from "starknet";
+import { Abi, AccountInterface } from "starknet";
 import { useConnectors, useContract, useStarknet, useStarknetBlock } from "@starknet-react/core";
 
 import config from "src/config";
 import profileRegistryAbi from "src/abis/profileRegistry.json";
 import { useSetRecoilState } from "recoil";
-import { accountAtom, blockNumberAtom, profileRegistryContractAtom, providerAtom } from "src/state";
+import {
+  accountAtom,
+  blockNumberAtom,
+  profileRegistryContractAtom,
+  providerAtom,
+  starknetChainIdAtom,
+} from "src/state";
 
 const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
   const setAccount = useSetRecoilState(accountAtom);
+  const setStarknetChainId = useSetRecoilState(starknetChainIdAtom);
   const setProvider = useSetRecoilState(providerAtom);
   const setProfileRegistryContract = useSetRecoilState(profileRegistryContractAtom);
   const setBlockNumber = useSetRecoilState(blockNumberAtom);
@@ -47,10 +54,11 @@ const StarknetSyncState: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     (async () => {
       for (const connector of connectors) {
-        const account = await connector.account();
-        if (account?.address === accountAddress) {
+        const account: AccountInterface = await connector.account();
+        if (accountAddress !== undefined && account?.address === accountAddress) {
           startTransition(() => {
             setAccount(account);
+            setStarknetChainId(account.chainId);
           });
           return;
         }

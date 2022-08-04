@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, Suspense } from "react";
+import EnsureGoerliModal from "./EnsureGoerliModal";
 
 import RegisterModal from "./RegisterModal";
 
@@ -7,6 +8,7 @@ const Modals: FC<PropsWithChildren> = ({ children }) => {
     <>
       {children}
       <Suspense>
+        <EnsureGoerliModal />
         <RegisterModal />
       </Suspense>
     </>

@@ -1,8 +1,14 @@
 import { atom, selector } from "recoil";
 import { AccountInterface, ProviderInterface } from "starknet";
+import { StarknetChainId } from "starknet/dist/constants";
 
 export const accountAtom = atom<AccountInterface | undefined>({
   key: "Account",
+  default: undefined,
+});
+
+export const starknetChainIdAtom = atom<StarknetChainId | undefined>({
+  key: "StarknetChainId",
   default: undefined,
 });
 

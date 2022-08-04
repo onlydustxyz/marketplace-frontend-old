@@ -12,8 +12,9 @@ const statuses: Array<ContributionContextEnum> = [
 ];
 
 const ContextFilter: FC = () => {
-  const [selectedDifficulties, setSelectedDifficulties] =
-    useRecoilState_TRANSITION_SUPPORT_UNSTABLE(contributionsFilterContextAtom);
+  const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
+    contributionsFilterContextAtom("contributions")
+  );
 
   const values = statuses.map(status => ({
     id: status,

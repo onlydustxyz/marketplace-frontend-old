@@ -8,7 +8,7 @@ import { technologiesQuery } from "src/state";
 const TechnologyFilter: FC = () => {
   const technologies = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(technologiesQuery);
   const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
-    contributionsFilterTechnologyAtom
+    contributionsFilterTechnologyAtom("contributions")
   );
 
   const values = technologies

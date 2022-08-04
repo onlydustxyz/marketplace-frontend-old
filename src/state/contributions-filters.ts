@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom, atomFamily, selector } from "recoil";
 
 import {
   ContributionContextEnum,
@@ -8,6 +8,7 @@ import {
   ContributionStatusEnum,
   ContributionTypeEnum,
 } from "src/model/projects/repository";
+
 import {
   completedContributionsQuery,
   Contribution,
@@ -17,37 +18,37 @@ import {
   Project,
 } from "./repository";
 
-export const contributionsFilterContextAtom = atom<ContributionContextEnum[]>({
+export const contributionsFilterContextAtom = atomFamily<ContributionContextEnum[], string>({
   key: "ContributionsFilterContext",
   default: [],
 });
 
-export const contributionsFilterDifficultyAtom = atom<ContributionDifficultyEnum[]>({
+export const contributionsFilterDifficultyAtom = atomFamily<ContributionDifficultyEnum[], string>({
   key: "ContributionsFilterDifficulty",
   default: [],
 });
 
-export const contributionsFilterDurationAtom = atom<ContributionDurationEnum[]>({
+export const contributionsFilterDurationAtom = atomFamily<ContributionDurationEnum[], string>({
   key: "ContributionsFilterDuration",
   default: [],
 });
 
-export const contributionsFilterProjectAtom = atom<string[]>({
+export const contributionsFilterProjectAtom = atomFamily<string[], string>({
   key: "ContributionsFilterProject",
   default: [],
 });
 
-export const contributionsFilterStatusAtom = atom<Array<ContributionStatusEnum | "gated">>({
+export const contributionsFilterStatusAtom = atomFamily<Array<ContributionStatusEnum | "gated">, string>({
   key: "ContributionsFilterStatus",
   default: [],
 });
 
-export const contributionsFilterTechnologyAtom = atom<string[]>({
+export const contributionsFilterTechnologyAtom = atomFamily<string[], string>({
   key: "ContributionsFilterTechnology",
   default: [],
 });
 
-export const contributionsFilterTypeAtom = atom<ContributionTypeEnum[]>({
+export const contributionsFilterTypeAtom = atomFamily<ContributionTypeEnum[], string>({
   key: "ContributionsFilterType",
   default: [],
 });
@@ -61,13 +62,13 @@ export const filteredContributionsSelector = selector({
     const ongoingContributions = get(ongoingContributionsQuery);
     const completedContributions = get(completedContributionsQuery);
 
-    const contributionsFilterContext = get(contributionsFilterContextAtom);
-    const contributionsFilterDifficulty = get(contributionsFilterDifficultyAtom);
-    const contributionsFilterDuration = get(contributionsFilterDurationAtom);
-    const contributionsFilterProject = get(contributionsFilterProjectAtom);
-    const contributionsFilterStatus = get(contributionsFilterStatusAtom);
-    const contributionsFilterTechnology = get(contributionsFilterTechnologyAtom);
-    const contributionsFilterType = get(contributionsFilterTypeAtom);
+    const contributionsFilterContext = get(contributionsFilterContextAtom("contributions"));
+    const contributionsFilterDifficulty = get(contributionsFilterDifficultyAtom("contributions"));
+    const contributionsFilterDuration = get(contributionsFilterDurationAtom("contributions"));
+    const contributionsFilterProject = get(contributionsFilterProjectAtom("contributions"));
+    const contributionsFilterStatus = get(contributionsFilterStatusAtom("contributions"));
+    const contributionsFilterTechnology = get(contributionsFilterTechnologyAtom("contributions"));
+    const contributionsFilterType = get(contributionsFilterTypeAtom("contributions"));
 
     const allContributions = [
       ...openedContributions,

@@ -13,7 +13,7 @@ const statuses: Array<ContributionDifficultyEnum> = [
 
 const DifficultyFilter: FC = () => {
   const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
-    contributionsFilterDifficultyAtom
+    contributionsFilterDifficultyAtom("contributions")
   );
 
   const values = statuses.map(status => ({

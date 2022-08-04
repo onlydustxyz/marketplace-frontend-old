@@ -7,8 +7,9 @@ import { projectsQuery } from "src/state";
 
 const ProjectFilter: FC = () => {
   const projects = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(projectsQuery);
-  const [selectedDifficulties, setSelectedDifficulties] =
-    useRecoilState_TRANSITION_SUPPORT_UNSTABLE(contributionsFilterProjectAtom);
+  const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
+    contributionsFilterProjectAtom("contributions")
+  );
 
   const values = projects
     .map(project => ({

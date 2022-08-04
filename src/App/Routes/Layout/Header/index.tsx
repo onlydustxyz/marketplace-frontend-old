@@ -10,7 +10,7 @@ const Header: FC = () => {
       <a
         href="https://discord.com/invite/TXBr4pbmCJ"
         target="_blank"
-        className="d-block w-full h-[40px] flex justify-center items-center bg-light-purple text-space-blue col-span-3"
+        className="d-block min-h-[40px] py-1 px-8 leading-5 flex justify-center items-center bg-light-purple text-space-blue col-span-3 text-center"
       >
         We are currently in beta running on the testnet. If you have any problem using it, come and chat on our Discord
         →

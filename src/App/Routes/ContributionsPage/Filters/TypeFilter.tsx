@@ -16,8 +16,9 @@ const statuses: Array<ContributionTypeEnum> = [
 ];
 
 const TypeFilter: FC = () => {
-  const [selectedDifficulties, setSelectedDifficulties] =
-    useRecoilState_TRANSITION_SUPPORT_UNSTABLE(contributionsFilterTypeAtom);
+  const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
+    contributionsFilterTypeAtom("contributions")
+  );
 
   const values = statuses.map(status => ({
     id: status,

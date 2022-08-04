@@ -13,8 +13,9 @@ const statuses: Array<ContributionStatusEnum | "gated"> = [
 ];
 
 const StatusFilter: FC = () => {
-  const [selectedStatuses, setSelectedStatuses] =
-    useRecoilState_TRANSITION_SUPPORT_UNSTABLE(contributionsFilterStatusAtom);
+  const [selectedStatuses, setSelectedStatuses] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
+    contributionsFilterStatusAtom("contributions")
+  );
 
   const values = statuses.map(status => ({
     id: status,

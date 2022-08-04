@@ -13,7 +13,7 @@ const statuses: Array<ContributionDurationEnum> = [
 
 const DurationFilter: FC = () => {
   const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
-    contributionsFilterDurationAtom
+    contributionsFilterDurationAtom("contributions")
   );
 
   const values = statuses.map(status => ({

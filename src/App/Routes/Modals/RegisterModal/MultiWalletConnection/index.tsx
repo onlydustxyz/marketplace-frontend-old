@@ -2,14 +2,15 @@ import { InjectedConnector, useStarknet } from "@starknet-react/core";
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
-import Button, { ButtonProps } from "src/components/Button";
+import { ButtonProps } from "src/components/Button";
+import MultiWalletConnection from "./View";
 
 type Props = {
   theme?: ButtonProps["theme"];
   size?: ButtonProps["size"];
 };
 
-const ConnectButtonContainer: FC<PropsWithChildren<Props>> = ({ children, size, theme }) => {
+const MultiWalletConnectionContainer: FC<PropsWithChildren<Props>> = ({ size, theme }) => {
   const { account, connect } = useStarknet();
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -35,19 +36,8 @@ const ConnectButtonContainer: FC<PropsWithChildren<Props>> = ({ children, size, 
   }, [connect, isGithubRegistered]);
 
   return (
-    <div>
-      <div>
-        <Button onClick={onConnectArgentX} size={size} theme={theme}>
-          {children} Argentx Wallet
-        </Button>
-      </div>
-      <div className="mt-3">
-        <Button onClick={onConnectBraavos} size={size} theme={theme}>
-          {children} Braavos Wallet
-        </Button>
-      </div>
-    </div>
+    <MultiWalletConnection onConnectArgentX={onConnectArgentX} onConnectBraavos={onConnectBraavos} size={size} theme={theme} />
   );
 };
 
-export default ConnectButtonContainer;
+export default MultiWalletConnectionContainer;

@@ -16,7 +16,7 @@ export class FetchedApplicationRepository implements ApplicationRepository {
     { contributorId }: ListFromContributionQueryParams
   ): Promise<ContributionApplicationDto[]> {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/contributions/${contributionId}/applications`);
-    endpointUrl.searchParams.set("contributorId", contributorId.toString(10));
+    endpointUrl.searchParams.set("contributor_id", padLeft(contributorId.toString(16), 64));
 
     const response = await axios.get<ContributionApplicationDto[]>(endpointUrl.toString());
 

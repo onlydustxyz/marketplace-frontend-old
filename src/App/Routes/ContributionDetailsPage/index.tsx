@@ -54,10 +54,11 @@ const ContributionDetailsPageContainer: FC = () => {
       success: () => {
         return (
           <div className="leading-[1rem] line-clamp-3">
-            Your application has been saved for the contribution{" "}
+            Thank you for your application for{" "}
             <Link to={`/contributions/${contribution.id}`} className="italic underline">
               {contribution.title}
             </Link>
+            , we'll review it and get in touch with you very shortly!
           </div>
         );
       },

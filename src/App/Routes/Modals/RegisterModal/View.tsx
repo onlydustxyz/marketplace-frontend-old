@@ -39,7 +39,7 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, onClose
     return (
       <>
         <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">If you wish to contribute, connect your Wallet</p>
-        <MultiWalletConnection>Connect</MultiWalletConnection>
+        <MultiWalletConnection />
       </>
     );
   }

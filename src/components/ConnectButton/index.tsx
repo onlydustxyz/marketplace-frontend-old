@@ -1,5 +1,5 @@
-import { InjectedConnector, useStarknet } from "@starknet-react/core";
-import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { useStarknet } from "@starknet-react/core";
+import { FC, PropsWithChildren, useCallback } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
 import { ButtonProps } from "../Button";
@@ -11,23 +11,13 @@ type Props = {
 };
 
 const ConnectButtonContainer: FC<PropsWithChildren<Props>> = ({ children, size, theme }) => {
-  const { account, connect } = useStarknet();
-  const [isConnecting, setIsConnecting] = useState(false);
+  const { connect } = useStarknet();
 
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
-  useEffect(() => {
-    if (account && isConnecting) {
-      if (!isGithubRegistered) {
-        setDisplayRegisterModal(true);
-      }
-    }
-  }, [account, isConnecting]);
-
   const onConnect = useCallback(async () => {
-    setIsConnecting(true);
-    await connect(new InjectedConnector({ options: { id: "argent-x" } }));
+    setDisplayRegisterModal(true);
   }, [connect, isGithubRegistered]);
 
   return (

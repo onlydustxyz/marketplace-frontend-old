@@ -1,6 +1,6 @@
 import { FC } from "react";
 import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
-import ConnectButton from "src/components/ConnectButton";
+import ModalConnectButton from "src/components/ModalConnectButton";
 
 import Modal from "src/components/Modal";
 import { minimizeAddress } from "src/utils/web3";
@@ -39,7 +39,7 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, onClose
     return (
       <>
         <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">If you wish to contribute, connect your Wallet</p>
-        <ConnectButton>Connect Wallet</ConnectButton>
+        <ModalConnectButton>Connect</ModalConnectButton>
       </>
     );
   }

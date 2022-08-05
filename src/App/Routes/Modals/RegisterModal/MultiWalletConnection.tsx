@@ -2,8 +2,7 @@ import { InjectedConnector, useStarknet } from "@starknet-react/core";
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
-import { ButtonProps } from "../Button";
-import ConnectButton from "./View";
+import Button, { ButtonProps } from "src/components/Button";
 
 type Props = {
   theme?: ButtonProps["theme"];
@@ -38,14 +37,14 @@ const ConnectButtonContainer: FC<PropsWithChildren<Props>> = ({ children, size, 
   return (
     <div>
       <div>
-        <ConnectButton onConnect={onConnectArgentX} size={size} theme={theme}>
+        <Button onClick={onConnectArgentX} size={size} theme={theme}>
           {children} Argentx Wallet
-        </ConnectButton>
+        </Button>
       </div>
       <div className="mt-3">
-        <ConnectButton onConnect={onConnectBraavos} size={size} theme={theme}>
+        <Button onClick={onConnectBraavos} size={size} theme={theme}>
           {children} Braavos Wallet
-        </ConnectButton>
+        </Button>
       </div>
     </div>
   );

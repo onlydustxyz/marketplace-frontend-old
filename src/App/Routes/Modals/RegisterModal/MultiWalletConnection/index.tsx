@@ -10,7 +10,7 @@ type Props = {
   size?: ButtonProps["size"];
 };
 
-const MultiWalletConnectionContainer: FC<PropsWithChildren<Props>> = ({ size, theme }) => {
+const MultiWalletConnectionContainer: FC<Props> = ({ size, theme }) => {
   const { account, connect } = useStarknet();
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -36,7 +36,12 @@ const MultiWalletConnectionContainer: FC<PropsWithChildren<Props>> = ({ size, th
   }, [connect, isGithubRegistered]);
 
   return (
-    <MultiWalletConnection onConnectArgentX={onConnectArgentX} onConnectBraavos={onConnectBraavos} size={size} theme={theme} />
+    <MultiWalletConnection
+      onConnectArgentX={onConnectArgentX}
+      onConnectBraavos={onConnectBraavos}
+      size={size}
+      theme={theme}
+    />
   );
 };
 

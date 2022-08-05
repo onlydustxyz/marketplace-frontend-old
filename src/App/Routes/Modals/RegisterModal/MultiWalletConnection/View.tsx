@@ -9,7 +9,7 @@ type Props = {
   onConnectBraavos: () => void;
 };
 
-const MultiWalletConnection: FC<PropsWithChildren<Props>> = ({ children, onConnectArgentX, onConnectBraavos, size, theme }) => {
+const MultiWalletConnection: FC<PropsWithChildren<Props>> = ({ onConnectArgentX, onConnectBraavos, size, theme }) => {
   return (
     <div>
       <Button className="min-w-full" theme={theme} onClick={onConnectArgentX} size={size}>

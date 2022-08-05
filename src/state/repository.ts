@@ -162,7 +162,9 @@ export const projectContributionsQuery = selectorFamily({
     projectId =>
     ({ get }) => {
       const contributions = get(contributionsQuery);
-      return contributions.filter(contribution => contribution.project.id === projectId);
+      return contributions
+        .filter(contribution => contribution.project.id === projectId)
+        .sort(sortContributionsByStatus);
     },
 });
 
@@ -298,6 +300,29 @@ export const filteredProjectsSelector = selector({
       .filter(filterProjectByProperty("types", contributionsFilterType));
   },
 });
+
+const contributionStatusPriority: Record<ContributionStatusEnum | "gated" | "applied", number> = {
+  [ContributionStatusEnum.OPEN]: 1,
+  gated: 2,
+  applied: 3,
+  [ContributionStatusEnum.ASSIGNED]: 4,
+  [ContributionStatusEnum.COMPLETED]: 5,
+  [ContributionStatusEnum.ABANDONED]: 6,
+};
+
+function sortContributionsByStatus(contribution1: Contribution, contribution2: Contribution) {
+  const finalStatus1 =
+    contribution1.status === ContributionStatusEnum.OPEN && !contribution1.eligible ? "gated" : contribution1.status;
+
+  const finalStatus2 =
+    contribution2.status === ContributionStatusEnum.OPEN && !contribution2.eligible ? "gated" : contribution2.status;
+
+  if (contributionStatusPriority[finalStatus1] === contributionStatusPriority[finalStatus2]) {
+    return 0;
+  }
+
+  return contributionStatusPriority[finalStatus1] > contributionStatusPriority[finalStatus2] ? 1 : -1;
+}
 
 function filterProjectByStatuses(statuses: Array<ContributionStatusEnum | "gated">) {
   return (project: Project) => {

@@ -2,8 +2,13 @@ import { ContributionDto } from "src/model/projects/repository";
 import { InMemoryApplicationRepository } from "./in-memory-repository";
 import { FetchedApplicationRepository } from "./fetched-repository";
 
-export type HasContributorAppliedToContributionParams = {
-  contributionId: ContributionDto["id"];
+export type ContributionApplicationDto = {
+  id: string;
+  contribution_id: ContributionDto["id"];
+  contributor_id: number;
+};
+
+export type ListFromContributionQueryParams = {
   contributorId: number;
 };
 
@@ -13,7 +18,10 @@ export type CreateParams = {
 };
 
 export interface ApplicationRepository {
-  hasContributorAppliedToContribution(params: HasContributorAppliedToContributionParams): Promise<boolean>;
+  listFromContribution(
+    contributionId: ContributionDto["id"],
+    queryParams: ListFromContributionQueryParams
+  ): Promise<ContributionApplicationDto[]>;
   create(params: CreateParams): Promise<boolean>;
 }
 

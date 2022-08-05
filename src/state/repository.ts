@@ -342,7 +342,11 @@ export const hasContributorAppliedToContributionSelector = selectorFamily({
         return false;
       }
 
-      return await applicationRepository.hasContributorAppliedToContribution({ contributionId, contributorId });
+      const contributionApplications = await applicationRepository.listFromContribution(contributionId, {
+        contributorId,
+      });
+
+      return contributionApplications.length > 0;
     },
 });
 

@@ -1,4 +1,4 @@
-import { selector, selectorFamily, useRecoilRefresher_UNSTABLE } from "recoil";
+import { selector, selectorFamily } from "recoil";
 import { applicationRepository } from "src/model/applications/repository";
 import {
   AssignedStatus,

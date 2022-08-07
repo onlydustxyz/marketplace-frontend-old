@@ -84,10 +84,6 @@ const ContributionDetailsPageContainer: FC = () => {
     window.open(submitUrl, "_blank");
   }, [contributionId, isGithubRegistered]);
 
-  if (!contribution) {
-    return null;
-  }
-
   return (
     <ContributionDetailsPage
       contribution={contribution}

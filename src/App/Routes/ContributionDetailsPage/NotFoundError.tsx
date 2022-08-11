@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { FallbackProps } from "react-error-boundary";
 import { Link } from "react-router-dom";
 
 const NotFoundError: FC = () => {

@@ -14,6 +14,7 @@ import { FC, startTransition, useCallback, useState } from "react";
 import config from "src/config";
 import { applicationRepository } from "src/model/applications/repository";
 import { toastPromise } from "src/lib/toast-promise";
+import NotFoundError from "./NotFoundError";
 
 type PageParams = {
   contributionId: string;
@@ -83,6 +84,10 @@ const ContributionDetailsPageContainer: FC = () => {
 
     window.open(submitUrl, "_blank");
   }, [contributionId, isGithubRegistered]);
+
+  if (!contribution) {
+    return <NotFoundError />;
+  }
 
   return (
     <ContributionDetailsPage

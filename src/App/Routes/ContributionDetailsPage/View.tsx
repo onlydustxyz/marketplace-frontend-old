@@ -12,7 +12,6 @@ import Button from "src/components/Button";
 import StatusHeader from "./StatusHeader";
 import MetadataList from "./MetadataList";
 import Loader from "src/icons/Loader";
-import NotFoundError from "src/App/Routes/ContributionDetailsPage/NotFoundError";
 
 type Props = {
   apply: () => void;
@@ -31,9 +30,6 @@ const ContributionDetailsPage: FC<Props> = ({
   contributorId,
   hasAppliedToContribution = false,
 }) => {
-  if (!contribution) {
-    return <NotFoundError />;
-  }
   return (
     <div className="relative mt-10 px-8 flex flex-col items-center max-w-screen-2xl w-full">
       <div className="flex flex-row max-w-[1410px] w-full justify-start">

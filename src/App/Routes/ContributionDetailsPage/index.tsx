@@ -49,35 +49,52 @@ const ContributionDetailsPageContainer: FC = () => {
       setDisplayRegisterModal(true);
       return;
     }
-    setApplying(true);
 
-    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
-      success: () => {
-        return (
-          <div className="leading-[1rem] line-clamp-3">
-            Thank you for your application for{" "}
-            <Link to={`/contributions/${contribution.id}`} className="italic underline">
-              {contribution.title}
-            </Link>
-            , we'll review it and get in touch with you very shortly!
-          </div>
-        );
-      },
-      pending: () => "Your application is being processed",
-      error: () => (
-        <>
-          An error occured while appliying to this contribution
-          <br />
-          Please try again
-        </>
-      ),
-    });
+    // const backEndApply = config.FEATURE_BACKEND_APPLY;
+    const backEndApply = true;
 
-    startTransition(() => {
-      refreshApplication();
-    });
-    setApplying(false);
+    if (backEndApply) {
+      console.log(backEndApply);
+      console.log("TypeForm Called");
+      const applyUrl = `${config.TYPEFORM_APPLY_URL}#${buildTypeformParams()}`;
+
+      window.open(applyUrl, "_blank");
+    } else {
+      console.log(backEndApply);
+      console.log("toast Called");
+      setApplying(true);
+
+      toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
+        success: () => {
+          return (
+            <div className="leading-[1rem] line-clamp-3">
+              Thank you for your application for{" "}
+              <Link to={`/contributions/${contribution.id}`} className="italic underline">
+                {contribution.title}
+              </Link>
+              , we'll review it and get in touch with you very shortly!
+            </div>
+          );
+        },
+        pending: () => "Your application is being processed",
+        error: () => (
+          <>
+            An error occured while appliying to this contribution
+            <br />
+            Please try again
+          </>
+        ),
+      });
+      startTransition(() => {
+        refreshApplication();
+      });
+      setApplying(false);
+    }
   }, [contributionId, isGithubRegistered]);
+
+  if (!contribution) {
+    return <NotFoundError />;
+  }
 
   const submit = useCallback(() => {
     const submitUrl = `${config.TYPEFORM_SUBMIT_URL}#${buildTypeformParams()}`;

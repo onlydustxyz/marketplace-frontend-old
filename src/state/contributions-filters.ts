@@ -16,7 +16,7 @@ import {
   ongoingContributionsQuery,
   openedContributionsQuery,
   Project,
-} from "./repository";
+} from "./contributions";
 
 export const contributionsFilterContextAtom = atomFamily<ContributionContextEnum[], string>({
   key: "ContributionsFilterContext",

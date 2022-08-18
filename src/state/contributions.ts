@@ -19,7 +19,7 @@ import {
   contributionsFilterTechnologyAtom,
   contributionsFilterTypeAtom,
 } from "./contributions-filters";
-import { userContributorIdSelector } from "./profileRegistryContract";
+import { userContributorIdSelector } from "./profile-registry-contract";
 
 type ProjectBase = {
   id: string;

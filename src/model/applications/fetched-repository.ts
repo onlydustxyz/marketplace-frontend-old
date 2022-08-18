@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "src/config";
-import { padLeft } from "starknet/dist/utils/encode";
 import { ContributionDto } from "../projects/repository";
 
 import {

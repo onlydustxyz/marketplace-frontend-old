@@ -56,34 +56,42 @@ const ContributionDetailsPageContainer: FC = () => {
       setDisplayRegisterModal(true);
       return;
     }
-    setApplying(true);
+    const backEndApply = config.FEATURE_BACKEND_APPLY == "true";
 
-    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
-      success: () => {
-        return (
-          <div className="leading-[1rem] line-clamp-3">
-            Thank you for your application for{" "}
-            <Link to={`/contributions/${contribution.id}`} className="italic underline">
-              {contribution.title}
-            </Link>
-            , we'll review it and get in touch with you very shortly!
-          </div>
-        );
-      },
-      pending: () => "Your application is being processed",
-      error: () => (
-        <>
-          An error occured while appliying to this contribution
-          <br />
-          Please try again
-        </>
-      ),
-    });
+    if (backEndApply) {
+      setApplying(true);
 
-    startTransition(() => {
-      refreshApplication();
-    });
-    setApplying(false);
+      toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
+        success: () => {
+          return (
+            <div className="leading-[1rem] line-clamp-3">
+              Thank you for your application for{" "}
+              <Link to={`/contributions/${contribution.id}`} className="italic underline">
+                {contribution.title}
+              </Link>
+              , we'll review it and get in touch with you very shortly!
+            </div>
+          );
+        },
+        pending: () => "Your application is being processed",
+        error: () => (
+          <>
+            An error occured while appliying to this contribution
+            <br />
+            Please try again
+          </>
+        ),
+      });
+
+      startTransition(() => {
+        refreshApplication();
+      });
+      setApplying(false);
+    } else {
+      const applyUrl = `${config.TYPEFORM_APPLY_URL}#${buildTypeformParams()}`;
+
+      window.open(applyUrl, "_blank");
+    }
   }, [contributionId, isGithubRegistered, userDiscordHandle]);
 
   const submit = useCallback(() => {

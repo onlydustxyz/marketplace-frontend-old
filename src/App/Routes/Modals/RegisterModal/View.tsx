@@ -1,4 +1,5 @@
 import { FC } from "react";
+import DiscordForm from "src/App/Routes/Modals/RegisterModal/DiscordForm";
 import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 import MultiWalletConnection from "src/App/Routes/Modals/RegisterModal/MultiWalletConnection";
 
@@ -65,6 +66,7 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
         <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">
           If you wish to contribute, please provide your Discord handle
         </p>
+        <DiscordForm />
       </>
     );
   }

@@ -9,8 +9,8 @@ import Arrow from "src/icons/Arrow";
 import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 
 type Props = {
-  accountAddress: string | undefined;
-  githubHandle: number | undefined;
+  accountAddress?: string;
+  githubHandle?: number;
 };
 
 const ProfileMenu: FC<Props> = ({ accountAddress, githubHandle }) => {

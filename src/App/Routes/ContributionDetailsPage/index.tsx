@@ -8,6 +8,7 @@ import {
   hasContributorAppliedToContributionSelector,
   isGithubRegisteredSelector,
   userContributorIdSelector,
+  userDiscordHandleSelector,
   userGithubHandleSelector,
 } from "src/state";
 import { FC, startTransition, useCallback, useState } from "react";
@@ -26,6 +27,7 @@ const ContributionDetailsPageContainer: FC = () => {
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
+  const userDiscordHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userDiscordHandleSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
   const hasAppliedToContribution = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(
     hasContributorAppliedToContributionSelector(contributionId)
@@ -45,7 +47,12 @@ const ContributionDetailsPageContainer: FC = () => {
   };
 
   const apply = useCallback(async () => {
-    if (!isGithubRegistered || !contribution || !contributorId) {
+    if (
+      !isGithubRegistered ||
+      contribution === undefined ||
+      contributorId === undefined ||
+      userDiscordHandle === undefined
+    ) {
       setDisplayRegisterModal(true);
       return;
     }

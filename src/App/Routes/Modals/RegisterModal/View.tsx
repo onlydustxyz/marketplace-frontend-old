@@ -8,18 +8,19 @@ import { AccountInterface } from "starknet";
 import ConnectionState from "./ConnectionState";
 
 type Props = {
-  account: AccountInterface | undefined;
-  githubHandle: string | undefined;
+  account?: AccountInterface;
+  githubHandle?: string;
+  discordHandle?: string;
   displayModal: boolean;
   onClose: () => void;
 };
 
-const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, onClose }) => {
+const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discordHandle, onClose }) => {
   return (
     <Modal
       contentClassName="px-16 pt-11 pb-16 max-w-screen-md"
       onClose={onClose}
-      isOpen={displayModal && (!account || !githubHandle)}
+      isOpen={displayModal && (!account || !githubHandle || !discordHandle)}
     >
       <div className="flex flex-col items-center">
         <div className="flex flex-row items-center justify-center gap-5">
@@ -29,8 +30,13 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, onClose
             accountLabel={account?.address ? minimizeAddress(account.address) : undefined}
           />
           <ConnectionState providerName="Github" connected={!!githubHandle} accountLabel={githubHandle} />
+          <ConnectionState providerName="Discord" connected={!!discordHandle} accountLabel={discordHandle} />
         </div>
-        {!account ? renderConnectWallet() : renderConnectGithub()}
+        {account === undefined
+          ? renderConnectWallet()
+          : githubHandle === undefined
+          ? renderConnectGithub()
+          : renderConnectDiscord()}
       </div>
     </Modal>
   );
@@ -49,6 +55,16 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, onClose
       <>
         <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">If you wish to contribute, connect your Github</p>
         <GithubSignin />
+      </>
+    );
+  }
+
+  function renderConnectDiscord() {
+    return (
+      <>
+        <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">
+          If you wish to contribute, please provide your Discord handle
+        </p>
       </>
     );
   }

@@ -7,9 +7,22 @@ import {
   ContributionApplicationDto,
   CreateParams,
   ListFromContributionQueryParams,
+  ListQueryParams,
 } from "./repository";
 
 export class FetchedApplicationRepository implements ApplicationRepository {
+  public async list({ contributorId }: ListQueryParams): Promise<ContributionApplicationDto[]> {
+    const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/applications`);
+
+    if (contributorId !== undefined) {
+      endpointUrl.searchParams.set("contributor_id", "0x" + contributorId.toString(16));
+    }
+
+    const response = await axios.get<ContributionApplicationDto[]>(endpointUrl.toString());
+
+    return response.status === 200 ? response.data : [];
+  }
+
   public async listFromContribution(
     contributionId: ContributionDto["id"],
     { contributorId }: ListFromContributionQueryParams

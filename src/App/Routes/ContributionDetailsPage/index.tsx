@@ -29,9 +29,7 @@ const ContributionDetailsPageContainer: FC = () => {
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
   const userDiscordHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userDiscordHandleSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
-  const hasAppliedToContribution = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(
-    hasContributorAppliedToContributionSelector(contributionId)
-  );
+  const hasAppliedToContribution = !!contribution?.applied;
 
   const refreshApplication = useRecoilRefresher_UNSTABLE(hasContributorAppliedToContributionSelector(contributionId));
   const [appliying, setApplying] = useState(false);

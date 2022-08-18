@@ -11,6 +11,7 @@ export type ContributorId = Brand<number, "ContibutorId">;
 
 export interface ContactInformationRepository {
   findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto>;
+  save(contactInformation: ContactInformationDto): Promise<void>;
 }
 
 export const contactInformationRepository: ContactInformationRepository =

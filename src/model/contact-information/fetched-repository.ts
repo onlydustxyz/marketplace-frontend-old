@@ -15,4 +15,15 @@ export class FetchedContactInformationRepository implements ContactInformationRe
     }
     return response.data;
   }
+
+  public async save(contactInformation: ContactInformationDto): Promise<void> {
+    const formattedContributorId = "0x" + contactInformation.contributor_id.toString(16);
+    const response = await axios.put<ContactInformationDto>(
+      `${config.DATA_API_HOSTNAME}/contributors/${formattedContributorId}/contact-information`
+    );
+
+    if (response.status !== 204) {
+      throw new Error("Failed to fetch contact information");
+    }
+  }
 }

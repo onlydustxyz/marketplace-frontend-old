@@ -48,9 +48,16 @@ export type Contribution = {
   project: ProjectBase;
   github_link: string;
   eligible: boolean | null;
+  applied: boolean;
   gate: number;
   gateMissingCompletedContributions: number;
 } & ContributionStatusAndMetadata;
+
+export type ContributionApplication = {
+  id: string;
+  contribution_id: Contribution["id"];
+  contributor_id: number;
+};
 
 export type OpenContribution = Contribution & OpenStatus;
 export type AssignedContribution = Contribution & AssignedStatus;
@@ -109,6 +116,7 @@ export const contributionsQuery = selector({
   get: async ({ get }) => {
     const rawProjectsWithContributions = get(rawProjectsWithContributionsQuery);
     const userContributorId = get(userContributorIdSelector);
+    const applications = get(contributorApplicationsQuery);
 
     const completedContributionsAmount = countCompletedContributions(rawProjectsWithContributions, userContributorId);
 
@@ -122,6 +130,7 @@ export const contributionsQuery = selector({
               project,
               eligible:
                 completedContributionsAmount === null ? null : completedContributionsAmount >= contributionDto.gate,
+              applied: applications.some(application => application.contribution_id === contributionDto.id),
               gateMissingCompletedContributions: contributionDto.gate - (completedContributionsAmount || 0),
             };
 
@@ -133,6 +142,26 @@ export const contributionsQuery = selector({
     );
 
     return contributionsWithProjects;
+  },
+});
+
+export const contributorApplicationsQuery = selector<ContributionApplication[]>({
+  key: "ContributorApplications",
+  get: async ({ get }) => {
+    const contributorId = get(userContributorIdSelector);
+    if (contributorId === undefined) {
+      return [];
+    }
+
+    const applications = await applicationRepository.list({ contributorId });
+
+    return applications.map(application => {
+      return {
+        id: application.id,
+        contribution_id: application.contribution_id,
+        contributor_id: application.contributor_id,
+      };
+    });
   },
 });
 

@@ -84,13 +84,13 @@ const ContributionDetailsPageContainer: FC = () => {
       refreshApplication();
     });
     setApplying(false);
-  }, [contributionId, isGithubRegistered]);
+  }, [contributionId, isGithubRegistered, userDiscordHandle]);
 
   const submit = useCallback(() => {
     const submitUrl = `${config.TYPEFORM_SUBMIT_URL}#${buildTypeformParams()}`;
 
     window.open(submitUrl, "_blank");
-  }, [contributionId, isGithubRegistered]);
+  }, [contributionId, isGithubRegistered, userDiscordHandle]);
 
   if (!contribution) {
     return <NotFoundError />;

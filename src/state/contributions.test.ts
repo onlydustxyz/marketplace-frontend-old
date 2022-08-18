@@ -1,9 +1,9 @@
 import { afterEach, describe, it, expect, vi } from "vitest";
 import { RecoilRoot, snapshot_UNSTABLE, useRecoilValue } from "recoil";
 import { renderHook } from "@testing-library/react-hooks";
-import { contributionQuery, contributionsQuery, hasContributorAppliedToContributionSelector } from "./repository";
+import { contributionQuery, contributionsQuery, hasContributorAppliedToContributionSelector } from "./contributions";
 import { projectRepository } from "src/model/projects/repository";
-import { profileRegistryContractAtom } from "./profileRegistryContract";
+import { profileRegistryContractAtom } from "./profile-registry-contract";
 import { AccountInterface, Contract } from "starknet";
 import { accountAtom } from "./starknet";
 

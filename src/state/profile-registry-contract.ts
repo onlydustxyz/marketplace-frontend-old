@@ -1,5 +1,6 @@
 import BN from "bn.js";
 import { atom, selector } from "recoil";
+import { ContributorId } from "src/model/contact-information/repository";
 import { uint256ToNumber } from "src/utils/uint256";
 import { ContractInterface } from "starknet";
 import { Uint256 } from "starknet/dist/utils/uint256";
@@ -43,12 +44,14 @@ export const userInformationSelector = selector({
   },
 });
 
-export const userContributorIdSelector = selector<number | undefined>({
+export const userContributorIdSelector = selector<ContributorId | undefined>({
   key: "userContributorId",
   get: ({ get }) => {
     const userInformation = get(userInformationSelector);
 
-    return userInformation?.contributor_id ? uint256ToNumber(userInformation?.contributor_id) : undefined;
+    return userInformation?.contributor_id !== undefined
+      ? (uint256ToNumber(userInformation?.contributor_id) as ContributorId)
+      : undefined;
   },
 });
 

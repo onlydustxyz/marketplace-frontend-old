@@ -50,18 +50,9 @@ const ContributionDetailsPageContainer: FC = () => {
       return;
     }
 
-    // const backEndApply = config.FEATURE_BACKEND_APPLY;
-    const backEndApply = true;
+    const backEndApply = config.FEATURE_BACKEND_APPLY;
 
-    if (backEndApply) {
-      console.log(backEndApply);
-      console.log("TypeForm Called");
-      const applyUrl = `${config.TYPEFORM_APPLY_URL}#${buildTypeformParams()}`;
-
-      window.open(applyUrl, "_blank");
-    } else {
-      console.log(backEndApply);
-      console.log("toast Called");
+    if (backEndApply == "true") {
       setApplying(true);
 
       toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
@@ -89,6 +80,10 @@ const ContributionDetailsPageContainer: FC = () => {
         refreshApplication();
       });
       setApplying(false);
+    } else {
+      const applyUrl = `${config.TYPEFORM_APPLY_URL}#${buildTypeformParams()}`;
+
+      window.open(applyUrl, "_blank");
     }
   }, [contributionId, isGithubRegistered]);
 

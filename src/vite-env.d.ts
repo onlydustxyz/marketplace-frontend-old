@@ -16,7 +16,6 @@ interface ImportMetaEnv {
   readonly MARKETPLACE_SENTRY_ENVIRONMENT: string;
   readonly MARKETPLACE_SENTRY_RELEASE: string;
   readonly MARKETPLACE_SENTRY_TRACES_SAMPLE_RATE: string;
-  readonly FEATURE_BACKEND_APPLY: bool;
 }
 
 interface ImportMeta {

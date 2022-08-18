@@ -5,11 +5,10 @@ import { ContactInformationDto, ContactInformationRepository, ContributorId } fr
 
 export class FetchedContactInformationRepository implements ContactInformationRepository {
   public async findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto> {
-    const response = await axios.get<ContactInformationDto>(`${config.DATA_API_HOSTNAME}/contributors`, {
-      params: {
-        contributor_id: "0x" + contributorId.toString(16),
-      },
-    });
+    const formattedContributorId = "0x" + contributorId.toString(16);
+    const response = await axios.get<ContactInformationDto>(
+      `${config.DATA_API_HOSTNAME}/contributors/${formattedContributorId}/contact-information`
+    );
 
     if (response.status !== 200) {
       throw new Error("Failed to fetch contact information");

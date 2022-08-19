@@ -1,11 +1,4 @@
-import { ContributionDto } from "../projects/repository";
-import {
-  ApplicationRepository,
-  ContributionApplicationDto,
-  CreateParams,
-  ListFromContributionQueryParams,
-  ListQueryParams,
-} from "./repository";
+import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListQueryParams } from "./repository";
 
 let indexId = 4;
 export class InMemoryApplicationRepository implements ApplicationRepository {
@@ -13,6 +6,7 @@ export class InMemoryApplicationRepository implements ApplicationRepository {
     { id: "1", contribution_id: "1", contributor_id: 38 },
     { id: "2", contribution_id: "1", contributor_id: 39 },
     { id: "3", contribution_id: "3", contributor_id: 1 },
+    { id: "4", contribution_id: "4", contributor_id: 38 },
   ];
 
   public async list({ contributorId }: ListQueryParams): Promise<ContributionApplicationDto[]> {
@@ -20,19 +14,6 @@ export class InMemoryApplicationRepository implements ApplicationRepository {
       (application: ContributionApplicationDto) =>
         contributorId === undefined || application.contributor_id === contributorId
     );
-  }
-
-  public async listFromContribution(
-    contributionId: ContributionDto["id"],
-    { contributorId }: ListFromContributionQueryParams
-  ) {
-    return this.contributionsApplications.filter((application: ContributionApplicationDto) => {
-      if (contributorId === undefined) {
-        return application.contribution_id === contributionId;
-      }
-
-      return application.contribution_id === contributionId && application.contributor_id === contributorId;
-    });
   }
 
   public async create({ contributionId, contributorId }: CreateParams) {

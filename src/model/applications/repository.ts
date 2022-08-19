@@ -12,23 +12,13 @@ export type ListQueryParams = {
   contributorId: number | undefined;
 };
 
-export type ListFromContributionQueryParams = {
-  contributorId: number;
-};
-
 export type CreateParams = {
   contributionId: string;
   contributorId: number;
 };
 
 export interface ApplicationRepository {
-  listFromContribution(
-    contributionId: ContributionDto["id"],
-    queryParams: ListFromContributionQueryParams
-  ): Promise<ContributionApplicationDto[]>;
-
   list(queryParams: ListQueryParams): Promise<ContributionApplicationDto[]>;
-
   create(params: CreateParams): Promise<boolean>;
 }
 

@@ -1,15 +1,21 @@
 import { afterEach, describe, it, expect, vi } from "vitest";
 import { RecoilRoot, snapshot_UNSTABLE, useRecoilValue } from "recoil";
 import { renderHook } from "@testing-library/react-hooks";
-import { contributionQuery, contributionsQuery, hasContributorAppliedToContributionSelector } from "./contributions";
+import {
+  ContributionApplication,
+  contributionQuery,
+  contributionsQuery,
+  contributorApplicationsQuery,
+} from "./contributions";
 import { projectRepository } from "src/model/projects/repository";
 import { profileRegistryContractAtom } from "./profile-registry-contract";
 import { AccountInterface, Contract } from "starknet";
 import { accountAtom } from "./starknet";
+import { applicationRepository } from "src/model/applications/repository";
 
 describe("The recoil state", () => {
   afterEach(() => {
-    vi.resetAllMocks();
+    vi.clearAllMocks();
   });
 
   describe("when querying contributions", () => {
@@ -45,8 +51,8 @@ describe("The recoil state", () => {
     });
   });
 
-  describe("when querying a contribution application", () => {
-    it("should match with an applicant", async () => {
+  describe("when querying applications", () => {
+    it("should return contributor applications", async () => {
       const contractMock = new Contract([], "0x00");
 
       const contractCallMock = vi.fn(() =>
@@ -64,15 +70,19 @@ describe("The recoil state", () => {
         set(accountAtom, { address: "0x123456789" } as AccountInterface);
       });
 
-      const result = snapshot.getLoadable(hasContributorAppliedToContributionSelector("1"));
+      const listSpy = vi.spyOn(applicationRepository, "list");
 
-      const res = (await result.contents) as Promise<boolean>;
+      const result = snapshot.getLoadable(contributorApplicationsQuery);
+
+      const res = (await result.contents) as Promise<ContributionApplication[]>;
 
       expect(contractCallMock).toHaveBeenCalledWith("get_user_information", ["0x123456789"]);
-      expect(res).toBeTruthy();
+      expect(listSpy).toHaveBeenCalled();
+      expect(res).to.have.length(2);
+      snapshot.retain();
     });
 
-    it("should not match with a non applicant", async () => {
+    it("should return nothing when contributor has no application", async () => {
       const contractMock = new Contract([], "0x00");
 
       const contractCallMock = vi.fn(() =>
@@ -90,15 +100,19 @@ describe("The recoil state", () => {
         set(accountAtom, { address: "0x123456789" } as AccountInterface);
       });
 
-      const result = snapshot.getLoadable(hasContributorAppliedToContributionSelector("1"));
+      const listSpy = vi.spyOn(applicationRepository, "list");
 
-      const res = (await result.contents) as Promise<boolean>;
+      const result = snapshot.getLoadable(contributorApplicationsQuery);
+
+      const res = (await result.contents) as Promise<ContributionApplication[]>;
 
       expect(contractCallMock).toHaveBeenCalledWith("get_user_information", ["0x123456789"]);
-      expect(res).toBeFalsy();
+      expect(listSpy).toHaveBeenCalled();
+      expect(res).to.have.length(0);
+      snapshot.retain();
     });
 
-    it("should not match when no contributor", async () => {
+    it("should return nothing when no contributor", async () => {
       const contractMock = new Contract([], "0x00");
 
       const contractCallMock = vi.fn(() => Promise.reject(new Error("contract.call error")));
@@ -111,13 +125,15 @@ describe("The recoil state", () => {
         set(accountAtom, { address: "0x123456789" } as AccountInterface);
       });
 
-      const result = snapshot.getLoadable(hasContributorAppliedToContributionSelector("1"));
+      const listSpy = vi.spyOn(applicationRepository, "list");
 
-      const res = (await result.contents) as Promise<boolean>;
+      const result = snapshot.getLoadable(contributorApplicationsQuery);
 
-      expect(console.warn).toHaveBeenCalledWith(new Error("contract.call error"));
+      const res = (await result.contents) as Promise<ContributionApplication[]>;
+
       expect(contractCallMock).toHaveBeenCalledWith("get_user_information", ["0x123456789"]);
-      expect(res).toBeFalsy();
+      expect(listSpy).toHaveBeenCalledTimes(0);
+      expect(res).to.have.length(0);
     });
   });
 });

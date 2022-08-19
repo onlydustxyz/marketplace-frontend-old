@@ -4,6 +4,7 @@ import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 import MultiWalletConnection from "src/App/Routes/Modals/RegisterModal/MultiWalletConnection";
 
 import Modal from "src/components/Modal";
+import config from "src/config";
 import { minimizeAddress } from "src/utils/web3";
 import { AccountInterface } from "starknet";
 import ConnectionState from "./ConnectionState";
@@ -17,12 +18,12 @@ type Props = {
 };
 
 const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discordHandle, onClose }) => {
+  const backendApply = config.FEATURE_BACKEND_APPLY;
+  const isOpen = backendApply
+    ? displayModal && (!account || !githubHandle || !discordHandle)
+    : displayModal && (!account || !githubHandle);
   return (
-    <Modal
-      contentClassName="px-16 pt-11 pb-16 max-w-screen-md"
-      onClose={onClose}
-      isOpen={displayModal && (!account || !githubHandle || !discordHandle)}
-    >
+    <Modal contentClassName="px-16 pt-11 pb-16 max-w-screen-md" onClose={onClose} isOpen={isOpen}>
       <div className="flex flex-col items-center">
         <div className="flex flex-row items-center justify-center gap-5">
           <ConnectionState
@@ -31,7 +32,9 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
             accountLabel={account?.address ? minimizeAddress(account.address) : undefined}
           />
           <ConnectionState providerName="Github" connected={!!githubHandle} accountLabel={githubHandle} />
-          <ConnectionState providerName="Discord" connected={!!discordHandle} accountLabel={discordHandle} />
+          {backendApply && (
+            <ConnectionState providerName="Discord" connected={!!discordHandle} accountLabel={discordHandle} />
+          )}
         </div>
         {account === undefined
           ? renderConnectWallet()

@@ -5,11 +5,11 @@ import {
   accountAtom,
   contributionQuery,
   displayRegisterModalAtom,
-  hasContributorAppliedToContributionSelector,
   isGithubRegisteredSelector,
   userContributorIdSelector,
   userDiscordHandleSelector,
   userGithubHandleSelector,
+  contributionsQuery,
 } from "src/state";
 import { FC, startTransition, useCallback, useState } from "react";
 import config from "src/config";
@@ -31,7 +31,7 @@ const ContributionDetailsPageContainer: FC = () => {
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
   const hasAppliedToContribution = !!contribution?.applied;
 
-  const refreshApplication = useRecoilRefresher_UNSTABLE(hasContributorAppliedToContributionSelector(contributionId));
+  const refreshApplication = useRecoilRefresher_UNSTABLE(contributionsQuery);
   const [appliying, setApplying] = useState(false);
 
   const buildTypeformParams = () => {

@@ -385,25 +385,6 @@ function filterProjectByProperty(propertyName: keyof Project, filteredValues: Ar
   };
 }
 
-export const hasContributorAppliedToContributionSelector = selectorFamily({
-  key: "HasContributorAppliedToContribution",
-  get:
-    (contributionId?: Contribution["id"] | undefined) =>
-    async ({ get }) => {
-      const contributorId = get(userContributorIdSelector);
-
-      if (contributorId === undefined || contributionId === undefined) {
-        return false;
-      }
-
-      const contributionApplications = await applicationRepository.listFromContribution(contributionId, {
-        contributorId,
-      });
-
-      return contributionApplications.length > 0;
-    },
-});
-
 function countCompletedContributions(
   rawProjectsWithContributions: RawProjectWithContributions[],
   contributorId: number | undefined

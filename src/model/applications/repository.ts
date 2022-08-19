@@ -8,7 +8,7 @@ export type ContributionApplicationDto = {
   contributor_id: number;
 };
 
-export type ListQueryParams = {
+export type ListParams = {
   contributorId: number | undefined;
 };
 
@@ -18,7 +18,7 @@ export type CreateParams = {
 };
 
 export interface ApplicationRepository {
-  list(queryParams: ListQueryParams): Promise<ContributionApplicationDto[]>;
+  list(params: ListParams): Promise<ContributionApplicationDto[]>;
   create(params: CreateParams): Promise<boolean>;
 }
 

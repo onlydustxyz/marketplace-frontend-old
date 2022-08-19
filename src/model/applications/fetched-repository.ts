@@ -1,10 +1,10 @@
 import axios from "axios";
 import config from "src/config";
 
-import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListQueryParams } from "./repository";
+import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListParams } from "./repository";
 
 export class FetchedApplicationRepository implements ApplicationRepository {
-  public async list({ contributorId }: ListQueryParams): Promise<ContributionApplicationDto[]> {
+  public async list({ contributorId }: ListParams): Promise<ContributionApplicationDto[]> {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/applications`);
 
     if (contributorId !== undefined) {

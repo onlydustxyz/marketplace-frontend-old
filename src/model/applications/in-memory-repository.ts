@@ -27,7 +27,7 @@ export class InMemoryApplicationRepository implements ApplicationRepository {
     { contributorId }: ListFromContributionQueryParams
   ) {
     return this.contributionsApplications.filter((application: ContributionApplicationDto) => {
-      if (!contributorId) {
+      if (contributorId === undefined) {
         return application.contribution_id === contributionId;
       }
 

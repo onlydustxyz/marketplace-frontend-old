@@ -392,7 +392,7 @@ export const hasContributorAppliedToContributionSelector = selectorFamily({
     async ({ get }) => {
       const contributorId = get(userContributorIdSelector);
 
-      if (!contributorId || !contributionId) {
+      if (contributorId === undefined || contributionId === undefined) {
         return false;
       }
 
@@ -408,7 +408,7 @@ function countCompletedContributions(
   rawProjectsWithContributions: RawProjectWithContributions[],
   contributorId: number | undefined
 ) {
-  if (!contributorId) {
+  if (contributorId === undefined) {
     return null;
   }
 

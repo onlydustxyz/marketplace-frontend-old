@@ -47,18 +47,19 @@ const ContributionDetailsPageContainer: FC = () => {
   };
 
   const apply = useCallback(async () => {
-    if (
-      !isGithubRegistered ||
-      contribution === undefined ||
-      contributorId === undefined ||
-      userDiscordHandle === undefined
-    ) {
-      setDisplayRegisterModal(true);
-      return;
-    }
     const backEndApply: boolean = config.FEATURE_BACKEND_APPLY;
 
     if (backEndApply) {
+      if (
+        !isGithubRegistered ||
+        contribution === undefined ||
+        contributorId === undefined ||
+        userDiscordHandle === undefined
+      ) {
+        setDisplayRegisterModal(true);
+        return;
+      }
+
       setApplying(true);
 
       toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
@@ -88,6 +89,10 @@ const ContributionDetailsPageContainer: FC = () => {
       });
       setApplying(false);
     } else {
+      if (!isGithubRegistered || contribution === undefined || contributorId === undefined) {
+        setDisplayRegisterModal(true);
+        return;
+      }
       const applyUrl = `${config.TYPEFORM_APPLY_URL}#${buildTypeformParams()}`;
 
       window.open(applyUrl, "_blank");

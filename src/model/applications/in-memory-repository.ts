@@ -1,4 +1,4 @@
-import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListQueryParams } from "./repository";
+import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListParams } from "./repository";
 
 let indexId = 4;
 export class InMemoryApplicationRepository implements ApplicationRepository {
@@ -9,7 +9,7 @@ export class InMemoryApplicationRepository implements ApplicationRepository {
     { id: "4", contribution_id: "4", contributor_id: 38 },
   ];
 
-  public async list({ contributorId }: ListQueryParams): Promise<ContributionApplicationDto[]> {
+  public async list({ contributorId }: ListParams): Promise<ContributionApplicationDto[]> {
     return this.contributionsApplications.filter(
       (application: ContributionApplicationDto) =>
         contributorId === undefined || application.contributor_id === contributorId

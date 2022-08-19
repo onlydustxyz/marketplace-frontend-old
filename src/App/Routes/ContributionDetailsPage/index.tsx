@@ -56,7 +56,7 @@ const ContributionDetailsPageContainer: FC = () => {
       setDisplayRegisterModal(true);
       return;
     }
-    const backEndApply = config.FEATURE_BACKEND_APPLY == "true";
+    const backEndApply: boolean = config.FEATURE_BACKEND_APPLY;
 
     if (backEndApply) {
       setApplying(true);

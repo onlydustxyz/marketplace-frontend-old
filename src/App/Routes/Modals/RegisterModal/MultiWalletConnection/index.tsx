@@ -1,5 +1,5 @@
 import { InjectedConnector, useStarknet } from "@starknet-react/core";
-import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
 import { ButtonProps } from "src/components/Button";
@@ -27,7 +27,9 @@ const MultiWalletConnectionContainer: FC<Props> = ({ size, theme }) => {
 
   const onConnectArgentX = useCallback(async () => {
     setIsConnecting(true);
-    await connect(new InjectedConnector({ options: { id: "argent-x" } }));
+
+    const argentXId = window.starknet?.id || "argentX";
+    await connect(new InjectedConnector({ options: { id: argentXId } }));
   }, [connect, isGithubRegistered]);
 
   const onConnectBraavos = useCallback(async () => {

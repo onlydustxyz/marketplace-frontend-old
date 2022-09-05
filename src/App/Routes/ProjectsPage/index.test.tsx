@@ -26,7 +26,7 @@ describe('"All projects" page', () => {
 
     expect(screen.getByTestId("project-card-3-title").textContent).toBe("Project 3");
     expect(screen.getByTestId("project-card-3-description").textContent).toBe("Description 3");
-    expect(screen.getByTestId("project-card-3-available-contributions").textContent).toBe("2 available contributions");
+    expect(screen.getByTestId("project-card-3-available-contributions").textContent).toBe("3 available contributions");
     expect(screen.getByTestId("project-card-3-technologies").textContent).toBe("rust, javascript");
   });
 });

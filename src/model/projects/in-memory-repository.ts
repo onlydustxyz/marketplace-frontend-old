@@ -32,6 +32,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
       ],
+      members: ["0x0001"],
     },
     {
       id: "2",
@@ -39,6 +40,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
       description: "Description 2",
       github_link: "https://example.com/projects/2",
       contributions: [],
+      members: [],
     },
     {
       id: "3",
@@ -79,11 +81,11 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
         {
-          id: "3",
-          title: "Contribution 3",
-          description: "Description 3",
+          id: "4",
+          title: "Contribution 4",
+          description: "Description 4",
           status: ContributionStatusEnum.OPEN,
-          github_link: "https://example.com/contributions/3",
+          github_link: "https://example.com/contributions/4",
           gate: 0,
           metadata: {
             context: ContributionContextEnum.COUPLED,
@@ -93,7 +95,23 @@ export class InMemoryProjectRepository implements ProjectRepository {
             type: ContributionTypeEnum.DOCUMENTATION,
           },
         },
+        {
+          id: "5",
+          title: "Contribution 5",
+          description: "Description 5",
+          status: ContributionStatusEnum.OPEN,
+          github_link: "https://example.com/contributions/5",
+          gate: 1000000000,
+          metadata: {
+            context: ContributionContextEnum.INTRICATED,
+            difficulty: ContributionDifficultyEnum.HARD,
+            duration: ContributionDurationEnum.WEEKS,
+            technology: "rust",
+            type: ContributionTypeEnum.REFACTOR,
+          },
+        },
       ],
+      members: ["0x0000026"],
     },
   ];
 

@@ -3,10 +3,11 @@ import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListPa
 let indexId = 4;
 export class InMemoryApplicationRepository implements ApplicationRepository {
   private contributionsApplications: Array<ContributionApplicationDto> = [
-    { id: "1", contribution_id: "1", contributor_id: 38 },
-    { id: "2", contribution_id: "1", contributor_id: 39 },
-    { id: "3", contribution_id: "3", contributor_id: 1 },
-    { id: "4", contribution_id: "4", contributor_id: 38 },
+    { id: "1", contribution_id: "1", contributor_id: 1 },
+    { id: "2", contribution_id: "2", contributor_id: 2 },
+    { id: "3", contribution_id: "2", contributor_id: 38 },
+    { id: "4", contribution_id: "3", contributor_id: 1 },
+    { id: "5", contribution_id: "4", contributor_id: 38 },
   ];
 
   public async list({ contributorId }: ListParams): Promise<ContributionApplicationDto[]> {

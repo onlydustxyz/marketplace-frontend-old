@@ -29,6 +29,7 @@ type ProjectBase = {
   github_link?: string;
   discord_link?: string;
   website_link?: string;
+  members: string[];
 };
 
 export type Project = ProjectBase & {
@@ -94,7 +95,7 @@ export const projectsQuery = selector({
 
     return rawProjectsWithContributions.map(({ project, contributions }) => {
       const formattedProject: Project = {
-        ...project,
+        ...formatProject(project),
         openedContributionsAmount: contributions.filter(
           contribution => contribution.status === ContributionStatusEnum.OPEN
         ).length,
@@ -127,7 +128,7 @@ export const contributionsQuery = selector({
           ...contributions.map(contributionDto => {
             const contribution: Contribution = {
               ...contributionDto,
-              project,
+              project: formatProject(project),
               eligible:
                 completedContributionsAmount === null ? null : completedContributionsAmount >= contributionDto.gate,
               applied: applications.some(application => application.contribution_id === contributionDto.id),
@@ -469,4 +470,11 @@ function formatProjectStatuses(contributions: ContributionDto[], completedContri
   });
 
   return Array.from(statuses);
+}
+
+function formatProject(projectDto: Omit<ProjectDto, "contributions">): ProjectBase {
+  return {
+    ...projectDto,
+    members: projectDto.members || [],
+  };
 }

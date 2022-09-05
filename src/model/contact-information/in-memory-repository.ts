@@ -5,7 +5,12 @@ import {
 } from "src/model/contact-information/repository";
 
 export class InMemoryContactInformationRepository implements ContactInformationRepository {
-  private contactInformationList: ContactInformationDto[] = [];
+  private contactInformationList: ContactInformationDto[] = [
+    {
+      contributor_id: 38 as ContributorId,
+      discord_handle: "test_discord_handle",
+    },
+  ];
 
   public async findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto> {
     const contactInformation = this.contactInformationList.find(

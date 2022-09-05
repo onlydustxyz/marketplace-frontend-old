@@ -15,6 +15,7 @@ import Loader from "src/icons/Loader";
 
 type Props = {
   apply: () => void;
+  claim: () => void;
   submit: () => void;
   appliying: boolean;
   contribution: Contribution;
@@ -24,6 +25,7 @@ type Props = {
 
 const ContributionDetailsPage: FC<Props> = ({
   apply,
+  claim,
   submit,
   appliying,
   contribution,
@@ -74,7 +76,7 @@ const ContributionDetailsPage: FC<Props> = ({
   function renderActionButton() {
     if (appliying) {
       return (
-        <Button onClick={apply} disabled>
+        <Button onClick={apply} disabled role="button">
           Applying
           <Loader className="animate-spin ml-4" />
         </Button>
@@ -84,20 +86,32 @@ const ContributionDetailsPage: FC<Props> = ({
       contribution?.status === ContributionStatusEnum.ASSIGNED &&
       parseInt(contribution.metadata.assignee, 16) === contributorId
     ) {
-      return <Button onClick={submit}>Submit work</Button>;
+      return (
+        <Button onClick={submit} role="button">
+          Submit work
+        </Button>
+      );
     }
 
     if (ContributionStatusEnum.OPEN === contribution.status) {
       if (hasAppliedToContribution) {
         return (
-          <Button onClick={apply} disabled={true}>
+          <Button onClick={apply} disabled={true} role="button">
             Applied
           </Button>
         );
       }
 
+      if (contribution.project.members.some(memberId => parseInt(memberId, 16) === contributorId)) {
+        return (
+          <Button onClick={claim} disabled={contribution.eligible === false} role="button">
+            Claim
+          </Button>
+        );
+      }
+
       return (
-        <Button onClick={apply} disabled={contribution.eligible === false}>
+        <Button onClick={apply} disabled={contribution.eligible === false} role="button">
           Apply
         </Button>
       );

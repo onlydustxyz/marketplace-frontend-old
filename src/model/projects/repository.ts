@@ -16,6 +16,7 @@ export type ProjectDto = {
   github_link: string;
   logo?: string;
   contributions: ContributionDto[];
+  members?: string[];
 };
 
 export enum ContributionStatusEnum {

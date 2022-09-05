@@ -97,6 +97,10 @@ const ContributionDetailsPageContainer: FC = () => {
     }
   }, [contributionId, isGithubRegistered, userDiscordHandle]);
 
+  const claim = useCallback(() => {
+    console.log("Claim contribution", contributionId);
+  }, [contributionId]);
+
   const submit = useCallback(() => {
     const submitUrl = `${config.TYPEFORM_SUBMIT_URL}#${buildTypeformParams()}`;
 
@@ -111,6 +115,7 @@ const ContributionDetailsPageContainer: FC = () => {
     <ContributionDetailsPage
       contribution={contribution}
       apply={apply}
+      claim={claim}
       submit={submit}
       appliying={appliying}
       contributorId={contributorId}

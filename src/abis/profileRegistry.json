@@ -82,6 +82,17 @@
   {
     "inputs": [
       {
+        "name": "contribution_id",
+        "type": "felt"
+      }
+    ],
+    "name": "claim",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "name": "identifier",
         "type": "felt"
       }

@@ -14,8 +14,12 @@ import {
 import { FC, startTransition, useCallback, useState } from "react";
 import config from "src/config";
 import { applicationRepository } from "src/model/applications/repository";
-import { toastPromise } from "src/lib/toast-promise";
+import { toastPromise, toastTransaction } from "src/lib/toast-promise";
 import NotFoundError from "./NotFoundError";
+import { useContract } from "@starknet-react/core";
+import { Abi } from "starknet";
+
+import profileRegistryAbi from "src/abis/profileRegistry.json";
 
 type PageParams = {
   contributionId: string;
@@ -33,6 +37,11 @@ const ContributionDetailsPageContainer: FC = () => {
 
   const refreshApplication = useRecoilRefresher_UNSTABLE(contributionsQuery);
   const [appliying, setApplying] = useState(false);
+
+  const { contract: profileRegistryContract } = useContract({
+    abi: profileRegistryAbi as Abi,
+    address: config.REGISTRY_CONTRACT_ADDRESS,
+  });
 
   const buildTypeformParams = () => {
     const typeformParams = new URLSearchParams();
@@ -98,8 +107,33 @@ const ContributionDetailsPageContainer: FC = () => {
   }, [contributionId, isGithubRegistered, userDiscordHandle]);
 
   const claim = useCallback(() => {
+    if (!profileRegistryContract || contribution === undefined || !account) {
+      return;
+    }
+
+    toastTransaction(profileRegistryContract?.invoke("claim", [contributionId]), account, {
+      success: () => {
+        return (
+          <div className="leading-[1rem] line-clamp-3">
+            You are now assigned to the contribution{" "}
+            <Link to={`/contributions/${contributionId}`} className="italic underline">
+              {contribution.title}
+            </Link>
+            !
+          </div>
+        );
+      },
+      pending: () => "You are being assigned this contribution",
+      error: () => (
+        <>
+          An error occured while claiming this contribution
+          <br />
+          Please try again
+        </>
+      ),
+    });
     console.log("Claim contribution", contributionId);
-  }, [contributionId]);
+  }, [contributionId, contribution?.title]);
 
   const submit = useCallback(() => {
     const submitUrl = `${config.TYPEFORM_SUBMIT_URL}#${buildTypeformParams()}`;

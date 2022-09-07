@@ -1,4 +1,6 @@
 import toast from "react-hot-toast";
+import { waitForTransaction } from "src/utils/starknet";
+import { AddTransactionResponse, GetTransactionResponse, ProviderInterface } from "starknet";
 
 import Toast from "./Toast";
 
@@ -47,4 +49,18 @@ export const toastPromise = async <D,>(promise: Promise<D>, options?: ToastPromi
       { id: toastId, duration: 15000 }
     );
   }
+};
+
+export const toastTransaction = async (
+  promise: Promise<AddTransactionResponse>,
+  provider: ProviderInterface,
+  options?: ToastPromiseOptions<GetTransactionResponse>
+) => {
+  const transactionPromise = async () => {
+    const response = await promise;
+
+    return await waitForTransaction(response.transaction_hash, provider);
+  };
+
+  return toastPromise(transactionPromise(), options);
 };

@@ -12,6 +12,7 @@ import Button from "src/components/Button";
 import StatusHeader from "./StatusHeader";
 import MetadataList from "./MetadataList";
 import Loader from "src/icons/Loader";
+import cn from "classnames";
 
 type Props = {
   apply: () => void;
@@ -32,22 +33,25 @@ const ContributionDetailsPage: FC<Props> = ({
   contributorId,
   hasAppliedToContribution = false,
 }) => {
+  const actionButtons = renderActionButton();
+  const hasActions = !!actionButtons;
+
   return (
-    <div className="relative mt-10 px-8 flex flex-col items-center max-w-screen-2xl w-full">
-      <div className="flex flex-row max-w-[1410px] w-full justify-start">
+    <div className="relative mt-2 md:mt-10 px-4 md:px-8 flex flex-col items-center max-w-screen-2xl w-full">
+      <div className="flex flex-col md:flex-row max-w-[1410px] w-full justify-start">
         <BackButton />
 
-        <div className="relative flex flex-col items-center px-12 max-w-screen-xl w-full">
+        <div className="relative flex flex-grow flex-col items-center mt-2 md:mt-0 md:px-12 max-w-screen-xl w-full">
           <StatusHeader contribution={contribution} hasAppliedToContribution={hasAppliedToContribution} />
         </div>
       </div>
-      <div className="relative flex flex-col items-center px-12 max-w-screen-xl w-full">
+      <div className="relative flex flex-col items-center px-0 md:px-12 max-w-screen-xl w-screen">
         <a href={contribution.github_link} target="_blank">
-          <div className="mt-8 mx-12 font-alfreda text-[52px] leading-[68px] capitalize text-center">
+          <div className="mt-4 md:mt-8 mx-4 md:mx-12 font-alfreda text-3xl md:text-[52px] md:leading-[68px] capitalize text-center line-clamp-3 md:line-clamp-none">
             {contribution.title}
           </div>
         </a>
-        <div className="mt-8 flex flex-col items-center">
+        <div className="mt-4 md:mt-8 flex flex-col items-center">
           <Link to={`/projects/${contribution.project.id}`}>
             <img className="rounded-full" src={contribution.project.logo || logoPlaceholder} width={54} />
           </Link>
@@ -59,17 +63,28 @@ const ContributionDetailsPage: FC<Props> = ({
             {contribution.project.title}
           </Link>
         </div>
-        <MetadataList contribution={contribution} className="mt-10 w-full" />
+        <MetadataList contribution={contribution} className="mt-4 md:mt-10 w-full" />
       </div>
 
-      <div className="mb-32 flex flex-col items-center max-w-screen-xl px-20 w-full shadow-contribution-description">
-        <div className="p-20 bg-mid-blue/30 backdrop-blur-[7px] w-full">
-          <ReactMarkdown linkTarget="_blank" className="markdown-body" children={contribution.description} />
+      <div
+        className={cn(
+          "-mx-4 flex flex-col items-center max-w-screen-xl md:px-20 w-screen shadow-contribution-description",
+          hasActions ? "mb-24 md:mb-32" : ""
+        )}
+      >
+        <div className="py-4 px-4 md:p-20 bg-mid-blue/30 backdrop-blur-[7px] w-full text-[64px] md:text-base">
+          <ReactMarkdown
+            linkTarget="_blank"
+            className="markdown-body text-[64px]"
+            children={contribution.description}
+          />
         </div>
       </div>
-      <div className="fixed bottom-0 w-full h-[158px] pt-[48px] flex flex-col items-center justify-stretch bg-contribution-apply-gradient">
-        {renderActionButton()}
-      </div>
+      {actionButtons && (
+        <div className="fixed bottom-0 w-full py-4 md:pt-[48px] md:py-0 md:h-[158px] flex flex-col items-center justify-stretch bg-contribution-apply-gradient">
+          {actionButtons}
+        </div>
+      )}
     </div>
   );
 

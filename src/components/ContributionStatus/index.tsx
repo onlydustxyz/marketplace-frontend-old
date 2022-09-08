@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import cn from "classnames";
 
 import { ContributionStatusEnum } from "src/model/projects/repository";
@@ -15,17 +15,21 @@ type Props = {
   status: Contribution["status"];
   className?: string;
   applied: boolean;
+  children?: ReactNode;
 };
 
-const ContributionStatus: FC<Props> = ({ applied, className, gated, status }) => {
+const ContributionStatus: FC<Props> = ({ applied, children, className, gated, status }) => {
   const statusLabel = computeStatusLabel();
 
   const statusClassName = computeStatusClassName();
 
   return (
-    <div className={cn(className, "flex flex-row items-center")}>
+    <div className={cn(className, "w-full flex flex-row items-center")}>
       {renderBadge()}
-      <div className={cn("ml-2.5 text-xs", statusClassName)}>{statusLabel}</div>
+      <div className="flex flex-grow flex-col md:flex-row items-center">
+        <div className={cn("ml-2.5 text-xs flex-grow", statusClassName)}>{statusLabel}</div>
+        {children}
+      </div>
     </div>
   );
 

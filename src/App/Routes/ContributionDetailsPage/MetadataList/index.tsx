@@ -18,7 +18,7 @@ const MetadataList: FC<Props> = ({ className, contribution }) => {
   return (
     <div
       className={cn(
-        "grid grid-cols-5 py-10 bg-mid-blue/50 backdrop-blur-[6px] shadow-contribution-metadata",
+        "grid grid-cols-1 md:grid-cols-5 py-2 md:py-10 bg-mid-blue/50 backdrop-blur-[6px] shadow-contribution-metadata",
         className
       )}
     >

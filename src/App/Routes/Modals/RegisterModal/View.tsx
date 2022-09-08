@@ -23,9 +23,9 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
     ? displayModal && (!account || !githubHandle || !discordHandle)
     : displayModal && (!account || !githubHandle);
   return (
-    <Modal contentClassName="px-16 pt-11 pb-16 max-w-screen-md" onClose={onClose} isOpen={isOpen}>
+    <Modal contentClassName="px-2 md:px-16 py-2 pt-11 md:pb-16 md:max-w-screen-md" onClose={onClose} isOpen={isOpen}>
       <div className="flex flex-col items-center">
-        <div className="flex flex-row items-center justify-center gap-5">
+        <div className="flex flex-col w-full px-4 md:px-0 md:w-auto md:flex-row items-center justify-center gap-2 md:gap-5">
           <ConnectionState
             providerName="Wallet"
             connected={!!account}
@@ -48,7 +48,9 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
   function renderConnectWallet() {
     return (
       <>
-        <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">If you wish to contribute, connect your Wallet</p>
+        <p className="mt-5 mb-7 md:mt-9 md:mb-11 font-alfreda font-bold text-2xl md:text-5xl">
+          If you wish to contribute, connect your Wallet
+        </p>
         <MultiWalletConnection />
       </>
     );
@@ -57,7 +59,9 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
   function renderConnectGithub() {
     return (
       <>
-        <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">If you wish to contribute, connect your Github</p>
+        <p className="mt-5 mb-7 md:mt-9 md:mb-11 font-alfreda font-bold text-2xl md:text-5xl">
+          If you wish to contribute, connect your Github
+        </p>
         <GithubSignin />
       </>
     );
@@ -66,7 +70,7 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
   function renderConnectDiscord() {
     return (
       <>
-        <p className="mt-9 mb-11 font-alfreda font-bold text-5xl">
+        <p className="mt-5 mb-7 md:mt-9 md:mb-11 font-alfreda font-bold text-2xl md:text-5xl">
           If you wish to contribute, please provide your Discord handle
         </p>
         <DiscordForm />

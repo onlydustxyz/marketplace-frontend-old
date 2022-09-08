@@ -23,13 +23,19 @@ const StatusHeader: FC<Props> = ({ contribution, hasAppliedToContribution }) => 
   const computedStatus = computeStatus();
 
   return (
-    <div className={cn(classNamesByStatus[computedStatus], "px-10 w-full flex items-center h-[66px]")}>
+    <div
+      className={cn(
+        classNamesByStatus[computedStatus],
+        "px-3 md:px-10 w-full flex flex-col md:flex-row justify-center items-start md:items-center h-[48px] md:h-[66px]"
+      )}
+    >
       <ContributionStatus
         status={contribution.status}
         gated={contribution.eligible === false}
         applied={hasAppliedToContribution}
-      />
-      {renderDetails()}
+      >
+        {renderDetails()}
+      </ContributionStatus>
     </div>
   );
 
@@ -38,15 +44,24 @@ const StatusHeader: FC<Props> = ({ contribution, hasAppliedToContribution }) => 
       case ContributionStatusEnum.OPEN:
         if (contribution.eligible === false) {
           return (
-            <div className="flex-grow text-right">
-              Complete {contribution.gateMissingCompletedContributions} more contributions to unlock
+            <div className="flex-grow text-center md:text-right text-xs md:text-base">
+              <span>Complete {contribution.gateMissingCompletedContributions} more contributions to unlock</span>
             </div>
           );
         }
         break;
       case ContributionStatusEnum.ASSIGNED:
+        return (
+          <div className="flex-grow text-center md:text-right text-sm md:text-base">
+            to {renderAssigneeLink(contribution.metadata)}
+          </div>
+        );
       case ContributionStatusEnum.COMPLETED:
-        return <div className="flex-grow text-right">by {renderAssigneeLink(contribution.metadata)}</div>;
+        return (
+          <div className="flex-grow text-center md:text-right text-sm md:text-base">
+            by {renderAssigneeLink(contribution.metadata)}
+          </div>
+        );
       default:
         return null;
     }

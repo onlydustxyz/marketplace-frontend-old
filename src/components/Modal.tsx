@@ -27,8 +27,8 @@ const Modal: FC<PropsWithChildren<Props>> = ({
     : onClose;
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto " onClose={closeAction}>
-        <div className="min-h-screen px-4 text-center flex flex-col items-center justify-center ">
+      <Dialog as="div" className="fixed h-screen w-screen inset-0 z-50 overflow-y-auto" onClose={closeAction}>
+        <div className="fixed h-screen w-screen md:min-h-screen text-center flex flex-col items-center justify-center ">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -38,7 +38,7 @@ const Modal: FC<PropsWithChildren<Props>> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-80" />
+            <Dialog.Overlay className="fixed w-screen h-screen inset-0 bg-black bg-opacity-80" />
           </Transition.Child>
 
           <Transition.Child
@@ -52,7 +52,7 @@ const Modal: FC<PropsWithChildren<Props>> = ({
           >
             <div
               className={cn(
-                "relative w-[86%] max-w-screen-lg bg-space-blue bg-opacity-20 border-[2px] after:inset-[-2px] before:absolute before:bg-space-blue before:inset-0 before:z-m1 text-light-purple  border-solid border-transparent bg-clip-padding after:absolute after:bg-gradient-modal after:z-m2",
+                "relative w-full md:w-auto h-full md:h-auto md:max-w-screen-lg bg-space-blue bg-opacity-20 border-[2px] after:inset-[-2px] before:absolute before:bg-space-blue before:inset-0 before:z-m1 text-light-purple border-solid border-transparent bg-clip-padding after:absolute after:bg-gradient-modal after:z-m2",
                 contentClassName
               )}
             >

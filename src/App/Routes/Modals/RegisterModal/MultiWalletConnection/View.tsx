@@ -11,11 +11,11 @@ type Props = {
 
 const MultiWalletConnection: FC<PropsWithChildren<Props>> = ({ onConnectArgentX, onConnectBraavos, size, theme }) => {
   return (
-    <div>
-      <Button className="min-w-full" theme={theme} onClick={onConnectArgentX} size={size}>
+    <div className="flex flex-col max-w-full items-center overflow-hidden gap-3">
+      <Button theme={theme} onClick={onConnectArgentX} size={size}>
         Connect ArgentX Wallet
       </Button>
-      <Button className="mt-3 min-w-full" theme={theme} onClick={onConnectBraavos} size={size}>
+      <Button theme={theme} onClick={onConnectBraavos} size={size}>
         Connect Braavos Wallet
       </Button>
     </div>

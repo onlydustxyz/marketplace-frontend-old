@@ -22,7 +22,7 @@ const DiscordForm: FC<Props> = ({ loading, onChange, onSubmit, value, error }) =
     onSubmit();
   };
   return (
-    <form className="flex space-x-8" onSubmit={onFormSubmit}>
+    <form className="flex flex-col md:flex-row justify-center space-y-4 md:space-x-8" onSubmit={onFormSubmit}>
       <input value={value} onChange={e => onChange(e.target.value)} placeholder="Georges_moustaki#1977" />
       <Button onClick={onSubmit} size="medium">
         Send

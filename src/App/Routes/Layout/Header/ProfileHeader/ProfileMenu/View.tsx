@@ -11,11 +11,12 @@ import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 type Props = {
   accountAddress?: string;
   githubHandle?: number;
+  className?: string;
 };
 
-const ProfileMenu: FC<Props> = ({ accountAddress, githubHandle }) => {
+const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => {
   return (
-    <Popover as="div" className="relative inline-block text-left">
+    <Popover as="div" className={cn(className, "relative inline-block text-left")}>
       {({ open }) => (
         <>
           <Popover.Button

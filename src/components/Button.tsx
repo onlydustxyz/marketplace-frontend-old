@@ -14,9 +14,9 @@ export interface ButtonProps extends ButtonExtends {
 }
 
 const classesBySize = {
-  small: "h-[31px] min-w-[157px] text-[13px] px-3",
-  medium: "h-[48px] min-w-[200px] text-base px-5",
-  regular: "h-[65px] min-w-[244px] text-lg px-7",
+  small: "h-[31px] min-w-[100px] md:min-w-[158px] text-[13px] px-1 md:px-3",
+  medium: "h-[48px] min-w-[135px] md:min-w-[200px] text-base px-2 md:px-5",
+  regular: "h-[65px] min-w-[156px] md:min-w-[244px] text-lg px-3 md:px-7",
 } as Record<Required<ButtonProps>["size"], string>;
 
 const classesByTheme = {

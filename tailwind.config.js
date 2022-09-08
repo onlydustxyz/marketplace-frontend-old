@@ -89,10 +89,23 @@ module.exports = {
         m1: "-1",
         m2: "-2",
       },
+      gridTemplateAreas: {
+        "header-desktop": ["menu menu logo menu-right profile"],
+        "header-mobile": ["burger-button logo profile", "menu menu menu", "menu-right menu-right menu-right"],
+      },
+      gridTemplateColumns: {
+        "header-desktop": "70px 1fr 60px 1fr 70px",
+        "header-mobile": "1fr 40px 1fr",
+      },
     },
   },
   variants: {
     textShadow: ["responsive", "hover", "focus", "disabled"],
+    gridTemplateAreas: ["responsive"],
   },
-  plugins: [require("@tailwindcss/line-clamp"), require("tailwindcss-textshadow")],
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+    require("tailwindcss-textshadow"),
+    require("@savvywombat/tailwindcss-grid-areas"),
+  ],
 };

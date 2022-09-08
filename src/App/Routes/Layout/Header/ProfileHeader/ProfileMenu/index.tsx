@@ -5,11 +5,15 @@ import { accountAtom, userGithubHandleSelector } from "src/state";
 
 import ProfileMenu from "./View";
 
-const ProfileMenuContainer: FC = () => {
+interface Props {
+  className?: string;
+}
+
+const ProfileMenuContainer: FC<Props> = ({ className }) => {
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const githubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
 
-  return <ProfileMenu accountAddress={account?.address} githubHandle={githubHandle} />;
+  return <ProfileMenu accountAddress={account?.address} githubHandle={githubHandle} className={className} />;
 };
 
 export default ProfileMenuContainer;

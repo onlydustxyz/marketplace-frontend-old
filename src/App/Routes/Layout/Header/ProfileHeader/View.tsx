@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -6,25 +7,37 @@ import ProfileMenu from "./ProfileMenu";
 
 type Props = {
   accountAddress: string | undefined;
+  displayMenu: boolean;
 };
 
-const ProfileHeader: FC<Props> = ({ accountAddress }) => {
+const ProfileHeader: FC<Props> = ({ accountAddress, displayMenu }) => {
   if (!accountAddress) {
     return (
-      <ConnectButton theme="secondary" size="small">
-        Connect Wallet
-      </ConnectButton>
+      <div className="flex flex-row justify-end grid-in-profile">
+        <ConnectButton theme="secondary" size="small">
+          <span className="hidden md:block">Connect Wallet</span>
+          <span className="block md:hidden">Connect</span>
+        </ConnectButton>
+      </div>
     );
   }
 
   return (
     <>
-      <div className="text-light-purple/66">
-        <NavLink className={({ isActive }) => (isActive ? "text-white mr-10" : "mr-10")} to="/my-contributions">
+      <div
+        className={cn(
+          "text-light-purple/66 grid-in-menu-right justify-self-center md:justify-self-end flex flex-col md:block items-center md:items-start -mx-3 mt-0 md:mt-0 bg-white/10 md:bg-transparent w-screen md:w-auto",
+          displayMenu ? "" : "hidden md-block"
+        )}
+      >
+        <NavLink
+          className={({ isActive }) => cn("md:mr-10 h-10 leading-10", isActive && "text-white")}
+          to="/my-contributions"
+        >
           My contributions
         </NavLink>
       </div>
-      <ProfileMenu />
+      <ProfileMenu className="grid-in-profile justify-self-end" />
     </>
   );
 };

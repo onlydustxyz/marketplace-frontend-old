@@ -9,6 +9,7 @@ import {
   ContributionStatusEnum,
   OpenStatus,
   ProjectDto,
+  ProjectMember,
   projectRepository,
 } from "src/model/projects/repository";
 import {
@@ -29,7 +30,7 @@ type ProjectBase = {
   github_link?: string;
   discord_link?: string;
   website_link?: string;
-  members: string[];
+  members: ProjectMember[];
 };
 
 export type Project = ProjectBase & {

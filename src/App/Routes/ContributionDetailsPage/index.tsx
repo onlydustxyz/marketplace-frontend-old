@@ -118,6 +118,7 @@ const ContributionDetailsPageContainer: FC = () => {
       claim={claim}
       submit={submit}
       appliying={appliying}
+      accountAddress={account?.address}
       contributorId={contributorId}
       hasAppliedToContribution={hasAppliedToContribution}
     />

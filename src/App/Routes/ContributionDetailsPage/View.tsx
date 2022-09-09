@@ -19,6 +19,7 @@ type Props = {
   claim: () => void;
   submit: () => void;
   appliying: boolean;
+  accountAddress?: string;
   contribution: Contribution;
   contributorId?: number;
   hasAppliedToContribution: boolean;
@@ -29,6 +30,7 @@ const ContributionDetailsPage: FC<Props> = ({
   claim,
   submit,
   appliying,
+  accountAddress,
   contribution,
   contributorId,
   hasAppliedToContribution = false,
@@ -117,7 +119,12 @@ const ContributionDetailsPage: FC<Props> = ({
         );
       }
 
-      if (contribution.project.members.some(memberId => parseInt(memberId, 16) === contributorId)) {
+      if (
+        accountAddress !== undefined &&
+        contribution.project.members.some(
+          member => parseInt(member.contributor_account, 16) === parseInt(accountAddress, 16)
+        )
+      ) {
         return (
           <Button onClick={claim} disabled={contribution.eligible === false} role="button">
             Claim

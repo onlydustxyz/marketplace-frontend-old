@@ -16,7 +16,12 @@ export type ProjectDto = {
   github_link: string;
   logo?: string;
   contributions: ContributionDto[];
-  members?: string[];
+  members?: ProjectMember[];
+};
+
+export type ProjectMember = {
+  contributor_account: string;
+  is_lead_contributor: boolean;
 };
 
 export enum ContributionStatusEnum {

@@ -32,7 +32,12 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
       ],
-      members: ["0x0001"],
+      members: [
+        {
+          contributor_account: "0x0abcdefabcdef",
+          is_lead_contributor: false,
+        },
+      ],
     },
     {
       id: "2",
@@ -111,7 +116,12 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
       ],
-      members: ["0x0000026"],
+      members: [
+        {
+          contributor_account: "0x0123456789",
+          is_lead_contributor: false,
+        },
+      ],
     },
   ];
 

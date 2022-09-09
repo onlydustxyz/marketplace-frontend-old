@@ -321,7 +321,6 @@ export const filteredProjectsSelector = selector({
     const contributionsFilterTechnology = get(contributionsFilterTechnologyAtom("projects"));
     const contributionsFilterType = get(contributionsFilterTypeAtom("projects"));
 
-    console.log({ contributionsFilterTechnology });
     return projects
       .filter(filterProjectByStatuses(contributionsFilterStatus))
       .filter(filterProjectByProperty("contexts", contributionsFilterContext))

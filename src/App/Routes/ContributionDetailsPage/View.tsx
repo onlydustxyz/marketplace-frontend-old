@@ -126,7 +126,7 @@ const ContributionDetailsPage: FC<Props> = ({
         )
       ) {
         return (
-          <Button onClick={claim} disabled={contribution.eligible === false} role="button">
+          <Button onClick={claim} role="button">
             Claim
           </Button>
         );

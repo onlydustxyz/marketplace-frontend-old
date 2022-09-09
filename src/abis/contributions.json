@@ -1,0 +1,682 @@
+[
+  {
+    "members": [
+      {
+        "name": "low",
+        "offset": 0,
+        "type": "felt"
+      },
+      {
+        "name": "high",
+        "offset": 1,
+        "type": "felt"
+      }
+    ],
+    "name": "Uint256",
+    "size": 2,
+    "type": "struct"
+  },
+  {
+    "members": [
+      {
+        "name": "inner",
+        "offset": 0,
+        "type": "felt"
+      }
+    ],
+    "name": "ContributionId",
+    "size": 1,
+    "type": "struct"
+  },
+  {
+    "members": [
+      {
+        "name": "id",
+        "offset": 0,
+        "type": "ContributionId"
+      },
+      {
+        "name": "project_id",
+        "offset": 1,
+        "type": "felt"
+      },
+      {
+        "name": "status",
+        "offset": 2,
+        "type": "felt"
+      },
+      {
+        "name": "gate",
+        "offset": 3,
+        "type": "felt"
+      },
+      {
+        "name": "contributor_id",
+        "offset": 4,
+        "type": "Uint256"
+      }
+    ],
+    "name": "Contribution",
+    "size": 6,
+    "type": "struct"
+  },
+  {
+    "data": [
+      {
+        "name": "implementation",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "Upgraded",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "previousAdmin",
+        "type": "felt"
+      },
+      {
+        "name": "newAdmin",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "AdminChanged",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "role",
+        "type": "felt"
+      },
+      {
+        "name": "account",
+        "type": "felt"
+      },
+      {
+        "name": "sender",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "role",
+        "type": "felt"
+      },
+      {
+        "name": "account",
+        "type": "felt"
+      },
+      {
+        "name": "sender",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "role",
+        "type": "felt"
+      },
+      {
+        "name": "previousAdminRole",
+        "type": "felt"
+      },
+      {
+        "name": "newAdminRole",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "lead_contributor_account",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "LeadContributorAdded",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "lead_contributor_account",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "LeadContributorRemoved",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "contributor_account",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "ProjectMemberAdded",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "contributor_account",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "ProjectMemberRemoved",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "contribution_id",
+        "type": "felt"
+      },
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "issue_number",
+        "type": "felt"
+      },
+      {
+        "name": "gate",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "ContributionCreated",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "contribution_id",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "ContributionDeleted",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "contribution_id",
+        "type": "felt"
+      },
+      {
+        "name": "contributor_id",
+        "type": "Uint256"
+      }
+    ],
+    "keys": [],
+    "name": "ContributionAssigned",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "contribution_id",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "ContributionUnassigned",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "contribution_id",
+        "type": "felt"
+      },
+      {
+        "name": "contributor_id",
+        "type": "Uint256"
+      }
+    ],
+    "keys": [],
+    "name": "ContributionClaimed",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "contribution_id",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "ContributionValidated",
+    "type": "event"
+  },
+  {
+    "data": [
+      {
+        "name": "contribution_id",
+        "type": "felt"
+      },
+      {
+        "name": "gate",
+        "type": "felt"
+      }
+    ],
+    "keys": [],
+    "name": "ContributionGateChanged",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "implementation",
+    "outputs": [
+      {
+        "name": "hash",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proxy_admin",
+    "outputs": [
+      {
+        "name": "admin",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "new_implementation_hash",
+        "type": "felt"
+      }
+    ],
+    "name": "set_implementation",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "new_implementation_hash",
+        "type": "felt"
+      },
+      {
+        "name": "migration_hash",
+        "type": "felt"
+      }
+    ],
+    "name": "set_implementation_with_migration",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "new_admin",
+        "type": "felt"
+      }
+    ],
+    "name": "set_proxy_admin",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "admin",
+        "type": "felt"
+      }
+    ],
+    "name": "constructor",
+    "outputs": [],
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "name": "proxy_admin",
+        "type": "felt"
+      }
+    ],
+    "name": "initializer",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contribution_id",
+        "type": "ContributionId"
+      }
+    ],
+    "name": "contribution",
+    "outputs": [
+      {
+        "name": "contribution",
+        "type": "Contribution"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contributor_id",
+        "type": "Uint256"
+      }
+    ],
+    "name": "past_contributions",
+    "outputs": [
+      {
+        "name": "num_contributions",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "all_contributions",
+    "outputs": [
+      {
+        "name": "contributions_len",
+        "type": "felt"
+      },
+      {
+        "name": "contributions",
+        "type": "Contribution*"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "all_open_contributions",
+    "outputs": [
+      {
+        "name": "contributions_len",
+        "type": "felt"
+      },
+      {
+        "name": "contributions",
+        "type": "Contribution*"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contributor_id",
+        "type": "Uint256"
+      }
+    ],
+    "name": "assigned_contributions",
+    "outputs": [
+      {
+        "name": "contributions_len",
+        "type": "felt"
+      },
+      {
+        "name": "contributions",
+        "type": "Contribution*"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contributor_id",
+        "type": "Uint256"
+      }
+    ],
+    "name": "eligible_contributions",
+    "outputs": [
+      {
+        "name": "contributions_len",
+        "type": "felt"
+      },
+      {
+        "name": "contributions",
+        "type": "Contribution*"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "address",
+        "type": "felt"
+      }
+    ],
+    "name": "grant_admin_role",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "address",
+        "type": "felt"
+      }
+    ],
+    "name": "revoke_admin_role",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "issue_number",
+        "type": "felt"
+      },
+      {
+        "name": "gate",
+        "type": "felt"
+      }
+    ],
+    "name": "new_contribution",
+    "outputs": [
+      {
+        "name": "contribution",
+        "type": "Contribution"
+      }
+    ],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contribution_id",
+        "type": "ContributionId"
+      }
+    ],
+    "name": "delete_contribution",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contribution_id",
+        "type": "ContributionId"
+      },
+      {
+        "name": "contributor_id",
+        "type": "Uint256"
+      }
+    ],
+    "name": "assign_contributor_to_contribution",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contribution_id",
+        "type": "ContributionId"
+      }
+    ],
+    "name": "unassign_contributor_from_contribution",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contribution_id",
+        "type": "ContributionId"
+      },
+      {
+        "name": "contributor_id",
+        "type": "Uint256"
+      }
+    ],
+    "name": "claim_contribution",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contribution_id",
+        "type": "ContributionId"
+      }
+    ],
+    "name": "validate_contribution",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "contribution_id",
+        "type": "ContributionId"
+      },
+      {
+        "name": "gate",
+        "type": "felt"
+      }
+    ],
+    "name": "modify_gate",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "lead_contributor_account",
+        "type": "felt"
+      }
+    ],
+    "name": "add_lead_contributor_for_project",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "lead_contributor_account",
+        "type": "felt"
+      }
+    ],
+    "name": "remove_lead_contributor_for_project",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "contributor_account",
+        "type": "felt"
+      }
+    ],
+    "name": "add_member_for_project",
+    "outputs": [],
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "project_id",
+        "type": "felt"
+      },
+      {
+        "name": "contributor_account",
+        "type": "felt"
+      }
+    ],
+    "name": "remove_member_for_project",
+    "outputs": [],
+    "type": "function"
+  }
+]

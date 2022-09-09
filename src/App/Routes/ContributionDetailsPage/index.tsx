@@ -19,7 +19,8 @@ import NotFoundError from "./NotFoundError";
 import { useContract } from "@starknet-react/core";
 import { Abi } from "starknet";
 
-import profileRegistryAbi from "src/abis/profileRegistry.json";
+import contributionsAbi from "src/abis/contributions.json";
+import { numberToUint256 } from "src/utils/uint256";
 
 type PageParams = {
   contributionId: string;
@@ -38,9 +39,9 @@ const ContributionDetailsPageContainer: FC = () => {
   const refreshApplication = useRecoilRefresher_UNSTABLE(contributionsQuery);
   const [appliying, setApplying] = useState(false);
 
-  const { contract: profileRegistryContract } = useContract({
-    abi: profileRegistryAbi as Abi,
-    address: config.REGISTRY_CONTRACT_ADDRESS,
+  const { contract: contributionsContract } = useContract({
+    abi: contributionsAbi as Abi,
+    address: config.CONTRIBUTIONS_CONTRACT_ADDRESS,
   });
 
   const buildTypeformParams = () => {
@@ -107,32 +108,37 @@ const ContributionDetailsPageContainer: FC = () => {
   }, [contributionId, isGithubRegistered, userDiscordHandle]);
 
   const claim = useCallback(() => {
-    if (!profileRegistryContract || contribution === undefined || !account) {
+    if (!contributionsContract || contribution === undefined || !contributorId || !account) {
       return;
     }
 
-    toastTransaction(profileRegistryContract?.invoke("claim", [contributionId]), account, {
-      success: () => {
-        return (
-          <div className="leading-[1rem] line-clamp-3">
-            You are now assigned to the contribution{" "}
-            <Link to={`/contributions/${contributionId}`} className="italic underline">
-              {contribution.title}
-            </Link>
-            !
-          </div>
-        );
-      },
-      pending: () => "You are being assigned this contribution",
-      error: () => (
-        <>
-          An error occured while claiming this contribution
-          <br />
-          Please try again
-        </>
-      ),
-    });
-    console.log("Claim contribution", contributionId);
+    const contributorIdUint256 = numberToUint256(contributorId);
+
+    toastTransaction(
+      contributionsContract?.invoke("claim_contribution", [[contributionId], contributorIdUint256]),
+      account,
+      {
+        success: () => {
+          return (
+            <div className="leading-[1rem] line-clamp-3">
+              You are now assigned to the contribution{" "}
+              <Link to={`/contributions/${contributionId}`} className="italic underline">
+                {contribution.title}
+              </Link>
+              !
+            </div>
+          );
+        },
+        pending: () => "You are being assigned this contribution",
+        error: () => (
+          <>
+            An error occured while claiming this contribution
+            <br />
+            Please try again
+          </>
+        ),
+      }
+    );
   }, [contributionId, contribution?.title]);
 
   const submit = useCallback(() => {

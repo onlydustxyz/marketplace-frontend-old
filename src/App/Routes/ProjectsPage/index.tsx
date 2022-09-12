@@ -11,7 +11,18 @@ const ProjectsPageContainer: FC = () => {
     setDisplayFilters(displayFilters => !displayFilters);
   };
 
-  return <ProjectsPage projects={projects} toggleFilters={toggleFilters} displayFilters={displayFilters} />;
+  const closeFilters = () => {
+    setDisplayFilters(false);
+  };
+
+  return (
+    <ProjectsPage
+      projects={projects}
+      toggleFilters={toggleFilters}
+      displayFilters={displayFilters}
+      closeFilters={closeFilters}
+    />
+  );
 };
 
 export default ProjectsPageContainer;

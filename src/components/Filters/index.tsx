@@ -11,12 +11,18 @@ import TechnologyFilter from "./TechnologyFilter";
 
 export type FilterProps = {
   className?: string;
+  closeFilters: () => void;
   sourceKey: "contributions" | "projects";
 };
 
-const Filters: FC<FilterProps> = ({ className, sourceKey }) => {
+const Filters: FC<FilterProps> = ({ className, closeFilters, sourceKey }) => {
   return (
-    <div className={cn("w-full grid grid-cols-[repeat(auto-fit,_minmax(160px,1fr))] gap-4 justify-center", className)}>
+    <div
+      className={cn(
+        "w-full grid grid-cols-[repeat(auto-fit,_minmax(160px,1fr))] gap-1 md:gap-4 justify-center",
+        className
+      )}
+    >
       <StatusFilter sourceKey={sourceKey} />
       <DifficultyFilter sourceKey={sourceKey} />
       <TechnologyFilter sourceKey={sourceKey} />
@@ -24,6 +30,9 @@ const Filters: FC<FilterProps> = ({ className, sourceKey }) => {
       <DurationFilter sourceKey={sourceKey} />
       <TypeFilter sourceKey={sourceKey} />
       <ContextFilter sourceKey={sourceKey} />
+      <div className="md:hidden text-light-purple/50 mt-2 text-center" onClick={closeFilters}>
+        Close filter panel
+      </div>
     </div>
   );
 };

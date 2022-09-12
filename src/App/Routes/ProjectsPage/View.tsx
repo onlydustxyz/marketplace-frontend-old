@@ -15,7 +15,7 @@ type Props = {
 
 const ProjectsPage: FC<Props> = ({ displayFilters, projects, toggleFilters }) => {
   return (
-    <div className="w-full max-w-screen-2xl px-8">
+    <div className="w-full max-w-screen-2xl px-2 md:px-8">
       <div className="relative flex flex-row mt-10 mb-4">
         <h1 className="flex-grow text-3xl font-alfreda leading-[63px]">All projects</h1>
 
@@ -34,7 +34,7 @@ const ProjectsPage: FC<Props> = ({ displayFilters, projects, toggleFilters }) =>
       </div>
       <Filters className={cn("mt-5", !displayFilters && "hidden")} sourceKey="projects" />
       <ul
-        className="w-full mt-12 grid grid-cols-[repeat(auto-fill,_minmax(360px,1fr))] gap-x-[2%] gap-y-12 justify-between grid-rows-1"
+        className="w-full mt-12 grid grid-cols-[1fr] md:grid-cols-[repeat(auto-fill,_minmax(360px,1fr))] gap-x-[2%] gap-y-4 md:gap-y-12 justify-between grid-rows-1"
         data-testid="project-list"
       >
         {projects.map(project => (

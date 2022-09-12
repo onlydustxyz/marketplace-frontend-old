@@ -13,7 +13,7 @@ type Props = {
 
 const ContributionsPage: FC<Props> = ({ contributions, displayFilters, toggleFilters }) => {
   return (
-    <div className="w-full max-w-screen-2xl px-8">
+    <div className="w-full max-w-screen-2xl px-2 md:px-8">
       <div className="relative flex flex-row mt-8 mb-4">
         <h1 className="flex-grow text-3xl font-alfreda leading-[63px]">All contributions</h1>
 

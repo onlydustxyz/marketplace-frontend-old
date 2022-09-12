@@ -13,7 +13,7 @@ const MyContributionsPage: FC = () => {
   if (allMyContributions.length === 0) {
     return (
       <div className="mt-32 flex flex-col items-center">
-        <div className="text-3xl text-light-blue/50">You don't have contributions yet</div>
+        <div className="text-3xl text-light-blue/50 text-center">You don't have contributions yet</div>
         <Button className="mt-8" href="/">
           Start contributing
         </Button>

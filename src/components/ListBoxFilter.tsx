@@ -20,7 +20,7 @@ type Props = {
 const ListBoxFilter: FC<Props> = ({ label, values, selectedValues, setSelectedValues, multiple }) => {
   return (
     <div className="flex flex-col">
-      <label className="text-light-purple/66 text-xs-upper mb-3.5">{label}</label>
+      <label className="text-light-purple/66 text-xs-upper md:mb-3.5">{label}</label>
       <Listbox value={selectedValues} onChange={setSelectedValues} multiple={multiple}>
         {({ open }) => (
           <div className="relative flex flex-col">

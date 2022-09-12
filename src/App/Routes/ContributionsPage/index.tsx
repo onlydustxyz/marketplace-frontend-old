@@ -14,8 +14,17 @@ const ContributionsPageContainer: FC = () => {
     setDisplayFilters(displayFilters => !displayFilters);
   };
 
+  const closeFilters = () => {
+    setDisplayFilters(false);
+  };
+
   return (
-    <ContributionsPage contributions={contributions} displayFilters={displayFilters} toggleFilters={toggleFilters} />
+    <ContributionsPage
+      contributions={contributions}
+      displayFilters={displayFilters}
+      toggleFilters={toggleFilters}
+      closeFilters={closeFilters}
+    />
   );
 };
 

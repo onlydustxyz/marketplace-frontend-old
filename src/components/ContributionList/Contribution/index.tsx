@@ -32,12 +32,14 @@ const Contribution: FC<Props> = ({ contribution }) => {
             applied={contribution.applied}
           />
         </div>
-        <div className="grow flex flex-col justify-center mb-8">
-          <h2 className="font-alfreda text-3xl leading-[42px] text-center px-8 line-clamp-4">{contribution.title}</h2>
+        <div className="grow flex flex-col justify-center mb-8 ">
+          <h2 className="font-alfreda text-3xl leading-[42px] text-center px-2 md:px-8 line-clamp-4 break-words">
+            {contribution.title}
+          </h2>
         </div>
 
         <div className="flex flex-col items-center mb-4">
-          <span className="text-light-purple/66 uppercase text-[10px] tracking-widest	">Project</span>
+          <span className="text-light-purple/66 uppercase text-[10px] tracking-widest">Project</span>
           <span>{contribution.project.title}</span>
         </div>
         <div className="relative h-[80px] grid grid-cols-2 items-center text-center text-xl bg-mid-blue/20 group-hover:bg-mid-blue/40">

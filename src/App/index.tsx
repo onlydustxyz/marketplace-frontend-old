@@ -1,6 +1,5 @@
 import { RecoilRoot } from "recoil";
 import { ErrorBoundary } from "react-error-boundary";
-
 import AppRoutes from "./Routes";
 import StarknetLocalProvider from "src/App/StarknetLocalProvider";
 import StarknetSyncState from "./StarknetSyncState";

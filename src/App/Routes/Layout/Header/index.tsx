@@ -37,15 +37,15 @@ const Header: FC = () => {
             )}
           >
             <NavLink to="/contributions" className={({ isActive }) => cn("h-10 leading-10", isActive && "text-white")}>
-              All contributions
+              Contributions
             </NavLink>
             <NavLink className={({ isActive }) => cn("md:ml-8 h-10 leading-10", isActive && "text-white")} to="/">
-              All projects
+              Projects
             </NavLink>
           </div>
           <div className="grid-in-logo">
             <Link to="/">
-              <img src={logo} width="68px" />
+              <img src={logo} width="68px" alt="OnlyDust" />
             </Link>
           </div>
           <Suspense fallback={"Connection..."}>

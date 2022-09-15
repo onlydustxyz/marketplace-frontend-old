@@ -36,7 +36,6 @@ jobs:
           MARKETPLACE_SENTRY_AUTH_TOKEN: ${{ secrets.MARKETPLACE_SENTRY_AUTH_TOKEN }}
           MARKETPLACE_SENTRY_ORG: ${{ secrets.MARKETPLACE_SENTRY_ORG }}
           MARKETPLACE_SENTRY_PROJECT: ${{ secrets.MARKETPLACE_SENTRY_PROJECT }}
-          MARKETPLACE_FEATURE_BACKEND_APPLY: ${{ secrets.MARKETPLACE_FEATURE_BACKEND_APPLY }}
       - name: Copy files to the production frontend with the AWS CLI
         run: |
           aws s3 sync --delete dist s3://onlydust-marketplace-frontend

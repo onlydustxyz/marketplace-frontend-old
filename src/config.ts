@@ -13,7 +13,6 @@ const config = {
   SENTRY_ENVIRONMENT: import.meta.env.MARKETPLACE_SENTRY_ENVIRONMENT,
   SENTRY_RELEASE: import.meta.env.MARKETPLACE_SENTRY_RELEASE,
   SENTRY_TRACES_SAMPLE_RATE: parseFloat(import.meta.env.MARKETPLACE_SENTRY_TRACES_SAMPLE_RATE) || 0,
-  FEATURE_BACKEND_APPLY: import.meta.env.MARKETPLACE_FEATURE_BACKEND_APPLY === "true",
 };
 
 export default config;

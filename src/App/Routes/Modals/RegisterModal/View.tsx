@@ -18,10 +18,7 @@ type Props = {
 };
 
 const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discordHandle, onClose }) => {
-  const backendApply = config.FEATURE_BACKEND_APPLY;
-  const isOpen = backendApply
-    ? displayModal && (!account || !githubHandle || !discordHandle)
-    : displayModal && (!account || !githubHandle);
+  const isOpen = displayModal && (!account || !githubHandle || !discordHandle);
   return (
     <Modal contentClassName="px-2 md:px-16 py-2 pt-11 md:pb-16 md:max-w-screen-md" onClose={onClose} isOpen={isOpen}>
       <div className="flex flex-col items-center">
@@ -32,9 +29,7 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
             accountLabel={account?.address ? minimizeAddress(account.address) : undefined}
           />
           <ConnectionState providerName="Github" connected={!!githubHandle} accountLabel={githubHandle} />
-          {backendApply && (
-            <ConnectionState providerName="Discord" connected={!!discordHandle} accountLabel={discordHandle} />
-          )}
+          <ConnectionState providerName="Discord" connected={!!discordHandle} accountLabel={discordHandle} />
         </div>
         {account === undefined
           ? renderConnectWallet()

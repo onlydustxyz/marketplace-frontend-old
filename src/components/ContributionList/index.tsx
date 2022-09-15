@@ -13,7 +13,7 @@ type Props = {
 let ContributionList: FC<Props> = ({ className, contributions }) => {
   return (
     <VirtuosoGrid
-      style={{ height: 400 }}
+      className="w-full"
       useWindowScroll
       totalCount={contributions.length}
       overscan={3}

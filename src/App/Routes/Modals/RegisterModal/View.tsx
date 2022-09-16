@@ -4,7 +4,6 @@ import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 import MultiWalletConnection from "src/App/Routes/Modals/RegisterModal/MultiWalletConnection";
 
 import Modal from "src/components/Modal";
-import config from "src/config";
 import { minimizeAddress } from "src/utils/web3";
 import { AccountInterface } from "starknet";
 import ConnectionState from "./ConnectionState";

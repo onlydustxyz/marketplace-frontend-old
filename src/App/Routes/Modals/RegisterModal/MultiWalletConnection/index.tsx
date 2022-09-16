@@ -1,4 +1,5 @@
 import { InjectedConnector, useStarknet } from "@starknet-react/core";
+import { getInstalledWallets } from "get-starknet";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
@@ -10,12 +11,26 @@ type Props = {
   size?: ButtonProps["size"];
 };
 
+export interface InstalledWallet {
+  id: string;
+  name: string;
+  icon: string;
+}
+
 const MultiWalletConnectionContainer: FC<Props> = ({ size, theme }) => {
   const { account, connect } = useStarknet();
   const [isConnecting, setIsConnecting] = useState(false);
 
+  const [installedWallets, setInstalledWallets] = useState<InstalledWallet[]>();
+
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
+
+  useEffect(() => {
+    (async () => {
+      setInstalledWallets((await getInstalledWallets()) || []);
+    })();
+  }, []);
 
   useEffect(() => {
     if (account && isConnecting) {
@@ -25,26 +40,15 @@ const MultiWalletConnectionContainer: FC<Props> = ({ size, theme }) => {
     }
   }, [account, isConnecting]);
 
-  const onConnectArgentX = useCallback(async () => {
-    setIsConnecting(true);
-
-    const argentXId = window.starknet?.id || "argentX";
-    await connect(new InjectedConnector({ options: { id: argentXId } }));
-  }, [connect, isGithubRegistered]);
-
-  const onConnectBraavos = useCallback(async () => {
-    setIsConnecting(true);
-    await connect(new InjectedConnector({ options: { id: "braavos" } }));
-  }, [connect, isGithubRegistered]);
-
-  return (
-    <MultiWalletConnection
-      onConnectArgentX={onConnectArgentX}
-      onConnectBraavos={onConnectBraavos}
-      size={size}
-      theme={theme}
-    />
+  const onConnect = useCallback(
+    async (walletId: string) => {
+      setIsConnecting(true);
+      await connect(new InjectedConnector({ options: { id: walletId } }));
+    },
+    [connect, isGithubRegistered]
   );
+
+  return <MultiWalletConnection onConnect={onConnect} installedWallets={installedWallets} size={size} theme={theme} />;
 };
 
 export default MultiWalletConnectionContainer;

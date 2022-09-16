@@ -16,7 +16,7 @@ const BackButton: FC<Props> = ({ className, onClick }) => {
       )}
       onClick={onClick}
     >
-      <Arrow className="rotate-180 fill-light-purple/40 group-hover:fill-light-purple/60" size="auto" />
+      <Arrow className="rotate-180 fill-light-purple/40 group-hover:fill-light-purple/60" size="100%" />
     </div>
   );
 };

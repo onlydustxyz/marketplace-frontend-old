@@ -45,6 +45,16 @@ yarn dev
 
 ## 🌡️ Testing
 
+```bash
+yarn test
+```
+
+With coverage
+
+```bash
+yarn test:coverage
+```
+
 ## 🛠 Build
 
 ```bash

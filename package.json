@@ -8,6 +8,7 @@
     "build:prod": "tsc && vite build && rimraf dist/**/*.js.map",
     "lint": "eslint '**/*.{js,jsx,json,ts,tsx}'",
     "test": "yarn vitest",
+    "test:coverage": "yarn vitest --coverage",
     "preview": "vite preview",
     "postinstall": "husky install"
   },
@@ -48,6 +49,7 @@
     "@typescript-eslint/parser": "^5.27.1",
     "@vitejs/plugin-react": "^1.3.0",
     "autoprefixer": "^10.4.7",
+    "c8": "^7.12.0",
     "commitlint": "^17.0.3",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",

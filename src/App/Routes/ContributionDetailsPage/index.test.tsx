@@ -10,10 +10,12 @@ import { AccountInterface, Contract } from "starknet";
 import { accountAtom, profileRegistryContractAtom } from "src/state";
 import { BN } from "bn.js";
 
-import { useParams } from "react-router-dom";
+import * as reactRouterDomImport from "react-router-dom";
+
+const { useParams } = reactRouterDomImport;
 
 vi.mock("react-router-dom", async () => {
-  const reactRouterDom = (await vi.importActual("react-router-dom")) as Promise<any>;
+  const reactRouterDom = (await vi.importActual("react-router-dom")) as typeof reactRouterDomImport;
 
   return { ...reactRouterDom, useParams: vi.fn().mockReturnValue({ contributionId: "1" }) };
 });

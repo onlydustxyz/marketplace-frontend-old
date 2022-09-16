@@ -1,6 +1,6 @@
 type Props = {
   className?: string;
-  size?: number | "auto";
+  size?: number | string;
 };
 
 export default function Arrow({ className, size = 24 }: Props) {

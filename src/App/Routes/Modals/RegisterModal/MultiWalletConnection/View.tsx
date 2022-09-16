@@ -8,11 +8,11 @@ type Props = {
   theme?: ButtonProps["theme"];
   size?: ButtonProps["size"];
   onConnect: (walletId: string) => void;
-  installedWallets: InstalledWallet[];
+  installedWallets: InstalledWallet[] | undefined;
 };
 
 const MultiWalletConnection: FC<PropsWithChildren<Props>> = ({ installedWallets, onConnect, size, theme }) => {
-  if (installedWallets == undefined) {
+  if (installedWallets === undefined) {
     return <Loader className="animate-spin mt-4" size={24} />;
   }
 

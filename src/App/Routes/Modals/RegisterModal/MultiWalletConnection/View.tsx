@@ -19,7 +19,7 @@ const MultiWalletConnection: FC<PropsWithChildren<Props>> = ({ installedWallets,
   if (installedWallets.length === 0) {
     return (
       <div>
-        You need to installed a wallet working with Starknet like{" "}
+        You need to install a wallet compatible with Starknet like{" "}
         <a className="underline" href="https://braavos.app/" target="_blank">
           Braavos
         </a>{" "}

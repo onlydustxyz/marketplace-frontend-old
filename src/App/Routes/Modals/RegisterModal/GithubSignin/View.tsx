@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import GitHubLogin from "react-github-login";
+import GithubConnect from "src/lib/react-github-connect";
 
 import config from "src/config";
 import Loader from "src/icons/Loader";
@@ -38,7 +38,7 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
   }
 
   return (
-    <GitHubLogin
+    <GithubConnect
       redirectUri={`${config.GITHUB_REDIRECT_URI}?action=login%26provider=github`}
       clientId={config.GITHUB_CLIENT_ID}
       onSuccess={onSuccess}
@@ -48,7 +48,7 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
       {children || <Button as="div">Connect to Github</Button>}
       {renderLoadingModal()}
       {renderError()}
-    </GitHubLogin>
+    </GithubConnect>
   );
 
   function renderLoadingModal() {

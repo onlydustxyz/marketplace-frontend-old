@@ -697,10 +697,10 @@
     "@sentry/types" "7.7.0"
     tslib "^1.9.3"
 
-"@starknet-react/core@0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@starknet-react/core/-/core-0.12.0.tgz#f5a40455832d8519a5ef489a291173286107e492"
-  integrity sha512-wiXYhAX6kH44hp/1kl7KrX5dpFYmNgKBnzsQI4yKe4QOsdLaQ64rzOaKt0MtBHA8XITgKXPZDBso/Lvl052/2A==
+"@starknet-react/core@0.13.4":
+  version "0.13.4"
+  resolved "https://registry.yarnpkg.com/@starknet-react/core/-/core-0.13.4.tgz#feff59363caa9be97602fd7723774bb802d56b45"
+  integrity sha512-aACYPHGVNtPNEFFPxIMvmld23VSeWqJpBJ1reapnndAXlDO9SQSy9vc6jLtCic3WWkAnc4jFlRpXCnBzWFxKtA==
   dependencies:
     immutable "^4.0.0"
 

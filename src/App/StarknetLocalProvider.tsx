@@ -13,8 +13,8 @@ export default function StarknetLocalProvider({ children }: { children?: ReactNo
 
 function getProvider() {
   if (config.STARKNET_NETWORK === "localhost") {
-    return new Provider({ baseUrl: config.STARKNET_HOSTNAME });
+    return new Provider({ sequencer: { baseUrl: config.STARKNET_HOSTNAME } });
   }
 
-  return new Provider({ network: config.STARKNET_NETWORK });
+  return new Provider({ sequencer: { network: config.STARKNET_NETWORK } });
 }

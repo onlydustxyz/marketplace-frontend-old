@@ -23,7 +23,7 @@ class PopupWindow {
 
   close() {
     this.cancel();
-    this.window!.close();
+    this.window?.close();
   }
 
   poll() {
@@ -67,7 +67,7 @@ class PopupWindow {
   }
 
   then(onSuccess: (data: SuccessData) => void, onFailure: (err: Error) => void) {
-    return this.promise!.then(onSuccess, onFailure);
+    return this.promise?.then(onSuccess, onFailure);
   }
 
   static open(id: string, url: string, options: Record<string, string>) {

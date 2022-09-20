@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, Suspense } from "react";
 import { MutableSnapshot, RecoilRoot } from "recoil";
 import { render } from "@testing-library/react";
 
@@ -17,7 +17,9 @@ const buildWrapper = ({ initializeRecoilState }: CustomRenderParams) => {
     return (
       <StarknetProvider>
         <RecoilRoot initializeState={initializeRecoilState}>
-          <BrowserRouter>{children}</BrowserRouter>
+          <BrowserRouter>
+            <Suspense>{children}</Suspense>
+          </BrowserRouter>
         </RecoilRoot>
       </StarknetProvider>
     );

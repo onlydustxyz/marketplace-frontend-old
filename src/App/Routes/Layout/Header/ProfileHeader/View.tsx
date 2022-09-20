@@ -14,7 +14,7 @@ const ProfileHeader: FC<Props> = ({ accountAddress, displayMenu }) => {
   if (!accountAddress) {
     return (
       <div className="flex flex-row justify-end grid-in-profile">
-        <ConnectButton theme="secondary" size="small">
+        <ConnectButton theme="secondary" size="small" dataTestid="header-connect-button">
           <span className="hidden md:block">Connect Wallet</span>
           <span className="block md:hidden">Connect</span>
         </ConnectButton>

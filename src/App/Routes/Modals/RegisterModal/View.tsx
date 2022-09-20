@@ -20,15 +20,26 @@ const RegisterModal: FC<Props> = ({ account, displayModal, githubHandle, discord
   const isOpen = displayModal && (!account || !githubHandle || !discordHandle);
   return (
     <Modal contentClassName="px-2 md:px-16 py-2 pt-11 md:pb-16 md:max-w-screen-md" onClose={onClose} isOpen={isOpen}>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center" data-testid="register-modal">
         <div className="flex flex-col w-full px-4 md:px-0 md:w-auto md:flex-row items-center justify-center gap-2 md:gap-5">
           <ConnectionState
             providerName="Wallet"
             connected={!!account}
             accountLabel={account?.address ? minimizeAddress(account.address) : undefined}
+            dataTestid="wallet-connection-state"
           />
-          <ConnectionState providerName="Github" connected={!!githubHandle} accountLabel={githubHandle} />
-          <ConnectionState providerName="Discord" connected={!!discordHandle} accountLabel={discordHandle} />
+          <ConnectionState
+            providerName="Github"
+            connected={!!githubHandle}
+            accountLabel={githubHandle}
+            dataTestid="github-connection-state"
+          />
+          <ConnectionState
+            providerName="Discord"
+            connected={!!discordHandle}
+            accountLabel={discordHandle}
+            dataTestid="discord-connection-state"
+          />
         </div>
         {account === undefined
           ? renderConnectWallet()

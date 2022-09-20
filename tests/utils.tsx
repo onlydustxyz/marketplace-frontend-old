@@ -1,8 +1,12 @@
-import { FC, PropsWithChildren, Suspense } from "react";
+import { FC, PropsWithChildren } from "react";
 import { MutableSnapshot, RecoilRoot } from "recoil";
-import { BrowserRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
+
 import { StarknetProvider } from "@starknet-react/core";
+import App from "src/App";
+
+import "./js-dom-mock";
+import { BrowserRouter } from "react-router-dom";
 
 interface CustomRenderParams {
   initializeRecoilState?: (snapshop: MutableSnapshot) => void;
@@ -13,9 +17,7 @@ const buildWrapper = ({ initializeRecoilState }: CustomRenderParams) => {
     return (
       <StarknetProvider>
         <RecoilRoot initializeState={initializeRecoilState}>
-          <BrowserRouter>
-            <Suspense>{children}</Suspense>
-          </BrowserRouter>
+          <BrowserRouter>{children}</BrowserRouter>
         </RecoilRoot>
       </StarknetProvider>
     );
@@ -29,6 +31,16 @@ const customRender = (
   options: Parameters<typeof render>[1] = {},
   params: CustomRenderParams = {}
 ) => render(ui, { wrapper: buildWrapper(params), ...options });
+
+interface RenderWithRouterParams {
+  route?: string;
+}
+
+export const renderApp = ({ route = "/" }: RenderWithRouterParams = {}) => {
+  window.history.pushState({}, "Test page", route);
+
+  return render(<App />);
+};
 
 export * from "@testing-library/react";
 export { customRender as render };

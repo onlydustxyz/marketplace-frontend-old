@@ -13,6 +13,9 @@
     <a href="https://contributions.onlydust.xyz/">
         <img src="https://img.shields.io/badge/Contribute-6A1B9A?style=for-the-badge&logo=notion&logoColor=white" />
     </a>
+    <a href="https://codecov.io/gh/onlydustxyz/marketplace-frontend">
+        <img src="https://img.shields.io/codecov/c/gh/onlydustxyz/marketplace-frontend?style=for-the-badge&token=EZIUH1O81F" />
+    </a>
   </p>
   
   <h3 align="center">Contribution marketplace web application frontend</h3>

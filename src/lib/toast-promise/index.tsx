@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { waitForTransaction } from "src/utils/starknet";
-import { AddTransactionResponse, GetTransactionResponse, ProviderInterface } from "starknet";
+import { InvokeFunctionResponse, GetTransactionReceiptResponse, ProviderInterface } from "starknet";
 
 import Toast from "./Toast";
 
@@ -52,12 +52,16 @@ export const toastPromise = async <D,>(promise: Promise<D>, options?: ToastPromi
 };
 
 export const toastTransaction = async (
-  promise: Promise<AddTransactionResponse>,
+  promise: Promise<InvokeFunctionResponse>,
   provider: ProviderInterface,
-  options?: ToastPromiseOptions<GetTransactionResponse>
+  options?: ToastPromiseOptions<GetTransactionReceiptResponse>
 ) => {
   const transactionPromise = async () => {
     const response = await promise;
+
+    if (!response.transaction_hash) {
+      throw new Error("Unable to start a transaction");
+    }
 
     return await waitForTransaction(response.transaction_hash, provider);
   };

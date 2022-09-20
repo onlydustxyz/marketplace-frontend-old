@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { Component, FC, PropsWithChildren, ReactNode, useCallback } from "react";
-import PropTypes from "prop-types";
+import { FC, PropsWithChildren, useCallback } from "react";
 
 import PopupWindow from "./PopupWindow";
 import { toQuery } from "./utils";

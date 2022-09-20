@@ -16,7 +16,8 @@ export class HeadlessWalletFactory {
 
     const windowObject = new StarknetWindowObject(eventEmitter, params);
 
-    windowObj[params.windowPropertyName] = windowObject;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (<any>windowObj)[params.windowPropertyName] = windowObject;
 
     return headlessWallet;
   }

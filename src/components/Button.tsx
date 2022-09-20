@@ -11,6 +11,7 @@ export interface ButtonProps extends ButtonExtends {
   size?: "small" | "medium" | "regular";
   href?: string;
   target?: AnchorHTMLAttributes<HTMLAnchorElement>["target"];
+  dataTestid?: string;
 }
 
 const classesBySize = {
@@ -32,6 +33,7 @@ export default function Button({
   size = "regular",
   theme = "primary",
   className,
+  dataTestid,
   ...buttonProps
 }: ButtonProps) {
   const props = {
@@ -42,6 +44,7 @@ export default function Button({
       className
     ),
     ...buttonProps,
+    "data-testid": dataTestid,
   };
 
   if (as) {

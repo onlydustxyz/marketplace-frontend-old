@@ -8,9 +8,10 @@ import ConnectButton from "./View";
 type Props = {
   theme?: ButtonProps["theme"];
   size?: ButtonProps["size"];
+  dataTestid?: string;
 };
 
-const ConnectButtonContainer: FC<PropsWithChildren<Props>> = ({ children, size, theme }) => {
+const ConnectButtonContainer: FC<PropsWithChildren<Props>> = ({ children, size, theme, dataTestid }) => {
   const { connect } = useStarknet();
 
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
@@ -21,7 +22,7 @@ const ConnectButtonContainer: FC<PropsWithChildren<Props>> = ({ children, size, 
   }, [connect, isGithubRegistered]);
 
   return (
-    <ConnectButton onConnect={onConnect} size={size} theme={theme}>
+    <ConnectButton onConnect={onConnect} size={size} theme={theme} dataTestid={dataTestid}>
       {children}
     </ConnectButton>
   );

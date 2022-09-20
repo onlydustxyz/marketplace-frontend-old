@@ -26,7 +26,6 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-error-boundary": "^3.1.4",
-    "react-github-login": "^1.0.3",
     "react-hot-toast": "^2.3.0",
     "react-markdown": "^8.0.3",
     "react-router-dom": "6",

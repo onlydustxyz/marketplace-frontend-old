@@ -34,7 +34,13 @@ const MultiWalletConnection: FC<PropsWithChildren<Props>> = ({ installedWallets,
   return (
     <div className="flex flex-col max-w-full items-stretch overflow-hidden gap-3">
       {installedWallets.map(installedWallet => (
-        <Button key={installedWallet.id} theme={theme} onClick={() => onConnect(installedWallet.id)} size={size}>
+        <Button
+          key={installedWallet.id}
+          theme={theme}
+          onClick={() => onConnect(installedWallet.id)}
+          size={size}
+          dataTestid={`button-connect-${installedWallet.id}`}
+        >
           Connect {installedWallet.name} Wallet
         </Button>
       ))}

@@ -6,11 +6,12 @@ type Props = {
   theme?: ButtonProps["theme"];
   size?: ButtonProps["size"];
   onConnect: () => void;
+  dataTestid?: string;
 };
 
-const ConnectButton: FC<PropsWithChildren<Props>> = ({ children, onConnect, size, theme }) => {
+const ConnectButton: FC<PropsWithChildren<Props>> = ({ children, onConnect, size, theme, dataTestid }) => {
   return (
-    <Button theme={theme} onClick={onConnect} size={size}>
+    <Button theme={theme} onClick={onConnect} size={size} dataTestid={dataTestid}>
       {children}
     </Button>
   );

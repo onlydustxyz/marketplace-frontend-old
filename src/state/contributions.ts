@@ -30,7 +30,7 @@ type ProjectBase = {
   github_link?: string;
   discord_link?: string;
   website_link?: string;
-  members: ProjectMember[];
+  members: string[];
 };
 
 export type Project = ProjectBase & {
@@ -475,6 +475,12 @@ function formatProjectStatuses(contributions: ContributionDto[], completedContri
 function formatProject(projectDto: Omit<ProjectDto, "contributions">): ProjectBase {
   return {
     ...projectDto,
-    members: projectDto.members || [],
+    members: projectDto.members
+      ? projectDto.members.map(member => {
+          return (member as ProjectMember).contributor_account
+            ? (member as ProjectMember).contributor_account
+            : (member as string);
+        })
+      : [],
   };
 }

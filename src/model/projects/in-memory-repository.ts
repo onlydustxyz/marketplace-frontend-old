@@ -32,12 +32,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
       ],
-      members: [
-        {
-          contributor_account: "0x0abcdefabcdef",
-          is_lead_contributor: false,
-        },
-      ],
+      members: ["0x0abcdefabcdef"],
     },
     {
       id: "2",
@@ -45,7 +40,6 @@ export class InMemoryProjectRepository implements ProjectRepository {
       description: "Description 2",
       github_link: "https://example.com/projects/2",
       contributions: [],
-      members: [],
     },
     {
       id: "3",
@@ -117,8 +111,9 @@ export class InMemoryProjectRepository implements ProjectRepository {
         },
       ],
       members: [
+        "0x0123456789",
         {
-          contributor_account: "0x0123456789",
+          contributor_account: "0x123456789abcdef",
           is_lead_contributor: false,
         },
       ],

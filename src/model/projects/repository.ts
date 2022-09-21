@@ -16,7 +16,7 @@ export type ProjectDto = {
   github_link: string;
   logo?: string;
   contributions: ContributionDto[];
-  members?: ProjectMember[];
+  members?: Array<ProjectMember | string>;
 };
 
 export type ProjectMember = {

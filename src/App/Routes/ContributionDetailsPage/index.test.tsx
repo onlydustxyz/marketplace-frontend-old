@@ -45,7 +45,19 @@ describe("Contribution details page", () => {
     vi.clearAllMocks();
   });
 
+  it("Should display an error when the contribution does not exist", async () => {
+    (useParams as Mock).mockReturnValue({ contributionId: "does-not-exists" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
+    });
+
+    expect(screen.getAllByText("Oops, it seems this contribution doesn't exist"));
+  });
+
   it("Should display correct information", async () => {
+    (useParams as Mock).mockReturnValue({ contributionId: "1" });
+
     await act(async () => {
       render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
     });
@@ -68,6 +80,23 @@ describe("Contribution details page", () => {
 
     await act(async () => {
       render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
+    });
+
+    const button = screen.getByRole("button");
+    expect(button.textContent?.toLowerCase()).toBe("claim");
+    expect(button.getAttribute("disabled")).toBeNull();
+  });
+
+  it("Should display claim button with old members format", async () => {
+    const customInitRecoilState = ({ set }: MutableSnapshot) => {
+      set(accountAtom, { address: "0x123456789abcdef" } as AccountInterface);
+      set(profileRegistryContractAtom, contractMock);
+    };
+
+    (useParams as Mock).mockReturnValue({ contributionId: "3" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {}, { initializeRecoilState: customInitRecoilState });
     });
 
     const button = screen.getByRole("button");

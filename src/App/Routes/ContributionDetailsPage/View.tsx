@@ -121,9 +121,7 @@ const ContributionDetailsPage: FC<Props> = ({
 
       if (
         accountAddress !== undefined &&
-        contribution.project.members.some(
-          member => parseInt(member.contributor_account, 16) === parseInt(accountAddress, 16)
-        )
+        contribution.project.members.some(memberAddress => parseInt(memberAddress, 16) === parseInt(accountAddress, 16))
       ) {
         return (
           <Button onClick={claim} disabled={contribution.eligible === false} role="button">

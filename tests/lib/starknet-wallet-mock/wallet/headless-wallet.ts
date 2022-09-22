@@ -14,4 +14,8 @@ export class HeadlessWallet {
   connect(data: ConnectData) {
     this.#eventEmitter.emit("connect", data);
   }
+
+  autoConnect(data: ConnectData) {
+    this.#eventEmitter.emit("autoConnect", data);
+  }
 }

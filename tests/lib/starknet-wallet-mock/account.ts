@@ -23,8 +23,8 @@ export class MockAccount extends MockProvider implements AccountInterface {
   public address: string;
   public signer: SignerInterface;
 
-  constructor(address: string, transactionManager: TransactionManager) {
-    super(transactionManager);
+  constructor(address: string) {
+    super();
     this.signer = new Signer();
     this.address = address;
   }

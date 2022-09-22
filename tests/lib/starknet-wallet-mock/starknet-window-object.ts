@@ -38,7 +38,7 @@ export class StarknetWindowObject {
 
   async enable() {
     console.info('Wait for a call to `window.headlessWallet.connect({ address: "0x0000...0000" })`');
-    const data = (await this.#eventEmitter.waitFor("connect")) as { address: string };
+    const data = await this.#eventEmitter.waitFor("connect");
 
     this.selectedAddress = data.address;
     this.isConnected = true;

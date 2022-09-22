@@ -13,7 +13,7 @@ interface ConnectGithubAccountParams {
 
 interface GithubEndpointData {
   authorization_code: string;
-  account_address: string;
+  account_address?: string;
   signed_data: {
     hash: string;
     signature: {
@@ -28,7 +28,6 @@ interface GithubEndpointReturn {
 }
 
 export function useGithubAccount() {
-  const [data, setData] = useState<GithubEndpointReturn>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
   const [isSuccess, setIsSuccess] = useState(false);
@@ -40,29 +39,48 @@ export function useGithubAccount() {
     setError(undefined);
 
     try {
-      const response = await axios.post<GithubEndpointReturn, AxiosResponse<GithubEndpointReturn>, GithubEndpointData>(
-        `${config.SIGNUP_API_HOSTNAME}/registrations/github`,
-        {
-          authorization_code: code,
-          account_address: address,
-          signed_data: {
-            hash: hash,
-            signature: {
-              r: toHex(toBN(signature[0])),
-              s: toHex(toBN(signature[1])),
-            },
+      const params: GithubEndpointData = {
+        authorization_code: code,
+        signed_data: {
+          hash: hash,
+          signature: {
+            r: toHex(toBN(signature[0])),
+            s: toHex(toBN(signature[1])),
           },
         },
+      };
+
+      if (!config.NEW_SIGNUP_API) {
+        params.account_address = address;
+
+        const response = await axios.post<
+          GithubEndpointReturn,
+          AxiosResponse<GithubEndpointReturn>,
+          GithubEndpointData
+        >(`${config.SIGNUP_API_HOSTNAME}/registrations/github`, params, {
+          signal: controller.signal,
+        });
+
+        setIsSuccess(true);
+        setIsLoading(false);
+
+        return response.data.transaction_hash;
+      }
+
+      const response = await axios.put<GithubEndpointReturn, AxiosResponse<never>, GithubEndpointData>(
+        `${config.SIGNUP_API_HOSTNAME}/contributors/${address}/github`,
+        params,
         {
           signal: controller.signal,
         }
       );
 
-      setIsSuccess(true);
-      setData(response.data);
-      setIsLoading(false);
+      if (response.status === 204) {
+        setIsSuccess(true);
+        setIsLoading(false);
+      }
 
-      return response.data.transaction_hash;
+      return null;
     } catch (error) {
       setError(error as Error);
       setIsLoading(false);
@@ -70,14 +88,13 @@ export function useGithubAccount() {
       return null;
     }
   };
-  // cancel the request
+
   return {
     connect,
     abort: () => {
       controller.abort();
     },
     isLoading,
-    data,
     error,
     isSuccess,
   };

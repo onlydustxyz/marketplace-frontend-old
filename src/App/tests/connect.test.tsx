@@ -23,12 +23,14 @@ describe("Connect wallet", () => {
         },
         provider: new MockProvider(),
       });
-
-      renderApp({ route: "/" });
     });
   });
   it("should connect and display the wallet address", async () => {
     const user = userEvent.setup();
+
+    await act(async () => {
+      renderApp({ route: "/" });
+    });
 
     expect(await screen.findByTestId("header-connect-button", undefined, { timeout: 5000 })).toBeDefined();
 
@@ -55,5 +57,20 @@ describe("Connect wallet", () => {
     });
 
     within(walletConnectionStateElement).getByText("0x1234...cdef");
+  });
+
+  it("should connect automatically", async () => {
+    const user = userEvent.setup();
+
+    await act(async () => {
+      headlessWallet.autoConnect({ address: "0x0123456789" });
+      renderApp({ route: "/contributions/3" });
+    });
+
+    await act(async () => {
+      await user.click(screen.getByTestId("header-profile-button"));
+    });
+
+    expect(screen.getByTestId("header-profile-wallet-address").textContent).toBe("0x0123...6789");
   });
 });

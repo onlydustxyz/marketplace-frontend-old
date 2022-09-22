@@ -20,6 +20,7 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
       {({ open }) => (
         <>
           <Popover.Button
+            data-testid="header-profile-button"
             className={cn(
               "flex flex-row items-center h-[40px] px-3.5 rounded-full cursor-pointer outline-none",
               open ? "bg-profile-button" : "bg-space-blue"
@@ -45,7 +46,7 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
                 <ConnectDot connected={!!accountAddress} className="ml-2 mr-4" />
                 <div className="flex flex-col justify-center">
                   <div className="text-xs uppercase">Wallet</div>
-                  <div className="text-white leading-5">
+                  <div className="text-white leading-5" data-testid="header-profile-wallet-address">
                     {accountAddress ? minimizeAddress(accountAddress) : "Not connected"}
                   </div>
                 </div>

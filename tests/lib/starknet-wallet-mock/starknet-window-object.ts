@@ -17,6 +17,8 @@ export class StarknetWindowObject {
   #eventEmitter: WalletEventEmitter;
   #accountFactory: (address: string) => AccountInterface;
 
+  #preauthorized = false;
+
   id: string;
   name: string;
   selectedAddress = "";
@@ -34,9 +36,29 @@ export class StarknetWindowObject {
     this.name = config.name;
     this.provider = config.provider;
     this.#accountFactory = config.accountFactory;
+
+    this.initEvents();
+  }
+
+  private initEvents() {
+    this.#eventEmitter.on("autoConnect", ({ address }) => {
+      this.#preauthorized = true;
+
+      this.selectedAddress = address;
+      this.isConnected = true;
+
+      try {
+        this.account = this.#accountFactory(address);
+      } catch (err) {
+        console.warn(err);
+      }
+    });
   }
 
   async enable() {
+    if (this.isConnected) {
+      return { address: this.account?.address };
+    }
     console.info('Wait for a call to `window.headlessWallet.connect({ address: "0x0000...0000" })`');
     const data = await this.#eventEmitter.waitFor("connect");
 
@@ -57,7 +79,7 @@ export class StarknetWindowObject {
   }
 
   async isPreauthorized() {
-    return false;
+    return this.#preauthorized;
   }
 
   on(event: string, handleEvent: (args: unknown[]) => void) {

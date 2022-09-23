@@ -56,7 +56,6 @@ export type Contribution = {
 } & ContributionStatusAndMetadata;
 
 export type ContributionApplication = {
-  id: string;
   contribution_id: Contribution["id"];
   contributor_id: number;
 };
@@ -159,7 +158,6 @@ export const contributorApplicationsQuery = selector<ContributionApplication[]>(
 
     return applications.map(application => {
       return {
-        id: application.id,
         contribution_id: application.contribution_id,
         contributor_id: application.contributor_id,
       };

@@ -3,7 +3,6 @@ import { InMemoryApplicationRepository } from "./in-memory-repository";
 import { FetchedApplicationRepository } from "./fetched-repository";
 
 export type ContributionApplicationDto = {
-  id: string;
   contribution_id: ContributionDto["id"];
   contributor_id: number;
 };

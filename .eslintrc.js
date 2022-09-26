@@ -17,8 +17,9 @@ module.exports = {
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "plugin:cypress/recommended",
   ],
-  plugins: ["@typescript-eslint", "prettier"],
+  plugins: ["@typescript-eslint", "prettier", "cypress"],
   rules: {
     quotes: ["warn", "double", { avoidEscape: true }],
     "prettier/prettier": [
@@ -34,6 +35,7 @@ module.exports = {
         printWidth: 120,
       },
     ],
+    "@typescript-eslint/no-namespace": "off",
   },
   ignorePatterns: ["dist/*", "test/*"],
 };

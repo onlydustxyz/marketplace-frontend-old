@@ -1,5 +1,6 @@
 import { selector, selectorFamily } from "recoil";
 import { applicationRepository } from "src/model/applications/repository";
+import { ContributorId } from "src/model/contact-information/repository";
 import {
   AssignedStatus,
   CompletedStatus,
@@ -57,7 +58,7 @@ export type Contribution = {
 
 export type ContributionApplication = {
   contribution_id: Contribution["id"];
-  contributor_id: number;
+  contributor_id: ContributorId;
 };
 
 export type OpenContribution = Contribution & OpenStatus;
@@ -131,7 +132,9 @@ export const contributionsQuery = selector({
               project: formatProject(project),
               eligible:
                 completedContributionsAmount === null ? null : completedContributionsAmount >= contributionDto.gate,
-              applied: applications.some(application => application.contribution_id === contributionDto.id),
+              applied: applications.some(
+                application => parseInt(application.contribution_id, 16) === parseInt(contributionDto.id, 16)
+              ),
               gateMissingCompletedContributions: contributionDto.gate - (completedContributionsAmount || 0),
             };
 
@@ -231,11 +234,16 @@ export const myOngoingContributionsQuery = selector({
   key: "MyOngoingContributions",
   get: ({ get }) => {
     const userContributorId = get(userContributorIdSelector);
+
+    if (!userContributorId) {
+      return [];
+    }
+
     const contributions = get(contributionsQuery);
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.ASSIGNED &&
-        parseInt(contribution.metadata.assignee, 16) === userContributorId
+        parseInt(contribution.metadata.assignee, 16) === parseInt(userContributorId, 16)
     ) as AssignedContribution[];
   },
 });
@@ -245,10 +253,15 @@ export const foreignOngoingContributionsQuery = selector({
   get: ({ get }) => {
     const userContributorId = get(userContributorIdSelector);
     const contributions = get(contributionsQuery);
+
+    if (!userContributorId) {
+      return contributions;
+    }
+
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.ASSIGNED &&
-        parseInt(contribution.metadata.assignee, 16) === userContributorId
+        parseInt(contribution.metadata.assignee, 16) === parseInt(userContributorId, 16)
     ) as AssignedContribution[];
   },
 });
@@ -267,11 +280,17 @@ export const myCompletedContributionsQuery = selector({
   key: "MyCompletedContributions",
   get: ({ get }) => {
     const userContributorId = get(userContributorIdSelector);
+
+    if (!userContributorId) {
+      return [];
+    }
+
     const contributions = get(contributionsQuery);
+
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.COMPLETED &&
-        parseInt(contribution.metadata.assignee, 16) === userContributorId
+        parseInt(contribution.metadata.assignee, 16) === parseInt(userContributorId, 16)
     ) as CompletedContribution[];
   },
 });
@@ -281,10 +300,15 @@ export const foreignCompletedContributionsQuery = selector({
   get: ({ get }) => {
     const userContributorId = get(userContributorIdSelector);
     const contributions = get(contributionsQuery);
+
+    if (!userContributorId) {
+      return contributions;
+    }
+
     return contributions.filter(
       contribution =>
         contribution.status === ContributionStatusEnum.COMPLETED &&
-        parseInt(contribution.metadata.assignee, 16) === userContributorId
+        parseInt(contribution.metadata.assignee, 16) === parseInt(userContributorId, 16)
     ) as CompletedContribution[];
   },
 });
@@ -386,7 +410,7 @@ function filterProjectByProperty(propertyName: keyof Project, filteredValues: Ar
 
 function countCompletedContributions(
   rawProjectsWithContributions: RawProjectWithContributions[],
-  contributorId: number | undefined
+  contributorId: ContributorId | undefined
 ) {
   if (contributorId === undefined) {
     return null;
@@ -398,7 +422,7 @@ function countCompletedContributions(
       contributions.reduce((subAmount, contribution) => {
         if (
           contribution.status === ContributionStatusEnum.COMPLETED &&
-          parseInt(contribution.metadata.assignee, 16) === contributorId
+          parseInt(contribution.metadata.assignee, 16) === parseInt(contributorId, 16)
         ) {
           return subAmount + 1;
         }

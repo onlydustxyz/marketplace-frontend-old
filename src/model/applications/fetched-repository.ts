@@ -8,7 +8,7 @@ export class FetchedApplicationRepository implements ApplicationRepository {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/applications`);
 
     if (contributorId !== undefined) {
-      endpointUrl.searchParams.set("contributor_id", "0x" + contributorId.toString(16));
+      endpointUrl.searchParams.set("contributor_id", contributorId);
     }
 
     const response = await axios.get<ContributionApplicationDto[]>(endpointUrl.toString());
@@ -20,7 +20,7 @@ export class FetchedApplicationRepository implements ApplicationRepository {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/contributions/${contributionId}/applications`);
 
     const response = await axios.post(endpointUrl.toString(), {
-      contributor_id: "0x" + contributorId.toString(16),
+      contributor_id: contributorId,
     });
 
     return response.status === 204;

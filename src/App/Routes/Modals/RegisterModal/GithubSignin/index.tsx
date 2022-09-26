@@ -1,15 +1,14 @@
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "react-use";
-import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 
 import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
 import { signMessage } from "src/utils/wallet";
 
-import { accountAtom, displayRegisterModalAtom } from "src/state";
+import { accountAtom } from "src/state";
 
 import GithubSignin from "./View";
-import { waitForTransaction } from "src/utils/starknet";
 
 type Props = {
   className?: string;
@@ -17,7 +16,6 @@ type Props = {
 
 const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, className }) => {
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
-  const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
 
   const [isRegistering, setIsRegistering] = useState(false);
 
@@ -41,17 +39,14 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
         config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
       );
 
-      const transactionHash = await connect({
+      await connect({
         address: account.address,
         code,
         hash,
         signature,
       });
 
-      if (transactionHash) {
-        await waitForTransaction(transactionHash, account);
-        setDisplayRegisterModal(false);
-      }
+      setIsRegistering(false);
     } catch (error) {
       console.warn(error);
       setIsRegistering(false);

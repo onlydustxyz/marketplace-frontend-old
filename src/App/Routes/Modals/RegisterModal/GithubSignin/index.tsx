@@ -1,12 +1,12 @@
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "react-use";
-import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 
 import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
 import { signMessage } from "src/utils/wallet";
 
-import { accountAtom } from "src/state";
+import { accountAtom, userInformationSelector } from "src/state";
 
 import GithubSignin from "./View";
 
@@ -16,6 +16,7 @@ type Props = {
 
 const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, className }) => {
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
+  const refreshContributor = useRecoilRefresher_UNSTABLE(userInformationSelector);
 
   const [isRegistering, setIsRegistering] = useState(false);
 
@@ -47,6 +48,7 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
       });
 
       setIsRegistering(false);
+      await refreshContributor();
     } catch (error) {
       console.warn(error);
       setIsRegistering(false);

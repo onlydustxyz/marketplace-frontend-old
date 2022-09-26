@@ -24,7 +24,7 @@ export class FetchedContributorRepository implements ContributorRepository {
       }
       return response.data;
     } catch (error) {
-      throw new Error("Failed to fetch contributor", { cause: error });
+      throw new Error("Failed to fetch contributor", { cause: error as Error });
     }
   }
 }

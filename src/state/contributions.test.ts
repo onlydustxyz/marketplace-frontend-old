@@ -79,7 +79,7 @@ describe("The recoil state", () => {
 
       const result = snapshot.getLoadable(contributorApplicationsQuery);
 
-      const res = (await result.contents) as Promise<ContributionApplication[]>;
+      const res = (await result.contents) as ContributionApplication[];
 
       expect(listSpy).toHaveBeenCalled();
       expect(res).to.have.length(0);
@@ -96,10 +96,9 @@ describe("The recoil state", () => {
 
       const result = snapshot.getLoadable(contributorApplicationsQuery);
 
-      await expect(async () => (await result.contents) as ContributionApplication[]).rejects.toThrow(
-        /^Failed to fetch contributor$/
-      );
+      const res = (await result.contents) as ContributionApplication[];
 
+      expect(res.length).toBe(0);
       expect(findByAccountAddressSpy).toHaveBeenCalledWith("0x1234567890");
       expect(listSpy).toHaveBeenCalledTimes(0);
     });

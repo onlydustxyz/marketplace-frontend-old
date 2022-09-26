@@ -16,7 +16,7 @@ export const userInformationSelector = selector({
     }
 
     try {
-      return contributorRepository.findByAccountAddress(accountAddress);
+      return await contributorRepository.findByAccountAddress(accountAddress);
     } catch (error) {
       console.warn(error);
     }

@@ -7,6 +7,7 @@ import App from "src/App";
 
 import "./js-dom-mock";
 import { BrowserRouter } from "react-router-dom";
+import Modals from "src/App/Routes/Modals";
 
 interface CustomRenderParams {
   initializeRecoilState?: (snapshop: MutableSnapshot) => void;
@@ -18,7 +19,9 @@ const buildWrapper = ({ initializeRecoilState }: CustomRenderParams) => {
       <StarknetProvider>
         <RecoilRoot initializeState={initializeRecoilState}>
           <BrowserRouter>
-            <Suspense>{children}</Suspense>
+            <Modals>
+              <Suspense>{children}</Suspense>
+            </Modals>
           </BrowserRouter>
         </RecoilRoot>
       </StarknetProvider>

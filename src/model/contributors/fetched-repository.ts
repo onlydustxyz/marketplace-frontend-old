@@ -14,13 +14,17 @@ export class FetchedContributorRepository implements ContributorRepository {
   }
 
   public async findByAccountAddress(address: string): Promise<ContributorDto> {
-    const response = await axios.get<ContributorDto>(
-      `${config.DATA_API_HOSTNAME}/contributors?contributor_account=${address}`
-    );
+    try {
+      const response = await axios.get<ContributorDto>(
+        `${config.DATA_API_HOSTNAME}/contributors?contributor_account=${address}`
+      );
 
-    if (response.status !== 200) {
-      throw new Error("Failed to fetch contributor");
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch contributor");
+      }
+      return response.data;
+    } catch (error) {
+      throw new Error("Failed to fetch contributor", { cause: error });
     }
-    return response.data;
   }
 }

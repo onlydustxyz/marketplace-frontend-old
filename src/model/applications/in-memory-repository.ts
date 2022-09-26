@@ -1,12 +1,13 @@
+import { ContributorId } from "../contact-information/repository";
 import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListParams } from "./repository";
 
 export class InMemoryApplicationRepository implements ApplicationRepository {
   private contributionsApplications: Array<ContributionApplicationDto> = [
-    { contribution_id: "1", contributor_id: 1 },
-    { contribution_id: "2", contributor_id: 2 },
-    { contribution_id: "2", contributor_id: 38 },
-    { contribution_id: "3", contributor_id: 1 },
-    { contribution_id: "4", contributor_id: 38 },
+    { contribution_id: "1", contributor_id: "0x1" as ContributorId },
+    { contribution_id: "2", contributor_id: "0x2" as ContributorId },
+    { contribution_id: "2", contributor_id: "0x26" as ContributorId },
+    { contribution_id: "3", contributor_id: "0x1" as ContributorId },
+    { contribution_id: "4", contributor_id: "0x26" as ContributorId },
   ];
 
   public async list({ contributorId }: ListParams): Promise<ContributionApplicationDto[]> {

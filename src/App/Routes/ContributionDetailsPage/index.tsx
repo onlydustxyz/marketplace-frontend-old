@@ -20,7 +20,7 @@ import { useContract } from "@starknet-react/core";
 import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
-import { numberToUint256 } from "src/utils/uint256";
+import { bnToUint256 } from "starknet/dist/utils/uint256";
 
 type PageParams = {
   contributionId: string;
@@ -47,9 +47,9 @@ const ContributionDetailsPageContainer: FC = () => {
   const buildTypeformParams = () => {
     const typeformParams = new URLSearchParams();
     account?.address && typeformParams.set("wallet", account.address);
-    userGithubHandle && typeformParams.set("github", userGithubHandle.toString(10));
+    userGithubHandle && typeformParams.set("github", userGithubHandle);
     contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
-    contributorId && typeformParams.set("contributorid", contributorId.toString(10));
+    contributorId && typeformParams.set("contributorid", contributorId);
 
     return typeformParams.toString();
   };
@@ -100,7 +100,7 @@ const ContributionDetailsPageContainer: FC = () => {
       return;
     }
 
-    const contributorIdUint256 = numberToUint256(contributorId);
+    const contributorIdUint256 = bnToUint256(contributorId);
 
     toastTransaction(
       contributionsContract?.invoke("claim_contribution", [[contributionId], contributorIdUint256]),

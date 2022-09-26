@@ -8,10 +8,10 @@ import {
   contributorApplicationsQuery,
 } from "./contributions";
 import { projectRepository } from "src/model/projects/repository";
-import { profileRegistryContractAtom } from "./profile-registry-contract";
-import { AccountInterface, Contract } from "starknet";
+import { AccountInterface } from "starknet";
 import { accountAtom } from "./starknet";
 import { applicationRepository } from "src/model/applications/repository";
+import { contributorRepository } from "src/model/contributors/repository";
 
 describe("The recoil state", () => {
   afterEach(() => {
@@ -53,51 +53,26 @@ describe("The recoil state", () => {
 
   describe("when querying applications", () => {
     it("should return contributor applications", async () => {
-      const contractMock = new Contract([], "0x00");
-
-      const contractCallMock = vi.fn(() =>
-        Promise.resolve([
-          {
-            contributor_id: { low: "0x26", high: "0x0" },
-          },
-        ])
-      );
-
-      contractMock.call = contractCallMock;
-
       const snapshot = snapshot_UNSTABLE(({ set }) => {
-        set(profileRegistryContractAtom, contractMock);
         set(accountAtom, { address: "0x123456789" } as AccountInterface);
       });
 
       const listSpy = vi.spyOn(applicationRepository, "list");
+      const findByAccountAddressSpy = vi.spyOn(contributorRepository, "findByAccountAddress");
 
       const result = snapshot.getLoadable(contributorApplicationsQuery);
 
       const res = (await result.contents) as Promise<ContributionApplication[]>;
 
-      expect(contractCallMock).toHaveBeenCalledWith("get_user_information", ["0x123456789"]);
+      expect(findByAccountAddressSpy).toHaveBeenCalledWith("0x123456789");
       expect(listSpy).toHaveBeenCalled();
       expect(res).to.have.length(2);
       snapshot.retain();
     });
 
     it("should return nothing when contributor has no application", async () => {
-      const contractMock = new Contract([], "0x00");
-
-      const contractCallMock = vi.fn(() =>
-        Promise.resolve([
-          {
-            contributor_id: { low: "0x24", high: "0x0" },
-          },
-        ])
-      );
-
-      contractMock.call = contractCallMock;
-
       const snapshot = snapshot_UNSTABLE(({ set }) => {
-        set(profileRegistryContractAtom, contractMock);
-        set(accountAtom, { address: "0x123456789" } as AccountInterface);
+        set(accountAtom, { address: "0x123456789abcdef" } as AccountInterface);
       });
 
       const listSpy = vi.spyOn(applicationRepository, "list");
@@ -106,34 +81,27 @@ describe("The recoil state", () => {
 
       const res = (await result.contents) as Promise<ContributionApplication[]>;
 
-      expect(contractCallMock).toHaveBeenCalledWith("get_user_information", ["0x123456789"]);
       expect(listSpy).toHaveBeenCalled();
       expect(res).to.have.length(0);
       snapshot.retain();
     });
 
     it("should return nothing when no contributor", async () => {
-      const contractMock = new Contract([], "0x00");
-
-      const contractCallMock = vi.fn(() => Promise.reject(new Error("contract.call error")));
-      console.warn = vi.fn();
-
-      contractMock.call = contractCallMock;
-
       const snapshot = snapshot_UNSTABLE(({ set }) => {
-        set(profileRegistryContractAtom, contractMock);
-        set(accountAtom, { address: "0x123456789" } as AccountInterface);
+        set(accountAtom, { address: "0x1234567890" } as AccountInterface);
       });
 
       const listSpy = vi.spyOn(applicationRepository, "list");
+      const findByAccountAddressSpy = vi.spyOn(contributorRepository, "findByAccountAddress");
 
       const result = snapshot.getLoadable(contributorApplicationsQuery);
 
-      const res = (await result.contents) as Promise<ContributionApplication[]>;
+      await expect(async () => (await result.contents) as ContributionApplication[]).rejects.toThrow(
+        /^Failed to fetch contributor$/
+      );
 
-      expect(contractCallMock).toHaveBeenCalledWith("get_user_information", ["0x123456789"]);
+      expect(findByAccountAddressSpy).toHaveBeenCalledWith("0x1234567890");
       expect(listSpy).toHaveBeenCalledTimes(0);
-      expect(res).to.have.length(0);
     });
   });
 });

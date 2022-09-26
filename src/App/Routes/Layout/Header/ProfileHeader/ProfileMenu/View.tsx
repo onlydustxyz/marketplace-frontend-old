@@ -10,7 +10,7 @@ import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 
 type Props = {
   accountAddress?: string;
-  githubHandle?: number;
+  githubHandle?: string;
   className?: string;
 };
 

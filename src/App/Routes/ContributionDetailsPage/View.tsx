@@ -100,9 +100,11 @@ const ContributionDetailsPage: FC<Props> = ({
         </Button>
       );
     }
+
     if (
+      contributorId !== undefined &&
       contribution?.status === ContributionStatusEnum.ASSIGNED &&
-      parseInt(contribution.metadata.assignee, 16) === parseInt(contributorId || "", 16)
+      parseInt(contribution.metadata.assignee, 16) === parseInt(contributorId, 16)
     ) {
       return (
         <Button onClick={submit} role="button">

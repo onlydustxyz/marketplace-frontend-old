@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 import { act, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { render } from "tests/utils";
 
@@ -8,6 +9,7 @@ import ContributionDetailsPage from "./index";
 import { MutableSnapshot } from "recoil";
 import { AccountInterface } from "starknet";
 import { accountAtom } from "src/state";
+import { applicationRepository } from "src/model/applications/repository";
 
 import * as reactRouterDomImport from "react-router-dom";
 
@@ -98,6 +100,18 @@ describe("Contribution details page", () => {
     expect(button.getAttribute("disabled")).not.toBeNull();
   });
 
+  it("Should display disabled submit button", async () => {
+    (useParams as Mock).mockReturnValue({ contributionId: "6" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
+    });
+
+    const button = screen.getByRole("button");
+    expect(button.textContent?.toLowerCase()).toBe("submit work");
+    expect(button.getAttribute("disabled")).toBeNull();
+  });
+
   it("Should display a disabled button due to gated contributions", async () => {
     (useParams as Mock).mockReturnValue({ contributionId: "5" });
 
@@ -108,5 +122,92 @@ describe("Contribution details page", () => {
     const button = screen.getByRole("button");
     expect(button.textContent?.toLowerCase()).toBe("claim");
     expect(button.getAttribute("disabled")).not.toBeNull();
+  });
+
+  it("Should display register modal when applying with connection", async () => {
+    const user = userEvent.setup();
+
+    const createSpy = vi.spyOn(applicationRepository, "create");
+
+    (useParams as Mock).mockReturnValue({ contributionId: "1" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {});
+    });
+
+    await act(async () => {
+      await user.click(screen.getByRole("button"));
+    });
+
+    expect(createSpy).not.toHaveBeenCalled();
+
+    expect(await screen.findByTestId("register-modal", undefined, { timeout: 5000 })).toBeDefined();
+  });
+
+  it("Should display register modal when applying with no discord account", async () => {
+    const initRecoilState = ({ set }: MutableSnapshot) => {
+      set(accountAtom, { address: "0x123456789abcdef" } as AccountInterface);
+    };
+    const user = userEvent.setup();
+
+    const createSpy = vi.spyOn(applicationRepository, "create");
+
+    (useParams as Mock).mockReturnValue({ contributionId: "1" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
+    });
+
+    await act(async () => {
+      await user.click(screen.getByRole("button"));
+    });
+
+    expect(createSpy).not.toHaveBeenCalled();
+
+    expect(await screen.findByTestId("register-modal", undefined, { timeout: 5000 })).toBeDefined();
+  });
+
+  it("Should display register modal when claiming with no discord account", async () => {
+    const initRecoilState = ({ set }: MutableSnapshot) => {
+      set(accountAtom, { address: "0x0abcdefabcdef" } as AccountInterface);
+    };
+    const user = userEvent.setup();
+
+    const createSpy = vi.spyOn(applicationRepository, "create");
+
+    (useParams as Mock).mockReturnValue({ contributionId: "1" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
+    });
+
+    await act(async () => {
+      await user.click(screen.getByRole("button"));
+    });
+
+    expect(createSpy).not.toHaveBeenCalled();
+
+    expect(await screen.findByTestId("register-modal", undefined, { timeout: 5000 })).toBeDefined();
+  });
+
+  it("Should apply to a contribution when clicking on the 'Apply' button", async () => {
+    const user = userEvent.setup();
+
+    const createSpy = vi.spyOn(applicationRepository, "create");
+
+    (useParams as Mock).mockReturnValue({ contributionId: "1" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
+    });
+
+    await act(async () => {
+      await user.click(screen.getByRole("button"));
+    });
+
+    expect(createSpy).toHaveBeenCalledWith({
+      contributionId: "1",
+      contributorId: "0x26",
+    });
   });
 });

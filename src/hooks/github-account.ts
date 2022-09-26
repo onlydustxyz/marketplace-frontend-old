@@ -50,23 +50,6 @@ export function useGithubAccount() {
         },
       };
 
-      if (!config.NEW_SIGNUP_API) {
-        params.account_address = address;
-
-        const response = await axios.post<
-          GithubEndpointReturn,
-          AxiosResponse<GithubEndpointReturn>,
-          GithubEndpointData
-        >(`${config.SIGNUP_API_HOSTNAME}/registrations/github`, params, {
-          signal: controller.signal,
-        });
-
-        setIsSuccess(true);
-        setIsLoading(false);
-
-        return response.data.transaction_hash;
-      }
-
       const response = await axios.put<GithubEndpointReturn, AxiosResponse<never>, GithubEndpointData>(
         `${config.SIGNUP_API_HOSTNAME}/contributors/${address}/github`,
         params,

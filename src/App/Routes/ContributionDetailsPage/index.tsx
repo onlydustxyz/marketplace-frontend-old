@@ -96,7 +96,14 @@ const ContributionDetailsPageContainer: FC = () => {
   }, [contributionId, isGithubRegistered, userDiscordHandle]);
 
   const claim = useCallback(() => {
-    if (!contributionsContract || contribution === undefined || contributorId === undefined || account === undefined) {
+    if (
+      !contributionsContract ||
+      contribution === undefined ||
+      contributorId === undefined ||
+      account === undefined ||
+      userDiscordHandle === undefined
+    ) {
+      setDisplayRegisterModal(true);
       return;
     }
 

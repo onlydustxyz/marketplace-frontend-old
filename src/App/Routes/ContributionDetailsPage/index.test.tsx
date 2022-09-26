@@ -6,9 +6,8 @@ import { render } from "tests/utils";
 import ContributionDetailsPage from "./index";
 
 import { MutableSnapshot } from "recoil";
-import { AccountInterface, Contract } from "starknet";
-import { accountAtom, profileRegistryContractAtom } from "src/state";
-import { BN } from "bn.js";
+import { AccountInterface } from "starknet";
+import { accountAtom } from "src/state";
 
 import * as reactRouterDomImport from "react-router-dom";
 
@@ -20,24 +19,8 @@ vi.mock("react-router-dom", async () => {
   return { ...reactRouterDom, useParams: vi.fn().mockReturnValue({ contributionId: "1" }) };
 });
 
-const contractMock = new Contract([], "0x00");
-
-const contractCallMock = vi.fn(() =>
-  Promise.resolve([
-    {
-      contributor_id: { low: "0x26", high: "0x0" }, // contributor_id = 38
-      identifiers: {
-        github: new BN(12),
-      },
-    },
-  ])
-);
-
-contractMock.call = contractCallMock;
-
 const initRecoilState = ({ set }: MutableSnapshot) => {
   set(accountAtom, { address: "0x123456789" } as AccountInterface);
-  set(profileRegistryContractAtom, contractMock);
 };
 
 describe("Contribution details page", () => {
@@ -90,7 +73,6 @@ describe("Contribution details page", () => {
   it("Should display claim button with old members format", async () => {
     const customInitRecoilState = ({ set }: MutableSnapshot) => {
       set(accountAtom, { address: "0x123456789abcdef" } as AccountInterface);
-      set(profileRegistryContractAtom, contractMock);
     };
 
     (useParams as Mock).mockReturnValue({ contributionId: "3" });

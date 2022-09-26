@@ -7,7 +7,7 @@ import {
 export class InMemoryContactInformationRepository implements ContactInformationRepository {
   private contactInformationList: ContactInformationDto[] = [
     {
-      contributor_id: 38 as ContributorId,
+      contributor_id: "0x26" as ContributorId,
       discord_handle: "test_discord_handle",
     },
   ];

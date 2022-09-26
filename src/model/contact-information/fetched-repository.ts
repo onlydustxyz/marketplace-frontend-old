@@ -5,7 +5,7 @@ import { ContactInformationDto, ContactInformationRepository, ContributorId } fr
 
 export class FetchedContactInformationRepository implements ContactInformationRepository {
   public async findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto> {
-    const formattedContributorId = "0x" + contributorId.toString(16);
+    const formattedContributorId = contributorId;
     const response = await axios.get<ContactInformationDto>(
       `${config.DATA_API_HOSTNAME}/contributors/${formattedContributorId}/contact-information`
     );
@@ -17,7 +17,7 @@ export class FetchedContactInformationRepository implements ContactInformationRe
   }
 
   public async save(contactInformation: ContactInformationDto): Promise<void> {
-    const formattedContributorId = "0x" + contactInformation.contributor_id.toString(16);
+    const formattedContributorId = contactInformation.contributor_id;
     const response = await axios.put<ContactInformationDto>(
       `${config.DATA_API_HOSTNAME}/contributors/${formattedContributorId}/contact-information`,
       {

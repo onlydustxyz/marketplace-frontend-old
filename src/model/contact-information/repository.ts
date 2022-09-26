@@ -7,7 +7,7 @@ export type ContactInformationDto = {
   discord_handle: string;
 };
 
-export type ContributorId = Brand<number, "ContibutorId">;
+export type ContributorId = Brand<string, "ContibutorId">;
 
 export interface ContactInformationRepository {
   findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto>;

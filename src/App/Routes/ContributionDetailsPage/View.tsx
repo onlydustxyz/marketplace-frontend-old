@@ -13,6 +13,7 @@ import StatusHeader from "./StatusHeader";
 import MetadataList from "./MetadataList";
 import Loader from "src/icons/Loader";
 import cn from "classnames";
+import { ContributorId } from "src/model/contact-information/repository";
 
 type Props = {
   apply: () => void;
@@ -21,7 +22,7 @@ type Props = {
   appliying: boolean;
   accountAddress?: string;
   contribution: Contribution;
-  contributorId?: number;
+  contributorId?: ContributorId;
   hasAppliedToContribution: boolean;
 };
 
@@ -101,7 +102,7 @@ const ContributionDetailsPage: FC<Props> = ({
     }
     if (
       contribution?.status === ContributionStatusEnum.ASSIGNED &&
-      parseInt(contribution.metadata.assignee, 16) === contributorId
+      parseInt(contribution.metadata.assignee, 16) === parseInt(contributorId || "", 16)
     ) {
       return (
         <Button onClick={submit} role="button">

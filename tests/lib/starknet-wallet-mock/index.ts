@@ -1,7 +1,8 @@
 import { StarknetObjectConfiguration, StarknetWindowObject } from "./starknet-window-object";
 import { HeadlessWallet } from "./wallet";
 import { WalletEventEmitter } from "./wallet-event-emitter";
-type WalletFactoryCreationParams = {
+
+export type WalletFactoryCreationParams = {
   windowPropertyName: string;
 } & StarknetObjectConfiguration;
 

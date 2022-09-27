@@ -26,26 +26,31 @@ const MetadataList: FC<Props> = ({ className, contribution }) => {
         label="Difficulty"
         value={contribution.metadata.difficulty}
         renderIcon={() => <Difficulty className="fill-light-blue mr-2" size={16} />}
+        valueDataTestId="contribution-difficulty"
       />
       <MetadataItem
         label="Technology"
         value={contribution.metadata.technology}
         renderIcon={() => <Technology className="fill-light-blue mr-2" size={16} />}
+        valueDataTestId="contribution-technology"
       />
       <MetadataItem
         label="Type"
         value={contribution.metadata.type}
         renderIcon={() => <Type className="fill-light-blue mr-2" size={16} />}
+        valueDataTestId="contribution-type"
       />
       <MetadataItem
         label="Context"
         value={contribution.metadata.context}
         renderIcon={() => <Context className="fill-light-blue mr-2" size={16} />}
+        valueDataTestId="contribution-context"
       />
       <MetadataItem
         label="Duration"
         value={contribution.metadata.duration}
         renderIcon={() => <Duration className="fill-light-blue mr-2" size={16} />}
+        valueDataTestId="contribution-duration"
       />
     </div>
   );

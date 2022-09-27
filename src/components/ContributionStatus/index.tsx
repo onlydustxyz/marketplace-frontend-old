@@ -27,7 +27,9 @@ const ContributionStatus: FC<Props> = ({ applied, children, className, gated, st
     <div className={cn(className, "w-full flex flex-row items-center")}>
       {renderBadge()}
       <div className="flex flex-grow flex-col md:flex-row items-center">
-        <div className={cn("ml-2.5 text-xs flex-grow", statusClassName)}>{statusLabel}</div>
+        <div className={cn("ml-2.5 text-xs flex-grow", statusClassName)} data-testid="contribution-status-label">
+          {statusLabel}
+        </div>
         {children}
       </div>
     </div>

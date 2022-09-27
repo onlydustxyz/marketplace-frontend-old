@@ -44,7 +44,10 @@ const StatusHeader: FC<Props> = ({ contribution, hasAppliedToContribution }) => 
       case ContributionStatusEnum.OPEN:
         if (contribution.eligible === false) {
           return (
-            <div className="flex-grow text-center md:text-right text-xs md:text-base">
+            <div
+              className="flex-grow text-center md:text-right text-xs md:text-base"
+              data-testid="contribution-status-details"
+            >
               <span>Complete {contribution.gateMissingCompletedContributions} more contributions to unlock</span>
             </div>
           );
@@ -52,13 +55,19 @@ const StatusHeader: FC<Props> = ({ contribution, hasAppliedToContribution }) => 
         break;
       case ContributionStatusEnum.ASSIGNED:
         return (
-          <div className="flex-grow text-center md:text-right text-sm md:text-base">
+          <div
+            className="flex-grow text-center md:text-right text-sm md:text-base"
+            data-testid="contribution-status-details"
+          >
             to {renderAssigneeLink(contribution.metadata)}
           </div>
         );
       case ContributionStatusEnum.COMPLETED:
         return (
-          <div className="flex-grow text-center md:text-right text-sm md:text-base">
+          <div
+            className="flex-grow text-center md:text-right text-sm md:text-base"
+            data-testid="contribution-status-details"
+          >
             by {renderAssigneeLink(contribution.metadata)}
           </div>
         );

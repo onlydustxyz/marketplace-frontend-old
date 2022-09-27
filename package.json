@@ -8,6 +8,8 @@
     "build:prod": "tsc && vite build && rimraf dist/**/*.js.map",
     "lint": "eslint '**/*.{js,jsx,json,ts,tsx}'",
     "test": "yarn vitest",
+    "e2e": "yarn cypress run",
+    "e2e:open": "yarn cypress open",
     "test:coverage": "yarn vitest --coverage",
     "preview": "vite preview",
     "postinstall": "husky install"

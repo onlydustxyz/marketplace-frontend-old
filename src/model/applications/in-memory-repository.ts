@@ -13,7 +13,7 @@ export class InMemoryApplicationRepository implements ApplicationRepository {
   public async list({ contributorId }: ListParams): Promise<ContributionApplicationDto[]> {
     return this.contributionsApplications.filter(
       (application: ContributionApplicationDto) =>
-        contributorId === undefined || application.contributor_id === contributorId
+        contributorId === undefined || parseInt(application.contributor_id, 16) === parseInt(contributorId, 16)
     );
   }
 

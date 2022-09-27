@@ -126,6 +126,7 @@ const ContributionDetailsPage: FC<Props> = ({
         );
       }
 
+      console.log("contribution.project.members", contribution.project.members, accountAddress);
       if (
         accountAddress !== undefined &&
         contribution.project.members.some(memberAddress => parseInt(memberAddress, 16) === parseInt(accountAddress, 16))

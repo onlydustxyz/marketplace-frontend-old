@@ -50,18 +50,22 @@ const ContributionDetailsPage: FC<Props> = ({
       </div>
       <div className="relative flex flex-col items-center px-0 md:px-12 max-w-screen-xl w-screen">
         <a href={contribution.github_link} target="_blank">
-          <div className="mt-4 md:mt-8 mx-4 md:mx-12 font-alfreda text-3xl md:text-[52px] md:leading-[68px] capitalize text-center line-clamp-3 md:line-clamp-none">
+          <div
+            className="mt-4 md:mt-8 mx-4 md:mx-12 font-alfreda text-3xl md:text-[52px] md:leading-[68px] capitalize text-center line-clamp-3 md:line-clamp-none"
+            data-testid="contribution-title"
+          >
             {contribution.title}
           </div>
         </a>
         <div className="mt-4 md:mt-8 flex flex-col items-center">
-          <Link to={`/projects/${contribution.project.id}`}>
+          <Link to={`/projects/${contribution.project.id}`} data-testid="project-logo-link">
             <img className="rounded-full" src={contribution.project.logo || logoPlaceholder} width={54} />
           </Link>
           <span className="mt-5 text-light-purple/66 text-xs uppercase">Proposed by</span>
           <Link
             className="mt-2 font-medium text-white text-[28px] leading-[34px] capitalize"
             to={`/projects/${contribution.project.id}`}
+            data-testid="project-title-link"
           >
             {contribution.project.title}
           </Link>
@@ -94,7 +98,7 @@ const ContributionDetailsPage: FC<Props> = ({
   function renderActionButton() {
     if (appliying) {
       return (
-        <Button onClick={apply} disabled role="button">
+        <Button onClick={apply} disabled role="button" dataTestid="button-main-action">
           Applying
           <Loader className="animate-spin ml-4" />
         </Button>
@@ -107,7 +111,7 @@ const ContributionDetailsPage: FC<Props> = ({
       parseInt(contribution.metadata.assignee, 16) === parseInt(contributorId, 16)
     ) {
       return (
-        <Button onClick={submit} role="button">
+        <Button onClick={submit} role="button" dataTestid="button-main-action">
           Submit work
         </Button>
       );
@@ -116,25 +120,36 @@ const ContributionDetailsPage: FC<Props> = ({
     if (ContributionStatusEnum.OPEN === contribution.status) {
       if (hasAppliedToContribution) {
         return (
-          <Button onClick={apply} disabled={true} role="button">
+          <Button onClick={apply} disabled={true} role="button" dataTestid="button-main-action">
             Applied
           </Button>
         );
       }
 
+      console.log("contribution.project.members", contribution.project.members, accountAddress);
       if (
         accountAddress !== undefined &&
         contribution.project.members.some(memberAddress => parseInt(memberAddress, 16) === parseInt(accountAddress, 16))
       ) {
         return (
-          <Button onClick={claim} disabled={contribution.eligible === false} role="button">
+          <Button
+            onClick={claim}
+            disabled={contribution.eligible === false}
+            role="button"
+            dataTestid="button-main-action"
+          >
             Claim
           </Button>
         );
       }
 
       return (
-        <Button onClick={apply} disabled={contribution.eligible === false} role="button">
+        <Button
+          onClick={apply}
+          disabled={contribution.eligible === false}
+          role="button"
+          dataTestid="button-main-action"
+        >
           Apply
         </Button>
       );

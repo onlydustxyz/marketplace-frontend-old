@@ -41,11 +41,11 @@ const MultiWalletConnectionContainer: FC<Props> = ({ size, theme }) => {
   }, [account, isConnecting]);
 
   const onConnect = useCallback(
-    async (walletId: string) => {
+    (walletId: string) => {
       setIsConnecting(true);
-      await connect(new InjectedConnector({ options: { id: walletId } }));
+      connect(new InjectedConnector({ options: { id: walletId } }));
     },
-    [connect, isGithubRegistered]
+    [connect]
   );
 
   return <MultiWalletConnection onConnect={onConnect} installedWallets={installedWallets} size={size} theme={theme} />;

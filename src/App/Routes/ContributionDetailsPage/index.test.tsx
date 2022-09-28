@@ -201,9 +201,7 @@ describe("Contribution details page", () => {
       render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
     });
 
-    await act(async () => {
-      await user.click(screen.getByRole("button"));
-    });
+    await user.click(screen.getByRole("button"));
 
     expect(createSpy).toHaveBeenCalledWith({
       contributionId: "1",

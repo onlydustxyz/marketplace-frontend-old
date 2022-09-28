@@ -18,11 +18,10 @@ export class HeadlessWalletFactory {
     const windowObject = new StarknetWindowObject(eventEmitter, params);
 
     Object.defineProperty(windowObj, params.windowPropertyName, {
-      configurable: false,
-      get: () => windowObject,
-      set: () => {
-        return;
-      },
+      configurable: true,
+
+      value: windowObject,
+      writable: false,
     });
     return headlessWallet;
   }

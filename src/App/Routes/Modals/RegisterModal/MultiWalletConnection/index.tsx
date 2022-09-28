@@ -45,12 +45,8 @@ const MultiWalletConnectionContainer: FC<Props> = ({ size, theme }) => {
 
   const onConnect = useCallback(
     (walletId: string) => {
-      (async () => {
-        setIsConnecting(true);
-
-        const installedWallets = await getInstalledWallets();
-        connect(new CustomInjectedConnector({ options: { id: walletId } }, installedWallets));
-      })();
+      setIsConnecting(true);
+      connect(new InjectedConnector({ options: { id: walletId } }));
     },
     [connect]
   );

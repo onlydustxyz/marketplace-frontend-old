@@ -8,7 +8,7 @@ import Loader from "src/icons/Loader";
 export type ToastProps = {
   close?: () => void;
   type?: "success" | "error" | "pending" | "info" | "default";
-  dataTestId?: string;
+  dataTestId: string;
 } & Omit<ToastType, "type">;
 
 const classNameByType = {

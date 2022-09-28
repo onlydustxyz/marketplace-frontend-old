@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { act, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -13,6 +13,8 @@ let headlessWallet: HeadlessWallet;
 
 describe("Connect wallet", () => {
   beforeEach(async () => {
+    vi.clearAllMocks();
+
     await act(async () => {
       headlessWallet = walletFactory.create(window, {
         id: "headless-test",

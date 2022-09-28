@@ -8,16 +8,6 @@ const walletFactory = new HeadlessWalletFactory();
 let headlessWallet: HeadlessWallet;
 
 describe("Contribution", () => {
-  beforeEach(() => {
-    Cypress.Cookies.debug(true);
-
-    cy.visit("http://localhost:3000/");
-
-    // clear cookies again after visiting to remove
-    // any 3rd party cookies picked up such as cloudflare
-    cy.clearCookies();
-  });
-
   describe("Test content", () => {
     it("Should display an error when the contribution does not exist", () => {
       cy.visit("http://localhost:3000/contributions/does-not-exist");

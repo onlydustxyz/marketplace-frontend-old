@@ -13,7 +13,6 @@ dist-ssr
 *.local
 coverage
 
-cypress/screenshots/
 cypress/videos
 
 # Editor directories and files

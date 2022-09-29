@@ -56,7 +56,7 @@ describe("Contribution", () => {
       cy.getByTestId("contribution-status-details").should("not.exist");
     });
 
-    it("should display the good contribution statuses with anonymous", () => {
+    it("should display the good contribution statuses with a connected user", () => {
       cy.on("window:before:load", window => {
         headlessWallet = walletFactory.create(window, {
           id: "headless-test",

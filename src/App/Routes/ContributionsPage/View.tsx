@@ -16,7 +16,10 @@ const ContributionsPage: FC<Props> = ({ contributions, displayFilters, closeFilt
   return (
     <div className="w-full max-w-screen-2xl px-2 md:px-8">
       <div className="relative flex flex-row mt-8 mb-4">
-        <h1 className="flex-grow text-2xl leading-[48px] md:text-3xl md:leading-[63px] font-alfreda">
+        <h1
+          className="flex-grow text-2xl leading-[48px] md:text-3xl md:leading-[63px] font-alfreda"
+          data-testid="page-main-title"
+        >
           All contributions
         </h1>
 

@@ -18,7 +18,12 @@ const ProjectsPage: FC<Props> = ({ displayFilters, projects, closeFilters, toggl
   return (
     <div className="w-full max-w-screen-2xl px-2 md:px-8">
       <div className="relative flex flex-row mt-10 mb-4">
-        <h1 className="flex-grow text-2xl leading-[48px] md:text-3xl md:leading-[63px] font-alfreda ">All projects</h1>
+        <h1
+          className="flex-grow text-2xl leading-[48px] md:text-3xl md:leading-[63px] font-alfreda"
+          data-testid="page-main-title"
+        >
+          All projects
+        </h1>
 
         <div
           className={cn(
@@ -39,7 +44,7 @@ const ProjectsPage: FC<Props> = ({ displayFilters, projects, closeFilters, toggl
         data-testid="project-list"
       >
         {projects.map(project => (
-          <li key={project.id}>
+          <li key={project.id} data-testid={`project-link-${project.id}`}>
             <Link to={`/projects/${project.id}`}>
               <ProjectCard className="h-full" project={project} />
             </Link>

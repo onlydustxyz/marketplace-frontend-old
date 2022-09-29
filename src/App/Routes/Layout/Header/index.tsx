@@ -36,10 +36,18 @@ const Header: FC = () => {
               openedMenu ? "" : "hidden md-block"
             )}
           >
-            <NavLink to="/contributions" className={({ isActive }) => cn("h-10 leading-10", isActive && "text-white")}>
+            <NavLink
+              to="/contributions"
+              className={({ isActive }) => cn("h-10 leading-10", isActive && "text-white")}
+              data-testid="menu-link-contributions"
+            >
               All contributions
             </NavLink>
-            <NavLink className={({ isActive }) => cn("md:ml-8 h-10 leading-10", isActive && "text-white")} to="/">
+            <NavLink
+              className={({ isActive }) => cn("md:ml-8 h-10 leading-10", isActive && "text-white")}
+              to="/"
+              data-testid="menu-link-projects"
+            >
               All projects
             </NavLink>
           </div>

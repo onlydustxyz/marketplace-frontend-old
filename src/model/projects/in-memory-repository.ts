@@ -15,6 +15,8 @@ export class InMemoryProjectRepository implements ProjectRepository {
       title: "Project 1",
       description: "Description 1",
       github_link: "https://example.com/projects/1",
+      discord_link: "https://example.com/discord/1",
+      website_link: "https://example.com/website/1",
       contributions: [
         {
           id: "1",

@@ -161,6 +161,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
       ],
       members: [
         "0x0123456789",
+        "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0",
         {
           contributor_account: "0x123456789abcdef",
           is_lead_contributor: false,

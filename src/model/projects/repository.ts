@@ -14,6 +14,8 @@ export type ProjectDto = {
   title: string;
   description: string;
   github_link: string;
+  discord_link?: string;
+  website_link?: string;
   logo?: string;
   contributions: ContributionDto[];
   members?: Array<ProjectMember | string>;

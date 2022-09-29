@@ -21,8 +21,16 @@ import {
 import { StarknetChainId } from "starknet/dist/constants";
 import { BlockIdentifier } from "starknet/dist/provider/utils";
 import { BigNumberish } from "starknet/utils/number";
+import { TransactionManager } from "./transaction-manager";
 
 export class MockProvider extends ProviderInterface {
+  protected _transactionManager: TransactionManager;
+
+  constructor(transactionManager: TransactionManager) {
+    super();
+    this._transactionManager = transactionManager;
+  }
+
   get chainId() {
     return StarknetChainId.TESTNET;
   }
@@ -60,25 +68,12 @@ export class MockProvider extends ProviderInterface {
   }
 
   async getTransaction(transactionHash: BigNumberish): Promise<GetTransactionResponse> {
-    return {
-      contract_address: "",
-      entry_point_selector: "",
-      calldata: [],
-      transaction_hash: "",
-      version: "",
-      signature: [],
-      max_fee: "",
-      nonce: "",
-    };
+    return this._transactionManager.getTransaction(new BN(transactionHash, 16).toString(16));
   }
 
   async getTransactionReceipt(transactionHash: BigNumberish): Promise<GetTransactionReceiptResponse> {
-    return {
-      transaction_hash: "",
-      status: "ACCEPTED_ON_L2",
-      actual_fee: "",
-      status_data: "",
-    };
+    console.log("transactionHash", transactionHash);
+    return this._transactionManager.getTransactionReceipt(new BN(transactionHash, 16).toString(16));
   }
 
   async deployContract(payload: DeployContractPayload): Promise<DeployContractResponse> {

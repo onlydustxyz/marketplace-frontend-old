@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { act, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { HeadlessWalletFactory, MockAccount, MockProvider } from "tests/lib/starknet-wallet-mock";
+import { HeadlessWalletFactory } from "tests/lib/starknet-wallet-mock";
 
 import { renderApp } from "tests/utils";
 import { HeadlessWallet } from "tests/lib/starknet-wallet-mock/wallet";
@@ -20,10 +20,6 @@ describe("Connect wallet", () => {
         id: "headless-test",
         name: "Headless Test",
         windowPropertyName: "starknet_headless",
-        accountFactory: (address: string) => {
-          return new MockAccount(address);
-        },
-        provider: new MockProvider(),
       });
     });
   });

@@ -6,22 +6,25 @@ import {
   Call,
   EstimateFeeDetails,
   EstimateFeeResponse,
+  GetTransactionResponse,
   InvocationsDetails,
   InvokeFunctionResponse,
   Signature,
   Signer,
   SignerInterface,
 } from "starknet";
+import { getSelectorFromName } from "starknet/dist/utils/hash";
 import { TypedData } from "starknet/dist/utils/typedData";
 import { BigNumberish } from "starknet/utils/number";
 import { MockProvider } from "./provider";
+import { TransactionManager } from "./transaction-manager";
 
 export class MockAccount extends MockProvider implements AccountInterface {
   public address: string;
   public signer: SignerInterface;
 
-  constructor(address: string) {
-    super();
+  constructor(address: string, transactionManager: TransactionManager) {
+    super(transactionManager);
     this.signer = new Signer();
     this.address = address;
   }
@@ -31,7 +34,22 @@ export class MockAccount extends MockProvider implements AccountInterface {
     abis?: Abi[],
     transactionsDetail?: InvocationsDetails
   ): Promise<InvokeFunctionResponse> {
-    return { transaction_hash: "" };
+    if (Array.isArray(transactions)) {
+      throw new Error("executing multiple transaction not implemented");
+    }
+
+    const methodSelector = getSelectorFromName(transactions.entrypoint);
+    const transactionHash = (parseInt(transactions.contractAddress, 16) + parseInt(methodSelector, 16)).toString(16);
+
+    const transaction: GetTransactionResponse = {
+      contract_address: transactions.contractAddress,
+      calldata: transactions.calldata?.map(el => el.toString(16)) || [],
+      entry_point_selector: getSelectorFromName(transactions.entrypoint), // @TODO : format entrypoint
+    };
+
+    this._transactionManager.addTransaction(transactionHash, transaction);
+
+    return { transaction_hash: transactionHash };
   }
 
   async estimateFee(calls: Call | Call[], estimateFeeDetails?: EstimateFeeDetails): Promise<EstimateFeeResponse> {

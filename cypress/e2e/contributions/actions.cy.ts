@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { HeadlessWalletFactory, MockAccount, MockProvider } from "../../../tests/lib/starknet-wallet-mock";
+import { HeadlessWalletFactory } from "../../../tests/lib/starknet-wallet-mock";
 import { HeadlessWallet } from "../../../tests/lib/starknet-wallet-mock/wallet";
 
 const walletFactory = new HeadlessWalletFactory();
@@ -23,10 +23,6 @@ describe("Contribution", () => {
           id: "headless-test",
           name: "Headless Test",
           windowPropertyName: "starknet_headless",
-          accountFactory: (address: string) => {
-            return new MockAccount(address);
-          },
-          provider: new MockProvider(),
         });
 
         headlessWallet.autoConnect({ address: "0x55555555" });
@@ -45,10 +41,6 @@ describe("Contribution", () => {
           id: "headless-test",
           name: "Headless Test",
           windowPropertyName: "starknet_headless",
-          accountFactory: (address: string) => {
-            return new MockAccount(address);
-          },
-          provider: new MockProvider(),
         });
 
         headlessWallet.autoConnect({ address: "0x123456789abcdef" });
@@ -67,10 +59,6 @@ describe("Contribution", () => {
           id: "headless-test",
           name: "Headless Test",
           windowPropertyName: "starknet_headless",
-          accountFactory: (address: string) => {
-            return new MockAccount(address);
-          },
-          provider: new MockProvider(),
         });
 
         headlessWallet.autoConnect({ address: "0x123456789" });

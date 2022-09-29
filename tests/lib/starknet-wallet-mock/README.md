@@ -23,19 +23,11 @@ const headlessWallet = walletFactory.create(window, {
     id: "headless-test",
     name: "Headless Test",
     windowPropertyName: "starknet_headless",
-    accountFactory: (address: string) => {
-        return new MockAccount(address);
-    },
-    provider: new MockProvider(),
 });
 ```
 
 - `windowPropertyName` is the name of the property used to inject the wallet client in `window`.  
 It can be anything starting with `starknet`, this way it will be automatically detected by `get-starknet`.
-
-- `provider` is a mock of the [starknetjs Provider](https://www.starknetjs.com/docs/API/provider)
-
-- `accountFactory` is the method used to create a mock of a [starknetjs Account](https://www.starknetjs.com/docs/API/account) only when the user connect.  
 
 ## Usage
 

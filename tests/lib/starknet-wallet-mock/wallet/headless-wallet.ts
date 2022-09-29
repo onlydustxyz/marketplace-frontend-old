@@ -27,4 +27,16 @@ export class HeadlessWallet {
   autoConnect(data: ConnectData) {
     this.#eventEmitter.emit("autoConnect", data);
   }
+
+  acceptTransaction({ contractAddress, method }: TransactionInteractionKey) {
+    const methodSelector = getSelectorFromName(method);
+    const hash = (parseInt(contractAddress, 16) + parseInt(methodSelector, 16)).toString(16);
+    this.#transactionManager.acceptTransaction(hash);
+  }
+
+  rejectTransaction({ contractAddress, method }: TransactionInteractionKey, reason = "Reject") {
+    const methodSelector = getSelectorFromName(method);
+    const hash = (parseInt(contractAddress, 16) + parseInt(methodSelector, 16)).toString(16);
+    this.#transactionManager.rejectTransaction(hash, reason);
+  }
 }

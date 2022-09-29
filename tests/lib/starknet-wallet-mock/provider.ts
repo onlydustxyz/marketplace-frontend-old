@@ -72,6 +72,7 @@ export class MockProvider extends ProviderInterface {
   }
 
   async getTransactionReceipt(transactionHash: BigNumberish): Promise<GetTransactionReceiptResponse> {
+    console.log("transactionHash", transactionHash);
     return this._transactionManager.getTransactionReceipt(new BN(transactionHash, 16).toString(16));
   }
 

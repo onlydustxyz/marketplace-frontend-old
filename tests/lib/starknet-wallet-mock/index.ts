@@ -19,7 +19,13 @@ export class HeadlessWalletFactory {
 
     const headlessWallet = new HeadlessWallet(eventEmitter, transactionManager);
 
-    const windowObject = new StarknetWindowObject(eventEmitter, params);
+    const windowObject = new StarknetWindowObject(eventEmitter, {
+      ...params,
+      accountFactory: (address: string) => {
+        return new MockAccount(address, transactionManager);
+      },
+      provider: new MockProvider(transactionManager),
+    });
 
     Object.defineProperty(windowObj, params.windowPropertyName, {
       configurable: true,

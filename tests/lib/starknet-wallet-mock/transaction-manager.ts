@@ -121,7 +121,7 @@ export class TransactionManager {
     this.#blockAuto && this.mineBlock();
   }
 
-  rejectTransaction(hash: string) {
+  rejectTransaction(hash: string, reason: string) {
     if (!this.#transactions[hash]) {
       throw new Error(`Transaction does not exist with hash ${hash}`);
     }

@@ -50,6 +50,46 @@ await act(() => {
 });
 ```
 
+### Auto connect a wallet
+
+This feature allow to automatically connect a wallet without having to process the whole login flow.
+
+Execute this method right after creating the headlessWallet.
+
+```javascript
+headlessWallet.autoConnect({ address: "0x0123456789" });
+```
+
+### Accept or reject a transaction
+
+When invoking a smart contract, you want to be able to accept or reject it.
+
+The only information you need are :
+- the address of the contract which is called
+- the method called
+
+> This two elements are used to generate a transaction hash.  
+> In reality the hash is based and much more data, but to ease the tests definition, we decided to keep it simple.  
+> We consider that a same contract and method can't be called twice on a unique test
+
+To accept a transaction
+
+```javascript
+headlessWallet.acceptTransaction({
+    contractAddress: "0x000000000",
+    method: "contract_method",
+})
+```
+
+To reject a transaction
+
+```javascript
+headlessWallet.rejectTransaction({
+    contractAddress: "0x000000000",
+    method: "contract_method",
+})
+```
+
 ## Development
 
 This library can be used directly in your application code. 

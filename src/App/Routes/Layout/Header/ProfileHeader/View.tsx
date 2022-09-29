@@ -33,6 +33,7 @@ const ProfileHeader: FC<Props> = ({ accountAddress, displayMenu }) => {
         <NavLink
           className={({ isActive }) => cn("md:mr-10 h-10 leading-10", isActive && "text-white")}
           to="/my-contributions"
+          data-testid="menu-link-mycontributions"
         >
           My contributions
         </NavLink>

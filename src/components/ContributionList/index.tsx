@@ -23,7 +23,11 @@ let ContributionList: FC<Props> = ({ className, contributions }) => {
       )}
       itemClassName="md:my-2 w-full overflow-hidden"
       itemContent={index => (
-        <Link to={`/contributions/${contributions[index].id}`} className="flex-1">
+        <Link
+          to={`/contributions/${contributions[index].id}`}
+          className="flex-1"
+          data-testid={`contribution-link-${contributions[index].id}`}
+        >
           <Contribution contribution={contributions[index]} />
         </Link>
       )}

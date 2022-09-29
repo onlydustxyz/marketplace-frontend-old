@@ -26,6 +26,12 @@ export class InMemoryContributorRepository implements ContributorRepository {
       github_username: "github-username",
       account: "0x0abcdefabcdef",
     },
+    {
+      id: "0x26",
+      github_identifier: "github-id",
+      github_username: "github-username",
+      account: "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0",
+    },
   ];
 
   public async findById(id: ContributorDto["id"]): Promise<ContributorDto> {

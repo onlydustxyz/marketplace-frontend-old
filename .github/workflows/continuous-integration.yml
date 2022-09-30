@@ -35,4 +35,4 @@ jobs:
           node-version: 18
       - run: yarn install --frozen-lockfile
       - run: yarn test
-      - run: yarn e2e
+      # - run: yarn e2e

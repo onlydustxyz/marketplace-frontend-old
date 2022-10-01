@@ -53,7 +53,7 @@ const ContributionDetailsPageContainer: FC = () => {
     userGithubHandle && typeformParams.set("github", userGithubHandle);
     contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
     contributorId && typeformParams.set("contributorid", contributorId);
-    if (contributionId) {
+    if(contributionId) {
       typeformParams.set("contributionid", contributionId);
     }
 

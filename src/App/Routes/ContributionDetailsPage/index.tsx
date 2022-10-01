@@ -44,15 +44,18 @@ const ContributionDetailsPageContainer: FC = () => {
     address: config.CONTRIBUTIONS_CONTRACT_ADDRESS,
   });
 
-  const buildTypeformParams = () => {
+  const buildTypeformParams = useCallback(() => {
     const typeformParams = new URLSearchParams();
     account?.address && typeformParams.set("wallet", account.address);
     userGithubHandle && typeformParams.set("github", userGithubHandle);
     contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
     contributorId && typeformParams.set("contributorid", contributorId);
+    if(contributionId) {
+      typeformParams.set("contributionid", contributionId);
+    }
 
     return typeformParams.toString();
-  };
+  }, [contributionId]);
 
   const apply = useCallback(async () => {
     if (

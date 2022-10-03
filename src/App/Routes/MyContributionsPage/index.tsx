@@ -3,7 +3,7 @@ import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import Button from "src/components/Button";
 import ContributionList from "src/components/ContributionList";
 import useRefreshContributions from "src/hooks/refresh-contributions";
-import { myAppliedContributionsQuery, myCompletedContributionsQuery, myOngoingContributionsQuery } from "src/state";
+import { myCompletedContributionsQuery, myOngoingContributionsQuery } from "src/state";
 
 const MyContributionsPage: FC = () => {
   const appliedContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(myAppliedContributionsQuery);
@@ -12,7 +12,7 @@ const MyContributionsPage: FC = () => {
 
   useRefreshContributions();
 
-  const allMyContributions = [...appliedContributions, ...ongoingContributions, ...completedContributions];
+  const allMyContributions = [...ongoingContributions, ...completedContributions];
 
   if (allMyContributions.length === 0) {
     return (

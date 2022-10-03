@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
   accountAddressSelector,
@@ -22,7 +22,7 @@ import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
 import { bnToUint256 } from "starknet/dist/utils/uint256";
-import { ContributorId } from "src/model/contact-information/repository";
+import useRefreshContributions from "src/hooks/refresh-contributions";
 
 type PageParams = {
   contributionId: string;
@@ -40,7 +40,7 @@ const ContributionDetailsPageContainer: FC = () => {
 
   const [appliying, setApplying] = useState(false);
 
-  const refreshApplications = useRecoilRefresher_UNSTABLE(contributorApplicationsQuery);
+  const { refreshContributions } = useRefreshContributions();
 
   const { contract: contributionsContract } = useContract({
     abi: contributionsAbi as Abi,
@@ -99,7 +99,7 @@ const ContributionDetailsPageContainer: FC = () => {
     );
 
     startTransition(() => {
-      refreshApplications();
+      refreshContributions();
     });
     setApplying(false);
   }, [contributionId, isGithubRegistered, userDiscordHandle]);

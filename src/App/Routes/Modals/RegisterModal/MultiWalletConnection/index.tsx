@@ -1,9 +1,12 @@
-import { InjectedConnector, useStarknet } from "@starknet-react/core";
+import { useStarknet } from "@starknet-react/core";
 import { getInstalledWallets } from "get-starknet";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
+
 import { displayRegisterModalAtom, isGithubRegisteredSelector } from "src/state";
 import { ButtonProps } from "src/components/Button";
+import { CustomInjectedConnector } from "src/utils/custom-injected-connector";
+
 import MultiWalletConnection from "./View";
 
 type Props = {
@@ -42,8 +45,12 @@ const MultiWalletConnectionContainer: FC<Props> = ({ size, theme }) => {
 
   const onConnect = useCallback(
     (walletId: string) => {
-      setIsConnecting(true);
-      connect(new InjectedConnector({ options: { id: walletId } }));
+      (async () => {
+        setIsConnecting(true);
+
+        const installedWallets = await getInstalledWallets();
+        connect(new CustomInjectedConnector({ options: { id: walletId } }, installedWallets));
+      })();
     },
     [connect]
   );

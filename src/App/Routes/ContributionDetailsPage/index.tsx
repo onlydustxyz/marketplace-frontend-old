@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
+import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
   accountAtom,
@@ -9,7 +9,6 @@ import {
   userContributorIdSelector,
   userDiscordHandleSelector,
   userGithubHandleSelector,
-  contributionsQuery,
 } from "src/state";
 import { FC, startTransition, useCallback, useState } from "react";
 import config from "src/config";
@@ -21,6 +20,7 @@ import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
 import { bnToUint256 } from "starknet/dist/utils/uint256";
+import useRefreshContributions from "src/hooks/refresh-contributions";
 
 type PageParams = {
   contributionId: string;
@@ -36,8 +36,9 @@ const ContributionDetailsPageContainer: FC = () => {
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
   const hasAppliedToContribution = !!contribution?.applied;
 
-  const refreshApplication = useRecoilRefresher_UNSTABLE(contributionsQuery);
   const [appliying, setApplying] = useState(false);
+
+  const { refreshContributions } = useRefreshContributions();
 
   const { contract: contributionsContract } = useContract({
     abi: contributionsAbi as Abi,
@@ -93,7 +94,7 @@ const ContributionDetailsPageContainer: FC = () => {
     });
 
     startTransition(() => {
-      refreshApplication();
+      refreshContributions();
     });
     setApplying(false);
   }, [contributionId, isGithubRegistered, userDiscordHandle]);

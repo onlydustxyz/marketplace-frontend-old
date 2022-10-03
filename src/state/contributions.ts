@@ -70,7 +70,7 @@ type RawProjectWithContributions = {
   contributions: ContributionDto[];
 };
 
-const rawProjectsWithContributionsQuery = selector<RawProjectWithContributions[]>({
+export const rawProjectsWithContributionsQuery = selector<RawProjectWithContributions[]>({
   key: "RawProjects",
   get: async () => {
     const projects = await projectRepository.list();

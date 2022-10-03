@@ -7,7 +7,7 @@ import config from "src/config";
 import { CustomInjectedConnector } from "src/utils/custom-injected-connector";
 
 export default function StarknetLocalProvider({ children }: { children?: ReactNode | undefined }) {
-  const [installedConnectors, setInstalledConnectors] = useState<CustomInjectedConnector[]>([]);
+  const [installedConnectors, setInstalledConnectors] = useState<CustomInjectedConnector[]>();
 
   useEffect(() => {
     (async () => {
@@ -17,7 +17,8 @@ export default function StarknetLocalProvider({ children }: { children?: ReactNo
       setInstalledConnectors(installed.map(id => new CustomInjectedConnector({ options: { id } }, installedWallets)));
     })();
   }, []);
-  if (installedConnectors.length === 0) {
+
+  if (installedConnectors === undefined) {
     return null;
   }
 

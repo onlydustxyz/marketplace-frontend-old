@@ -1,9 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
   accountAtom,
   contributionQuery,
+  contributorApplicationsQuery,
   displayRegisterModalAtom,
   isGithubRegisteredSelector,
   userContributorIdSelector,
@@ -38,7 +39,7 @@ const ContributionDetailsPageContainer: FC = () => {
 
   const [appliying, setApplying] = useState(false);
 
-  const { refreshContributions } = useRefreshContributions();
+  const refreshApplications = useRecoilRefresher_UNSTABLE(contributorApplicationsQuery);
 
   const { contract: contributionsContract } = useContract({
     abi: contributionsAbi as Abi,
@@ -94,7 +95,7 @@ const ContributionDetailsPageContainer: FC = () => {
     });
 
     startTransition(() => {
-      refreshContributions();
+      refreshApplications();
     });
     setApplying(false);
   }, [contributionId, isGithubRegistered, userDiscordHandle]);

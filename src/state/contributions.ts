@@ -230,6 +230,22 @@ export const ongoingContributionsQuery = selector({
   },
 });
 
+export const myAppliedContributionsQuery = selector({
+  key: "MyAppliedContributions",
+  get: ({ get }) => {
+    const userContributorId = get(userContributorIdSelector);
+
+    if (!userContributorId) {
+      return [];
+    }
+
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === ContributionStatusEnum.OPEN && contribution.applied
+    ) as Contribution[];
+  },
+});
+
 export const myOngoingContributionsQuery = selector({
   key: "MyOngoingContributions",
   get: ({ get }) => {

@@ -30,3 +30,4 @@ cypress/videos
 .env
 .env.*
 !.env.example
+!.env.test

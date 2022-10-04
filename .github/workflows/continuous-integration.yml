@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: Install yarn
         run: npm install -g yarn
       - run: yarn install --frozen-lockfile
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: "yarn"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
@@ -32,8 +32,11 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: "yarn"
+          node-version: 18
       - run: yarn install --frozen-lockfile
       - run: yarn test
-      # - run: yarn e2e
+      - name: Run test
+        run: |
+          yarn dev --mode test &
+          sleep 10
+          yarn e2e

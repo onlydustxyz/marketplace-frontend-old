@@ -22,7 +22,6 @@ import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
 import { bnToUint256 } from "starknet/dist/utils/uint256";
-import useRefreshContributions from "src/hooks/refresh-contributions";
 
 type PageParams = {
   contributionId: string;

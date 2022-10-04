@@ -90,7 +90,7 @@ describe("Contribution", () => {
 
       cy.executeCallback(() => {
         headlessWallet.acceptTransaction({
-          contractAddress: "0x04aa3b2b258388a58ed429795ab56a9cd9613152755ec317f5c6bee2294e2264",
+          contractAddress: "0x5b63a0a1dacdab45e2c07da9e0c3ffa54959bdde7b76c69c26c4508a346f2270",
           method: "claim_contribution",
         });
       });
@@ -117,7 +117,7 @@ describe("Contribution", () => {
 
       cy.executeCallback(() => {
         headlessWallet.rejectTransaction({
-          contractAddress: "0x04aa3b2b258388a58ed429795ab56a9cd9613152755ec317f5c6bee2294e2264",
+          contractAddress: "0x5b63a0a1dacdab45e2c07da9e0c3ffa54959bdde7b76c69c26c4508a346f2270",
           method: "claim_contribution",
         });
       });

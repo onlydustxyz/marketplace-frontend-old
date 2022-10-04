@@ -35,4 +35,8 @@ jobs:
           node-version: 18
       - run: yarn install --frozen-lockfile
       - run: yarn test
-      # - run: yarn e2e
+      - name: Run test
+        run: |
+          yarn dev --mode test &
+          sleep 10
+          yarn e2e

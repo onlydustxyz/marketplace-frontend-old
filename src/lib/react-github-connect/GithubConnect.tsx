@@ -63,8 +63,6 @@ const LoginGithub: FC<PropsWithChildren<LoginGithubProps>> = ({
       redirect_uri: redirectUri,
     });
 
-    console.log({ search });
-
     // To fix issues with window.screen in multi-monitor setups, the easier option is to
     // center the pop-up over the parent window.
     const top = window.top!.outerHeight / 2 + window.top!.screenY - popupHeight / 2;

@@ -21,7 +21,6 @@ import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
 import { bnToUint256 } from "starknet/dist/utils/uint256";
-import useRefreshContributions from "src/hooks/refresh-contributions";
 
 type PageParams = {
   contributionId: string;
@@ -113,7 +112,6 @@ const ContributionDetailsPageContainer: FC = () => {
     }
 
     const contributorIdUint256 = bnToUint256(contributorId);
-
     toastTransaction(
       contributionsContract?.invoke("claim_contribution", [[contributionId], contributorIdUint256]),
       account,

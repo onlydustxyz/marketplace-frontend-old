@@ -3,7 +3,7 @@ name: Code coverage
 on:
   push:
     branches:
-      - "develdzop"
+      - "develop"
 
 jobs:
   build:
@@ -15,7 +15,8 @@ jobs:
           node-version: 18
           cache: "yarn"
       - run: yarn install --frozen-lockfile
-      - run: yarn test --coverage
+      - name: Run unit/integration test
+        run: yarn test --coverage
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v3
         with:
@@ -26,3 +27,12 @@ jobs:
         with:
           name: code-coverage-report
           path: coverage/clover.xml
+      - name: Run e2e test
+        run: |
+          MARKETPLACE_COVERAGE=true yarn dev --mode test &
+          sleep 10
+          yarn e2e
+      - name: Upload e2e tests coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: coverage/clover.xml

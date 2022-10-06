@@ -34,12 +34,13 @@ jobs:
         with:
           node-version: 18
       - run: yarn install --frozen-lockfile
-      - run: yarn test --coverage
+      - name: Run unit/integration test
+        run: yarn test --coverage
       - name: Upload unit/integration tests coverage
         uses: codecov/codecov-action@v3
         with:
           files: coverage/clover.xml
-      - name: Run test
+      - name: Run e2e test
         run: |
           MARKETPLACE_COVERAGE=true yarn dev --mode test &
           sleep 10

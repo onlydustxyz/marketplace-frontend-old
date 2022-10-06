@@ -3,7 +3,7 @@ name: Code coverage
 on:
   push:
     branches:
-      - "develdzop"
+      - "develop"
 
 jobs:
   build:

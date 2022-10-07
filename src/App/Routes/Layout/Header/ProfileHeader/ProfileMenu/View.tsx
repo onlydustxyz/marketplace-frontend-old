@@ -43,7 +43,11 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
           >
             <Popover.Panel className="absolute right-0 mt-2 px-3.5 w-[218px] origin-top-right bg-profile-menu rounded-[20px] focus:outline-none z-50 divide-y divide-white/15">
               <div className="h-[57px] flex flex-row items-center">
-                <ConnectDot connected={!!accountAddress} className="ml-2 mr-4" />
+                <ConnectDot
+                  connected={!!accountAddress}
+                  className="ml-2 mr-4"
+                  dataTestId="header-profile-wallet-address-dot"
+                />
                 <div className="flex flex-col justify-center">
                   <div className="text-xs uppercase">Wallet</div>
                   <div className="text-white leading-5" data-testid="header-profile-wallet-address">
@@ -52,14 +56,23 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
                 </div>
               </div>
               <div className="h-[57px] flex flex-row items-center">
-                <ConnectDot connected={!!githubHandle} className="ml-2 mr-4" />
+                <ConnectDot
+                  connected={!!githubHandle}
+                  className="ml-2 mr-4"
+                  dataTestId="header-profile-github-handle-dot"
+                />
                 <div className="flex flex-col flex-grow justify-center">
                   <div className="text-xs uppercase">Github</div>
-                  <div className="text-white leading-5">{githubHandle ? githubHandle : "Not connected"}</div>
+                  <div className="text-white leading-5" data-testid="header-profile-github-handle">
+                    {githubHandle ? githubHandle : "Not connected"}
+                  </div>
                 </div>
                 {!githubHandle && (
                   <GithubSignin className="h-[25px] w-[25px] mr-1">
-                    <div className="h-[25px] w-[25px] flex justify-center items-center bg-white rounded">
+                    <div
+                      className="h-[25px] w-[25px] flex justify-center items-center bg-white rounded"
+                      data-testid="github-connect-button"
+                    >
                       <Arrow className="fill-mid-blue -rotate-45" size={12} />
                     </div>
                   </GithubSignin>

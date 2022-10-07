@@ -7,10 +7,16 @@ export interface ContributorDto {
   github_username: string;
   account: string;
 }
-
+export interface RegisterGithubAccount {
+  address: string;
+  code: string;
+  hash: string;
+  signature: [string, string];
+}
 export interface ContributorRepository {
   findById(id: ContributorDto["id"]): Promise<ContributorDto>;
   findByAccountAddress(address: string): Promise<ContributorDto>;
+  registerGithubAccount: (data: RegisterGithubAccount) => Promise<void>;
 }
 
 export const contributorRepository: ContributorRepository =

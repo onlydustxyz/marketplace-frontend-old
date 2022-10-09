@@ -25,6 +25,8 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
   const [displayError, setDisplayError] = useState(false);
   const prevHasError = usePrevious(!!error);
 
+  const [txHash, setTxHash] = useState<string | undefined>(undefined);
+
   const onSuccess = async ({ code }: { code: string }) => {
     if (!account) {
       console.warn("First ensure wallet is connected before displaying this component");
@@ -48,6 +50,7 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
       });
 
       setIsRegistering(false);
+      setTxHash(hash);
       await refreshContributor();
     } catch (error) {
       console.warn(error);
@@ -82,6 +85,7 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
       error={error}
       displayError={displayError}
       className={className}
+      txHash={txHash}
     >
       {children}
     </GithubSignin>

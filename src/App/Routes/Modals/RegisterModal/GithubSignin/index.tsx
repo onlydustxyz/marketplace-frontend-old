@@ -9,6 +9,7 @@ import { signMessage } from "src/utils/wallet";
 import { accountAtom, userInformationSelector } from "src/state";
 
 import GithubSignin from "./View";
+import toast from "react-hot-toast";
 
 type Props = {
   className?: string;
@@ -49,17 +50,21 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
         signature: signature as [string, string],
       });
 
+      toast.success("Github account successfully validated");
+
       setIsRegistering(false);
       setTxHash(hash);
       await refreshContributor();
     } catch (error) {
       console.warn(error);
+      toast.error("Github account validation failed");
       setIsRegistering(false);
     }
   };
 
   const onFailure = useCallback((error: Error) => {
     console.warn(error);
+    toast.error("Github account validation failed");
     setIsRegistering(false);
     setDisplayError(true);
   }, []);

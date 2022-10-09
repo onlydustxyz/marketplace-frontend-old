@@ -7,8 +7,6 @@ import Loader from "src/icons/Loader";
 import Modal from "src/components/Modal";
 import Button from "src/components/Button";
 
-const VOYAGER_URL = "https://voyager.online";
-
 type Props = {
   isSuccess: boolean;
   isLoading: boolean;
@@ -49,17 +47,13 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
       onFailure={onFailure}
       className={className}
     >
-      {children || (
-        <Button as="div" dataTestid="github-connect-button">
-          Connect to Github
-        </Button>
-      )}
-      {renderLoadingModal()}
+      {children || <Button as="div">Connect to Github</Button>}
+      {renderLoadingModal(txHash)}
       {renderError()}
     </GithubConnect>
   );
 
-  function renderLoadingModal() {
+  function renderLoadingModal(txHash?: string) {
     return (
       <Modal contentClassName="px-16 pt-6 pb-8 z-100" isOpen={isLoading} onClose={onClose}>
         <div className="flex flex-col justify-center items-center text-4xl text-center text-blue-500 mt-12">
@@ -67,7 +61,7 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
           <div>We are verifying your information</div>
           {txHash && (
             <div>
-              Check the status of your transaction <a href={`${VOYAGER_URL}/tx/${txHash}`}>here</a>
+              Check the status of your transaction <a href={`${config.VOYAGER_URL}/tx/${txHash}`}>here</a>
             </div>
           )}
           <div>Estimated remaining time: 5 mins</div>

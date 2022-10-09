@@ -16,6 +16,9 @@ interface ImportMetaEnv {
   readonly MARKETPLACE_SENTRY_ENVIRONMENT: string;
   readonly MARKETPLACE_SENTRY_RELEASE: string;
   readonly MARKETPLACE_SENTRY_TRACES_SAMPLE_RATE: string;
+
+  readonly MARKETPLACE_REFRESH_CONTRIBUTIONS_INTERVAL: string;
+  readonly MARKETPLACE_REFRESH_CONTRIBUTIONS_MAX_TRIES: string;
 }
 
 interface ImportMeta {

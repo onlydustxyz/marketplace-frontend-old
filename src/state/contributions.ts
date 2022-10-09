@@ -70,7 +70,7 @@ type RawProjectWithContributions = {
   contributions: ContributionDto[];
 };
 
-const rawProjectsWithContributionsQuery = selector<RawProjectWithContributions[]>({
+export const rawProjectsWithContributionsQuery = selector<RawProjectWithContributions[]>({
   key: "RawProjects",
   get: async () => {
     const projects = await projectRepository.list();
@@ -227,6 +227,22 @@ export const ongoingContributionsQuery = selector({
     return contributions.filter(
       contribution => contribution.status === ContributionStatusEnum.ASSIGNED
     ) as AssignedContribution[];
+  },
+});
+
+export const myAppliedContributionsQuery = selector({
+  key: "MyAppliedContributions",
+  get: ({ get }) => {
+    const userContributorId = get(userContributorIdSelector);
+
+    if (!userContributorId) {
+      return [];
+    }
+
+    const contributions = get(contributionsQuery);
+    return contributions.filter(
+      contribution => contribution.status === ContributionStatusEnum.OPEN && contribution.applied
+    ) as Contribution[];
   },
 });
 

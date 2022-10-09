@@ -4,12 +4,12 @@ import ContributionDetailsPage from "./View";
 import {
   accountAtom,
   contributionQuery,
+  contributorApplicationsQuery,
   displayRegisterModalAtom,
   isGithubRegisteredSelector,
   userContributorIdSelector,
   userDiscordHandleSelector,
   userGithubHandleSelector,
-  contributionsQuery,
 } from "src/state";
 import { FC, startTransition, useCallback, useState } from "react";
 import config from "src/config";
@@ -36,23 +36,27 @@ const ContributionDetailsPageContainer: FC = () => {
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
   const hasAppliedToContribution = !!contribution?.applied;
 
-  const refreshApplication = useRecoilRefresher_UNSTABLE(contributionsQuery);
   const [appliying, setApplying] = useState(false);
+
+  const refreshApplications = useRecoilRefresher_UNSTABLE(contributorApplicationsQuery);
 
   const { contract: contributionsContract } = useContract({
     abi: contributionsAbi as Abi,
     address: config.CONTRIBUTIONS_CONTRACT_ADDRESS,
   });
 
-  const buildTypeformParams = () => {
+  const buildTypeformParams = useCallback(() => {
     const typeformParams = new URLSearchParams();
     account?.address && typeformParams.set("wallet", account.address);
     userGithubHandle && typeformParams.set("github", userGithubHandle);
     contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
     contributorId && typeformParams.set("contributorid", contributorId);
+    if (contributionId) {
+      typeformParams.set("contributionid", contributionId);
+    }
 
     return typeformParams.toString();
-  };
+  }, [contributionId]);
 
   const apply = useCallback(async () => {
     if (
@@ -90,7 +94,7 @@ const ContributionDetailsPageContainer: FC = () => {
     });
 
     startTransition(() => {
-      refreshApplication();
+      refreshApplications();
     });
     setApplying(false);
   }, [contributionId, isGithubRegistered, userDiscordHandle]);
@@ -108,7 +112,6 @@ const ContributionDetailsPageContainer: FC = () => {
     }
 
     const contributorIdUint256 = bnToUint256(contributorId);
-
     toastTransaction(
       contributionsContract?.invoke("claim_contribution", [[contributionId], contributorIdUint256]),
       account,

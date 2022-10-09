@@ -7,10 +7,10 @@
     "build": "tsc && vite build --mode staging",
     "build:prod": "tsc && vite build && rimraf dist/**/*.js.map",
     "lint": "eslint '**/*.{js,jsx,json,ts,tsx}'",
-    "test": "yarn vitest",
-    "e2e": "yarn cypress run",
-    "e2e:open": "yarn cypress open",
-    "test:coverage": "yarn vitest --coverage",
+    "test": "vitest",
+    "e2e": "nyc cypress run --headless",
+    "e2e:open": "cypress open",
+    "test:coverage": "vitest --coverage",
     "preview": "vite preview",
     "postinstall": "husky install"
   },
@@ -39,6 +39,8 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.3",
+    "@cypress/code-coverage": "^3.10.0",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@savvywombat/tailwindcss-grid-areas": "^2.1.0",
     "@testing-library/react": "^13.3.0",
     "@testing-library/react-hooks": "^8.0.1",
@@ -53,7 +55,7 @@
     "autoprefixer": "^10.4.7",
     "c8": "^7.12.0",
     "commitlint": "^17.0.3",
-    "cypress": "^10.8.0",
+    "cypress": "10.9.0",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
@@ -69,7 +71,27 @@
     "tailwindcss": "^3.1.2",
     "typescript": "^4.6.3",
     "vite": "^2.9.9",
+    "vite-plugin-istanbul": "^3.0.1",
     "vite-plugin-sentry": "^1.1.2",
     "vitest": "^0.18.0"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": "src/*",
+    "exclude": [
+      "App/tests",
+      "**/*.d.ts",
+      "**/*.test.ts",
+      "**/*.test.tsx"
+    ],
+    "reporter": [
+      "html",
+      "clover"
+    ],
+    "all": true
   }
 }

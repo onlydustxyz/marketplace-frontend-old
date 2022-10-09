@@ -30,3 +30,6 @@ cypress/videos
 .env
 .env.*
 !.env.example
+!.env.test
+
+.nyc_output

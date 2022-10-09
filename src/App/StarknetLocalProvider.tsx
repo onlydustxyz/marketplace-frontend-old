@@ -1,11 +1,29 @@
-import { ReactNode } from "react";
-import { getInstalledInjectedConnectors, StarknetProvider } from "@starknet-react/core";
+import { ReactNode, useEffect, useState } from "react";
+import { StarknetProvider } from "@starknet-react/core";
 import { Provider } from "starknet";
+import { getInstalledWallets } from "get-starknet";
+
 import config from "src/config";
+import { CustomInjectedConnector } from "src/utils/custom-injected-connector";
 
 export default function StarknetLocalProvider({ children }: { children?: ReactNode | undefined }) {
+  const [installedConnectors, setInstalledConnectors] = useState<CustomInjectedConnector[]>();
+
+  useEffect(() => {
+    (async () => {
+      const installedWallets = await getInstalledWallets();
+
+      const installed = installedWallets.map(wallet => wallet.id);
+      setInstalledConnectors(installed.map(id => new CustomInjectedConnector({ options: { id } }, installedWallets)));
+    })();
+  }, []);
+
+  if (installedConnectors === undefined) {
+    return null;
+  }
+
   return (
-    <StarknetProvider connectors={getInstalledInjectedConnectors()} defaultProvider={getProvider()} autoConnect>
+    <StarknetProvider connectors={installedConnectors} defaultProvider={getProvider()} autoConnect>
       {children}
     </StarknetProvider>
   );

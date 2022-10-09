@@ -70,8 +70,16 @@ export const filteredContributionsSelector = selector({
     const contributionsFilterTechnology = get(contributionsFilterTechnologyAtom("contributions"));
     const contributionsFilterType = get(contributionsFilterTypeAtom("contributions"));
 
+    const sortedOpenedContributions = [...openedContributions];
+
     const allContributions = [
-      ...openedContributions,
+      ...sortedOpenedContributions.sort((contribution1, contribution2) => {
+        if (contribution1.applied === contribution2.applied) {
+          return 0;
+        }
+
+        return contribution1.applied === true ? 1 : -1;
+      }),
       ...gatedContributions,
       ...ongoingContributions,
       ...completedContributions,

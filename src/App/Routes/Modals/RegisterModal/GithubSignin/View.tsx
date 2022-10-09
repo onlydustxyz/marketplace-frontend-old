@@ -16,7 +16,6 @@ type Props = {
   onFailure: (error: Error) => void;
   onClose: () => void;
   error?: Error;
-  txHash?: string;
 };
 
 const GithubSignin: FC<PropsWithChildren<Props>> = ({
@@ -29,7 +28,6 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
   onSuccess,
   error,
   children,
-  txHash,
 }) => {
   if (isSuccess) {
     return (
@@ -48,22 +46,17 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
       className={className}
     >
       {children || <Button as="div">Connect to Github</Button>}
-      {renderLoadingModal(txHash)}
+      {renderLoadingModal()}
       {renderError()}
     </GithubConnect>
   );
 
-  function renderLoadingModal(txHash?: string) {
+  function renderLoadingModal() {
     return (
       <Modal contentClassName="px-16 pt-6 pb-8 z-100" isOpen={isLoading} onClose={onClose}>
         <div className="flex flex-col justify-center items-center text-4xl text-center text-blue-500 mt-12">
           <Loader className="animate-spin mr-4 mb-4" size={62} />
           <div>We are verifying your information</div>
-          {txHash && (
-            <div>
-              Check the status of your transaction <a href={`${config.VOYAGER_URL}/tx/${txHash}`}>here</a>
-            </div>
-          )}
           <div>Estimated remaining time: 5 mins</div>
         </div>
       </Modal>

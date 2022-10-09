@@ -7,6 +7,8 @@ import Loader from "src/icons/Loader";
 import Modal from "src/components/Modal";
 import Button from "src/components/Button";
 
+const VOYAGER_URL = "https://voyager.online";
+
 type Props = {
   isSuccess: boolean;
   isLoading: boolean;
@@ -16,6 +18,7 @@ type Props = {
   onFailure: (error: Error) => void;
   onClose: () => void;
   error?: Error;
+  txHash?: string;
 };
 
 const GithubSignin: FC<PropsWithChildren<Props>> = ({
@@ -28,6 +31,7 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
   onSuccess,
   error,
   children,
+  txHash,
 }) => {
   if (isSuccess) {
     return (
@@ -61,6 +65,12 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
         <div className="flex flex-col justify-center items-center text-4xl text-center text-blue-500 mt-12">
           <Loader className="animate-spin mr-4 mb-4" size={62} />
           <div>We are verifying your information</div>
+          {txHash && (
+            <div>
+              Check the status of your transaction <a href={`${VOYAGER_URL}/tx/${txHash}`}>here</a>
+            </div>
+          )}
+          <div>Estimated remaining time: 5 mins</div>
         </div>
       </Modal>
     );

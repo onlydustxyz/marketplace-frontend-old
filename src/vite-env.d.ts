@@ -19,6 +19,8 @@ interface ImportMetaEnv {
 
   readonly MARKETPLACE_REFRESH_CONTRIBUTIONS_INTERVAL: string;
   readonly MARKETPLACE_REFRESH_CONTRIBUTIONS_MAX_TRIES: string;
+
+  readonly MARKETPLACE_UI_VERSION?: "v1" | "v2";
 }
 
 interface ImportMeta {

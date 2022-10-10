@@ -40,8 +40,11 @@ module.exports = {
       backgroundImage: {
         "button-primary": 'url("src/assets/img/button/primary.png")',
         "button-secondary": 'url("src/assets/img/button/secondary.png")',
-        "profile-button": 'url("src/assets/img/profile-button.png")',
-        "profile-menu": 'url("src/assets/img/profile-menu.png")',
+        "profile-button-v1": 'url("src/assets/img/profile-button.png")',
+        "profile-menu-v1": 'url("src/assets/img/profile-menu.png")',
+
+        "profile-button": "linear-gradient(0deg, rgba(0, 255, 228, 0.05), rgba(0, 255, 228, 0.05))",
+        "profile-menu": "linear-gradient(0deg, rgba(0, 255, 228, 0.05), rgba(0, 255, 228, 0.05))",
       },
       boxShadow: {
         "button-primary": "0 0 30px 0 #dc2626",
@@ -90,11 +93,15 @@ module.exports = {
         m2: "-2",
       },
       gridTemplateAreas: {
-        "header-desktop": ["menu menu logo menu-right profile"],
-        "header-mobile": ["burger-button logo profile", "menu menu menu", "menu-right menu-right menu-right"],
+        "header-desktop-v1": ["menu menu logo menu-right profile"],
+        "header-mobile-v1": ["burger-button logo profile", "menu menu menu", "menu-right menu-right menu-right"],
+        "header-desktop": ["logo menu profile"],
+        "header-mobile": ["burger-button logo profile", "menu menu menu"],
       },
       gridTemplateColumns: {
-        "header-desktop": "70px 1fr 60px 1fr 70px",
+        "header-desktop-v1": "70px 1fr 60px 1fr 70px",
+        "header-mobile-v1": "1fr 40px 1fr",
+        "header-desktop": "200px 1fr 200px",
         "header-mobile": "1fr 40px 1fr",
       },
     },

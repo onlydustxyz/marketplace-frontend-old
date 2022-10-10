@@ -23,7 +23,7 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
             data-testid="header-profile-button"
             className={cn(
               "flex flex-row items-center h-[40px] px-3.5 rounded-full cursor-pointer outline-none",
-              open ? "bg-profile-button-v1" : "bg-space-blue"
+              open ? "bg-profile-button" : "bg-profile-button"
             )}
           >
             <ProfileIcon className="fill-white mr-3.5" size={18} />
@@ -41,7 +41,7 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Popover.Panel className="absolute right-0 mt-2 px-3.5 w-[218px] origin-top-right bg-profile-menu-v1 rounded-[20px] focus:outline-none z-50 divide-y divide-white/15">
+            <Popover.Panel className="absolute right-0 mt-[176px] px-3.5 w-[218px] origin-top-right bg-black bg-profile-menu rounded-[20px] focus:outline-none z-40 divide-y divide-white/15">
               <div className="h-[57px] flex flex-row items-center">
                 <ConnectDot
                   connected={!!accountAddress}

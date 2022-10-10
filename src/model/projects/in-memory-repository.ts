@@ -41,7 +41,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
           github_link: "https://example.com/contributions/6",
           gate: 0,
           metadata: {
-            assignee: "0x026",
+            assignee: "0x0123456789",
             github_username: "github-user-0x26",
             context: ContributionContextEnum.ISOLATED,
             difficulty: ContributionDifficultyEnum.EASY,
@@ -89,8 +89,8 @@ export class InMemoryProjectRepository implements ProjectRepository {
           github_link: "https://example.com/contributions/2",
           gate: 0,
           metadata: {
-            assignee: "0x123456789",
-            github_username: "github-user-0x123456789",
+            assignee: "0x8888",
+            github_username: "github-user-0x8888",
             context: ContributionContextEnum.COUPLED,
             difficulty: ContributionDifficultyEnum.INTERMEDIATE,
             duration: ContributionDurationEnum.FEW_DAYS,
@@ -151,7 +151,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
           github_link: "https://example.com/contributions/8",
           gate: 0,
           metadata: {
-            assignee: "0x01",
+            assignee: "0x999",
             github_username: "github-user-0x1",
             context: ContributionContextEnum.ISOLATED,
             difficulty: ContributionDifficultyEnum.EASY,

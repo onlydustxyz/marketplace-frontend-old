@@ -88,7 +88,7 @@ describe("Contribution details page", () => {
     expect(button.getAttribute("disabled")).toBeNull();
   });
 
-  it("Should display disabled applied button", async () => {
+  it("Should display applied button", async () => {
     (useParams as Mock).mockReturnValue({ contributionId: "4" });
 
     await act(async () => {
@@ -100,7 +100,7 @@ describe("Contribution details page", () => {
     expect(button.getAttribute("disabled")).not.toBeNull();
   });
 
-  it("Should display disabled submit button", async () => {
+  it("Should display submit button", async () => {
     (useParams as Mock).mockReturnValue({ contributionId: "6" });
 
     await act(async () => {
@@ -205,7 +205,7 @@ describe("Contribution details page", () => {
 
     expect(createSpy).toHaveBeenCalledWith({
       contributionId: "1",
-      contributorId: "0x26",
+      contributorId: "0x123456789",
     });
   });
 });

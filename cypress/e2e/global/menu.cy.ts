@@ -10,7 +10,7 @@ let headlessWallet: HeadlessWallet;
 describe("Global", () => {
   describe("Menu", () => {
     it("Should browse using top menu with anonymous", () => {
-      cy.visit("http://localhost:3000/");
+      cy.visit("/");
 
       cy.getByTestId("menu-link-mycontributions").should("not.exist");
 
@@ -32,7 +32,7 @@ describe("Global", () => {
         headlessWallet.autoConnect({ address: "0x0123456789" });
       });
 
-      cy.visit("http://localhost:3000/");
+      cy.visit("/");
 
       cy.getByTestId("menu-link-mycontributions").should("not.exist");
 

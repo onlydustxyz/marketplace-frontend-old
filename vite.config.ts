@@ -64,6 +64,12 @@ export default defineConfig(({ mode }) => {
           },
           sourcemapExcludeSources: true,
         },
+        external: new RegExp("/coverage/.*"),
+      },
+    },
+    server: {
+      watch: {
+        ignored: ["**/coverage/**"],
       },
     },
     test: {

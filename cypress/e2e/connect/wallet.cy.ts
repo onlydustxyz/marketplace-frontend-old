@@ -17,7 +17,7 @@ context("Connect Wallet account", () => {
       });
     });
 
-    cy.visit("http://localhost:3000/");
+    cy.visit("/");
   });
 
   it("should display contribution information when already connected", () => {

@@ -40,21 +40,39 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           files: coverage/clover.xml
+          token: ${{ secrets.CODECOV_TOKEN  }}
+      - name: Clean coverage
+        run: rm -rf coverage
       - name: Run e2e test
         run: |
-          MARKETPLACE_COVERAGE=true yarn dev --mode test &
+          yarn dev --port 3001 --mode test &
+          webserver_pid=$!
+          echo "webserver_pid=${webserver_pid}" >> $GITHUB_ENV
           sleep 10
           yarn e2e
+        env:
+          MARKETPLACE_COVERAGE: true
+          CYPRESS_BASE_URL: http://localhost:3001
+      - name: Stop webserver
+        run: kill ${{ env.webserver_pid }}
       - name: Upload e2e tests coverage
         uses: codecov/codecov-action@v3
         with:
           files: coverage/clover.xml
+          token: ${{ secrets.CODECOV_TOKEN  }}
+      - name: Clean coverage
+        run: rm -rf coverage
       - name: Run e2e test new UI
         run: |
-          MARKETPLACE_COVERAGE=true MARKETPLACE_UI_VERSION=v2 yarn dev --mode test &
+          yarn dev --port 3002 --mode test &
           sleep 10
           yarn e2e
+        env:
+          MARKETPLACE_UI_VERSION: v2
+          MARKETPLACE_COVERAGE: true
+          CYPRESS_BASE_URL: http://localhost:3002
       - name: Upload e2e tests coverage for new UI
         uses: codecov/codecov-action@v3
         with:
           files: coverage/clover.xml
+          token: ${{ secrets.CODECOV_TOKEN  }}

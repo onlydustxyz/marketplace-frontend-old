@@ -36,3 +36,12 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           files: coverage/clover.xml
+      - name: Run e2e test new UI
+        run: |
+          MARKETPLACE_COVERAGE=true MARKETPLACE_UI_VERSION=v2 yarn dev --mode test &
+          sleep 10
+          yarn e2e
+      - name: Upload e2e tests coverage for new UI
+        uses: codecov/codecov-action@v3
+        with:
+          files: coverage/clover.xml

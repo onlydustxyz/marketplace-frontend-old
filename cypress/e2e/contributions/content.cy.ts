@@ -37,7 +37,7 @@ describe("Contribution", () => {
 
       cy.visit("http://localhost:3000/contributions/2");
       cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
-      cy.getByTestId("contribution-status-details").should("have.text", "by github-user-0x123456789");
+      cy.getByTestId("contribution-status-details").should("have.text", "by github-user-0x8888");
 
       cy.visit("http://localhost:3000/contributions/4");
       cy.getByTestId("contribution-status-label").should("have.text", "OPEN");
@@ -74,7 +74,7 @@ describe("Contribution", () => {
 
       cy.visit("http://localhost:3000/contributions/2");
       cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
-      cy.getByTestId("contribution-status-details").should("have.text", "by github-user-0x123456789");
+      cy.getByTestId("contribution-status-details").should("have.text", "by github-user-0x8888");
       cy.getByTestId("button-main-action").should("not.exist");
 
       cy.visit("http://localhost:3000/contributions/4");

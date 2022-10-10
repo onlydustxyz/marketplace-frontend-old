@@ -23,7 +23,7 @@ const ConnectionState: FC<Props> = ({ accountLabel, connected = false, dataTesti
       data-testid={dataTestid}
     >
       <div className="row-span-2 px-6 md:px-0 md:pt-2.5 md:pb-5">
-        <ConnectDot connected={connected} />
+        <ConnectDot connected={connected} dataTestId={`${dataTestid}-dot`} />
       </div>
       <div className="leading-5 flex-grow w-full">{providerName}</div>
 

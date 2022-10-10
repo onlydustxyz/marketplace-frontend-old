@@ -22,6 +22,7 @@ import {
   contributionsFilterTypeAtom,
 } from "./contributions-filters";
 import { userContributorIdSelector } from "./profile-registry-contract";
+import { accountAddressSelector } from "./starknet";
 
 type ProjectBase = {
   id: string;
@@ -89,10 +90,13 @@ export const rawProjectsWithContributionsQuery = selector<RawProjectWithContribu
 export const projectsQuery = selector({
   key: "Projects",
   get: ({ get }) => {
-    const userContributorId = get(userContributorIdSelector);
+    const userContributorId = get(accountAddressSelector);
     const rawProjectsWithContributions = get(rawProjectsWithContributionsQuery);
 
-    const completedContributionsAmount = countCompletedContributions(rawProjectsWithContributions, userContributorId);
+    const completedContributionsAmount = countCompletedContributions(
+      rawProjectsWithContributions,
+      userContributorId as ContributorId
+    );
 
     return rawProjectsWithContributions.map(({ project, contributions }) => {
       const formattedProject: Project = {
@@ -117,10 +121,13 @@ export const contributionsQuery = selector({
   key: "Contributions",
   get: async ({ get }) => {
     const rawProjectsWithContributions = get(rawProjectsWithContributionsQuery);
-    const userContributorId = get(userContributorIdSelector);
+    const userContributorId = get(accountAddressSelector);
     const applications = get(contributorApplicationsQuery);
 
-    const completedContributionsAmount = countCompletedContributions(rawProjectsWithContributions, userContributorId);
+    const completedContributionsAmount = countCompletedContributions(
+      rawProjectsWithContributions,
+      userContributorId as ContributorId
+    );
 
     const contributionsWithProjects = rawProjectsWithContributions.reduce<Contribution[]>(
       (aggregatedContributions, { contributions, project }) => {
@@ -249,7 +256,7 @@ export const myAppliedContributionsQuery = selector({
 export const myOngoingContributionsQuery = selector({
   key: "MyOngoingContributions",
   get: ({ get }) => {
-    const userContributorId = get(userContributorIdSelector);
+    const userContributorId = get(accountAddressSelector);
 
     if (!userContributorId) {
       return [];
@@ -267,7 +274,7 @@ export const myOngoingContributionsQuery = selector({
 export const foreignOngoingContributionsQuery = selector({
   key: "ForeignOngoingContributions",
   get: ({ get }) => {
-    const userContributorId = get(userContributorIdSelector);
+    const userContributorId = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
 
     if (!userContributorId) {
@@ -295,7 +302,7 @@ export const completedContributionsQuery = selector({
 export const myCompletedContributionsQuery = selector({
   key: "MyCompletedContributions",
   get: ({ get }) => {
-    const userContributorId = get(userContributorIdSelector);
+    const userContributorId = get(accountAddressSelector);
 
     if (!userContributorId) {
       return [];
@@ -314,7 +321,7 @@ export const myCompletedContributionsQuery = selector({
 export const foreignCompletedContributionsQuery = selector({
   key: "ForeignCompletedContributions",
   get: ({ get }) => {
-    const userContributorId = get(userContributorIdSelector);
+    const userContributorId = get(accountAddressSelector);
     const contributions = get(contributionsQuery);
 
     if (!userContributorId) {

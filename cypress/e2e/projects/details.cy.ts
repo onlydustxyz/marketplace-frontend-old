@@ -3,13 +3,13 @@
 describe("Project", () => {
   describe("Details page", () => {
     it("Should display an error when the project does not exist", () => {
-      cy.visit("http://localhost:3000/projects/does-not-exists");
+      cy.visit("/projects/does-not-exists");
 
       cy.contains("Oops, it seems this project doesn't exist");
     });
 
     it("Should display project information", () => {
-      cy.visit("http://localhost:3000/projects/1");
+      cy.visit("/projects/1");
 
       cy.getByTestId("project-title").contains("Project 1");
       cy.getByTestId("project-description").contains("Description 1");

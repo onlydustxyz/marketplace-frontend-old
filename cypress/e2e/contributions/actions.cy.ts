@@ -10,7 +10,7 @@ let headlessWallet: HeadlessWallet;
 describe("Contribution", () => {
   describe("Actions", () => {
     it("should open register modal when appliying with no connection", () => {
-      cy.visit("http://localhost:3000/contributions/1");
+      cy.visit("/contributions/1");
 
       cy.getByTestId("button-main-action").click();
 
@@ -28,7 +28,7 @@ describe("Contribution", () => {
         headlessWallet.autoConnect({ address: "0x55555555" });
       });
 
-      cy.visit("http://localhost:3000/contributions/1");
+      cy.visit("/contributions/1");
 
       cy.getByTestId("button-main-action").click();
 
@@ -46,7 +46,7 @@ describe("Contribution", () => {
         headlessWallet.autoConnect({ address: "0x123456789abcdef" });
       });
 
-      cy.visit("http://localhost:3000/contributions/1");
+      cy.visit("/contributions/1");
 
       cy.getByTestId("button-main-action").click();
 
@@ -64,7 +64,7 @@ describe("Contribution", () => {
         headlessWallet.autoConnect({ address: "0x123456789" });
       });
 
-      cy.visit("http://localhost:3000/contributions/1");
+      cy.visit("/contributions/1");
 
       cy.getByTestId("button-main-action").click();
 
@@ -82,7 +82,7 @@ describe("Contribution", () => {
         headlessWallet.autoConnect({ address: "0x123456789" });
       });
 
-      cy.visit("http://localhost:3000/contributions/3");
+      cy.visit("/contributions/3");
 
       cy.getByTestId("button-main-action").click();
 
@@ -109,7 +109,7 @@ describe("Contribution", () => {
         headlessWallet.autoConnect({ address: "0x123456789" });
       });
 
-      cy.visit("http://localhost:3000/contributions/3");
+      cy.visit("/contributions/3");
 
       cy.getByTestId("button-main-action").click();
 

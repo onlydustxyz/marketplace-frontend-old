@@ -17,14 +17,18 @@ context("Connect all requirements", () => {
       });
     });
 
-    cy.visit("http://localhost:3000/");
+    cy.visit("/");
   });
 
   it("should connect to wallet and github account", () => {
     const mockedWalletAddress = "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2";
 
     cy.window().then(win => {
-      cy.stub(win, "open").returns({ location: new URL("http://localhost:3000?code=github-auth-code"), closed: false });
+      console.log({ env: Cypress.config().baseUrl });
+      cy.stub(win, "open").returns({
+        location: new URL(`${Cypress.config().baseUrl}/?code=github-auth-code`),
+        closed: false,
+      });
     });
 
     cy.getByTestId("header-connect-button").click();

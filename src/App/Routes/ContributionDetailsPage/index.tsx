@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
+  accountAddressSelector,
   accountAtom,
   contributionQuery,
   contributorApplicationsQuery,
@@ -21,6 +22,7 @@ import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
 import { bnToUint256 } from "starknet/dist/utils/uint256";
+import { ContributorId } from "src/model/contact-information/repository";
 
 type PageParams = {
   contributionId: string;
@@ -28,7 +30,7 @@ type PageParams = {
 const ContributionDetailsPageContainer: FC = () => {
   const { contributionId } = useParams<PageParams>();
   const contribution = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributionQuery(contributionId));
-  const contributorId = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userContributorIdSelector);
+  const contributorId = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAddressSelector);
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
@@ -71,27 +73,30 @@ const ContributionDetailsPageContainer: FC = () => {
 
     setApplying(true);
 
-    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorId }), {
-      success: () => {
-        return (
-          <div className="leading-[1rem] line-clamp-3">
-            Thank you for your application for{" "}
-            <Link to={`/contributions/${contribution.id}`} className="italic underline">
-              {contribution.title}
-            </Link>
-            , we'll review it and get in touch with you very shortly!
-          </div>
-        );
-      },
-      pending: () => "Your application is being processed",
-      error: () => (
-        <>
-          An error occured while appliying to this contribution
-          <br />
-          Please try again
-        </>
-      ),
-    });
+    toastPromise(
+      applicationRepository.create({ contributionId: contribution.id, contributorId: contributorId as ContributorId }),
+      {
+        success: () => {
+          return (
+            <div className="leading-[1rem] line-clamp-3">
+              Thank you for your application for{" "}
+              <Link to={`/contributions/${contribution.id}`} className="italic underline">
+                {contribution.title}
+              </Link>
+              , we'll review it and get in touch with you very shortly!
+            </div>
+          );
+        },
+        pending: () => "Your application is being processed",
+        error: () => (
+          <>
+            An error occured while appliying to this contribution
+            <br />
+            Please try again
+          </>
+        ),
+      }
+    );
 
     startTransition(() => {
       refreshApplications();
@@ -157,7 +162,7 @@ const ContributionDetailsPageContainer: FC = () => {
       submit={submit}
       appliying={appliying}
       accountAddress={account?.address}
-      contributorId={contributorId}
+      contributorId={contributorId as ContributorId}
       hasAppliedToContribution={hasAppliedToContribution}
     />
   );

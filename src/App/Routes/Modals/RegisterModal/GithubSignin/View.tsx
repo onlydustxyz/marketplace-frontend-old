@@ -60,7 +60,6 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
             We need you to sign a message using your wallet to ensure your are the real owner. Then we will be able to
             link your Github account with your Starknet account.
           </div>
-          <div>Estimated remaining time: 5 mins</div>
         </div>
       </Modal>
     );

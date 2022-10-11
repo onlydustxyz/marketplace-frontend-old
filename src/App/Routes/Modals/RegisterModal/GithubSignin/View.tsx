@@ -60,7 +60,10 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
       <Modal contentClassName="px-16 pt-6 pb-8 z-100" isOpen={isLoading} onClose={onClose}>
         <div className="flex flex-col justify-center items-center text-4xl text-center text-blue-500 mt-12">
           <Loader className="animate-spin mr-4 mb-4" size={62} />
-          <div>We are verifying your information</div>
+          <div>
+            We need you to sign a message using your wallet to ensure your are the real owner. Then we will be able to
+            link your Github account with your Starknet account.
+          </div>
         </div>
       </Modal>
     );

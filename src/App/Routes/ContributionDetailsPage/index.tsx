@@ -90,7 +90,7 @@ const ContributionDetailsPageContainer: FC = () => {
         pending: () => "Your application is being processed",
         error: () => (
           <>
-            An error occured while appliying to this contribution
+            An error occurred while applying to this contribution
             <br />
             Please try again
           </>

@@ -9,6 +9,7 @@ import { signMessage } from "src/utils/wallet";
 import { accountAtom, userInformationSelector } from "src/state";
 
 import GithubSignin from "./View";
+import { toastPromise } from "src/lib/toast-promise";
 
 type Props = {
   className?: string;
@@ -40,14 +41,34 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
         config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
       );
 
-      await connect({
-        address: account.address,
-        code,
-        hash,
-        signature: signature as [string, string],
-      });
-
       setIsRegistering(false);
+
+      toastPromise(
+        connect({
+          address: account.address,
+          code,
+          hash,
+          signature: signature as [string, string],
+        }),
+        {
+          success: () => {
+            return (
+              <div className="leading-[1rem] line-clamp-3">
+                Congratulation, your account have been successfully connected !
+              </div>
+            );
+          },
+          pending: () => "The connection to your Github account is being processed",
+          error: () => (
+            <>
+              An error occurred while connecting your Github account
+              <br />
+              Please try again
+            </>
+          ),
+        }
+      );
+
       await refreshContributor();
     } catch (error) {
       console.warn(error);

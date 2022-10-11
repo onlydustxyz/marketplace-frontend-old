@@ -52,7 +52,7 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
           success: () => {
             return (
               <div className="leading-[1rem] line-clamp-3">
-                Congratulation, your account have been successfully connected !
+                Congratulation, your account has been successfully connected !
               </div>
             );
           },

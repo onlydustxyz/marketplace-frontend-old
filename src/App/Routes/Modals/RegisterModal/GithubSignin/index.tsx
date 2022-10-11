@@ -44,7 +44,7 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
         address: account.address,
         code,
         hash,
-        signature,
+        signature: signature as [string, string],
       });
 
       setIsRegistering(false);

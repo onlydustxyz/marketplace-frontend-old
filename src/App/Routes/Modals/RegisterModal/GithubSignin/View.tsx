@@ -45,7 +45,11 @@ const GithubSignin: FC<PropsWithChildren<Props>> = ({
       onFailure={onFailure}
       className={className}
     >
-      {children || <Button as="div">Connect to Github</Button>}
+      {children || (
+        <Button as="div" dataTestid="github-connect-button">
+          Connect to Github
+        </Button>
+      )}
       {renderLoadingModal()}
       {renderError()}
     </GithubConnect>

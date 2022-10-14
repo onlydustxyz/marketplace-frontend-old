@@ -67,7 +67,7 @@ const Header: FC<Props> = ({ accountAddress }) => {
           )}
         </div>
         <Suspense fallback={"Connection..."}>
-          <ProfileHeader displayMenu={openedMenu} className="md:w-[200px] md:min-w-[200px]" />
+          <ProfileHeader className="md:w-[200px] md:min-w-[200px]" />
         </Suspense>
       </div>
     </header>

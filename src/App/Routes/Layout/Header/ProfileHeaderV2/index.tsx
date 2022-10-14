@@ -4,14 +4,13 @@ import { accountAddressSelector } from "src/state";
 import ProfileHeader from "./View";
 
 interface Props {
-  displayMenu: boolean;
   className?: string;
 }
 
-const ProfileHeaderContainer: FC<Props> = ({ className, displayMenu }) => {
+const ProfileHeaderContainer: FC<Props> = ({ className }) => {
   const accountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAddressSelector);
 
-  return <ProfileHeader accountAddress={accountAddress} displayMenu={displayMenu} className={className} />;
+  return <ProfileHeader accountAddress={accountAddress} className={className} />;
 };
 
 export default ProfileHeaderContainer;

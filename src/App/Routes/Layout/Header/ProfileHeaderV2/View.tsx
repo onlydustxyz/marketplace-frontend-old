@@ -6,11 +6,10 @@ import ProfileMenu from "./ProfileMenu";
 
 type Props = {
   accountAddress: string | undefined;
-  displayMenu: boolean;
   className?: string;
 };
 
-const ProfileHeader: FC<Props> = ({ accountAddress, className, displayMenu }) => {
+const ProfileHeader: FC<Props> = ({ accountAddress, className }) => {
   if (!accountAddress) {
     return (
       <div className={cn("flex flex-row justify-end items-center grid-in-profile", className)}>

@@ -60,6 +60,11 @@ jobs:
         with:
           files: coverage/clover.xml
           token: ${{ secrets.CODECOV_TOKEN  }}
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: e2e-screenshots
+          path: coverage/screenshots
       - name: Clean coverage
         run: rm -rf coverage
       - name: Run e2e test new UI

@@ -35,11 +35,14 @@ context("Connect Wallet account", () => {
 
     cy.getByTestId("button-connect-headless-test").click();
 
+    cy.screenshot("before connect");
     cy.executeCallback(() => {
       headlessWallet.connect({ address: "0x123456789" });
     });
 
-    cy.getByTestId("register-modal", { timeout: 10000 }).should("not.exist");
+    cy.screenshot("after connect");
+
+    cy.getByTestId("register-modal").should("not.exist");
 
     cy.getByTestId("header-profile-button").click();
 

@@ -8,8 +8,8 @@
     "build:prod": "tsc && vite build && rimraf dist/**/*.js.map",
     "lint": "eslint '**/*.{js,jsx,json,ts,tsx}'",
     "test": "vitest",
-    "e2e": "nyc cypress run --headless",
-    "e2e:open": "nyc cypress open",
+    "e2e": "CYPRESS_BASE_URL=http://localhost:3000 nyc cypress run --headless",
+    "e2e:open": "CYPRESS_BASE_URL=http://localhost:3000 nyc cypress open",
     "test:coverage": "vitest --coverage",
     "preview": "vite preview",
     "postinstall": "husky install"

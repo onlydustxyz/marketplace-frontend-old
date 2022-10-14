@@ -1,9 +1,9 @@
 import { FC } from "react";
 
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributionsFilterProjectAtom } from "src/state/contributions-filters";
+import { contributionsFilterProjectAtom } from "src/state";
 import ListBoxFilter from "src/components/ListBoxFilter";
-import { projectsQuery } from "src/state";
+import { projectFilter } from "src/state";
 import { FilterProps } from ".";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const ProjectFilter: FC<Props> = ({ sourceKey }) => {
-  const projects = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(projectsQuery);
+  const projects = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(projectFilter);
   const [selectedDifficulties, setSelectedDifficulties] = useRecoilState_TRANSITION_SUPPORT_UNSTABLE(
     contributionsFilterProjectAtom(sourceKey)
   );

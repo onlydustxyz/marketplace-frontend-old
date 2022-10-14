@@ -61,7 +61,7 @@ describe("Connect wallet", () => {
     const user = userEvent.setup();
 
     await act(async () => {
-      headlessWallet.autoConnect({ address: "0x0123456789" });
+      headlessWallet.autoConnect({ address: "0x123456789" });
       renderApp({ route: "/contributions/3" });
     });
 
@@ -69,6 +69,6 @@ describe("Connect wallet", () => {
       await user.click(screen.getByTestId("header-profile-button"));
     });
 
-    expect(screen.getByTestId("header-profile-wallet-address").textContent).toBe("0x0123...6789");
+    expect(screen.getByTestId("header-profile-wallet-address").textContent).toBe("0x1234...6789");
   });
 });

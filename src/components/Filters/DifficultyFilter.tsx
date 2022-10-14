@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { ContributionDifficultyEnum } from "src/model/projects/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributionsFilterDifficultyAtom } from "src/state/contributions-filters";
+import { contributionsFilterDifficultyAtom } from "src/state";
 import ListBoxFilter from "src/components/ListBoxFilter";
 import { FilterProps } from ".";
 

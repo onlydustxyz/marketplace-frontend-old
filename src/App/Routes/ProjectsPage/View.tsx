@@ -3,12 +3,12 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import Filters from "src/components/Filters";
 import FilterIcon from "src/icons/Filter";
-import { Project } from "src/state";
+import { ProjectWithAggregateContributions } from "src/state";
 
 import ProjectCard from "./ProjectCard";
 
 type Props = {
-  projects: Project[];
+  projects: ProjectWithAggregateContributions[];
   closeFilters: () => void;
   toggleFilters: () => void;
   displayFilters: boolean;

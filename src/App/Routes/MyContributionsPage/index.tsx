@@ -3,18 +3,14 @@ import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import Button from "src/components/Button";
 import ContributionList from "src/components/ContributionList";
 import useRefreshContributions from "src/hooks/refresh-contributions";
-import { myAppliedContributionsQuery, myCompletedContributionsQuery, myOngoingContributionsQuery } from "src/state";
+import { myContributionsState } from "src/state";
 
 const MyContributionsPage: FC = () => {
-  const appliedContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(myAppliedContributionsQuery);
-  const ongoingContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(myOngoingContributionsQuery);
-  const completedContributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(myCompletedContributionsQuery);
+  const contributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(myContributionsState);
 
   useRefreshContributions();
 
-  const allMyContributions = [...appliedContributions, ...ongoingContributions, ...completedContributions];
-
-  if (allMyContributions.length === 0) {
+  if (contributions.length === 0) {
     return (
       <div className="mt-32 flex flex-col items-center">
         <div className="text-3xl text-light-blue/50 text-center">You don't have contributions yet</div>
@@ -31,7 +27,7 @@ const MyContributionsPage: FC = () => {
         My contributions
       </h1>
 
-      <ContributionList className="mt-16" contributions={allMyContributions} />
+      <ContributionList className="mt-16" contributions={contributions} />
     </div>
   );
 };

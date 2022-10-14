@@ -1,8 +1,7 @@
 import { FC } from "react";
 
-import { ContributionStatusEnum } from "src/model/projects/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributionsFilterStatusAtom } from "src/state/contributions-filters";
+import { contributionsFilterStatusAtom, ContributionStatusEnum } from "src/state";
 import ListBoxFilter from "src/components/ListBoxFilter";
 import { FilterProps } from ".";
 
@@ -10,9 +9,9 @@ type Props = {
   sourceKey: FilterProps["sourceKey"];
 };
 
-const statuses: Array<ContributionStatusEnum | "gated"> = [
+const statuses: Array<ContributionStatusEnum> = [
   ContributionStatusEnum.OPEN,
-  "gated",
+  ContributionStatusEnum.GATED,
   ContributionStatusEnum.ASSIGNED,
   ContributionStatusEnum.COMPLETED,
 ];

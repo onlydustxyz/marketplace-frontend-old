@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Contribution, Project } from "src/state";
+import { ContributionWithStatus, Project } from "src/state";
 import logoPlaceholder from "src/assets/img/project-logo-placeholder.png";
 import ContributionList from "src/components/ContributionList";
 import BackButton from "src/components/BackButton";
@@ -9,7 +9,7 @@ import NotFoundError from "src/App/Routes/ProjectDetailsPage/NotFoundError";
 import Link from "./Link";
 
 type Props = {
-  contributions: Contribution[];
+  contributions: ContributionWithStatus[];
   project?: Project;
 };
 const ProjectDetailsPage: FC<Props> = ({ contributions, project }) => {

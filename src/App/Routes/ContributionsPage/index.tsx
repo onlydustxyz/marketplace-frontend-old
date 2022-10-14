@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 
 import useRefreshContributions from "src/hooks/refresh-contributions";
-import { filteredContributionsSelector } from "src/state/contributions-filters";
+import { filteredContributionsSelector } from "src/state";
 
 import ContributionsPage from "./View";
 

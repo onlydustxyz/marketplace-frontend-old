@@ -1,8 +1,7 @@
 import { FC, ReactNode } from "react";
 import cn from "classnames";
 
-import { ContributionStatusEnum } from "src/model/projects/repository";
-import { Contribution } from "src/state";
+import { ContributionWithStatus, ContributionStatusEnum } from "src/state";
 
 import AppliedBadge from "./AppliedBadge";
 import AssignedBadge from "./AssignedBadge";
@@ -11,17 +10,15 @@ import GatedBadge from "./GatedBadge";
 import OpenBadge from "./OpenBadge";
 
 type Props = {
-  gated: boolean;
-  status: Contribution["status"];
+  status: ContributionWithStatus["status"];
   className?: string;
-  applied: boolean;
   children?: ReactNode;
 };
 
-const ContributionStatus: FC<Props> = ({ applied, children, className, gated, status }) => {
-  const statusLabel = computeStatusLabel();
-
+const ContributionStatus: FC<Props> = ({ children, className, status }) => {
   const statusClassName = computeStatusClassName();
+
+  const statusLabel = computeStatusLabel(status);
 
   return (
     <div className={cn(className, "w-full flex flex-row items-center")}>
@@ -38,31 +35,32 @@ const ContributionStatus: FC<Props> = ({ applied, children, className, gated, st
   function renderBadge() {
     switch (status) {
       case ContributionStatusEnum.OPEN:
-        return applied ? <AppliedBadge /> : gated ? <GatedBadge /> : <OpenBadge />;
+        return <OpenBadge />;
+      case ContributionStatusEnum.GATED:
+        return <GatedBadge />;
+      case ContributionStatusEnum.APPLIED:
+        return <AppliedBadge />;
       case ContributionStatusEnum.ASSIGNED:
+      case ContributionStatusEnum.NO_SLOT:
         return <AssignedBadge />;
       case ContributionStatusEnum.COMPLETED:
         return <CompletedBadge />;
     }
   }
 
-  function computeStatusLabel() {
-    if (status === ContributionStatusEnum.OPEN) {
-      if (applied) {
-        return "APPLIED";
-      }
-
-      if (gated) {
-        return "GATED";
-      }
-    }
-
-    return status;
-  }
-
   function computeStatusClassName() {
-    return status === ContributionStatusEnum.OPEN && !gated ? "text-white" : "text-white/50";
+    return status === ContributionStatusEnum.OPEN || status === ContributionStatusEnum.APPLIED
+      ? "text-white"
+      : "text-white/50";
   }
 };
+
+function computeStatusLabel(status: ContributionStatusEnum) {
+  if (status === ContributionStatusEnum.NO_SLOT) {
+    return ContributionStatusEnum.ASSIGNED;
+  }
+
+  return status;
+}
 
 export default ContributionStatus;

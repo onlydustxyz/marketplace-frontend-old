@@ -3,10 +3,10 @@ import { useLocation } from "react-router-dom";
 import { useRecoilRefresher_UNSTABLE } from "recoil";
 
 import config from "src/config";
-import { rawProjectsWithContributionsQuery } from "src/state";
+import { rawContributionsQuery } from "src/state/source/contributions";
 
 const useRefreshContributions = function () {
-  const refreshContributions = useRecoilRefresher_UNSTABLE(rawProjectsWithContributionsQuery);
+  const refreshContributions = useRecoilRefresher_UNSTABLE(rawContributionsQuery);
   const location = useLocation();
   const refreshCount = useRef(0);
 

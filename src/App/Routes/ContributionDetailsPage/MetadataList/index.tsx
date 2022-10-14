@@ -2,7 +2,7 @@ import { FC } from "react";
 import cn from "classnames";
 
 import Difficulty from "src/icons/Difficulty";
-import { Contribution } from "src/state";
+import { ContributionWithStatus } from "src/state";
 import MetadataItem from "./MetadataItem";
 import Technology from "src/icons/Technology";
 import Type from "src/icons/Type";
@@ -11,7 +11,7 @@ import Duration from "src/icons/Duration";
 
 type Props = {
   className?: string;
-  contribution: Contribution;
+  contribution: ContributionWithStatus;
 };
 
 const MetadataList: FC<Props> = ({ className, contribution }) => {

@@ -5,18 +5,13 @@ import {
   ContributionDifficultyEnum,
   ContributionDurationEnum,
   ContributionMetadata,
-  ContributionStatusEnum,
   ContributionTypeEnum,
 } from "src/model/projects/repository";
 
-import {
-  completedContributionsQuery,
-  Contribution,
-  gatedContributionsQuery,
-  ongoingContributionsQuery,
-  openedContributionsQuery,
-  Project,
-} from "./contributions";
+import { ContributionWithStatus, contributionsWithStatusState, ContributionStatusEnum } from "./contributions";
+import { Project } from "./projects-list";
+import { rawContributionsQuery } from "./source/contributions";
+import { rawProjectsQuery } from "./source/projects";
 
 export const contributionsFilterContextAtom = atomFamily<ContributionContextEnum[], string>({
   key: "ContributionsFilterContext",
@@ -38,7 +33,7 @@ export const contributionsFilterProjectAtom = atomFamily<string[], string>({
   default: [],
 });
 
-export const contributionsFilterStatusAtom = atomFamily<Array<ContributionStatusEnum | "gated">, string>({
+export const contributionsFilterStatusAtom = atomFamily<Array<ContributionStatusEnum>, string>({
   key: "ContributionsFilterStatus",
   default: [],
 });
@@ -57,10 +52,7 @@ export const filteredContributionsSelector = selector({
   key: "FilteredContributions",
 
   get: ({ get }) => {
-    const openedContributions = get(openedContributionsQuery);
-    const gatedContributions = get(gatedContributionsQuery);
-    const ongoingContributions = get(ongoingContributionsQuery);
-    const completedContributions = get(completedContributionsQuery);
+    const contributionsWithStatus = get(contributionsWithStatusState);
 
     const contributionsFilterContext = get(contributionsFilterContextAtom("contributions"));
     const contributionsFilterDifficulty = get(contributionsFilterDifficultyAtom("contributions"));
@@ -70,22 +62,7 @@ export const filteredContributionsSelector = selector({
     const contributionsFilterTechnology = get(contributionsFilterTechnologyAtom("contributions"));
     const contributionsFilterType = get(contributionsFilterTypeAtom("contributions"));
 
-    const sortedOpenedContributions = [...openedContributions];
-
-    const allContributions = [
-      ...sortedOpenedContributions.sort((contribution1, contribution2) => {
-        if (contribution1.applied === contribution2.applied) {
-          return 0;
-        }
-
-        return contribution1.applied === true ? 1 : -1;
-      }),
-      ...gatedContributions,
-      ...ongoingContributions,
-      ...completedContributions,
-    ];
-
-    return allContributions
+    return contributionsWithStatus
       .filter(filterContributionByStatuses(contributionsFilterStatus))
       .filter(filterContributionByProject(contributionsFilterProject))
       .filter(filterContributionByMetadata("context", contributionsFilterContext))
@@ -96,14 +73,14 @@ export const filteredContributionsSelector = selector({
   },
 });
 
-function filterContributionByStatuses(statuses: Array<ContributionStatusEnum | "gated">) {
-  return (contribution: Contribution) => {
+function filterContributionByStatuses(statuses: Array<ContributionStatusEnum>) {
+  return (contribution: ContributionWithStatus) => {
     if (statuses.length === 0) {
       return true;
     }
 
-    if (contribution.status === ContributionStatusEnum.OPEN && contribution.eligible === false) {
-      return statuses.includes("gated");
+    if (statuses.includes(ContributionStatusEnum.ASSIGNED)) {
+      return [...statuses, ContributionStatusEnum.NO_SLOT].includes(contribution.status);
     }
 
     return statuses.includes(contribution.status);
@@ -111,12 +88,12 @@ function filterContributionByStatuses(statuses: Array<ContributionStatusEnum | "
 }
 
 function filterContributionByProject(projectIds: Array<Project["id"]>) {
-  return (contribution: Contribution) => {
+  return (contribution: ContributionWithStatus) => {
     if (projectIds.length === 0) {
       return true;
     }
 
-    return projectIds.includes(contribution.project.id);
+    return projectIds.includes(contribution.project_id);
   };
 }
 
@@ -124,7 +101,7 @@ function filterContributionByMetadata(
   metadataName: keyof ContributionMetadata,
   filteredValues: Array<ContributionMetadata[typeof metadataName]>
 ) {
-  return (contribution: Contribution) => {
+  return (contribution: ContributionWithStatus) => {
     if (filteredValues.length === 0) {
       return true;
     }
@@ -136,3 +113,34 @@ function filterContributionByMetadata(
     return filteredValues.includes(contribution.metadata[metadataName]);
   };
 }
+
+export type ProjectFilter = Array<{
+  id: string;
+  title: string;
+}>;
+
+export const projectFilter = selector<ProjectFilter>({
+  key: "ProjectFilter",
+  get: ({ get }) => {
+    const rawProjects = get(rawProjectsQuery);
+
+    return rawProjects;
+  },
+});
+
+export const technologiesQuery = selector({
+  key: "TechnologyFilter",
+  get: ({ get }) => {
+    const contributions = get(rawContributionsQuery);
+
+    const technologies = new Set<string>();
+
+    contributions.forEach(contribution => {
+      if (contribution.metadata.technology && !technologies.has(contribution.metadata.technology)) {
+        technologies.add(contribution.metadata.technology);
+      }
+    });
+
+    return Array.from(technologies);
+  },
+});

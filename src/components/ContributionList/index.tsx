@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import Contribution from "./Contribution";
-import { Contribution as ContributionType } from "src/state";
+import { ContributionWithStatus as ContributionType } from "src/state";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { VirtuosoGrid } from "react-virtuoso";

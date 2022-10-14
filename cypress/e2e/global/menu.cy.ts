@@ -29,7 +29,7 @@ describe("Global", () => {
           windowPropertyName: "starknet_headless",
         });
 
-        headlessWallet.autoConnect({ address: "0x0123456789" });
+        headlessWallet.autoConnect({ address: "0x123456789" });
       });
 
       cy.visit("/");

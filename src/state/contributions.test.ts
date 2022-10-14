@@ -1,17 +1,13 @@
 import { afterEach, describe, it, expect, vi } from "vitest";
 import { RecoilRoot, snapshot_UNSTABLE, useRecoilValue } from "recoil";
 import { renderHook } from "@testing-library/react-hooks";
-import {
-  ContributionApplication,
-  contributionQuery,
-  contributionsQuery,
-  contributorApplicationsQuery,
-} from "./contributions";
 import { projectRepository } from "src/model/projects/repository";
 import { AccountInterface } from "starknet";
 import { accountAtom } from "./starknet";
 import { applicationRepository } from "src/model/applications/repository";
 import { contributorRepository } from "src/model/contributors/repository";
+import { ContributionApplication, rawContributorApplicationsQuery } from "./source/applications";
+import { contributionsWithStatusState } from "./contributions";
 
 describe("The recoil state", () => {
   afterEach(() => {
@@ -22,7 +18,7 @@ describe("The recoil state", () => {
     it("uses the repository list function", async () => {
       const listSpy = vi.spyOn(projectRepository, "list");
 
-      const { result, waitForValueToChange } = renderHook(() => useRecoilValue(contributionsQuery), {
+      const { result, waitForValueToChange } = renderHook(() => useRecoilValue(contributionsWithStatusState), {
         wrapper: RecoilRoot,
       });
 
@@ -35,22 +31,6 @@ describe("The recoil state", () => {
     });
   });
 
-  describe("when querying a single contribution", () => {
-    it("uses the contributions cache", async () => {
-      // TODO: make this test not depend on the previous one by clearing the recoil cache
-      const listSpy = vi.spyOn(projectRepository, "list");
-
-      const existingId = "1";
-      const { result } = renderHook(() => useRecoilValue(contributionQuery(existingId)), {
-        wrapper: RecoilRoot,
-      });
-
-      // One can argue that this test also checks the cache ¯\_(ツ)_/¯
-      expect(listSpy).not.toHaveBeenCalled();
-      expect(result.current?.id).to.equal(existingId);
-    });
-  });
-
   describe("when querying applications", () => {
     it("should return contributor applications", async () => {
       const snapshot = snapshot_UNSTABLE(({ set }) => {
@@ -60,7 +40,7 @@ describe("The recoil state", () => {
       const listSpy = vi.spyOn(applicationRepository, "list");
       const findByAccountAddressSpy = vi.spyOn(contributorRepository, "findByAccountAddress");
 
-      const result = snapshot.getLoadable(contributorApplicationsQuery);
+      const result = snapshot.getLoadable(rawContributorApplicationsQuery);
 
       const res = (await result.contents) as Promise<ContributionApplication[]>;
 
@@ -77,7 +57,7 @@ describe("The recoil state", () => {
 
       const listSpy = vi.spyOn(applicationRepository, "list");
 
-      const result = snapshot.getLoadable(contributorApplicationsQuery);
+      const result = snapshot.getLoadable(rawContributorApplicationsQuery);
 
       const res = (await result.contents) as ContributionApplication[];
 
@@ -94,7 +74,7 @@ describe("The recoil state", () => {
       const listSpy = vi.spyOn(applicationRepository, "list");
       const findByAccountAddressSpy = vi.spyOn(contributorRepository, "findByAccountAddress");
 
-      const result = snapshot.getLoadable(contributorApplicationsQuery);
+      const result = snapshot.getLoadable(rawContributorApplicationsQuery);
 
       const res = (await result.contents) as ContributionApplication[];
 

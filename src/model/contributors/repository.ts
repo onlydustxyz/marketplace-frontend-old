@@ -1,11 +1,12 @@
 import { InMemoryContributorRepository } from "./in-memory-repository";
 import { FetchedContributorRepository } from "./fetched-repository";
+import { ContributorAccountAddress, ContributorId } from "../contact-information/repository";
 
 export interface ContributorDto {
-  id: string;
+  id: ContributorId;
   github_identifier: string;
   github_username: string;
-  account: string;
+  account: ContributorAccountAddress;
 }
 export interface RegisterGithubAccount {
   address: string;

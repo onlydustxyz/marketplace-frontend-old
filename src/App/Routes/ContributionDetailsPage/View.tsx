@@ -5,15 +5,13 @@ import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-dark.css";
 
 import BackButton from "src/components/BackButton";
-import { ContributionStatusEnum } from "src/model/projects/repository";
-import { Contribution } from "src/state";
+import { ContributionWithStatus, ContributionStatusEnum } from "src/state";
 import logoPlaceholder from "src/assets/img/project-logo-placeholder.png";
 import Button from "src/components/Button";
 import StatusHeader from "./StatusHeader";
 import MetadataList from "./MetadataList";
 import Loader from "src/icons/Loader";
 import cn from "classnames";
-import { ContributorId } from "src/model/contact-information/repository";
 
 type Props = {
   apply: () => void;
@@ -21,21 +19,10 @@ type Props = {
   submit: () => void;
   appliying: boolean;
   accountAddress?: string;
-  contribution: Contribution;
-  contributorId?: ContributorId;
-  hasAppliedToContribution: boolean;
+  contribution: ContributionWithStatus;
 };
 
-const ContributionDetailsPage: FC<Props> = ({
-  apply,
-  claim,
-  submit,
-  appliying,
-  accountAddress,
-  contribution,
-  contributorId,
-  hasAppliedToContribution = false,
-}) => {
+const ContributionDetailsPage: FC<Props> = ({ apply, claim, submit, appliying, accountAddress, contribution }) => {
   const actionButtons = renderActionButton();
   const hasActions = !!actionButtons;
 
@@ -45,7 +32,7 @@ const ContributionDetailsPage: FC<Props> = ({
         <BackButton />
 
         <div className="relative flex flex-grow flex-col items-center mt-2 md:mt-0 md:px-12 max-w-screen-xl w-full">
-          <StatusHeader contribution={contribution} hasAppliedToContribution={hasAppliedToContribution} />
+          <StatusHeader contribution={contribution} />
         </div>
       </div>
       <div className="relative flex flex-col items-center px-0 md:px-12 max-w-screen-xl w-screen">
@@ -58,13 +45,13 @@ const ContributionDetailsPage: FC<Props> = ({
           </div>
         </a>
         <div className="mt-4 md:mt-8 flex flex-col items-center">
-          <Link to={`/projects/${contribution.project.id}`} data-testid="project-logo-link">
+          <Link to={`/projects/${contribution.project_id}`} data-testid="project-logo-link">
             <img className="rounded-full" src={contribution.project.logo || logoPlaceholder} width={54} />
           </Link>
           <span className="mt-5 text-light-purple/66 text-xs uppercase">Proposed by</span>
           <Link
             className="mt-2 font-medium text-white text-[28px] leading-[34px] capitalize"
-            to={`/projects/${contribution.project.id}`}
+            to={`/projects/${contribution.project_id}`}
             data-testid="project-title-link"
           >
             {contribution.project.title}
@@ -105,11 +92,11 @@ const ContributionDetailsPage: FC<Props> = ({
       );
     }
 
-    if (
-      contributorId !== undefined &&
-      contribution?.status === ContributionStatusEnum.ASSIGNED &&
-      parseInt(contribution.metadata.assignee, 16) === parseInt(contributorId, 16)
-    ) {
+    if (contribution.status === ContributionStatusEnum.COMPLETED) {
+      return null;
+    }
+
+    if (contribution.status === ContributionStatusEnum.ASSIGNED) {
       return (
         <Button onClick={submit} role="button" dataTestid="button-main-action">
           Submit work
@@ -117,15 +104,15 @@ const ContributionDetailsPage: FC<Props> = ({
       );
     }
 
-    if (ContributionStatusEnum.OPEN === contribution.status) {
-      if (hasAppliedToContribution) {
-        return (
-          <Button onClick={apply} disabled={true} role="button" dataTestid="button-main-action">
-            Applied
-          </Button>
-        );
-      }
+    if (contribution.status == ContributionStatusEnum.APPLIED) {
+      return (
+        <Button onClick={apply} disabled={true} role="button" dataTestid="button-main-action">
+          Applied
+        </Button>
+      );
+    }
 
+    if (contribution.status === ContributionStatusEnum.OPEN || contribution.status === ContributionStatusEnum.GATED) {
       if (
         accountAddress !== undefined &&
         contribution.project.members.some(memberAddress => parseInt(memberAddress, 16) === parseInt(accountAddress, 16))
@@ -133,7 +120,7 @@ const ContributionDetailsPage: FC<Props> = ({
         return (
           <Button
             onClick={claim}
-            disabled={contribution.eligible === false}
+            disabled={contribution.status === ContributionStatusEnum.GATED}
             role="button"
             dataTestid="button-main-action"
           >
@@ -145,7 +132,7 @@ const ContributionDetailsPage: FC<Props> = ({
       return (
         <Button
           onClick={apply}
-          disabled={contribution.eligible === false}
+          disabled={contribution.status === ContributionStatusEnum.GATED}
           role="button"
           dataTestid="button-main-action"
         >

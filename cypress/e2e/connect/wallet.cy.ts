@@ -39,7 +39,7 @@ context("Connect Wallet account", () => {
       headlessWallet.connect({ address: "0x123456789" });
     });
 
-    cy.getByTestId("register-modal").should("not.exist");
+    cy.getByTestId("register-modal", { timeout: 10000 }).should("not.exist");
 
     cy.getByTestId("header-profile-button").click();
 

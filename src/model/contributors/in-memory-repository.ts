@@ -1,36 +1,37 @@
+import { ContributorAccountAddress, ContributorId } from "../contact-information/repository";
 import { ContributorDto, ContributorRepository, RegisterGithubAccount } from "./repository";
 
 export class InMemoryContributorRepository implements ContributorRepository {
   private contributors: ContributorDto[] = [
     {
-      id: "0x26",
+      id: "0x26" as ContributorId,
       github_identifier: "github-id",
       github_username: "github-username",
-      account: "0x123456789",
+      account: "0x123456789" as ContributorAccountAddress,
     },
     {
-      id: "0x27",
+      id: "0x27" as ContributorId,
       github_identifier: "github-id",
       github_username: "github-username",
-      account: "0x123456789abcdef",
+      account: "0x123456789abcdef" as ContributorAccountAddress,
     },
     {
-      id: "0x28",
+      id: "0x28" as ContributorId,
       github_identifier: "github-id",
       github_username: "github-username",
-      account: "0x12340241B3e9559bF8786c236128525A2CC36a2c04F0115Ff902c63Df712cdef",
+      account: "0x12340241B3e9559bF8786c236128525A2CC36a2c04F0115Ff902c63Df712cdef" as ContributorAccountAddress,
     },
     {
-      id: "0x29",
+      id: "0x29" as ContributorId,
       github_identifier: "github-id",
       github_username: "github-username",
-      account: "0x0abcdefabcdef",
+      account: "0x0abcdefabcdef" as ContributorAccountAddress,
     },
     {
-      id: "0x26",
+      id: "0x26" as ContributorId,
       github_identifier: "github-id",
       github_username: "github-username",
-      account: "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0",
+      account: "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0" as ContributorAccountAddress,
     },
   ];
 
@@ -40,8 +41,8 @@ export class InMemoryContributorRepository implements ContributorRepository {
    */
   private futureContributors: ContributorDto[] = [
     {
-      id: "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2",
-      account: "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2",
+      id: "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2" as ContributorId,
+      account: "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2" as ContributorAccountAddress,
       github_identifier: "new-github-user-id",
       github_username: "new-github-user-name",
     },

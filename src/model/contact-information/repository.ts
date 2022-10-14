@@ -7,6 +7,7 @@ export type ContactInformationDto = {
   discord_handle: string;
 };
 
+export type ContributorAccountAddress = Brand<string, "ContributorAccountAddress">;
 export type ContributorId = Brand<string, "ContibutorId">;
 
 export interface ContactInformationRepository {

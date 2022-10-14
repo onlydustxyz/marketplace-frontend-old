@@ -5,11 +5,11 @@ import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE
 import config from "src/config";
 import { useGithubAccount } from "src/hooks/github-account";
 import { signMessage } from "src/utils/wallet";
-
-import { accountAtom, userInformationSelector } from "src/state";
+import { accountAtom } from "src/state";
+import { toastPromise } from "src/lib/toast-promise";
+import { rawContributorQuery } from "src/state/source/contributor";
 
 import GithubSignin from "./View";
-import { toastPromise } from "src/lib/toast-promise";
 
 type Props = {
   className?: string;
@@ -17,7 +17,7 @@ type Props = {
 
 const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, className }) => {
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
-  const refreshContributor = useRecoilRefresher_UNSTABLE(userInformationSelector);
+  const refreshContributor = useRecoilRefresher_UNSTABLE(rawContributorQuery);
 
   const [isRegistering, setIsRegistering] = useState(false);
 

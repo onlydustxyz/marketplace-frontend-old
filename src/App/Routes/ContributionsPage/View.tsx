@@ -3,10 +3,10 @@ import cn from "classnames";
 import ContributionList from "src/components/ContributionList";
 import FilterIcon from "src/icons/Filter";
 import Filters from "src/components/Filters";
-import { Contribution } from "src/state";
+import { ContributionWithStatus } from "src/state";
 
 type Props = {
-  contributions: Contribution[];
+  contributions: ContributionWithStatus[];
   toggleFilters: () => void;
   closeFilters: () => void;
   displayFilters: boolean;

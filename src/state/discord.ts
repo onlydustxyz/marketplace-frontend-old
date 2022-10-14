@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import { contactInformationRepository } from "src/model/contact-information/repository";
-import { userContributorIdSelector } from "src/state/profile-registry-contract";
+import { userContributorIdSelector } from "src/state/contributor";
 
 export const userDiscordHandleAtom = atom<string | undefined>({
   key: "UserDiscordHandleAtom",

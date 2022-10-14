@@ -41,7 +41,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
           github_link: "https://example.com/contributions/6",
           gate: 0,
           metadata: {
-            assignee: "0x0123456789",
+            assignee: "0x123456789",
             github_username: "github-user-0x26",
             context: ContributionContextEnum.ISOLATED,
             difficulty: ContributionDifficultyEnum.EASY,
@@ -74,6 +74,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
       description: "Description 2",
       github_link: "https://example.com/projects/2",
       contributions: [],
+      members: [],
     },
     {
       id: "3",
@@ -162,12 +163,9 @@ export class InMemoryProjectRepository implements ProjectRepository {
         },
       ],
       members: [
-        "0x0123456789",
+        "0x123456789",
         "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0",
-        {
-          contributor_account: "0x123456789abcdef",
-          is_lead_contributor: false,
-        },
+        "0x123456789abcdef",
       ],
     },
   ];

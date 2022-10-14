@@ -5,10 +5,8 @@ import {
   accountAddressSelector,
   accountAtom,
   contributionQuery,
-  contributorApplicationsQuery,
   displayRegisterModalAtom,
   isGithubRegisteredSelector,
-  userContributorIdSelector,
   userDiscordHandleSelector,
   userGithubHandleSelector,
 } from "src/state";
@@ -24,6 +22,8 @@ import contributionsAbi from "src/abis/contributions.json";
 import { bnToUint256 } from "starknet/dist/utils/uint256";
 import { ContributorId } from "src/model/contact-information/repository";
 
+import { rawContributorApplicationsQuery } from "src/state/source/applications";
+
 type PageParams = {
   contributionId: string;
 };
@@ -36,11 +36,10 @@ const ContributionDetailsPageContainer: FC = () => {
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
   const userDiscordHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userDiscordHandleSelector);
   const setDisplayRegisterModal = useSetRecoilState(displayRegisterModalAtom);
-  const hasAppliedToContribution = !!contribution?.applied;
 
   const [appliying, setApplying] = useState(false);
 
-  const refreshApplications = useRecoilRefresher_UNSTABLE(contributorApplicationsQuery);
+  const refreshApplications = useRecoilRefresher_UNSTABLE(rawContributorApplicationsQuery);
 
   const { contract: contributionsContract } = useContract({
     abi: contributionsAbi as Abi,
@@ -162,8 +161,6 @@ const ContributionDetailsPageContainer: FC = () => {
       submit={submit}
       appliying={appliying}
       accountAddress={account?.address}
-      contributorId={contributorId as ContributorId}
-      hasAppliedToContribution={hasAppliedToContribution}
     />
   );
 };

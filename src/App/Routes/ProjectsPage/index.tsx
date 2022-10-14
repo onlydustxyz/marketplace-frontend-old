@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
+
 import { filteredProjectsSelector } from "src/state";
+
 import ProjectsPage from "./View";
 
 const ProjectsPageContainer: FC = () => {

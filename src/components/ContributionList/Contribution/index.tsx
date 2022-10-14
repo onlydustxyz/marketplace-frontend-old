@@ -3,8 +3,7 @@ import cn from "classnames";
 
 import Difficulty from "src/icons/Difficulty";
 import Technology from "src/icons/Technology";
-import { ContributionStatusEnum } from "src/model/projects/repository";
-import { Contribution as ContributionType } from "src/state";
+import { ContributionWithStatus as ContributionType, ContributionStatusEnum } from "src/state";
 import ContributionStatus from "../../ContributionStatus";
 
 type Props = { contribution: ContributionType };
@@ -26,11 +25,7 @@ const Contribution: FC<Props> = ({ contribution }) => {
     >
       <div className={cn("h-full flex flex-col", cardContentClassName)}>
         <div className="h-[72px] grid grid-cols-2 items-center uppercase mx-8">
-          <ContributionStatus
-            status={contribution.status}
-            gated={contribution.eligible === false}
-            applied={contribution.applied}
-          />
+          <ContributionStatus status={contribution.status} />
         </div>
         <div className="grow flex flex-col justify-center mb-8 ">
           <h2 className="font-alfreda text-3xl leading-[42px] text-center px-2 md:px-8 line-clamp-4 break-words">

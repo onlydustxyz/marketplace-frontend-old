@@ -17,7 +17,7 @@ describe('"All projects" page', () => {
     expect(screen.getByTestId("project-card-1-title").textContent).toBe("Project 1");
     expect(screen.getByTestId("project-card-1-description").textContent).toBe("Description 1");
     expect(screen.getByTestId("project-card-1-available-contributions").textContent).toBe("2 available contributions");
-    expect(screen.queryByTestId("project-card-1-technologies")).toBeNull();
+    expect(screen.getByTestId("project-card-1-technologies").textContent).toBe("python");
 
     expect(screen.getByTestId("project-card-2-title").textContent).toBe("Project 2");
     expect(screen.getByTestId("project-card-2-description").textContent).toBe("Description 2");

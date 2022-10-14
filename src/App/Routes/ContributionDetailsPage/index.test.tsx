@@ -72,22 +72,6 @@ describe("Contribution details page", () => {
     expect(button.getAttribute("disabled")).toBeNull();
   });
 
-  it("Should display claim button with old members format", async () => {
-    const customInitRecoilState = ({ set }: MutableSnapshot) => {
-      set(accountAtom, { address: "0x123456789abcdef" } as AccountInterface);
-    };
-
-    (useParams as Mock).mockReturnValue({ contributionId: "3" });
-
-    await act(async () => {
-      render(<ContributionDetailsPage />, {}, { initializeRecoilState: customInitRecoilState });
-    });
-
-    const button = screen.getByRole("button");
-    expect(button.textContent?.toLowerCase()).toBe("claim");
-    expect(button.getAttribute("disabled")).toBeNull();
-  });
-
   it("Should display applied button", async () => {
     (useParams as Mock).mockReturnValue({ contributionId: "4" });
 

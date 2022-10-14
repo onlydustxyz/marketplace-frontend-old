@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributionsFilterTechnologyAtom } from "src/state/contributions-filters";
+import { contributionsFilterTechnologyAtom } from "src/state";
 import ListBoxFilter from "src/components/ListBoxFilter";
 import { technologiesQuery } from "src/state";
 import { FilterProps } from ".";

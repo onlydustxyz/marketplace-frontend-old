@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { ContributionContextEnum } from "src/model/projects/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributionsFilterContextAtom } from "src/state/contributions-filters";
+import { contributionsFilterContextAtom } from "src/state";
 import ListBoxFilter from "src/components/ListBoxFilter";
 import { FilterProps } from ".";
 

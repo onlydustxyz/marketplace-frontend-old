@@ -2,12 +2,12 @@ import { FC } from "react";
 import cn from "classnames";
 
 import logoPlaceholder from "src/assets/img/project-logo-placeholder.png";
-import { Project } from "src/state";
+import { ProjectWithAggregateContributions } from "src/state";
 import TechnologyIcon from "src/icons/Technology";
 
 type Props = {
   className?: string;
-  project: Project;
+  project: ProjectWithAggregateContributions;
 };
 
 const ProjectCard: FC<Props> = ({ className, project }) => {

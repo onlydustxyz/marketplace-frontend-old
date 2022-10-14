@@ -1,32 +1,17 @@
-import { InMemoryProjectRepository } from "./in-memory-repository";
-import { FetchedProjectRepository } from "./fetched-repository";
+import { InMemoryContributionRepository } from "./in-memory-repository";
+import { FetchedContributionRepository } from "./fetched-repository";
+import { ContributorAccountAddress } from "../contact-information/repository";
 
 export type ContributionDto = {
   id: string;
+  project_id: string;
   title: string;
   description: string;
   github_link: string;
   gate: number;
 } & ContributionStatusAndMetadata;
 
-export type ProjectDto = {
-  id: string;
-  title: string;
-  description: string;
-  github_link: string;
-  discord_link?: string;
-  website_link?: string;
-  logo?: string;
-  contributions: ContributionDto[];
-  members: string[];
-};
-
-export type ProjectMember = {
-  contributor_account: string;
-  is_lead_contributor: boolean;
-};
-
-export enum ContributionStatusEnum {
+export enum ContributionStatusEnumDto {
   OPEN = "OPEN",
   ASSIGNED = "ASSIGNED",
   COMPLETED = "COMPLETED",
@@ -72,28 +57,28 @@ export type ContributionMetadata = {
 };
 
 export type ContributionMetadataAssignee = {
-  assignee: string;
+  assignee: ContributorAccountAddress;
   github_username?: string;
 };
 
 export type OpenStatus = {
-  status: ContributionStatusEnum.OPEN;
+  status: ContributionStatusEnumDto.OPEN;
   metadata: ContributionMetadata;
 };
 
 export type AssignedStatus = {
-  status: ContributionStatusEnum.ASSIGNED;
+  status: ContributionStatusEnumDto.ASSIGNED;
   metadata: ContributionMetadata & ContributionMetadataAssignee;
 };
 
 export type CompletedStatus = {
-  status: ContributionStatusEnum.COMPLETED;
+  status: ContributionStatusEnumDto.COMPLETED;
   metadata: ContributionMetadata & ContributionMetadataAssignee;
 };
 
-export interface ProjectRepository {
-  list(): Promise<ProjectDto[]>;
+export interface ContributionRepository {
+  list(): Promise<ContributionDto[]>;
 }
 
-export const projectRepository: ProjectRepository =
-  process.env.NODE_ENV === "test" ? new InMemoryProjectRepository() : new FetchedProjectRepository();
+export const contributionRepository: ContributionRepository =
+  process.env.NODE_ENV === "test" ? new InMemoryContributionRepository() : new FetchedContributionRepository();

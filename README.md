@@ -48,6 +48,9 @@ yarn dev
 
 ## 🌡️ Testing
 
+
+### Unit/integration
+
 ```bash
 yarn test
 ```
@@ -56,6 +59,22 @@ With coverage
 
 ```bash
 yarn test:coverage
+```
+
+### End-to-end
+
+Run your server
+
+```bash
+yarn dev --mode test
+MARKETPLACE_COVERAGE=true yarn dev --mode test // Run with coverage
+```
+
+Then run one of these commands
+
+```bash
+CYPRESS_BASE_URL=http://localhost:3000 yarn e2e
+CYPRESS_BASE_URL=http://localhost:3000 yarn e2e:open // Open the UI
 ```
 
 ## 🛠 Build

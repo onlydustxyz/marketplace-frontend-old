@@ -39,6 +39,8 @@ context("Connect Wallet account", () => {
       headlessWallet.connect({ address: "0x123456789" });
     });
 
+    cy.getByTestId("register-modal").should("not.exist");
+
     cy.getByTestId("header-profile-button").click();
 
     cy.getByTestId("header-profile-wallet-address").should(el => {

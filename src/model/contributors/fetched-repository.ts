@@ -4,6 +4,7 @@ import { toBN, toHex } from "starknet/utils/number";
 import config from "src/config";
 
 import { ContributorDto, ContributorRepository, RegisterGithubAccount } from "./repository";
+import { ContributorAccountAddress } from "../contact-information/repository";
 
 interface GithubEndpointData {
   authorization_code: string;
@@ -17,28 +18,14 @@ interface GithubEndpointData {
   };
 }
 export class FetchedContributorRepository implements ContributorRepository {
-  public async findById(id: ContributorDto["id"]): Promise<ContributorDto> {
-    const response = await axios.get<ContributorDto>(`${config.DATA_API_HOSTNAME}/contributors/${id}`);
+  public async findByAccountAddress(contributorAccount: ContributorAccountAddress): Promise<ContributorDto> {
+    const response = await axios.get<ContributorDto>(`${config.DATA_API_HOSTNAME}/contributors/${contributorAccount}`);
 
     if (response.status !== 200) {
       throw new Error("Failed to fetch contributor");
     }
+
     return response.data;
-  }
-
-  public async findByAccountAddress(address: string): Promise<ContributorDto> {
-    try {
-      const response = await axios.get<ContributorDto>(
-        `${config.DATA_API_HOSTNAME}/contributors?contributor_account=${address}`
-      );
-
-      if (response.status !== 200) {
-        throw new Error("Failed to fetch contributor");
-      }
-      return response.data;
-    } catch (error) {
-      throw new Error("Failed to fetch contributor", { cause: error as Error });
-    }
   }
 
   public async registerGithubAccount({ address, code, hash, signature }: RegisterGithubAccount): Promise<void> {

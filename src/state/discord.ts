@@ -1,6 +1,8 @@
 import { atom, selector } from "recoil";
+
 import { contactInformationRepository } from "src/model/contact-information/repository";
-import { userContributorIdSelector } from "src/state/contributor";
+
+import { contributorAccountSelector } from "./starknet";
 
 export const userDiscordHandleAtom = atom<string | undefined>({
   key: "UserDiscordHandleAtom",
@@ -10,8 +12,8 @@ export const userDiscordHandleAtom = atom<string | undefined>({
 export const userDiscordHandleSelector = selector<string | undefined>({
   key: "UserDiscordHandle",
   get: async ({ get }) => {
-    const userContributorId = get(userContributorIdSelector);
-    if (userContributorId === undefined) {
+    const userContributorAccount = get(contributorAccountSelector);
+    if (userContributorAccount === undefined) {
       return undefined;
     }
     const discordHandleAtom = get(userDiscordHandleAtom);
@@ -19,7 +21,9 @@ export const userDiscordHandleSelector = selector<string | undefined>({
       return discordHandleAtom;
     }
     try {
-      const contactInformation = await contactInformationRepository.findByContributorId(userContributorId);
+      const contactInformation = await contactInformationRepository.findByContributorAccountAddress(
+        userContributorAccount
+      );
       return contactInformation.discord_handle;
     } catch (error) {
       console.warn(error);

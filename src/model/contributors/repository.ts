@@ -1,9 +1,9 @@
 import { InMemoryContributorRepository } from "./in-memory-repository";
 import { FetchedContributorRepository } from "./fetched-repository";
-import { ContributorAccountAddress, ContributorId } from "../contact-information/repository";
+import { ContributorAccountAddress } from "../contact-information/repository";
 
 export interface ContributorDto {
-  id: ContributorId;
+  id: ContributorAccountAddress;
   github_identifier: string;
   github_username: string;
   account: ContributorAccountAddress;
@@ -15,8 +15,7 @@ export interface RegisterGithubAccount {
   signature: [string, string];
 }
 export interface ContributorRepository {
-  findById(id: ContributorDto["id"]): Promise<ContributorDto>;
-  findByAccountAddress(address: string): Promise<ContributorDto>;
+  findByAccountAddress(contributorAccount: ContributorAccountAddress): Promise<ContributorDto>;
   registerGithubAccount: (data: RegisterGithubAccount) => Promise<void>;
 }
 

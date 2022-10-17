@@ -1,13 +1,14 @@
 import axios from "axios";
 import config from "src/config";
 
-import { ContactInformationDto, ContactInformationRepository, ContributorId } from "./repository";
+import { ContactInformationDto, ContactInformationRepository, ContributorAccountAddress } from "./repository";
 
 export class FetchedContactInformationRepository implements ContactInformationRepository {
-  public async findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto> {
-    const formattedContributorId = contributorId;
+  public async findByContributorAccountAddress(
+    contributorAddress: ContributorAccountAddress
+  ): Promise<ContactInformationDto> {
     const response = await axios.get<ContactInformationDto>(
-      `${config.DATA_API_HOSTNAME}/contributors/${formattedContributorId}/contact-information`
+      `${config.DATA_API_HOSTNAME}/contributors/${contributorAddress}/contact-information`
     );
 
     if (response.status !== 200) {
@@ -17,9 +18,9 @@ export class FetchedContactInformationRepository implements ContactInformationRe
   }
 
   public async save(contactInformation: ContactInformationDto): Promise<void> {
-    const formattedContributorId = contactInformation.contributor_id;
+    const formattedContributorAccountAddress = contactInformation.contributor_account;
     const response = await axios.put<ContactInformationDto>(
-      `${config.DATA_API_HOSTNAME}/contributors/${formattedContributorId}/contact-information`,
+      `${config.DATA_API_HOSTNAME}/contributors/${formattedContributorAccountAddress}/contact-information`,
       {
         discord_handle: contactInformation.discord_handle,
       }

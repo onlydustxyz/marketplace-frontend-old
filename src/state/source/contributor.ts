@@ -1,11 +1,11 @@
 import { selector } from "recoil";
 import { contributorRepository } from "src/model/contributors/repository";
-import { accountAddressSelector } from "../starknet";
+import { contributorAccountSelector } from "../starknet";
 
 export const rawContributorQuery = selector({
   key: "ContributorSelector",
   get: async ({ get }) => {
-    const accountAddress = get(accountAddressSelector);
+    const accountAddress = get(contributorAccountSelector);
 
     if (!accountAddress) {
       return undefined;

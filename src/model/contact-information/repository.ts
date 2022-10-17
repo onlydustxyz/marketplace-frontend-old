@@ -3,15 +3,14 @@ import { InMemoryContactInformationRepository } from "src/model/contact-informat
 import { Brand } from "src/utils/branded-types";
 
 export type ContactInformationDto = {
-  contributor_id: ContributorId;
+  contributor_account: ContributorAccountAddress;
   discord_handle: string;
 };
 
 export type ContributorAccountAddress = Brand<string, "ContributorAccountAddress">;
-export type ContributorId = Brand<string, "ContibutorId">;
 
 export interface ContactInformationRepository {
-  findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto>;
+  findByContributorAccountAddress(contributorAccount: ContributorAccountAddress): Promise<ContactInformationDto>;
   save(contactInformation: ContactInformationDto): Promise<void>;
 }
 

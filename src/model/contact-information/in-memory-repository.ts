@@ -1,24 +1,27 @@
 import {
   ContactInformationDto,
   ContactInformationRepository,
-  ContributorId,
+  ContributorAccountAddress,
 } from "src/model/contact-information/repository";
 
 export class InMemoryContactInformationRepository implements ContactInformationRepository {
   private contactInformationList: ContactInformationDto[] = [
     {
-      contributor_id: "0x26" as ContributorId,
+      contributor_account: "0x123456789" as ContributorAccountAddress,
       discord_handle: "test_discord_handle",
     },
     {
-      contributor_id: "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0" as ContributorId,
+      contributor_account:
+        "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0" as ContributorAccountAddress,
       discord_handle: "test_discord_handle",
     },
   ];
 
-  public async findByContributorId(contributorId: ContributorId): Promise<ContactInformationDto> {
+  public async findByContributorAccountAddress(
+    contributorAccount: ContributorAccountAddress
+  ): Promise<ContactInformationDto> {
     const contactInformation = this.contactInformationList.find(
-      contactInformation => contactInformation.contributor_id === contributorId
+      contactInformation => contactInformation.contributor_account === contributorAccount
     );
     if (contactInformation) {
       return contactInformation;

@@ -9,6 +9,7 @@ export type ContributionDto = {
   description: string;
   github_link: string;
   gate: number;
+  closed: boolean;
 } & ContributionStatusAndMetadata;
 
 export enum ContributionStatusEnumDto {
@@ -46,7 +47,7 @@ export enum ContributionTypeEnum {
   TEST = "test",
 }
 
-export type ContributionStatusAndMetadata = OpenStatus | AssignedStatus | CompletedStatus;
+export type ContributionStatusAndMetadata = OpenStatus | AssignedStatus | CompletedStatus | AbandonedStatus;
 
 export type ContributionMetadata = {
   context?: ContributionContextEnum;
@@ -74,6 +75,12 @@ export type AssignedStatus = {
 export type CompletedStatus = {
   status: ContributionStatusEnumDto.COMPLETED;
   metadata: ContributionMetadata & ContributionMetadataAssignee;
+};
+
+export type AbandonedStatus = {
+  status: ContributionStatusEnumDto.ABANDONED;
+  closed: true;
+  metadata: ContributionMetadata & Partial<ContributionMetadataAssignee>;
 };
 
 export interface ContributionRepository {

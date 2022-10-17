@@ -8,6 +8,7 @@ import AssignedBadge from "./AssignedBadge";
 import CompletedBadge from "./CompletedBadge";
 import GatedBadge from "./GatedBadge";
 import OpenBadge from "./OpenBadge";
+import ClosedBadge from "./ClosedBadge";
 
 type Props = {
   status: ContributionWithStatus["status"];
@@ -43,6 +44,8 @@ const ContributionStatus: FC<Props> = ({ children, className, status }) => {
       case ContributionStatusEnum.ASSIGNED:
       case ContributionStatusEnum.NO_SLOT:
         return <AssignedBadge />;
+      case ContributionStatusEnum.CLOSED:
+        return <ClosedBadge />;
       case ContributionStatusEnum.COMPLETED:
         return <CompletedBadge />;
     }

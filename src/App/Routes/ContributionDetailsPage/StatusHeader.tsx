@@ -14,6 +14,7 @@ const classNamesByStatus: Record<ContributionStatusEnum, string> = {
   [ContributionStatusEnum.NO_SLOT]: "bg-orange/7 backdrop-blur-[6px]",
   [ContributionStatusEnum.ASSIGNED]: "bg-orange/7 backdrop-blur-[6px]",
   [ContributionStatusEnum.COMPLETED]: "bg-white/4 backdrop-blur-[6px]",
+  [ContributionStatusEnum.CLOSED]: "bg-white/4 backdrop-blur-[6px]",
   [ContributionStatusEnum.GATED]: "bg-[#0038FF]/10 backdrop-blur-[6px]",
   [ContributionStatusEnum.APPLIED]: "bg-[#1F96A6]/10 backdrop-blur-[6px]",
 };

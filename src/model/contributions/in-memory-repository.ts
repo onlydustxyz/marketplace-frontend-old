@@ -19,6 +19,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/1",
       gate: 0,
+      closed: false,
       metadata: {
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -35,6 +36,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.COMPLETED,
       github_link: "https://example.com/contributions/2",
       gate: 0,
+      closed: false,
       metadata: {
         assignee: "0x8888" as ContributorAccountAddress,
         github_username: "github-user-0x8888",
@@ -53,6 +55,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/3",
       gate: 0,
+      closed: false,
       metadata: {
         context: ContributionContextEnum.COUPLED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -69,6 +72,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/4",
       gate: 0,
+      closed: false,
       metadata: {
         context: ContributionContextEnum.COUPLED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -85,6 +89,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/5",
       gate: 1000000000,
+      closed: false,
       metadata: {
         context: ContributionContextEnum.INTRICATED,
         difficulty: ContributionDifficultyEnum.HARD,
@@ -101,6 +106,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.ASSIGNED,
       github_link: "https://example.com/contributions/6",
       gate: 0,
+      closed: false,
       metadata: {
         assignee: "0x123456789" as ContributorAccountAddress,
         github_username: "github-user-0x26",
@@ -119,6 +125,7 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/7",
       gate: 10,
+      closed: false,
       metadata: {
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -135,8 +142,45 @@ export class InMemoryContributionRepository implements ContributionRepository {
       status: ContributionStatusEnumDto.ASSIGNED,
       github_link: "https://example.com/contributions/8",
       gate: 0,
+      closed: false,
       metadata: {
         assignee: "0x999" as ContributorAccountAddress,
+        github_username: "github-user-0x1",
+        context: ContributionContextEnum.ISOLATED,
+        difficulty: ContributionDifficultyEnum.EASY,
+        duration: ContributionDurationEnum.UNDER_A_DAY,
+        technology: undefined,
+        type: ContributionTypeEnum.FEATURE,
+      },
+    },
+    {
+      id: "9",
+      project_id: "3",
+      title: "Contribution 9",
+      description: "Description ",
+      status: ContributionStatusEnumDto.ABANDONED,
+      github_link: "https://example.com/contributions/9",
+      gate: 0,
+      closed: true,
+      metadata: {
+        context: ContributionContextEnum.ISOLATED,
+        difficulty: ContributionDifficultyEnum.EASY,
+        duration: ContributionDurationEnum.UNDER_A_DAY,
+        technology: undefined,
+        type: ContributionTypeEnum.FEATURE,
+      },
+    },
+    {
+      id: "10",
+      project_id: "3",
+      title: "Contribution 10",
+      description: "Description ",
+      status: ContributionStatusEnumDto.COMPLETED,
+      github_link: "https://example.com/contributions/10",
+      gate: 0,
+      closed: true,
+      metadata: {
+        assignee: "0x012c0407D341F351E000b894c3a0d226Bc971caEd123eF1abb9388f6AA02AED0" as ContributorAccountAddress,
         github_username: "github-user-0x1",
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,

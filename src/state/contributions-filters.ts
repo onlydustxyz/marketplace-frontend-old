@@ -63,6 +63,7 @@ export const filteredContributionsSelector = selector({
     const contributionsFilterType = get(contributionsFilterTypeAtom("contributions"));
 
     return contributionsWithStatus
+      .filter(contribution => contribution.status !== ContributionStatusEnum.CLOSED)
       .filter(filterContributionByStatuses(contributionsFilterStatus))
       .filter(filterContributionByProject(contributionsFilterProject))
       .filter(filterContributionByMetadata("context", contributionsFilterContext))

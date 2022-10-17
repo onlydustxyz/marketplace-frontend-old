@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { ContributorAccountAddress } from "src/model/contact-information/repository";
 import { AccountInterface, ProviderInterface } from "starknet";
 import { StarknetChainId } from "starknet/dist/constants";
 
@@ -17,12 +18,12 @@ export const providerAtom = atom<ProviderInterface | undefined>({
   default: undefined,
 });
 
-export const accountAddressSelector = selector({
+export const contributorAccountSelector = selector({
   key: "AccountAddress",
   get: ({ get }) => {
     const account = get(accountAtom);
 
-    return account?.address;
+    return account?.address as ContributorAccountAddress | undefined;
   },
 });
 

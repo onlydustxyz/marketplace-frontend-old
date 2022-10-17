@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { accountAddressSelector } from "src/state";
+import { contributorAccountSelector } from "src/state";
 import ProfileHeader from "./View";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ProfileHeaderContainer: FC<Props> = ({ displayMenu }) => {
-  const accountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAddressSelector);
+  const accountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
 
   return <ProfileHeader accountAddress={accountAddress} displayMenu={displayMenu} />;
 };

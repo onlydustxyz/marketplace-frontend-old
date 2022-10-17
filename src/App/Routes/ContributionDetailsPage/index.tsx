@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
-  accountAddressSelector,
+  contributorAccountSelector,
   accountAtom,
   contributionQuery,
   displayRegisterModalAtom,
@@ -20,7 +20,6 @@ import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
 import { bnToUint256 } from "starknet/dist/utils/uint256";
-import { ContributorId } from "src/model/contact-information/repository";
 
 import { rawContributorApplicationsQuery } from "src/state/source/applications";
 
@@ -30,7 +29,7 @@ type PageParams = {
 const ContributionDetailsPageContainer: FC = () => {
   const { contributionId } = useParams<PageParams>();
   const contribution = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributionQuery(contributionId));
-  const contributorId = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAddressSelector);
+  const contributorAccount = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
@@ -51,7 +50,7 @@ const ContributionDetailsPageContainer: FC = () => {
     account?.address && typeformParams.set("wallet", account.address);
     userGithubHandle && typeformParams.set("github", userGithubHandle);
     contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
-    contributorId && typeformParams.set("contributorid", contributorId);
+    contributorAccount && typeformParams.set("contributorid", contributorAccount);
     if (contributionId) {
       typeformParams.set("contributionid", contributionId);
     }
@@ -63,7 +62,7 @@ const ContributionDetailsPageContainer: FC = () => {
     if (
       !isGithubRegistered ||
       contribution === undefined ||
-      contributorId === undefined ||
+      contributorAccount === undefined ||
       userDiscordHandle === undefined
     ) {
       setDisplayRegisterModal(true);
@@ -72,30 +71,27 @@ const ContributionDetailsPageContainer: FC = () => {
 
     setApplying(true);
 
-    toastPromise(
-      applicationRepository.create({ contributionId: contribution.id, contributorId: contributorId as ContributorId }),
-      {
-        success: () => {
-          return (
-            <div className="leading-[1rem] line-clamp-3">
-              Thank you for your application for{" "}
-              <Link to={`/contributions/${contribution.id}`} className="italic underline">
-                {contribution.title}
-              </Link>
-              , we'll review it and get in touch with you very shortly!
-            </div>
-          );
-        },
-        pending: () => "Your application is being processed",
-        error: () => (
-          <>
-            An error occurred while applying to this contribution
-            <br />
-            Please try again
-          </>
-        ),
-      }
-    );
+    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorAccount }), {
+      success: () => {
+        return (
+          <div className="leading-[1rem] line-clamp-3">
+            Thank you for your application for{" "}
+            <Link to={`/contributions/${contribution.id}`} className="italic underline">
+              {contribution.title}
+            </Link>
+            , we'll review it and get in touch with you very shortly!
+          </div>
+        );
+      },
+      pending: () => "Your application is being processed",
+      error: () => (
+        <>
+          An error occurred while applying to this contribution
+          <br />
+          Please try again
+        </>
+      ),
+    });
 
     startTransition(() => {
       refreshApplications();
@@ -107,7 +103,7 @@ const ContributionDetailsPageContainer: FC = () => {
     if (
       !contributionsContract ||
       contribution === undefined ||
-      contributorId === undefined ||
+      contributorAccount === undefined ||
       account === undefined ||
       userDiscordHandle === undefined
     ) {
@@ -115,9 +111,9 @@ const ContributionDetailsPageContainer: FC = () => {
       return;
     }
 
-    const contributorIdUint256 = bnToUint256(contributorId);
+    const contributorAccountUint256 = bnToUint256(contributorAccount);
     toastTransaction(
-      contributionsContract?.invoke("claim_contribution", [[contributionId], contributorIdUint256]),
+      contributionsContract?.invoke("claim_contribution", [[contributionId], contributorAccountUint256]),
       account,
       {
         success: () => {

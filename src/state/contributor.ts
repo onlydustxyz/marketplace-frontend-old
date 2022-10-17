@@ -1,15 +1,5 @@
 import { selector } from "recoil";
-import { ContributorId } from "src/model/contact-information/repository";
 import { rawContributorQuery } from "./source/contributor";
-
-export const userContributorIdSelector = selector<ContributorId | undefined>({
-  key: "userContributorId",
-  get: ({ get }) => {
-    const userInformation = get(rawContributorQuery);
-
-    return (userInformation?.id as ContributorId) || undefined;
-  },
-});
 
 export const userGithubHandleSelector = selector<string | undefined>({
   key: "userGithubHandle",

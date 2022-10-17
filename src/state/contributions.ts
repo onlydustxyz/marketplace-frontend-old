@@ -32,7 +32,7 @@ export enum ContributionStatusEnum {
   APPLIED = "APPLIED",
   ASSIGNED = "ASSIGNED",
   COMPLETED = "COMPLETED",
-  // CLOSED = "CLOSED",
+  CLOSED = "CLOSED",
 }
 
 const contributionStatusPriority: Record<ContributionStatusEnum, number> = {
@@ -42,6 +42,7 @@ const contributionStatusPriority: Record<ContributionStatusEnum, number> = {
   [ContributionStatusEnum.NO_SLOT]: 4,
   [ContributionStatusEnum.ASSIGNED]: 5,
   [ContributionStatusEnum.COMPLETED]: 6,
+  [ContributionStatusEnum.CLOSED]: 7,
 };
 
 export interface ContributionWithStatus {
@@ -94,7 +95,9 @@ export const projectContributionsState = selectorFamily({
       }
 
       const contributions = get(contributionsWithStatusState);
-      return contributions.filter(contribution => contribution.project_id === projectId);
+      return contributions
+        .filter(contribution => contribution.project_id === projectId)
+        .filter(contribution => contribution.status !== ContributionStatusEnum.CLOSED);
     },
 });
 
@@ -181,6 +184,10 @@ function computeContributionStatus({
   contributorRawAssignement,
   nbCompletedAssignements,
 }: ComputeContributionStatusParams): ContributionStatusEnum {
+  if (contributorRawAssignement?.status === AssignementStatusDto.COMPLETED) {
+    return ContributionStatusEnum.COMPLETED;
+  }
+
   if (
     rawAssignements.length > 0 &&
     !rawAssignements.some(rawAssignement => rawAssignement.status !== AssignementStatusDto.COMPLETED)
@@ -188,8 +195,8 @@ function computeContributionStatus({
     return ContributionStatusEnum.COMPLETED;
   }
 
-  if (contributorRawAssignement?.status === AssignementStatusDto.COMPLETED) {
-    return ContributionStatusEnum.COMPLETED;
+  if (rawContribution.closed) {
+    return ContributionStatusEnum.CLOSED;
   }
 
   if (contributorRawAssignement?.status === AssignementStatusDto.IN_PROGRESS) {

@@ -47,6 +47,7 @@ const ContributionStatus: FC<Props> = ({ children, className, status }) => {
       case ContributionStatusEnum.CLOSED:
         return <ClosedBadge />;
       case ContributionStatusEnum.COMPLETED:
+      case ContributionStatusEnum.FULFILLED:
         return <CompletedBadge />;
     }
   }
@@ -61,6 +62,10 @@ const ContributionStatus: FC<Props> = ({ children, className, status }) => {
 function computeStatusLabel(status: ContributionStatusEnum) {
   if (status === ContributionStatusEnum.NO_SLOT) {
     return ContributionStatusEnum.ASSIGNED;
+  }
+
+  if (status === ContributionStatusEnum.FULFILLED) {
+    return ContributionStatusEnum.COMPLETED;
   }
 
   return status;

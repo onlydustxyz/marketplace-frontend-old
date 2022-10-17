@@ -32,6 +32,7 @@ export enum ContributionStatusEnum {
   APPLIED = "APPLIED",
   ASSIGNED = "ASSIGNED",
   COMPLETED = "COMPLETED",
+  FULFILLED = "FULFILLED",
   CLOSED = "CLOSED",
 }
 
@@ -42,7 +43,8 @@ const contributionStatusPriority: Record<ContributionStatusEnum, number> = {
   [ContributionStatusEnum.NO_SLOT]: 4,
   [ContributionStatusEnum.ASSIGNED]: 5,
   [ContributionStatusEnum.COMPLETED]: 6,
-  [ContributionStatusEnum.CLOSED]: 7,
+  [ContributionStatusEnum.FULFILLED]: 7,
+  [ContributionStatusEnum.CLOSED]: 8,
 };
 
 export interface ContributionWithStatus {
@@ -192,7 +194,7 @@ function computeContributionStatus({
     rawAssignements.length > 0 &&
     !rawAssignements.some(rawAssignement => rawAssignement.status !== AssignementStatusDto.COMPLETED)
   ) {
-    return ContributionStatusEnum.COMPLETED;
+    return ContributionStatusEnum.FULFILLED;
   }
 
   if (rawContribution.closed) {

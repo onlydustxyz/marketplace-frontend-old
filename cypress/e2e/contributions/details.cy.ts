@@ -104,7 +104,7 @@ describe("Contribution", () => {
 
       cy.visit("/contributions/7");
       cy.getByTestId("contribution-status-label").should("have.text", "GATED");
-      cy.getByTestId("contribution-status-details").should("have.text", "Complete 10 more contributions to unlock");
+      cy.getByTestId("contribution-status-details").should("have.text", "Complete 9 more contributions to unlock");
       cy.getByTestId("button-main-action").should("be.disabled").should("have.text", "Apply");
 
       cy.visit("/contributions/9");

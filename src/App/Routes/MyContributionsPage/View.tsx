@@ -13,7 +13,7 @@ const MyContributionsPage: FC<Props> = ({ contributions }) => {
     return (
       <div className="mt-32 flex flex-col items-center">
         <div className="text-3xl text-light-blue/50 text-center">You don't have contributions yet</div>
-        <Button className="mt-8" href="/">
+        <Button className="mt-8" href="/" dataTestid="my-contributions-empty-button">
           Start contributing
         </Button>
       </div>

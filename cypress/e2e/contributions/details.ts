@@ -54,6 +54,16 @@ describe("Contribution", () => {
       cy.visit("/contributions/7");
       cy.getByTestId("contribution-status-label").should("have.text", "OPEN");
       cy.getByTestId("contribution-status-details").should("not.exist");
+
+      cy.visit("/contributions/9");
+      cy.getByTestId("contribution-status-label").should("have.text", "CLOSED");
+      cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("button-main-action").should("not.exist");
+
+      cy.visit("/contributions/10");
+      cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
+      cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("button-main-action").should("not.exist");
     });
 
     it("should display the good contribution statuses with a connected user", () => {
@@ -96,6 +106,16 @@ describe("Contribution", () => {
       cy.getByTestId("contribution-status-label").should("have.text", "GATED");
       cy.getByTestId("contribution-status-details").should("have.text", "Complete 10 more contributions to unlock");
       cy.getByTestId("button-main-action").should("be.disabled").should("have.text", "Apply");
+
+      cy.visit("/contributions/9");
+      cy.getByTestId("contribution-status-label").should("have.text", "CLOSED");
+      cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("button-main-action").should("not.exist");
+
+      cy.visit("/contributions/10");
+      cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
+      cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("button-main-action").should("not.exist");
     });
   });
 });

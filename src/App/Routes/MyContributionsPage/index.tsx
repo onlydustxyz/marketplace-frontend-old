@@ -1,35 +1,24 @@
+import { useStarknet } from "@starknet-react/core";
 import { FC } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import Button from "src/components/Button";
-import ContributionList from "src/components/ContributionList";
+import { Navigate } from "react-router-dom";
+
 import useRefreshContributions from "src/hooks/refresh-contributions";
 import { myContributionsState } from "src/state";
 
-const MyContributionsPage: FC = () => {
+import MyContributionsPage from "./View";
+
+const MyContributionsPageContainer: FC = () => {
   const contributions = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(myContributionsState);
+  const { account: accountAddress } = useStarknet();
 
   useRefreshContributions();
 
-  if (contributions.length === 0) {
-    return (
-      <div className="mt-32 flex flex-col items-center">
-        <div className="text-3xl text-light-blue/50 text-center">You don't have contributions yet</div>
-        <Button className="mt-8" href="/">
-          Start contributing
-        </Button>
-      </div>
-    );
+  if (!accountAddress) {
+    return <Navigate to="/" />;
   }
 
-  return (
-    <div className="w-full max-w-screen-2xl px-8">
-      <h1 className="mt-10 text-3xl font-alfreda" data-testid="page-main-title">
-        My contributions
-      </h1>
-
-      <ContributionList className="mt-16" contributions={contributions} />
-    </div>
-  );
+  return <MyContributionsPage contributions={contributions} />;
 };
 
-export default MyContributionsPage;
+export default MyContributionsPageContainer;

@@ -48,7 +48,7 @@ const ProjectDetailsPage: FC<Props> = ({ contributions, project }) => {
         )}
       </div>
       <h2 className="mt-20 text-4xl font-alfreda">Contributions</h2>
-      <ContributionList className="mt-12" contributions={contributions} />
+      <ContributionList className="mt-12" contributions={contributions} dataTestId="project-contributions-list" />
     </div>
   );
 };

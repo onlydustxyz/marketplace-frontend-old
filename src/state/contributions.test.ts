@@ -27,7 +27,7 @@ describe("The recoil state", () => {
       await waitForValueToChange(() => result.current);
 
       expect(listSpy).toHaveBeenCalled();
-      expect(result.current).to.have.length(8);
+      expect(result.current).to.have.length(10);
     });
   });
 

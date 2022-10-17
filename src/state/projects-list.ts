@@ -156,14 +156,18 @@ function filterProjectByStatuses(statuses: Array<ContributionStatusEnum | "gated
       return true;
     }
 
+    const finalStatuses = [...statuses];
+
     if (statuses.includes(ContributionStatusEnum.ASSIGNED)) {
-      return project.statuses.some(status => {
-        return [...statuses, ContributionStatusEnum.NO_SLOT].includes(status);
-      });
+      finalStatuses.push(ContributionStatusEnum.NO_SLOT);
+    }
+
+    if (statuses.includes(ContributionStatusEnum.COMPLETED)) {
+      return finalStatuses.push(ContributionStatusEnum.FULFILLED);
     }
 
     return project.statuses.some(status => {
-      return statuses.includes(status);
+      return finalStatuses.includes(status);
     });
   };
 }

@@ -80,11 +80,17 @@ function filterContributionByStatuses(statuses: Array<ContributionStatusEnum>) {
       return true;
     }
 
+    const finalStatuses = [...statuses];
+
     if (statuses.includes(ContributionStatusEnum.ASSIGNED)) {
-      return [...statuses, ContributionStatusEnum.NO_SLOT].includes(contribution.status);
+      finalStatuses.push(ContributionStatusEnum.NO_SLOT);
     }
 
-    return statuses.includes(contribution.status);
+    if (statuses.includes(ContributionStatusEnum.COMPLETED)) {
+      return finalStatuses.push(ContributionStatusEnum.FULFILLED);
+    }
+
+    return finalStatuses.includes(contribution.status);
   };
 }
 

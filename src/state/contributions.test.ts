@@ -42,7 +42,7 @@ describe("The recoil state", () => {
 
       const res = (await result.contents) as Promise<ContributionApplication[]>;
 
-      expect(listSpy).toHaveBeenCalledWith({ contributorAccount: "0x123456789" });
+      expect(listSpy).toHaveBeenCalledWith({ contributorAccountAddress: "0x123456789" });
       expect(res).to.have.length(2);
       snapshot.retain();
     });

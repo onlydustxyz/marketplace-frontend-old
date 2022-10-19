@@ -15,7 +15,7 @@ export interface RegisterGithubAccount {
   signature: [string, string];
 }
 export interface ContributorRepository {
-  findByAccountAddress(contributorAccount: ContributorAccountAddress): Promise<ContributorDto>;
+  findByAccountAddress(contributorAccountAddress: ContributorAccountAddress): Promise<ContributorDto>;
   registerGithubAccount: (data: RegisterGithubAccount) => Promise<void>;
 }
 

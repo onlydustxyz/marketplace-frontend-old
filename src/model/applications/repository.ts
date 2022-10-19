@@ -5,16 +5,16 @@ import { ContributorAccountAddress } from "../contact-information/repository";
 
 export type ContributionApplicationDto = {
   contribution_id: ContributionDto["id"];
-  contributor_account: ContributorAccountAddress;
+  contributor_account_address: ContributorAccountAddress;
 };
 
 export type ListParams = {
-  contributorAccount: ContributorAccountAddress | undefined;
+  contributorAccountAddress: ContributorAccountAddress | undefined;
 };
 
 export type CreateParams = {
   contributionId: string;
-  contributorAccount: ContributorAccountAddress;
+  contributorAccountAddress: ContributorAccountAddress;
 };
 
 export interface ApplicationRepository {

@@ -18,8 +18,10 @@ interface GithubEndpointData {
   };
 }
 export class FetchedContributorRepository implements ContributorRepository {
-  public async findByAccountAddress(contributorAccount: ContributorAccountAddress): Promise<ContributorDto> {
-    const response = await axios.get<ContributorDto>(`${config.DATA_API_HOSTNAME}/contributors/${contributorAccount}`);
+  public async findByAccountAddress(contributorAccountAddress: ContributorAccountAddress): Promise<ContributorDto> {
+    const response = await axios.get<ContributorDto>(
+      `${config.DATA_API_HOSTNAME}/contributors/${contributorAccountAddress}`
+    );
 
     if (response.status !== 200) {
       throw new Error("Failed to fetch contributor");

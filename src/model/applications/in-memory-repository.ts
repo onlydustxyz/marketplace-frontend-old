@@ -3,25 +3,25 @@ import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListPa
 
 export class InMemoryApplicationRepository implements ApplicationRepository {
   private contributionsApplications: Array<ContributionApplicationDto> = [
-    { contribution_id: "1", contributor_account: "0x00000" as ContributorAccountAddress },
-    { contribution_id: "2", contributor_account: "0x00001" as ContributorAccountAddress },
-    { contribution_id: "2", contributor_account: "0x123456789" as ContributorAccountAddress },
-    { contribution_id: "3", contributor_account: "0x00000" as ContributorAccountAddress },
-    { contribution_id: "4", contributor_account: "0x123456789" as ContributorAccountAddress },
+    { contribution_id: "1", contributor_account_address: "0x00000" as ContributorAccountAddress },
+    { contribution_id: "2", contributor_account_address: "0x00001" as ContributorAccountAddress },
+    { contribution_id: "2", contributor_account_address: "0x123456789" as ContributorAccountAddress },
+    { contribution_id: "3", contributor_account_address: "0x00000" as ContributorAccountAddress },
+    { contribution_id: "4", contributor_account_address: "0x123456789" as ContributorAccountAddress },
   ];
 
-  public async list({ contributorAccount }: ListParams): Promise<ContributionApplicationDto[]> {
+  public async list({ contributorAccountAddress }: ListParams): Promise<ContributionApplicationDto[]> {
     return this.contributionsApplications.filter(
       (application: ContributionApplicationDto) =>
-        contributorAccount === undefined ||
-        parseInt(application.contributor_account, 16) === parseInt(contributorAccount, 16)
+        contributorAccountAddress === undefined ||
+        parseInt(application.contributor_account_address, 16) === parseInt(contributorAccountAddress, 16)
     );
   }
 
-  public async create({ contributionId, contributorAccount }: CreateParams) {
+  public async create({ contributionId, contributorAccountAddress }: CreateParams) {
     this.contributionsApplications.push({
       contribution_id: contributionId,
-      contributor_account: contributorAccount,
+      contributor_account_address: contributorAccountAddress,
     });
 
     return true;

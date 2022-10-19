@@ -4,11 +4,11 @@ import config from "src/config";
 import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListParams } from "./repository";
 
 export class FetchedApplicationRepository implements ApplicationRepository {
-  public async list({ contributorAccount }: ListParams): Promise<ContributionApplicationDto[]> {
+  public async list({ contributorAccountAddress }: ListParams): Promise<ContributionApplicationDto[]> {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/applications`);
 
-    if (contributorAccount !== undefined) {
-      endpointUrl.searchParams.set("contributor_account", contributorAccount);
+    if (contributorAccountAddress !== undefined) {
+      endpointUrl.searchParams.set("contributor_account_address", contributorAccountAddress);
     }
 
     const response = await axios.get<ContributionApplicationDto[]>(endpointUrl.toString());
@@ -16,11 +16,11 @@ export class FetchedApplicationRepository implements ApplicationRepository {
     return response.status === 200 ? response.data : [];
   }
 
-  public async create({ contributionId, contributorAccount }: CreateParams) {
+  public async create({ contributionId, contributorAccountAddress }: CreateParams) {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/contributions/${contributionId}/applications`);
 
     const response = await axios.post(endpointUrl.toString(), {
-      contributor_account: contributorAccount,
+      contributor_account_address: contributorAccountAddress,
     });
 
     return response.status === 204;

@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useRecoilState, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contactInformationRepository } from "src/model/contact-information/repository";
-import { contributorAccountSelector, userDiscordHandleSelector } from "src/state";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
+import { contributorRepository } from "src/model/contributors/repository";
+import { contributorAccountSelector } from "src/state";
+import { rawContributorQuery } from "src/state/source/contributor";
 
 const useContactInformation = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>();
-  const [, setUserDiscordHandle] = useRecoilState(userDiscordHandleSelector);
+  const refreshContributor = useRecoilRefresher_UNSTABLE(rawContributorQuery);
   const contributorAccount = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
 
   const register = async (discordHandle: string) => {
@@ -17,11 +18,11 @@ const useContactInformation = () => {
     setLoading(true);
     setError(undefined);
     try {
-      await contactInformationRepository.save({
-        contributor_account: contributorAccount,
-        discord_handle: discordHandle,
+      await contributorRepository.registerDiscordHandle({
+        contributorAccount,
+        discordHandle,
       });
-      setUserDiscordHandle(discordHandle);
+      refreshContributor();
     } catch (error) {
       setError(error as Error);
     } finally {

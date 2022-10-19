@@ -1,4 +1,4 @@
-import { ContributorAccountAddress } from "../contact-information/repository";
+import { ContributorAccountAddress } from "../contributors/repository";
 import { ContributionDto } from "../contributions/repository";
 
 export enum AssignementStatusDto {

@@ -1,7 +1,7 @@
 import { ContributionDto } from "src/model/projects/repository";
 import { InMemoryApplicationRepository } from "./in-memory-repository";
 import { FetchedApplicationRepository } from "./fetched-repository";
-import { ContributorAccountAddress } from "../contact-information/repository";
+import { ContributorAccountAddress } from "../contributors/repository";
 
 export type ContributionApplicationDto = {
   contribution_id: ContributionDto["id"];

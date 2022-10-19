@@ -1,4 +1,4 @@
-import { ContributorAccountAddress } from "../contact-information/repository";
+import { ContributorAccountAddress } from "../contributors/repository";
 import { ApplicationRepository, ContributionApplicationDto, CreateParams, ListParams } from "./repository";
 
 export class InMemoryApplicationRepository implements ApplicationRepository {

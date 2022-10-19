@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { ContributorAccountAddress } from "src/model/contact-information/repository";
+import { ContributorAccountAddress } from "src/model/contributors/repository";
 import { AccountInterface, ProviderInterface } from "starknet";
 import { StarknetChainId } from "starknet/dist/constants";
 

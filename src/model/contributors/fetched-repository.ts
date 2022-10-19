@@ -3,8 +3,13 @@ import { toBN, toHex } from "starknet/utils/number";
 
 import config from "src/config";
 
-import { ContributorDto, ContributorRepository, RegisterGithubAccount } from "./repository";
-import { ContributorAccountAddress } from "../contact-information/repository";
+import {
+  ContributorDto,
+  ContributorRepository,
+  RegisterDiscordHandleParams,
+  RegisterGithubAccount,
+} from "./repository";
+import { ContributorAccountAddress } from "../contributors/repository";
 
 interface GithubEndpointData {
   authorization_code: string;
@@ -52,6 +57,16 @@ export class FetchedContributorRepository implements ContributorRepository {
 
     if (response.status !== 204) {
       throw new Error("Can't register a new contributor");
+    }
+  }
+
+  public async registerDiscordHandle({ contributorAccount, discordHandle }: RegisterDiscordHandleParams) {
+    const response = await axios.put(`${config.DATA_API_HOSTNAME}/contributors/${contributorAccount}/discord`, {
+      discord_handle: discordHandle,
+    });
+
+    if (response.status !== 204) {
+      throw new Error("Failed to update discord handle");
     }
   }
 }

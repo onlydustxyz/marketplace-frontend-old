@@ -2,7 +2,6 @@ export * from "./contribution";
 export * from "./contributions";
 export * from "./contributions-filters";
 export * from "./contributor";
-export * from "./discord";
 export * from "./my-contributions";
 export * from "./project";
 export * from "./projects-list";

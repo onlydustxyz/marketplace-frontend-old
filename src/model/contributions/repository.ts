@@ -1,6 +1,6 @@
 import { InMemoryContributionRepository } from "./in-memory-repository";
 import { FetchedContributionRepository } from "./fetched-repository";
-import { ContributorAccountAddress } from "../contact-information/repository";
+import { ContributorAccountAddress } from "../contributors/repository";
 
 export type ContributionDto = {
   id: string;

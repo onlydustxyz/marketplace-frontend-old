@@ -8,23 +8,23 @@ import { contributorAccountSelector } from "../starknet";
 
 export type ContributionApplication = {
   contribution_id: Contribution["id"];
-  contributor_account: ContributorAccountAddress;
+  contributor_account_address: ContributorAccountAddress;
 };
 
 export const rawContributorApplicationsQuery = selector<ContributionApplication[]>({
   key: "ContributorApplications",
   get: async ({ get }) => {
-    const contributorAccount = get(contributorAccountSelector);
-    if (contributorAccount === undefined) {
+    const contributorAccountAddress = get(contributorAccountSelector);
+    if (contributorAccountAddress === undefined) {
       return [];
     }
 
-    const applications = await applicationRepository.list({ contributorAccount: contributorAccount });
+    const applications = await applicationRepository.list({ contributorAccountAddress });
 
     return applications.map(application => {
       return {
         contribution_id: application.contribution_id,
-        contributor_account: application.contributor_account as ContributorAccountAddress,
+        contributor_account_address: application.contributor_account_address as ContributorAccountAddress,
       };
     });
   },

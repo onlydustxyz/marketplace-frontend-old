@@ -29,7 +29,7 @@ type PageParams = {
 const ContributionDetailsPageContainer: FC = () => {
   const { contributionId } = useParams<PageParams>();
   const contribution = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributionQuery(contributionId));
-  const contributorAccount = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
+  const contributorAccountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
@@ -50,7 +50,7 @@ const ContributionDetailsPageContainer: FC = () => {
     account?.address && typeformParams.set("wallet", account.address);
     userGithubHandle && typeformParams.set("github", userGithubHandle);
     contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
-    contributorAccount && typeformParams.set("contributorid", contributorAccount);
+    contributorAccountAddress && typeformParams.set("contributorid", contributorAccountAddress);
     if (contributionId) {
       typeformParams.set("contributionid", contributionId);
     }
@@ -62,7 +62,7 @@ const ContributionDetailsPageContainer: FC = () => {
     if (
       !isGithubRegistered ||
       contribution === undefined ||
-      contributorAccount === undefined ||
+      contributorAccountAddress === undefined ||
       userDiscordHandle === undefined
     ) {
       setDisplayRegisterModal(true);
@@ -71,7 +71,7 @@ const ContributionDetailsPageContainer: FC = () => {
 
     setApplying(true);
 
-    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorAccount }), {
+    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorAccountAddress }), {
       success: () => {
         return (
           <div className="leading-[1rem] line-clamp-3">
@@ -103,7 +103,7 @@ const ContributionDetailsPageContainer: FC = () => {
     if (
       !contributionsContract ||
       contribution === undefined ||
-      contributorAccount === undefined ||
+      contributorAccountAddress === undefined ||
       account === undefined ||
       userDiscordHandle === undefined
     ) {
@@ -111,7 +111,7 @@ const ContributionDetailsPageContainer: FC = () => {
       return;
     }
 
-    const contributorAccountUint256 = bnToUint256(contributorAccount);
+    const contributorAccountUint256 = bnToUint256(contributorAccountAddress);
     toastTransaction(
       contributionsContract?.invoke("claim_contribution", [[contributionId], contributorAccountUint256]),
       account,

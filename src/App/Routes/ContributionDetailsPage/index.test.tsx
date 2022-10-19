@@ -189,7 +189,7 @@ describe("Contribution details page", () => {
 
     expect(createSpy).toHaveBeenCalledWith({
       contributionId: "1",
-      contributorAccount: "0x123456789",
+      contributorAccountAddress: "0x123456789",
     });
   });
 });

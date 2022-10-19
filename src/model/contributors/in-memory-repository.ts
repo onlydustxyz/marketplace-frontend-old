@@ -48,13 +48,13 @@ export class InMemoryContributorRepository implements ContributorRepository {
     },
   ];
 
-  public async findByAccountAddress(address: ContributorAccountAddress): Promise<ContributorDto> {
+  public async findByAccountAddress(contributorAccountAddress: ContributorAccountAddress): Promise<ContributorDto> {
     const contributor = this.contributors.find(
-      fetchedContributor => parseInt(fetchedContributor.account, 16) === parseInt(address, 16)
+      fetchedContributor => parseInt(fetchedContributor.account, 16) === parseInt(contributorAccountAddress, 16)
     );
 
     if (!contributor) {
-      throw new Error("Failed to fetch contributor " + address);
+      throw new Error("Failed to fetch contributor " + contributorAccountAddress);
     }
 
     return contributor;

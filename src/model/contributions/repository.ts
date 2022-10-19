@@ -1,6 +1,15 @@
 import { InMemoryContributionRepository } from "./in-memory-repository";
 import { FetchedContributionRepository } from "./fetched-repository";
+
 import { ContributorAccountAddress } from "../contributors/repository";
+import { ContributionApplicationDto } from "../applications/repository";
+import { AssignementStatusDtoEnum } from "../assingments";
+
+export type ContributionAssignementDto = {
+  contribution_id: ContributionDto["id"];
+  contributor_account_address: ContributorAccountAddress;
+  status: AssignementStatusDtoEnum;
+};
 
 export type ContributionDto = {
   id: string;
@@ -10,7 +19,12 @@ export type ContributionDto = {
   github_link: string;
   gate: number;
   closed: boolean;
-} & ContributionStatusAndMetadata;
+  max_slot_count: number | null;
+  available_slot_count: number;
+  assignements: ContributionAssignementDto[];
+  pending_applications: ContributionApplicationDto[];
+  metadata: ContributionMetadata;
+};
 
 export enum ContributionStatusEnumDto {
   OPEN = "OPEN",
@@ -47,8 +61,6 @@ export enum ContributionTypeEnum {
   TEST = "test",
 }
 
-export type ContributionStatusAndMetadata = OpenStatus | AssignedStatus | CompletedStatus | AbandonedStatus;
-
 export type ContributionMetadata = {
   context?: ContributionContextEnum;
   difficulty?: ContributionDifficultyEnum;
@@ -57,34 +69,12 @@ export type ContributionMetadata = {
   type?: ContributionTypeEnum;
 };
 
-export type ContributionMetadataAssignee = {
-  assignee: ContributorAccountAddress;
-  github_username?: string;
-};
-
-export type OpenStatus = {
-  status: ContributionStatusEnumDto.OPEN;
-  metadata: ContributionMetadata;
-};
-
-export type AssignedStatus = {
-  status: ContributionStatusEnumDto.ASSIGNED;
-  metadata: ContributionMetadata & ContributionMetadataAssignee;
-};
-
-export type CompletedStatus = {
-  status: ContributionStatusEnumDto.COMPLETED;
-  metadata: ContributionMetadata & ContributionMetadataAssignee;
-};
-
-export type AbandonedStatus = {
-  status: ContributionStatusEnumDto.ABANDONED;
-  closed: true;
-  metadata: ContributionMetadata & Partial<ContributionMetadataAssignee>;
+export type ListParams = {
+  contributorAccountAddress?: ContributorAccountAddress | undefined;
 };
 
 export interface ContributionRepository {
-  list(): Promise<ContributionDto[]>;
+  list(params?: ListParams): Promise<ContributionDto[]>;
 }
 
 export const contributionRepository: ContributionRepository =

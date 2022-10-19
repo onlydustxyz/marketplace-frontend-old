@@ -1,12 +1,11 @@
 import { GetRecoilValue, selector, selectorFamily } from "recoil";
 import { ContributionApplicationDto } from "src/model/applications/repository";
-import { AssignementDto, AssignementStatusDto } from "src/model/assingments/repository";
+import { AssignementDto, AssignementStatusDtoEnum } from "src/model/assingments";
 import {
   ContributionContextEnum,
   ContributionDifficultyEnum,
   ContributionDto,
   ContributionDurationEnum,
-  ContributionStatusEnumDto,
   ContributionTypeEnum,
 } from "src/model/contributions/repository";
 import { ContributorDto } from "src/model/contributors/repository";
@@ -59,6 +58,7 @@ export interface ContributionWithStatus {
   metadata: ContributionMetadata;
   available_slot_count: number;
   max_slot_count: number | null;
+  assignements_count: number;
   project: {
     logo?: ProjectDto["logo"];
     title: ProjectDto["title"];
@@ -79,7 +79,7 @@ export const contributionsWithStatusState = selector({
   },
 });
 
-function sortContributionsByStatus(c1: ContributionWithStatus, c2: ContributionWithStatus) {
+export function sortContributionsByStatus(c1: ContributionWithStatus, c2: ContributionWithStatus) {
   if (contributionStatusPriority[c1.status] === contributionStatusPriority[c2.status]) {
     return 0;
   }
@@ -103,63 +103,31 @@ export const projectContributionsState = selectorFamily({
     },
 });
 
-function buildContributionFormatter({ get }: { get: GetRecoilValue }) {
+export function buildContributionFormatter({ get }: { get: GetRecoilValue }) {
   return (rawContribution: ContributionDto): ContributionWithStatus => {
     const rawContributor = get(rawContributorQuery);
     const rawProject = get(rawProjectQuery(rawContribution.project_id));
 
     const contributionApplication = get(contributorApplicationForContribution(rawContribution.id));
 
-    const rawAssignements: AssignementDto[] = [];
-
-    if (rawContribution.status === ContributionStatusEnumDto.COMPLETED) {
-      rawAssignements.push({
-        contribution_id: rawContribution.id,
-        contributor_account_address: rawContribution.metadata.assignee,
-        status: AssignementStatusDto.COMPLETED,
-      });
-    } else if (rawContribution.status === ContributionStatusEnumDto.ASSIGNED) {
-      rawAssignements.push({
-        contribution_id: rawContribution.id,
-        contributor_account_address: rawContribution.metadata.assignee,
-        status: AssignementStatusDto.IN_PROGRESS,
-      });
-    }
-
     const nbCompletedAssignements = get(completedAssignementsAmountState);
 
-    const contributorRawAssignement = rawAssignements.find(
+    const contributorRawAssignement = rawContribution.assignements.find(
       assignement => assignement.contributor_account_address === rawContributor?.account
     );
 
-    const availableSlotCount = [ContributionStatusEnumDto.ASSIGNED, ContributionStatusEnumDto.COMPLETED].includes(
-      rawContribution.status
-    )
-      ? 0
-      : 1;
-    const maxSlotCount = 1;
-
     return {
       ...rawContribution,
+      assignements_count: rawContribution.assignements.length,
       status: computeContributionStatus({
-        rawContribution: { ...rawContribution, available_slot_count: availableSlotCount, max_slot_count: maxSlotCount },
+        rawContribution,
         rawApplication: contributionApplication,
-        rawAssignements,
-        contributorRawAssignement: contributorRawAssignement
-          ? {
-              ...contributorRawAssignement,
-              status:
-                rawContribution.status === ContributionStatusEnumDto.COMPLETED
-                  ? AssignementStatusDto.COMPLETED
-                  : AssignementStatusDto.IN_PROGRESS,
-            }
-          : undefined,
+        rawAssignements: rawContribution.assignements,
+        contributorRawAssignement: contributorRawAssignement,
         rawContributor,
         nbCompletedAssignements,
       }),
       gateMissingCompletedContributions: rawContribution.gate - nbCompletedAssignements,
-      available_slot_count: availableSlotCount,
-      max_slot_count: maxSlotCount,
       project: {
         logo: rawProject?.logo,
         title: rawProject?.title || "",
@@ -170,7 +138,7 @@ function buildContributionFormatter({ get }: { get: GetRecoilValue }) {
 }
 
 interface ComputeContributionStatusParams {
-  rawContribution: ContributionDto & { available_slot_count: number; max_slot_count: number };
+  rawContribution: ContributionDto;
   rawApplication?: ContributionApplicationDto;
   rawAssignements: AssignementDto[];
   contributorRawAssignement?: AssignementDto;
@@ -186,13 +154,14 @@ function computeContributionStatus({
   contributorRawAssignement,
   nbCompletedAssignements,
 }: ComputeContributionStatusParams): ContributionStatusEnum {
-  if (contributorRawAssignement?.status === AssignementStatusDto.COMPLETED) {
+  if (contributorRawAssignement?.status === AssignementStatusDtoEnum.COMPLETED) {
     return ContributionStatusEnum.COMPLETED;
   }
 
   if (
     rawAssignements.length > 0 &&
-    !rawAssignements.some(rawAssignement => rawAssignement.status !== AssignementStatusDto.COMPLETED)
+    rawAssignements.length === rawContribution.max_slot_count &&
+    !rawAssignements.some(rawAssignement => rawAssignement.status !== AssignementStatusDtoEnum.COMPLETED)
   ) {
     return ContributionStatusEnum.FULFILLED;
   }
@@ -201,7 +170,7 @@ function computeContributionStatus({
     return ContributionStatusEnum.CLOSED;
   }
 
-  if (contributorRawAssignement?.status === AssignementStatusDto.IN_PROGRESS) {
+  if (contributorRawAssignement?.status === AssignementStatusDtoEnum.IN_PROGRESS) {
     return ContributionStatusEnum.ASSIGNED;
   }
 

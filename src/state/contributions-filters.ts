@@ -6,7 +6,7 @@ import {
   ContributionDurationEnum,
   ContributionMetadata,
   ContributionTypeEnum,
-} from "src/model/projects/repository";
+} from "src/model/contributions/repository";
 
 import { ContributionWithStatus, contributionsWithStatusState, ContributionStatusEnum } from "./contributions";
 import { Project } from "./projects-list";

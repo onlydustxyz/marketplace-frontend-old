@@ -1,10 +1,14 @@
 import config from "src/config";
 
-import { ContributionRepository, ContributionDto } from "./repository";
+import { ContributionRepository, ContributionDto, ListParams } from "./repository";
 
 export class FetchedContributionRepository implements ContributionRepository {
-  public async list(): Promise<ContributionDto[]> {
+  public async list({ contributorAccountAddress }: ListParams = {}): Promise<ContributionDto[]> {
     const endpointUrl = new URL(`${config.DATA_API_HOSTNAME}/contributions`);
+
+    if (contributorAccountAddress) {
+      endpointUrl.searchParams.set("contributor_account_address", contributorAccountAddress);
+    }
 
     const response = await fetch(endpointUrl.toString());
 

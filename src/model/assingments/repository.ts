@@ -1,13 +1,6 @@
-import { ContributorAccountAddress } from "../contributors/repository";
-import { ContributionDto } from "../contributions/repository";
+import { InMemoryAssignementRepository } from "./in-memory-repository";
+import { FetchedAssignementRepository } from "./fetched-repository";
+import { AssignementRepository } from "./types";
 
-export enum AssignementStatusDto {
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
-}
-
-export type AssignementDto = {
-  contribution_id: ContributionDto["id"];
-  contributor_account_address: ContributorAccountAddress;
-  status: AssignementStatusDto;
-};
+export const assignementRepository: AssignementRepository =
+  process.env.NODE_ENV === "test" ? new InMemoryAssignementRepository() : new FetchedAssignementRepository();

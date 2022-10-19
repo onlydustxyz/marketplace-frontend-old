@@ -60,8 +60,20 @@ describe("Contribution details page", () => {
     expect(button.getAttribute("disabled")).toBeNull();
   });
 
-  it("Should display claim button", async () => {
+  it("Should display a disabled claim button", async () => {
     (useParams as Mock).mockReturnValue({ contributionId: "3" });
+
+    await act(async () => {
+      render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });
+    });
+
+    const button = screen.getByRole("button");
+    expect(button.textContent?.toLowerCase()).toBe("claim");
+    expect(button.getAttribute("disabled")).not.toBeNull();
+  });
+
+  it("Should display claim button", async () => {
+    (useParams as Mock).mockReturnValue({ contributionId: "12" });
 
     await act(async () => {
       render(<ContributionDetailsPage />, {}, { initializeRecoilState: initRecoilState });

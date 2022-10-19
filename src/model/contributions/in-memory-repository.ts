@@ -1,25 +1,29 @@
-import { ContributorAccountAddress } from "../contributors/repository";
+import { inMemoryApplications } from "../applications/in-memory-repository";
+import { inMermoryAssignements } from "../assingments/in-memory-repository";
 import {
   ContributionContextEnum,
   ContributionDifficultyEnum,
   ContributionDurationEnum,
   ContributionRepository,
-  ContributionStatusEnumDto,
   ContributionTypeEnum,
   ContributionDto,
+  ListParams,
 } from "./repository";
 
 export class InMemoryContributionRepository implements ContributionRepository {
-  private projects: ContributionDto[] = [
+  private contributions: ContributionDto[] = [
     {
       id: "1",
       project_id: "1",
       title: "Contribution 1",
       description: "Description 1",
-      status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/1",
       gate: 0,
       closed: false,
+      available_slot_count: 1,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "1") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "1") || [],
       metadata: {
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -33,13 +37,14 @@ export class InMemoryContributionRepository implements ContributionRepository {
       project_id: "3",
       title: "Contribution 2",
       description: "Description 2",
-      status: ContributionStatusEnumDto.COMPLETED,
       github_link: "https://example.com/contributions/2",
       gate: 0,
       closed: false,
+      available_slot_count: 0,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "2") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "2") || [],
       metadata: {
-        assignee: "0x8888" as ContributorAccountAddress,
-        github_username: "github-user-0x8888",
         context: ContributionContextEnum.COUPLED,
         difficulty: ContributionDifficultyEnum.INTERMEDIATE,
         duration: ContributionDurationEnum.FEW_DAYS,
@@ -52,10 +57,13 @@ export class InMemoryContributionRepository implements ContributionRepository {
       project_id: "3",
       title: "Contribution 3",
       description: "Description 3",
-      status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/3",
-      gate: 0,
+      gate: 10,
       closed: false,
+      available_slot_count: 1,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "3") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "3") || [],
       metadata: {
         context: ContributionContextEnum.COUPLED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -69,10 +77,13 @@ export class InMemoryContributionRepository implements ContributionRepository {
       project_id: "3",
       title: "Contribution 4",
       description: "Description 4",
-      status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/4",
       gate: 0,
       closed: false,
+      available_slot_count: 1,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "4") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "4") || [],
       metadata: {
         context: ContributionContextEnum.COUPLED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -86,10 +97,13 @@ export class InMemoryContributionRepository implements ContributionRepository {
       project_id: "3",
       title: "Contribution 5",
       description: "Description 5",
-      status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/5",
       gate: 1000000000,
       closed: false,
+      available_slot_count: 1,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "5") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "5") || [],
       metadata: {
         context: ContributionContextEnum.INTRICATED,
         difficulty: ContributionDifficultyEnum.HARD,
@@ -103,13 +117,14 @@ export class InMemoryContributionRepository implements ContributionRepository {
       project_id: "1",
       title: "Contribution 6",
       description: "Description 6",
-      status: ContributionStatusEnumDto.ASSIGNED,
       github_link: "https://example.com/contributions/6",
       gate: 0,
       closed: false,
+      available_slot_count: 0,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "6") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "6") || [],
       metadata: {
-        assignee: "0x123456789" as ContributorAccountAddress,
-        github_username: "github-user-0x26",
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
         duration: ContributionDurationEnum.UNDER_A_DAY,
@@ -122,10 +137,13 @@ export class InMemoryContributionRepository implements ContributionRepository {
       project_id: "1",
       title: "Contribution 7",
       description: "Description 7",
-      status: ContributionStatusEnumDto.OPEN,
       github_link: "https://example.com/contributions/7",
       gate: 10,
       closed: false,
+      available_slot_count: 0,
+      max_slot_count: 3,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "7") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "7") || [],
       metadata: {
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -139,13 +157,14 @@ export class InMemoryContributionRepository implements ContributionRepository {
       project_id: "3",
       title: "Contribution 8",
       description: "Description 8",
-      status: ContributionStatusEnumDto.ASSIGNED,
       github_link: "https://example.com/contributions/8",
       gate: 0,
       closed: false,
+      available_slot_count: 0,
+      max_slot_count: 2,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "8") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "8") || [],
       metadata: {
-        assignee: "0x999" as ContributorAccountAddress,
-        github_username: "github-user-0x1",
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
         duration: ContributionDurationEnum.UNDER_A_DAY,
@@ -157,11 +176,14 @@ export class InMemoryContributionRepository implements ContributionRepository {
       id: "9",
       project_id: "3",
       title: "Contribution 9",
-      description: "Description ",
-      status: ContributionStatusEnumDto.ABANDONED,
+      description: "Description 9",
       github_link: "https://example.com/contributions/9",
       gate: 0,
       closed: true,
+      available_slot_count: 1,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "9") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "9") || [],
       metadata: {
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
@@ -174,14 +196,15 @@ export class InMemoryContributionRepository implements ContributionRepository {
       id: "10",
       project_id: "3",
       title: "Contribution 10",
-      description: "Description ",
-      status: ContributionStatusEnumDto.COMPLETED,
+      description: "Description 10",
       github_link: "https://example.com/contributions/10",
       gate: 0,
       closed: true,
+      available_slot_count: 0,
+      max_slot_count: 2,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "10") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "10") || [],
       metadata: {
-        assignee: "0x123456789" as ContributorAccountAddress,
-        github_username: "github-user-0x1",
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
         duration: ContributionDurationEnum.UNDER_A_DAY,
@@ -193,14 +216,75 @@ export class InMemoryContributionRepository implements ContributionRepository {
       id: "11",
       project_id: "3",
       title: "Contribution 11",
-      description: "Description ",
-      status: ContributionStatusEnumDto.COMPLETED,
+      description: "Description 11",
       github_link: "https://example.com/contributions/11",
       gate: 0,
       closed: false,
+      available_slot_count: 0,
+      max_slot_count: 1,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "11") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "11") || [],
       metadata: {
-        assignee: "0x888" as ContributorAccountAddress,
-        github_username: "github-user-0x1",
+        context: ContributionContextEnum.ISOLATED,
+        difficulty: ContributionDifficultyEnum.EASY,
+        duration: ContributionDurationEnum.UNDER_A_DAY,
+        technology: undefined,
+        type: ContributionTypeEnum.FEATURE,
+      },
+    },
+    {
+      id: "12",
+      project_id: "3",
+      title: "Contribution 12",
+      description: "Description 12",
+      github_link: "https://example.com/contributions/12",
+      gate: 0,
+      closed: false,
+      available_slot_count: 10,
+      max_slot_count: 10,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "12") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "12") || [],
+      metadata: {
+        context: ContributionContextEnum.ISOLATED,
+        difficulty: ContributionDifficultyEnum.EASY,
+        duration: ContributionDurationEnum.UNDER_A_DAY,
+        technology: undefined,
+        type: ContributionTypeEnum.FEATURE,
+      },
+    },
+    {
+      id: "13",
+      project_id: "3",
+      title: "Contribution 13",
+      description: "Description 13",
+      github_link: "https://example.com/contributions/13",
+      gate: 0,
+      closed: false,
+      available_slot_count: 1,
+      max_slot_count: 3,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "13") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "13") || [],
+      metadata: {
+        context: ContributionContextEnum.ISOLATED,
+        difficulty: ContributionDifficultyEnum.EASY,
+        duration: ContributionDurationEnum.UNDER_A_DAY,
+        technology: undefined,
+        type: ContributionTypeEnum.FEATURE,
+      },
+    },
+    {
+      id: "14",
+      project_id: "3",
+      title: "Contribution 14",
+      description: "Description 14",
+      github_link: "https://example.com/contributions/14",
+      gate: 0,
+      closed: false,
+      available_slot_count: 0,
+      max_slot_count: 2,
+      assignements: inMermoryAssignements.filter(assignment => assignment.contribution_id === "14") || [],
+      pending_applications: inMemoryApplications.filter(application => application.contribution_id === "14") || [],
+      metadata: {
         context: ContributionContextEnum.ISOLATED,
         difficulty: ContributionDifficultyEnum.EASY,
         duration: ContributionDurationEnum.UNDER_A_DAY,
@@ -286,7 +370,21 @@ export class InMemoryContributionRepository implements ContributionRepository {
     },
   ];
 
-  public async list(): Promise<ContributionDto[]> {
-    return this.projects;
+  public async list({ contributorAccountAddress }: ListParams = {}): Promise<ContributionDto[]> {
+    if (!contributorAccountAddress) {
+      return this.contributions;
+    }
+
+    return this.contributions.filter(
+      contribution =>
+        contribution.assignements.some(
+          assignement =>
+            parseInt(assignement.contributor_account_address, 16) === parseInt(contributorAccountAddress, 16)
+        ) ||
+        contribution.pending_applications.some(
+          application =>
+            parseInt(application.contributor_account_address, 16) === parseInt(contributorAccountAddress, 16)
+        )
+    );
   }
 }

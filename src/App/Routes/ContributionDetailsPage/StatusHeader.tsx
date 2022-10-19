@@ -34,6 +34,34 @@ const StatusHeader: FC<Props> = ({ contribution }) => {
 
   function renderDetails() {
     switch (contribution.status) {
+      case ContributionStatusEnum.OPEN:
+        if (contribution.max_slot_count === 1) {
+          return null;
+        }
+
+        return (
+          <div
+            className="flex flex-col flex-grow text-center md:text-right text-xs md:text-base"
+            data-testid="contribution-status-details"
+          >
+            {renderAvailableAssignementsDetails(contribution.available_slot_count)}
+            {renderContributorsAssignementsDetails(contribution.assignements_count)}
+          </div>
+        );
+
+        break;
+      case ContributionStatusEnum.ASSIGNED:
+      case ContributionStatusEnum.NO_SLOT:
+      case ContributionStatusEnum.APPLIED:
+        return (
+          <div
+            className="flex-grow text-center md:text-right text-xs md:text-base"
+            data-testid="contribution-status-details"
+          >
+            {renderContributorsAssignementsDetails(contribution.assignements_count)}
+          </div>
+        );
+        break;
       case ContributionStatusEnum.GATED:
         return (
           <div
@@ -46,6 +74,30 @@ const StatusHeader: FC<Props> = ({ contribution }) => {
       default:
         return null;
     }
+  }
+
+  function renderAvailableAssignementsDetails(availableSlotCount: number) {
+    if (availableSlotCount === 0) {
+      return <span>No assignements available</span>;
+    }
+
+    return (
+      <span>
+        {availableSlotCount} remaining {availableSlotCount === 1 ? "assignement" : "assignements"}
+      </span>
+    );
+  }
+
+  function renderContributorsAssignementsDetails(assignementsCount: number) {
+    if (assignementsCount === 0) {
+      return null;
+    }
+
+    return (
+      <span className="text-sm text-white/40">
+        {assignementsCount} {assignementsCount === 1 ? "contributor" : "contributors"} assigned
+      </span>
+    );
   }
 };
 

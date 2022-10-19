@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { ContributionDurationEnum } from "src/model/projects/repository";
+import { ContributionDurationEnum } from "src/model/contributions/repository";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import { contributionsFilterDurationAtom } from "src/state";
 import ListBoxFilter from "src/components/ListBoxFilter";

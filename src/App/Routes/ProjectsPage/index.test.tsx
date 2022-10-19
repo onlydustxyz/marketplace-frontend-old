@@ -27,12 +27,12 @@ describe('"All projects" page', () => {
   it("should display the right data for the displayed projects", async () => {
     expect(screen.getByTestId("project-card-1-title").textContent).toBe("Project 1");
     expect(screen.getByTestId("project-card-1-description").textContent).toBe("Description 1");
-    expect(screen.getByTestId("project-card-1-available-contributions").textContent).toBe("2 available contributions");
+    expect(screen.getByTestId("project-card-1-available-contributions").textContent).toBe("1 available contributions");
     expect(screen.getByTestId("project-card-1-technologies").textContent).toBe("python");
 
     expect(screen.getByTestId("project-card-3-title").textContent).toBe("Project 3");
     expect(screen.getByTestId("project-card-3-description").textContent).toBe("Description 3");
-    expect(screen.getByTestId("project-card-3-available-contributions").textContent).toBe("3 available contributions");
+    expect(screen.getByTestId("project-card-3-available-contributions").textContent).toBe("5 available contributions");
     expect(screen.getByTestId("project-card-3-technologies").textContent).toBe("rust, javascript");
 
     expect(screen.getByTestId("project-card-4-title").textContent).toBe("Project 4");

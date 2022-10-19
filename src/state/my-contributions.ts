@@ -1,15 +1,23 @@
 import { selector } from "recoil";
-import { ContributionStatusEnum, contributionsWithStatusState } from "./contributions";
+
+import { contributionRepository } from "src/model/contributions/repository";
+import { buildContributionFormatter, ContributionStatusEnum, sortContributionsByStatus } from "./contributions";
+
+import { contributorAccountSelector } from "./starknet";
 
 export const myContributionsState = selector({
   key: "MyContributionsState",
-  get: ({ get }) => {
-    const contributions = get(contributionsWithStatusState);
+  get: async ({ get }) => {
+    const contributorAccountAddress = get(contributorAccountSelector);
+    const myContributions = await contributionRepository.list({ contributorAccountAddress });
 
-    return contributions.filter(contribution =>
-      [ContributionStatusEnum.APPLIED, ContributionStatusEnum.ASSIGNED, ContributionStatusEnum.COMPLETED].includes(
-        contribution.status
-      )
-    );
+    const finalContributions = myContributions
+      .map(buildContributionFormatter({ get }))
+      .sort(sortContributionsByStatus)
+      .filter(contribution => {
+        return contribution.status !== ContributionStatusEnum.FULFILLED;
+      });
+
+    return finalContributions;
   },
 });

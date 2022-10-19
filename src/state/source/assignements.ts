@@ -1,35 +1,16 @@
 import { selector } from "recoil";
-import { AssignementDto, AssignementStatusDto } from "src/model/assingments/repository";
+import { AssignementDto, AssignementStatusDtoEnum } from "src/model/assingments";
 
-import { ContributionStatusEnumDto } from "src/model/contributions/repository";
+import { assignementRepository } from "src/model/assingments";
 
-import { rawContributionsQuery } from "./contributions";
 import { rawContributorQuery } from "./contributor";
 
 export const rawAssignementsQuery = selector<AssignementDto[]>({
   key: "AssignementsState",
-  get: async ({ get }) => {
-    const contributionsDto = get(rawContributionsQuery);
+  get: async () => {
+    const rawAssignements = await assignementRepository.list();
 
-    return contributionsDto.reduce((allAssignements, contribution) => {
-      if (
-        contribution.status === ContributionStatusEnumDto.ASSIGNED ||
-        contribution.status === ContributionStatusEnumDto.COMPLETED
-      ) {
-        return [
-          ...allAssignements,
-          {
-            contribution_id: contribution.id,
-            contributor_account_address: contribution.metadata.assignee,
-            status:
-              contribution.status === ContributionStatusEnumDto.COMPLETED
-                ? AssignementStatusDto.COMPLETED
-                : AssignementStatusDto.IN_PROGRESS,
-          },
-        ];
-      }
-      return allAssignements;
-    }, [] as AssignementDto[]);
+    return rawAssignements;
   },
 });
 
@@ -53,11 +34,12 @@ export const contributorCompletedAssignementsState = selector({
     const assignements = get(rawAssignementsQuery);
     const contributor = get(rawContributorQuery);
 
-    return assignements.filter(
-      assignement =>
-        assignement.status === AssignementStatusDto.COMPLETED &&
+    return assignements.filter(assignement => {
+      return (
+        assignement.status === AssignementStatusDtoEnum.COMPLETED &&
         assignement.contributor_account_address === contributor?.account
-    );
+      );
+    });
   },
 });
 

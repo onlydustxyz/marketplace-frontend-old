@@ -1,0 +1,21 @@
+import { ContributorAccountAddress } from "../contributors/repository";
+import { ContributionDto } from "../contributions/repository";
+
+export enum AssignementStatusDtoEnum {
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+}
+
+export type ListParams = {
+  contributorAccountAddress?: ContributorAccountAddress | undefined;
+};
+
+export type AssignementDto = {
+  contribution_id: ContributionDto["id"];
+  contributor_account_address: ContributorAccountAddress;
+  status: AssignementStatusDtoEnum;
+};
+
+export interface AssignementRepository {
+  list(params?: ListParams): Promise<AssignementDto[]>;
+}

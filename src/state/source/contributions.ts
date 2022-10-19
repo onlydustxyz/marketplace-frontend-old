@@ -20,6 +20,8 @@ export interface Contribution {
   status: ContributionStatusEnumDto;
   gateMissingCompletedContributions: number;
   metadata: ContributionMetadata;
+  max_slot_count: number | null;
+  available_slot_count: number;
 }
 
 export type ContributionMetadata = {

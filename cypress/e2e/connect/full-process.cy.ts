@@ -24,7 +24,6 @@ context("Connect all requirements", () => {
     const mockedWalletAddress = "0x00a2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2";
 
     cy.window().then(win => {
-      console.log({ env: Cypress.config().baseUrl });
       cy.stub(win, "open").returns({
         location: new URL(`${Cypress.config().baseUrl}/?code=github-auth-code`),
         closed: false,

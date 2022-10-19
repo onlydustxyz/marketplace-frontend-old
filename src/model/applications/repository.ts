@@ -1,4 +1,4 @@
-import { ContributionDto } from "src/model/projects/repository";
+import { ContributionDto } from "src/model/contributions/repository";
 import { InMemoryApplicationRepository } from "./in-memory-repository";
 import { FetchedApplicationRepository } from "./fetched-repository";
 import { ContributorAccountAddress } from "../contributors/repository";

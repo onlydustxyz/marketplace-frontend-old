@@ -37,7 +37,7 @@ describe("Contribution", () => {
 
       cy.visit("/contributions/2");
       cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
-      //cy.getByTestId("contribution-status-details").should("have.text", "by github-user-0x8888");
+      cy.getByTestId("contribution-status-details").should("not.exist");
 
       cy.visit("/contributions/4");
       cy.getByTestId("contribution-status-label").should("have.text", "OPEN");
@@ -45,14 +45,14 @@ describe("Contribution", () => {
 
       cy.visit("/contributions/6");
       cy.getByTestId("contribution-status-label").should("have.text", "ASSIGNED");
-      //cy.getByTestId("contribution-status-details").should("have.text", "to github-user-0x26");
+      cy.getByTestId("contribution-status-details").contains("1 contributor assigned");
 
       cy.visit("/contributions/8");
       cy.getByTestId("contribution-status-label").should("have.text", "ASSIGNED");
-      //cy.getByTestId("contribution-status-details").should("have.text", "to github-user-0x1");
+      cy.getByTestId("contribution-status-details").contains("2 contributors assigned");
 
       cy.visit("/contributions/7");
-      cy.getByTestId("contribution-status-label").should("have.text", "OPEN");
+      cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
       cy.getByTestId("contribution-status-details").should("not.exist");
 
       cy.visit("/contributions/9");
@@ -84,22 +84,27 @@ describe("Contribution", () => {
 
       cy.visit("/contributions/2");
       cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
-      //cy.getByTestId("contribution-status-details").should("have.text", "by github-user-0x8888");
+      cy.getByTestId("contribution-status-details").should("not.exist");
       cy.getByTestId("button-main-action").should("not.exist");
+
+      cy.visit("/contributions/3");
+      cy.getByTestId("contribution-status-label").should("have.text", "GATED");
+      cy.getByTestId("contribution-status-details").should("have.text", "Complete 9 more contributions to unlock");
+      cy.getByTestId("button-main-action").should("be.disabled").should("have.text", "Claim");
 
       cy.visit("/contributions/4");
       cy.getByTestId("contribution-status-label").should("have.text", "APPLIED");
-      cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("contribution-status-details").should("be.empty");
       cy.getByTestId("button-main-action").should("be.disabled").should("have.text", "Applied");
 
       cy.visit("/contributions/6");
       cy.getByTestId("contribution-status-label").should("have.text", "ASSIGNED");
-      //cy.getByTestId("contribution-status-details").should("have.text", "to github-user-0x26");
+      cy.getByTestId("contribution-status-details").contains("1 contributor assigned");
       cy.getByTestId("button-main-action").should("not.be.disabled").should("have.text", "Submit work");
 
       cy.visit("/contributions/8");
       cy.getByTestId("contribution-status-label").should("have.text", "ASSIGNED");
-      //cy.getByTestId("contribution-status-details").should("have.text", "to github-user-0x1");
+      cy.getByTestId("contribution-status-details").contains("2 contributors assigned");
       cy.getByTestId("button-main-action").should("not.exist");
 
       cy.visit("/contributions/7");
@@ -115,6 +120,27 @@ describe("Contribution", () => {
       cy.visit("/contributions/10");
       cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
       cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("button-main-action").should("not.exist");
+
+      cy.visit("/contributions/11");
+      cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
+      cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("button-main-action").should("not.exist");
+
+      cy.visit("/contributions/12");
+      cy.getByTestId("contribution-status-label").should("have.text", "OPEN");
+      cy.getByTestId("contribution-status-details").should("have.text", "10 remaining assignements");
+      cy.getByTestId("button-main-action").should("not.be.disabled").should("have.text", "Claim");
+
+      cy.visit("/contributions/13");
+      cy.getByTestId("contribution-status-label").should("have.text", "OPEN");
+      cy.getByTestId("contribution-status-details").contains("1 remaining assignement");
+      cy.getByTestId("contribution-status-details").contains("2 contributors assigned");
+      cy.getByTestId("button-main-action").should("not.be.disabled").should("have.text", "Claim");
+
+      cy.visit("/contributions/14");
+      cy.getByTestId("contribution-status-label").should("have.text", "ASSIGNED");
+      cy.getByTestId("contribution-status-details").should("have.text", "2 contributors assigned");
       cy.getByTestId("button-main-action").should("not.exist");
     });
   });

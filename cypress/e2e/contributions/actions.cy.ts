@@ -82,7 +82,7 @@ describe("Contribution", () => {
         headlessWallet.autoConnect({ address: "0x123456789" });
       });
 
-      cy.visit("/contributions/3");
+      cy.visit("/contributions/12");
 
       cy.getByTestId("button-main-action").click();
 
@@ -95,7 +95,7 @@ describe("Contribution", () => {
         });
       });
 
-      cy.getByTestId("toast-container").contains("You are now assigned to the contribution Contribution 3");
+      cy.getByTestId("toast-container").contains("You are now assigned to the contribution Contribution 12");
     });
 
     it("should claim and be rejected", () => {
@@ -109,7 +109,7 @@ describe("Contribution", () => {
         headlessWallet.autoConnect({ address: "0x123456789" });
       });
 
-      cy.visit("/contributions/3");
+      cy.visit("/contributions/12");
 
       cy.getByTestId("button-main-action").click();
 

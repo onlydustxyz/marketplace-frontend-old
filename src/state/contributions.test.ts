@@ -5,7 +5,6 @@ import { projectRepository } from "src/model/projects/repository";
 import { AccountInterface } from "starknet";
 import { accountAtom } from "./starknet";
 import { applicationRepository } from "src/model/applications/repository";
-import { contributorRepository } from "src/model/contributors/repository";
 import { ContributionApplication, rawContributorApplicationsQuery } from "./source/applications";
 import { contributionsWithStatusState } from "./contributions";
 
@@ -38,14 +37,12 @@ describe("The recoil state", () => {
       });
 
       const listSpy = vi.spyOn(applicationRepository, "list");
-      const findByAccountAddressSpy = vi.spyOn(contributorRepository, "findByAccountAddress");
 
       const result = snapshot.getLoadable(rawContributorApplicationsQuery);
 
       const res = (await result.contents) as Promise<ContributionApplication[]>;
 
-      expect(findByAccountAddressSpy).toHaveBeenCalledWith("0x123456789");
-      expect(listSpy).toHaveBeenCalled();
+      expect(listSpy).toHaveBeenCalledWith({ contributorAccount: "0x123456789" });
       expect(res).to.have.length(2);
       snapshot.retain();
     });
@@ -64,23 +61,6 @@ describe("The recoil state", () => {
       expect(listSpy).toHaveBeenCalled();
       expect(res).to.have.length(0);
       snapshot.retain();
-    });
-
-    it("should return nothing when no contributor", async () => {
-      const snapshot = snapshot_UNSTABLE(({ set }) => {
-        set(accountAtom, { address: "0x1234567890" } as AccountInterface);
-      });
-
-      const listSpy = vi.spyOn(applicationRepository, "list");
-      const findByAccountAddressSpy = vi.spyOn(contributorRepository, "findByAccountAddress");
-
-      const result = snapshot.getLoadable(rawContributorApplicationsQuery);
-
-      const res = (await result.contents) as ContributionApplication[];
-
-      expect(res.length).toBe(0);
-      expect(findByAccountAddressSpy).toHaveBeenCalledWith("0x1234567890");
-      expect(listSpy).toHaveBeenCalledTimes(0);
     });
   });
 });

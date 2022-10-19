@@ -1,6 +1,6 @@
 import { selector, selectorFamily } from "recoil";
 import { applicationRepository } from "src/model/applications/repository";
-import { ContributorAccountAddress } from "src/model/contact-information/repository";
+import { ContributorAccountAddress } from "src/model/contributors/repository";
 import { ContributionDto } from "src/model/contributions/repository";
 
 import type { Contribution } from "./contributions";

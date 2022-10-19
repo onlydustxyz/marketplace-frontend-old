@@ -19,7 +19,6 @@ import { useContract } from "@starknet-react/core";
 import { Abi } from "starknet";
 
 import contributionsAbi from "src/abis/contributions.json";
-import { bnToUint256 } from "starknet/dist/utils/uint256";
 
 import { rawContributorApplicationsQuery } from "src/state/source/applications";
 
@@ -71,7 +70,7 @@ const ContributionDetailsPageContainer: FC = () => {
 
     setApplying(true);
 
-    toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorAccountAddress }), {
+    await toastPromise(applicationRepository.create({ contributionId: contribution.id, contributorAccountAddress }), {
       success: () => {
         return (
           <div className="leading-[1rem] line-clamp-3">
@@ -111,9 +110,11 @@ const ContributionDetailsPageContainer: FC = () => {
       return;
     }
 
-    const contributorAccountUint256 = bnToUint256(contributorAccountAddress);
     toastTransaction(
-      contributionsContract?.invoke("claim_contribution", [[contributionId], contributorAccountUint256]),
+      contributionsContract?.invoke("claim_contribution", [
+        [contributionId],
+        { low: contributorAccountAddress, high: 0 },
+      ]),
       account,
       {
         success: () => {

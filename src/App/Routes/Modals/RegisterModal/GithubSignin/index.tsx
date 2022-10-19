@@ -41,7 +41,7 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
         config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
       );
 
-      toastPromise(
+      await toastPromise(
         connect({
           address: account.address,
           code,

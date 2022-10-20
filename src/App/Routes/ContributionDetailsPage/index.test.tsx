@@ -7,7 +7,7 @@ import { render } from "tests/utils";
 import ContributionDetailsPage from "./index";
 
 import { MutableSnapshot } from "recoil";
-import { AccountInterface } from "starknet";
+import { AccountInterface, addAddressPadding } from "starknet";
 import { accountAtom } from "src/state";
 import { applicationRepository } from "src/model/applications/repository";
 
@@ -189,7 +189,7 @@ describe("Contribution details page", () => {
 
     expect(createSpy).toHaveBeenCalledWith({
       contributionId: "1",
-      contributorAccountAddress: "0x123456789",
+      contributorAccountAddress: "0x0000000000000000000000000000000000000000000000000000000123456789",
     });
   });
 });

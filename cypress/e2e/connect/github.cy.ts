@@ -21,7 +21,7 @@ context("Connect Github account", () => {
   });
 
   it("should connect to github account", () => {
-    const mockedWalletAddress = "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2";
+    const mockedWalletAddress = "0x00a2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2";
 
     cy.window().then(win => {
       cy.stub(win, "open").returns({
@@ -34,7 +34,7 @@ context("Connect Github account", () => {
 
     cy.getByTestId("header-profile-button").click();
 
-    cy.getByTestId("header-profile-wallet-address").should("have.text", "0xa2fd...93e2");
+    cy.getByTestId("header-profile-wallet-address").should("have.text", "0x00a2...93e2");
     cy.getByTestId("header-profile-wallet-address-dot").should("have.class", "shadow-dot-connected");
     cy.getByTestId("header-profile-github-handle").should("have.text", "Not connected");
     cy.getByTestId("header-profile-github-handle-dot").should("have.class", "shadow-dot-not-connected");

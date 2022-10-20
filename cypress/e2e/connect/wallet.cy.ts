@@ -26,7 +26,7 @@ context("Connect Wallet account", () => {
     cy.getByTestId("header-profile-button").click();
 
     cy.getByTestId("header-profile-wallet-address").should(el => {
-      expect(el.text(), "current account address").to.equal("0x1234...6789");
+      expect(el.text(), "current account address").to.equal("0x0000...6789");
     });
   });
 
@@ -47,7 +47,7 @@ context("Connect Wallet account", () => {
     cy.getByTestId("header-profile-button").click();
 
     cy.getByTestId("header-profile-wallet-address").should(el => {
-      expect(el.text(), "current account address").to.equal("0x1234...6789");
+      expect(el.text(), "current account address").to.equal("0x0000...6789");
     });
   });
 });

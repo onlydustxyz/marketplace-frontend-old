@@ -69,6 +69,6 @@ describe("Connect wallet", () => {
       await user.click(screen.getByTestId("header-profile-button"));
     });
 
-    expect(screen.getByTestId("header-profile-wallet-address").textContent).toBe("0x1234...6789");
+    expect(screen.getByTestId("header-profile-wallet-address").textContent).toBe("0x0000...6789");
   });
 });

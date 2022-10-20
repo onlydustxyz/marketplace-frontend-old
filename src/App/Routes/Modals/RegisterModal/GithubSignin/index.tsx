@@ -10,6 +10,7 @@ import { toastPromise } from "src/lib/toast-promise";
 import { rawContributorQuery } from "src/state/source/contributor";
 
 import GithubSignin from "./View";
+import { addAddressPadding } from "starknet";
 
 type Props = {
   className?: string;
@@ -35,15 +36,17 @@ const GithubSigninContainer: FC<PropsWithChildren<Props>> = ({ children, classNa
     setIsRegistering(true);
 
     try {
+      const accountAddress = addAddressPadding(account.address);
+
       const { hash, signature } = await signMessage(
         account,
-        account.address,
+        accountAddress,
         config.STARKNET_NETWORK === "mainnet-alpha" ? "SN_MAIN" : "SN_GOERLI"
       );
 
       await toastPromise(
         connect({
-          address: account.address,
+          address: accountAddress,
           code,
           hash,
           signature: signature as [string, string],

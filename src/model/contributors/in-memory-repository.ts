@@ -51,8 +51,8 @@ export class InMemoryContributorRepository implements ContributorRepository {
    */
   private futureContributors: ContributorDto[] = [
     {
-      id: "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2" as ContributorAccountAddress,
-      account: "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2" as ContributorAccountAddress,
+      id: "0x00a2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2" as ContributorAccountAddress,
+      account: "0x00a2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2" as ContributorAccountAddress,
       github_identifier: "new-github-user-id",
       github_username: "new-github-user-name",
       discord_handle: null,

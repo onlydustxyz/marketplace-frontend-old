@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import { ContributorAccountAddress } from "src/model/contributors/repository";
-import { AccountInterface, ProviderInterface } from "starknet";
+import { AccountInterface, addAddressPadding, ProviderInterface } from "starknet";
 import { StarknetChainId } from "starknet/dist/constants";
 
 export const accountAtom = atom<AccountInterface | undefined>({
@@ -18,12 +18,16 @@ export const providerAtom = atom<ProviderInterface | undefined>({
   default: undefined,
 });
 
-export const contributorAccountSelector = selector({
+export const contributorAccountAddressSelector = selector({
   key: "AccountAddress",
   get: ({ get }) => {
     const account = get(accountAtom);
 
-    return account?.address as ContributorAccountAddress | undefined;
+    if (!account?.address) {
+      return undefined;
+    }
+
+    return addAddressPadding(account.address) as ContributorAccountAddress;
   },
 });
 

@@ -89,4 +89,25 @@ And to run in local your build.
 yarn preview
 ```
 
+## Deployment process
+
+Each Pull Requet must target the `develop` branch. This way it will create a preview.  
+When a Pull Request is merged into `develop`, it is automatically deployed on the staging environment.  
+
+Then to deploy in production, some commands have to be executed.  
+Basically it consists to merge the `develop` branch into the `main` branch by forcing a fast forward merge.
+
+> **Only project admins can do this**
+
+```bash
+git checkout main
+git fetch
+git pull origin main
+git merge --ff develop
+git push origin main
+```
+
 ## 🏗 Contributing
+
+You can contribute by applying to some opened contributions of this project.  
+You can find those contributions on our platform => [https://app.onlydust.xyz/projects/501233690](https://app.onlydust.xyz/projects/501233690)

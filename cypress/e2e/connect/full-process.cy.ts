@@ -21,7 +21,7 @@ context("Connect all requirements", () => {
   });
 
   it("should connect to wallet and github account", () => {
-    const mockedWalletAddress = "0xa2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2";
+    const mockedWalletAddress = "0x00a2fd97f6ea0914b540a8c5e24dbbc5a45245d885e354a916c53553cdb093e2";
 
     cy.window().then(win => {
       console.log({ env: Cypress.config().baseUrl });
@@ -41,7 +41,7 @@ context("Connect all requirements", () => {
 
     cy.getByTestId("wallet-connection-state")
       .should(el => {
-        expect(el.text(), "current account address").to.contain("0xa2fd...93e2");
+        expect(el.text(), "current account address").to.contain("0x00a2...93e2");
       })
       .getByTestId("wallet-connection-state-dot")
       .should("have.class", "shadow-dot-connected");

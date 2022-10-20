@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import { contributorRepository } from "src/model/contributors/repository";
-import { contributorAccountSelector } from "src/state";
+import { contributorAccountAddressSelector } from "src/state";
 import { rawContributorQuery } from "src/state/source/contributor";
 
 const useContactInformation = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>();
   const refreshContributor = useRecoilRefresher_UNSTABLE(rawContributorQuery);
-  const contributorAccount = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
+  const contributorAccount = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountAddressSelector);
 
   const register = async (discordHandle: string) => {
     if (contributorAccount === undefined) {

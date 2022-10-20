@@ -4,7 +4,7 @@ import { ContributorAccountAddress } from "src/model/contributors/repository";
 import { ContributionDto } from "src/model/contributions/repository";
 
 import type { Contribution } from "./contributions";
-import { contributorAccountSelector } from "../starknet";
+import { contributorAccountAddressSelector } from "../starknet";
 
 export type ContributionApplication = {
   contribution_id: Contribution["id"];
@@ -14,7 +14,7 @@ export type ContributionApplication = {
 export const rawContributorApplicationsQuery = selector<ContributionApplication[]>({
   key: "ContributorApplications",
   get: async ({ get }) => {
-    const contributorAccountAddress = get(contributorAccountSelector);
+    const contributorAccountAddress = get(contributorAccountAddressSelector);
     if (contributorAccountAddress === undefined) {
       return [];
     }

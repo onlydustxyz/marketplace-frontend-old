@@ -4,12 +4,12 @@ import Header from "./Header";
 import HeaderV2 from "./HeaderV2";
 import { useNewUI } from "src/utils/version";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
-import { contributorAccountSelector } from "src/state";
+import { contributorAccountAddressSelector } from "src/state";
 
 const HeaderContainer: FC = () => {
   const newUI = useNewUI();
 
-  const accountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
+  const accountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountAddressSelector);
 
   if (newUI) {
     return <HeaderV2 accountAddress={accountAddress} />;

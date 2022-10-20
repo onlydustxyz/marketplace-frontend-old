@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useRecoilRefresher_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useSetRecoilState } from "recoil";
 import ContributionDetailsPage from "./View";
 import {
-  contributorAccountSelector,
+  contributorAccountAddressSelector,
   accountAtom,
   contributionQuery,
   displayRegisterModalAtom,
@@ -28,7 +28,7 @@ type PageParams = {
 const ContributionDetailsPageContainer: FC = () => {
   const { contributionId } = useParams<PageParams>();
   const contribution = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributionQuery(contributionId));
-  const contributorAccountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountSelector);
+  const contributorAccountAddress = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(contributorAccountAddressSelector);
   const account = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(accountAtom);
   const isGithubRegistered = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(isGithubRegisteredSelector);
   const userGithubHandle = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(userGithubHandleSelector);
@@ -46,9 +46,9 @@ const ContributionDetailsPageContainer: FC = () => {
 
   const buildTypeformParams = useCallback(() => {
     const typeformParams = new URLSearchParams();
-    account?.address && typeformParams.set("wallet", account.address);
     userGithubHandle && typeformParams.set("github", userGithubHandle);
     contribution?.github_link && typeformParams.set("githubissue", contribution.github_link);
+    contributorAccountAddress && typeformParams.set("wallet", contributorAccountAddress);
     contributorAccountAddress && typeformParams.set("contributorid", contributorAccountAddress);
     if (contributionId) {
       typeformParams.set("contributionid", contributionId);
@@ -157,7 +157,7 @@ const ContributionDetailsPageContainer: FC = () => {
       claim={claim}
       submit={submit}
       appliying={appliying}
-      accountAddress={account?.address}
+      accountAddress={contributorAccountAddress}
     />
   );
 };

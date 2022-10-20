@@ -15,13 +15,20 @@
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   }
 
-  body,
-  .bg-space {
+  body {
     @apply text-white;
 
     background: url("src/assets/img/default.jpg") repeat top center;
     background-image: -webkit-image-set(url("src/assets/img/default.jpg") 1x, url("src/assets/img/default@2x.jpg") 2x);
     background-image: image-set(url("src/assets/img/default.jpg") 1x, url("src/assets/img/default@2x.jpg") 2x);
+  }
+
+  body.v2 {
+    @apply text-white;
+
+    background: url("src/assets/img/bg-v2.jpg") repeat top center;
+    background-image: -webkit-image-set(url("src/assets/img/bg-v2.jpg") 1x);
+    background-image: image-set(url("src/assets/img/bg-v2.jpg") 1x);
   }
 
   .header {

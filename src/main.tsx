@@ -11,6 +11,11 @@ import "src/assets/css/index.css";
 import "src/assets/fonts/Alfreda/stylesheet.css";
 import "src/assets/fonts/GTWalsheimPro/stylesheet.css";
 
+if (config.UI_VERSION === "v2") {
+  const currentBodyClassname = document.getElementsByTagName("body")[0].className;
+  document.getElementsByTagName("body")[0].className = currentBodyClassname + " " + "v2";
+}
+
 if (config.SENTRY_DSN) {
   Sentry.init({
     dsn: config.SENTRY_DSN,

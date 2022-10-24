@@ -67,6 +67,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
         },
       ],
       members: ["0x0abcdefabcdef"],
+      logo: "https://app.onlydust.xyz/assets/onlydust-logo.5f8cc594.png",
     },
     {
       id: "2",

@@ -37,6 +37,9 @@ module.exports = {
         secondary: colors.slate,
         ...customColor,
       },
+      scale: {
+        80: "0.8",
+      },
       backgroundImage: {
         "button-primary": 'url("src/assets/img/button/primary.png")',
         "button-secondary": 'url("src/assets/img/button/secondary.png")',
@@ -57,9 +60,13 @@ module.exports = {
         "contribution-description": " 0px 25px 100px #00000",
         "dot-connected": "0px 0px 12px 3px #00FFE4",
         "dot-not-connected": "0px 0px 12px 3px #000CFF",
+        "contribution-difficulty": "0px 0px 36px -4px rgba(0, 71, 255, 0.33)",
       },
       textShadow: {
         "button-primary": "0px 0px 2px #00FFE4, 0px 0px 3px #00FFE4",
+        "contribution-title":
+          "0px 3px 40px rgba(255, 255, 255, 0.15), 0px 2px 30px rgba(255, 255, 255, 0.2), 0px 1px 15px rgba(255, 255, 255, 0.25), 0px 0px 3px rgba(255, 255, 255, 0.3)",
+        "contribution-difficulty": "0px 0px 12px #4579FF",
       },
       opacity: {
         66: ".66",

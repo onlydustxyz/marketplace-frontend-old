@@ -7,7 +7,7 @@ import { render } from "tests/utils";
 import ContributionDetailsPage from "./index";
 
 import { MutableSnapshot } from "recoil";
-import { AccountInterface, addAddressPadding } from "starknet";
+import { AccountInterface } from "starknet";
 import { accountAtom } from "src/state";
 import { applicationRepository } from "src/model/applications/repository";
 

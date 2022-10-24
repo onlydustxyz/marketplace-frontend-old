@@ -15,7 +15,7 @@ This way you are able to mock some methods and define how you wallet should resp
 You need to instanciate a `headlessWallet` using the `HeadlessWalletFactory`.  
 
 ```javascript
-import { HeadlessWalletFactory } from 'tests/lib/starknet_headless';
+import { HeadlessWalletFactory } from 'tests/lib/starknet-wallet-mock';
 
 const walletFactory = new HeadlessWalletFactory();
 

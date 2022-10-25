@@ -11,18 +11,24 @@ describe('"All projects" page', () => {
       render(<ProjectPage />);
     });
   });
-  it("should display the 3 projects", async () => {
-    expect(screen.getByTestId("project-list").children.length).toBe(3);
 
+  it("should not display a project with no contributions", () => {
+    expect(screen.queryByText("Project 2")).toBeNull();
+  });
+
+  it("should not display a project with no open contributions", () => {
+    expect(screen.queryByText("Project 4")).toBeNull();
+  });
+
+  it("should not display a project with no active contributions", () => {
+    expect(screen.queryByText("Project 5")).toBeNull();
+  });
+
+  it("should display the right data for the displayed projects", async () => {
     expect(screen.getByTestId("project-card-1-title").textContent).toBe("Project 1");
     expect(screen.getByTestId("project-card-1-description").textContent).toBe("Description 1");
     expect(screen.getByTestId("project-card-1-available-contributions").textContent).toBe("2 available contributions");
     expect(screen.getByTestId("project-card-1-technologies").textContent).toBe("python");
-
-    expect(screen.getByTestId("project-card-2-title").textContent).toBe("Project 2");
-    expect(screen.getByTestId("project-card-2-description").textContent).toBe("Description 2");
-    expect(screen.getByTestId("project-card-2-available-contributions").textContent).toBe("0 available contributions");
-    expect(screen.queryByTestId("project-card-2-technologies")).toBeNull();
 
     expect(screen.getByTestId("project-card-3-title").textContent).toBe("Project 3");
     expect(screen.getByTestId("project-card-3-description").textContent).toBe("Description 3");

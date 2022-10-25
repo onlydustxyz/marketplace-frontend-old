@@ -1,12 +1,12 @@
 import { selectorFamily } from "recoil";
-import { projectsListState } from "./projects-list";
+import { enrichedProjectListSelector } from "./projects-list";
 
 export const projectQuery = selectorFamily({
   key: "Project",
   get:
     id =>
     ({ get }) => {
-      const projects = get(projectsListState);
+      const projects = get(enrichedProjectListSelector);
       return projects.find(project => project.id === id);
     },
 });

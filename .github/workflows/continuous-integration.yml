@@ -60,11 +60,12 @@ jobs:
         with:
           files: coverage/clover.xml
           token: ${{ secrets.CODECOV_TOKEN  }}
-      - name: Archive code coverage results
+      - name: Upload screenshots
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: e2e-screenshots
-          path: coverage/screenshots
+          path: cypress/screenshots
       - name: Clean coverage
         run: rm -rf coverage
       - name: Run e2e test new UI

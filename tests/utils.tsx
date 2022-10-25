@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren, Suspense } from "react";
 import { MutableSnapshot, RecoilRoot } from "recoil";
 import { render } from "@testing-library/react";
+import { VirtuosoMockContext } from "react-virtuoso";
 
 import { StarknetProvider } from "@starknet-react/core";
 import App from "src/App";
@@ -20,7 +21,11 @@ const buildWrapper = ({ initializeRecoilState }: CustomRenderParams) => {
         <RecoilRoot initializeState={initializeRecoilState}>
           <BrowserRouter>
             <Modals>
-              <Suspense>{children}</Suspense>
+              <Suspense>
+                <VirtuosoMockContext.Provider value={{ viewportHeight: 3000, itemHeight: 100 }}>
+                  {children}{" "}
+                </VirtuosoMockContext.Provider>
+              </Suspense>
             </Modals>
           </BrowserRouter>
         </RecoilRoot>

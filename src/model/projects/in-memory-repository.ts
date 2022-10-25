@@ -176,11 +176,11 @@ export class InMemoryProjectRepository implements ProjectRepository {
       github_link: "https://example.com/projects/4",
       contributions: [
         {
-          id: "9",
-          title: "Contribution 9",
-          description: "Description 9",
+          id: "12",
+          title: "Contribution 12",
+          description: "Description 12",
           status: ContributionStatusEnum.ASSIGNED,
-          github_link: "https://example.com/contributions/9",
+          github_link: "https://example.com/contributions/12",
           gate: 0,
           metadata: {
             assignee: "0x8888",
@@ -193,11 +193,11 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
         {
-          id: "10",
-          title: "Contribution 10",
-          description: "Description 10",
+          id: "13",
+          title: "Contribution 13",
+          description: "Description 13",
           status: ContributionStatusEnum.ASSIGNED,
-          github_link: "https://example.com/contributions/10",
+          github_link: "https://example.com/contributions/13",
           gate: 0,
           metadata: {
             assignee: "0x123456789",
@@ -219,11 +219,11 @@ export class InMemoryProjectRepository implements ProjectRepository {
       github_link: "https://example.com/projects/5",
       contributions: [
         {
-          id: "11",
-          title: "Contribution 11",
-          description: "Description 11",
+          id: "14",
+          title: "Contribution 14",
+          description: "Description 14",
           status: ContributionStatusEnum.COMPLETED,
-          github_link: "https://example.com/contributions/11",
+          github_link: "https://example.com/contributions/14",
           gate: 0,
           metadata: {
             assignee: "0x123456789",
@@ -236,14 +236,14 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
         {
-          id: "12",
-          title: "Contribution 12",
-          description: "Description 12",
+          id: "15",
+          title: "Contribution 15",
+          description: "Description 15",
           status: ContributionStatusEnum.COMPLETED,
-          github_link: "https://example.com/contributions/12",
+          github_link: "https://example.com/contributions/15",
           gate: 0,
           metadata: {
-            assignee: "0x123456789",
+            assignee: "0x153456789",
             github_username: "github-user-0x26",
             context: ContributionContextEnum.COUPLED,
             difficulty: ContributionDifficultyEnum.EASY,
@@ -253,7 +253,7 @@ export class InMemoryProjectRepository implements ProjectRepository {
           },
         },
       ],
-      members: ["0x123456789"],
+      members: ["0x153456789"],
     },
   ];
 

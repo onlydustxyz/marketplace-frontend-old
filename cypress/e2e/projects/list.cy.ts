@@ -5,7 +5,7 @@ describe("Project", () => {
     it("Should display projects", () => {
       cy.visit("/");
 
-      cy.getByTestId("project-list").children().should("have.length", 2);
+      cy.getByTestId("project-list").children().should("have.length", 3);
     });
 
     it("Should allow to browse from project list to contribution details page", () => {

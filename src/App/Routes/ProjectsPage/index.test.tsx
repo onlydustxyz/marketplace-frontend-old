@@ -16,8 +16,8 @@ describe('"All projects" page', () => {
     expect(screen.queryByText("Project 2")).toBeNull();
   });
 
-  it("should not display a project with no open contributions", () => {
-    expect(screen.queryByText("Project 4")).toBeNull();
+  it("should display a project with no open contributions", () => {
+    expect(screen.queryByText("Project 4")).toBeTruthy();
   });
 
   it("should not display a project with no active contributions", () => {
@@ -34,5 +34,10 @@ describe('"All projects" page', () => {
     expect(screen.getByTestId("project-card-3-description").textContent).toBe("Description 3");
     expect(screen.getByTestId("project-card-3-available-contributions").textContent).toBe("3 available contributions");
     expect(screen.getByTestId("project-card-3-technologies").textContent).toBe("rust, javascript");
+
+    expect(screen.getByTestId("project-card-4-title").textContent).toBe("Project 4");
+    expect(screen.getByTestId("project-card-4-description").textContent).toBe("Description 4");
+    expect(screen.getByTestId("project-card-4-available-contributions").textContent).toBe("0 available contributions");
+    expect(screen.getByTestId("project-card-4-technologies").textContent).toBe("javascript, rust");
   });
 });

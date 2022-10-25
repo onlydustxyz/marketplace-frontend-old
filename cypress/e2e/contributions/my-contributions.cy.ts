@@ -47,7 +47,7 @@ describe("My contributions", () => {
 
       cy.visit("/my-contributions");
 
-      cy.get(".data-testid-my-contributions-list").children().should("have.length", 3);
+      cy.get(".data-testid-my-contributions-list").children().should("have.length", 5);
 
       cy.getByTestId("contribution-link-4");
       cy.getByTestId("contribution-link-6");

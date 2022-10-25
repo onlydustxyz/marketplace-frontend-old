@@ -25,6 +25,7 @@ export type Project = {
 
 export type ProjectWithAggregateContributions = Project & {
   openedContributionsAmount: number;
+  activeContributionsAmount: number;
   statuses: Array<ContributionWithStatus["status"] | "gated">;
   technologies: ContributionWithStatus["metadata"]["technology"][];
   durations: ContributionWithStatus["metadata"]["duration"][];
@@ -33,8 +34,8 @@ export type ProjectWithAggregateContributions = Project & {
   types: ContributionWithStatus["metadata"]["type"][];
 };
 
-export const projectsListState = selector({
-  key: "ProjectsSelector",
+export const enrichedProjectListSelector = selector({
+  key: "EnrichedProjectList",
   get: ({ get }) => {
     const rawProjects = get(rawProjectsQuery);
     const contributionsWithStatus = get(contributionsWithStatusState);
@@ -46,12 +47,19 @@ export const projectsListState = selector({
         contribution => contribution.project_id === project.id
       );
 
-      const formattedProject: ProjectWithAggregateContributions = {
+      const enrichedProject: ProjectWithAggregateContributions = {
         ...project,
         openedContributionsAmount: projectContributions.filter(
           contribution => contribution.status === ContributionStatusEnum.OPEN
         ).length,
-
+        activeContributionsAmount: projectContributions.filter(
+          contribution =>
+            !(
+              contribution.status === ContributionStatusEnum.FULFILLED ||
+              contribution.status === ContributionStatusEnum.COMPLETED ||
+              contribution.status === ContributionStatusEnum.CLOSED
+            )
+        ).length,
         technologies: formatProjectTechnologies(projectContributions),
         statuses: formatProjectStatuses(projectContributions, nbCompletedAssignements),
         durations: formatProjectMetadata("duration", projectContributions),
@@ -60,16 +68,16 @@ export const projectsListState = selector({
         types: formatProjectMetadata("type", projectContributions),
       };
 
-      return formattedProject;
+      return enrichedProject;
     });
   },
 });
 
-export const filteredProjectsSelector = selector({
-  key: "FilteredProjects",
+export const displayedProjectListSelector = selector({
+  key: "DisplayedProjectList",
 
   get: ({ get }) => {
-    const projects = get(projectsListState);
+    const projects = get(enrichedProjectListSelector);
 
     const contributionsFilterContext = get(contributionsFilterContextAtom("projects"));
     const contributionsFilterDifficulty = get(contributionsFilterDifficultyAtom("projects"));
@@ -79,6 +87,7 @@ export const filteredProjectsSelector = selector({
     const contributionsFilterType = get(contributionsFilterTypeAtom("projects"));
 
     return projects
+      .filter(project => project.activeContributionsAmount > 0)
       .filter(filterProjectByStatuses(contributionsFilterStatus))
       .filter(filterProjectByProperty("contexts", contributionsFilterContext))
       .filter(filterProjectByProperty("difficulties", contributionsFilterDifficulty))

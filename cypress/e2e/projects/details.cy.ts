@@ -28,14 +28,14 @@ describe("Project", () => {
         .should("have.attr", "target", "_blank");
 
       cy.getByTestId("menu-link-projects").click();
-      cy.getByTestId("project-link-2").click();
+      cy.getByTestId("project-link-3").click();
 
-      cy.getByTestId("project-title").contains("Project 2");
-      cy.getByTestId("project-description").contains("Description 2");
+      cy.getByTestId("project-title").contains("Project 3");
+      cy.getByTestId("project-description").contains("Description 3");
 
       cy.getByTestId("project-extlink-github")
         .should("exist")
-        .should("have.attr", "href", "https://example.com/projects/2")
+        .should("have.attr", "href", "https://example.com/projects/3")
         .should("have.attr", "target", "_blank");
       cy.getByTestId("project-extlink-discord").should("not.exist");
       cy.getByTestId("project-extlink-website").should("not.exist");

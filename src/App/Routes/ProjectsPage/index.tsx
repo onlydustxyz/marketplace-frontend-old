@@ -1,12 +1,12 @@
 import { FC, useState } from "react";
 import { useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 
-import { filteredProjectsSelector } from "src/state";
+import { displayedProjectListSelector } from "src/state";
 
 import ProjectsPage from "./View";
 
 const ProjectsPageContainer: FC = () => {
-  const projects = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(filteredProjectsSelector);
+  const projects = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(displayedProjectListSelector);
   const [displayFilters, setDisplayFilters] = useState(false);
 
   const toggleFilters = () => {

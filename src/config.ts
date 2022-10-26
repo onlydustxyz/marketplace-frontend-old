@@ -16,6 +16,7 @@ const config = {
   REFRESH_CONTRIBUTIONS_INTERVAL: parseInt(import.meta.env.MARKETPLACE_REFRESH_CONTRIBUTIONS_INTERVAL) || 30000,
   REFRESH_CONTRIBUTIONS_MAX_TRIES: parseInt(import.meta.env.MARKETPLACE_REFRESH_CONTRIBUTIONS_MAX_TRIES) || 10,
   UI_VERSION: import.meta.env.MARKETPLACE_UI_VERSION || "v1",
+  MODE: import.meta.env.MODE,
 };
 
 export default config;

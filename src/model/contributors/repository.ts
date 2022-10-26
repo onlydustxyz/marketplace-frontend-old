@@ -1,6 +1,7 @@
 import { Brand } from "src/utils/branded-types";
 import { InMemoryContributorRepository } from "./in-memory-repository";
 import { FetchedContributorRepository } from "./fetched-repository";
+import config from "src/config";
 
 export type ContributorAccountAddress = Brand<string, "ContributorAccountAddress">;
 
@@ -28,4 +29,4 @@ export interface ContributorRepository {
 }
 
 export const contributorRepository: ContributorRepository =
-  process.env.NODE_ENV === "test" ? new InMemoryContributorRepository() : new FetchedContributorRepository();
+  config.MODE === "test" ? new InMemoryContributorRepository() : new FetchedContributorRepository();

@@ -47,11 +47,14 @@ describe("My contributions", () => {
 
       cy.visit("/my-contributions");
 
-      cy.get(".data-testid-my-contributions-list").children().should("have.length", 5);
+      cy.get(".data-testid-my-contributions-list").children().should("have.length", 6);
 
       cy.getByTestId("contribution-link-4");
       cy.getByTestId("contribution-link-6");
       cy.getByTestId("contribution-link-10");
+      cy.getByTestId("contribution-link-16");
+      cy.getByTestId("contribution-link-17");
+      cy.getByTestId("contribution-link-18");
     });
   });
 });

@@ -89,7 +89,7 @@ describe("Contribution", () => {
 
       cy.visit("/contributions/3");
       cy.getByTestId("contribution-status-label").should("have.text", "GATED");
-      cy.getByTestId("contribution-status-details").should("have.text", "Complete 9 more contributions to unlock");
+      cy.getByTestId("contribution-status-details").should("have.text", "Complete 7 more contributions to unlock");
       cy.getByTestId("button-main-action").should("be.disabled").should("have.text", "Claim");
 
       cy.visit("/contributions/4");
@@ -108,9 +108,9 @@ describe("Contribution", () => {
       cy.getByTestId("button-main-action").should("not.exist");
 
       cy.visit("/contributions/7");
-      cy.getByTestId("contribution-status-label").should("have.text", "GATED");
-      cy.getByTestId("contribution-status-details").should("have.text", "Complete 8 more contributions to unlock");
-      cy.getByTestId("button-main-action").should("be.disabled").should("have.text", "Apply");
+      cy.getByTestId("contribution-status-label").should("have.text", "COMPLETED");
+      cy.getByTestId("contribution-status-details").should("not.exist");
+      cy.getByTestId("button-main-action").should("not.exist");
 
       cy.visit("/contributions/9");
       cy.getByTestId("contribution-status-label").should("have.text", "CLOSED");

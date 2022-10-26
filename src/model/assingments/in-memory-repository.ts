@@ -72,6 +72,26 @@ export const inMermoryAssignements: Array<AssignementDto> = [
     contributor_account_address: "0x777" as ContributorAccountAddress,
     status: AssignementStatusDtoEnum.COMPLETED,
   },
+  {
+    contribution_id: "15",
+    contributor_account_address: "0x8888" as ContributorAccountAddress,
+    status: AssignementStatusDtoEnum.IN_PROGRESS,
+  },
+  {
+    contribution_id: "16",
+    contributor_account_address: "0x123456789" as ContributorAccountAddress,
+    status: AssignementStatusDtoEnum.IN_PROGRESS,
+  },
+  {
+    contribution_id: "17",
+    contributor_account_address: "0x123456789" as ContributorAccountAddress,
+    status: AssignementStatusDtoEnum.COMPLETED,
+  },
+  {
+    contribution_id: "18",
+    contributor_account_address: "0x123456789" as ContributorAccountAddress,
+    status: AssignementStatusDtoEnum.COMPLETED,
+  },
 ];
 
 export class InMemoryAssignementRepository implements AssignementRepository {

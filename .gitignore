@@ -26,6 +26,7 @@ cypress/videos
 *.njsproj
 *.sln
 *.sw?
+*~
 
 .env
 .env.*

@@ -59,7 +59,8 @@ module.exports = {
         "contribution-metadata": " 0px 14px 54px rgb(0, 0, 0)",
         "contribution-description": " 0px 25px 100px #00000",
         "dot-connected": "0px 0px 12px 3px #00FFE4",
-        "dot-not-connected": "0px 0px 12px 3px #000CFF",
+        "dot-not-connected-v1": "0px 0px 12px 0px #000CFF",
+        "dot-not-connected": "0px 0px 8px 0px #822F00",
         "contribution-difficulty": "0px 0px 36px -4px rgba(0, 71, 255, 0.33)",
       },
       textShadow: {

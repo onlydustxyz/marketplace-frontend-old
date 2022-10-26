@@ -51,14 +51,16 @@ context("Connect all requirements", () => {
         expect(el.text(), "GitHub account").to.contain("Not connected");
       })
       .getByTestId("github-connection-state-dot")
-      .should("have.class", "shadow-dot-not-connected");
+      .then($el => $el[0].className)
+      .should("match", /shadow-dot-not-connected/);
 
     cy.getByTestId("discord-connection-state")
       .should(el => {
         expect(el.text(), "Discord account").to.contain("Not connected");
       })
       .getByTestId("discord-connection-state-dot")
-      .should("have.class", "shadow-dot-not-connected");
+      .then($el => $el[0].className)
+      .should("match", /shadow-dot-not-connected/);
 
     cy.getByTestId("github-connect-button").click();
 

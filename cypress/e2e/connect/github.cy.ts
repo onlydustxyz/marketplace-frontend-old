@@ -37,7 +37,9 @@ context("Connect Github account", () => {
     cy.getByTestId("header-profile-wallet-address").should("have.text", "0x00a2...93e2");
     cy.getByTestId("header-profile-wallet-address-dot").should("have.class", "shadow-dot-connected");
     cy.getByTestId("header-profile-github-handle").should("have.text", "Not connected");
-    cy.getByTestId("header-profile-github-handle-dot").should("have.class", "shadow-dot-not-connected");
+    cy.getByTestId("header-profile-github-handle-dot")
+      .then($el => $el[0].className)
+      .should("match", /shadow-dot-not-connected/);
 
     cy.getByTestId("github-connect-button").click();
 

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ConnectDot: FC<Props> = ({ className, connected, dataTestId }) => {
-  const dotClassName = connected ? "bg-light-blue shadow-dot-connected" : "bg-black shadow-dot-not-connected-v1";
+  const dotClassName = connected ? "bg-light-blue shadow-dot-connected" : "bg-black shadow-dot-not-connected";
 
   return <div className={cn("h-[5px] w-[5px] rounded-full", dotClassName, className)} data-testid={dataTestId}></div>;
 };

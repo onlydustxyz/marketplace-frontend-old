@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import cn from "classnames";
 
-import ConnectDot from "src/components/ConnectDot";
+import ConnectDot from "src/components/ConnectDotV2";
 import ProfileIcon from "src/icons/Profile";
 import { minimizeAddress } from "src/utils/web3";
 import Arrow from "src/icons/Arrow";
@@ -11,10 +11,11 @@ import GithubSignin from "src/App/Routes/Modals/RegisterModal/GithubSignin";
 type Props = {
   accountAddress?: string;
   githubHandle?: string;
+  discordHandle?: string;
   className?: string;
 };
 
-const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => {
+const ProfileMenu: FC<Props> = ({ accountAddress, className, discordHandle, githubHandle }) => {
   return (
     <Popover as="div" className={cn(className, "relative inline-block text-left")}>
       {({ open }) => (
@@ -30,6 +31,7 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
             <div className="flex flex-col justify-center gap-[5px] mr-1">
               <ConnectDot connected={!!accountAddress} />
               <ConnectDot connected={!!githubHandle} />
+              <ConnectDot connected={!!discordHandle} />
             </div>
           </Popover.Button>
           <Transition
@@ -41,7 +43,7 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Popover.Panel className="absolute right-0 mt-[176px] px-3.5 w-[218px] origin-top-right bg-black bg-profile-menu rounded-[20px] focus:outline-none z-40 divide-y divide-white/15">
+            <Popover.Panel className="absolute right-0 top-[58px] md:top-[76px] px-3.5 w-[218px] origin-top-right bg-black bg-profile-menu rounded-[20px] focus:outline-none z-40 divide-y divide-white/15">
               <div className="h-[57px] flex flex-row items-center">
                 <ConnectDot
                   connected={!!accountAddress}
@@ -77,6 +79,19 @@ const ProfileMenu: FC<Props> = ({ accountAddress, className, githubHandle }) => 
                     </div>
                   </GithubSignin>
                 )}
+              </div>
+              <div className="h-[57px] flex flex-row items-center">
+                <ConnectDot
+                  connected={!!discordHandle}
+                  className="ml-2 mr-4"
+                  dataTestId="header-profile-discord-handle-dot"
+                />
+                <div className="flex flex-col justify-center">
+                  <div className="text-xs uppercase">Discord</div>
+                  <div className="text-white leading-5" data-testid="header-profile-discord-handle">
+                    {discordHandle ? discordHandle : "Not connected"}
+                  </div>
+                </div>
               </div>
             </Popover.Panel>
           </Transition>

@@ -2,6 +2,7 @@ import { ContributionDto } from "src/model/projects/repository";
 import { InMemoryApplicationRepository } from "./in-memory-repository";
 import { FetchedApplicationRepository } from "./fetched-repository";
 import { ContributorAccountAddress } from "../contributors/repository";
+import config from "src/config";
 
 export type ContributionApplicationDto = {
   contribution_id: ContributionDto["id"];
@@ -23,4 +24,4 @@ export interface ApplicationRepository {
 }
 
 export const applicationRepository: ApplicationRepository =
-  process.env.NODE_ENV === "test" ? new InMemoryApplicationRepository() : new FetchedApplicationRepository();
+  config.MODE === "test" ? new InMemoryApplicationRepository() : new FetchedApplicationRepository();

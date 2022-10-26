@@ -1,6 +1,7 @@
 import { InMemoryContributionRepository } from "./in-memory-repository";
 import { FetchedContributionRepository } from "./fetched-repository";
 import { ContributorAccountAddress } from "../contributors/repository";
+import config from "src/config";
 
 export type ContributionDto = {
   id: string;
@@ -88,4 +89,4 @@ export interface ContributionRepository {
 }
 
 export const contributionRepository: ContributionRepository =
-  process.env.NODE_ENV === "test" ? new InMemoryContributionRepository() : new FetchedContributionRepository();
+  config.MODE === "test" ? new InMemoryContributionRepository() : new FetchedContributionRepository();

@@ -1,5 +1,6 @@
 import { InMemoryProjectRepository } from "./in-memory-repository";
 import { FetchedProjectRepository } from "./fetched-repository";
+import config from "src/config";
 
 export type ContributionDto = {
   id: string;
@@ -96,4 +97,4 @@ export interface ProjectRepository {
 }
 
 export const projectRepository: ProjectRepository =
-  process.env.NODE_ENV === "test" ? new InMemoryProjectRepository() : new FetchedProjectRepository();
+  config.MODE === "test" ? new InMemoryProjectRepository() : new FetchedProjectRepository();

@@ -25,7 +25,7 @@ const StatusHeader: FC<Props> = ({ contribution }) => {
     <div
       className={cn(
         classNamesByStatus[contribution.status],
-        "px-3 md:px-10 w-full flex flex-col md:flex-row justify-center items-start md:items-center h-[48px] md:h-[66px]"
+        "px-3 md:px-10 w-full flex flex-col md:flex-row items-center justify-center md:justify-start h-[48px] md:h-[66px]"
       )}
     >
       <ContributionStatus status={contribution.status}>{renderDetails()}</ContributionStatus>

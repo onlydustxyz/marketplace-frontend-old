@@ -18,10 +18,17 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:cypress/recommended",
+    "plugin:storybook/recommended",
   ],
   plugins: ["@typescript-eslint", "prettier", "cypress"],
   rules: {
-    quotes: ["warn", "double", { avoidEscape: true }],
+    quotes: [
+      "warn",
+      "double",
+      {
+        avoidEscape: true,
+      },
+    ],
     "prettier/prettier": [
       "error",
       {

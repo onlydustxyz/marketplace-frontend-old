@@ -38,7 +38,16 @@ export default defineConfig(({ mode }) => {
     plugins.push(
       istanbul({
         include: "src/*",
-        exclude: ["node_modules", "tests", "cypress", "App/tests", "*.config.ts", "*.config.js", ".eslintrc.js"],
+        exclude: [
+          "node_modules",
+          "tests",
+          "cypress",
+          "App/tests",
+          "*.config.ts",
+          "*.config.js",
+          ".eslintrc.js",
+          ".storybook",
+        ],
         extension: [".ts", ".tsx", ".vue"],
         requireEnv: true,
         envPrefix: "MARKETPLACE_",

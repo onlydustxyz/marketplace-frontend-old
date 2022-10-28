@@ -90,7 +90,6 @@
   "nyc": {
     "all": true,
     "cache": false,
-    "extends": "./nyc-config.js",
     "extension": [
       ".js",
       ".ts",

@@ -7,8 +7,41 @@ import react from "@vitejs/plugin-react";
 import viteSentry from "vite-plugin-sentry";
 
 export default defineConfig(({ mode }) => {
-  const plugins = [
-    react(),
+  const plugins = [];
+
+  // if (mode === "test") {
+  //   const istanbulPlugin = istanbul({
+  //     include: "src/*",
+  //     exclude: [
+  //       "node_modules",
+  //       "tests",
+  //       "cypress",
+  //       "App/tests",
+  //       "*.config.ts",
+  //       "*.config.js",
+  //       ".eslintrc.js",
+  //       ".storybook",
+  //     ],
+  //     extension: [".ts", ".tsx"],
+  //     requireEnv: true,
+  //     envPrefix: "MARKETPLACE_",
+  //     // forceBuildInstrument: true,
+  //   });
+
+  //   console.log({ ...istanbulPlugin });
+
+  //   // istanbulPlugin.enforce = "post";
+  //   plugins.push(istanbulPlugin);
+  // }
+
+  plugins.push(
+    react({
+      babel: {
+        plugins: [["istanbul"]],
+      },
+    })
+  );
+  plugins.push(
     viteSentry({
       url: "https://sentry.io",
       authToken: process.env.MARKETPLACE_SENTRY_AUTH_TOKEN,
@@ -31,29 +64,9 @@ export default defineConfig(({ mode }) => {
         !process.env.MARKETPLACE_SENTRY_ORG ||
         !process.env.MARKETPLACE_SENTRY_PROJECT ||
         !process.env.MARKETPLACE_SENTRY_RELEASE,
-    }),
-  ];
+    })
+  );
 
-  if (mode === "test") {
-    plugins.push(
-      istanbul({
-        include: "src/*",
-        exclude: [
-          "node_modules",
-          "tests",
-          "cypress",
-          "App/tests",
-          "*.config.ts",
-          "*.config.js",
-          ".eslintrc.js",
-          ".storybook",
-        ],
-        extension: [".ts", ".tsx", ".vue"],
-        requireEnv: true,
-        envPrefix: "MARKETPLACE_",
-      })
-    );
-  }
   return {
     envPrefix: "MARKETPLACE_",
     plugins,
@@ -85,6 +98,7 @@ export default defineConfig(({ mode }) => {
       globals: true,
       environment: "jsdom",
       coverage: {
+        provider: "istanbul",
         reporter: ["html", "clover"],
       },
     },

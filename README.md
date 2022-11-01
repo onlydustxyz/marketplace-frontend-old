@@ -46,6 +46,20 @@ To run in development mode
 yarn dev
 ```
 
+### 📚 Storybook
+
+To view components in isolation using [Storybook](https://storybook.js.org/)
+
+```bash
+yarn storybook
+```
+
+It can be useful to reset the Storybook cache when some updates are not showing correctly
+
+```bash
+yarn storybook --no-manager-cache
+```
+
 ## 🌡️ Testing
 
 

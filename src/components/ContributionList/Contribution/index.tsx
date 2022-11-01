@@ -6,15 +6,15 @@ import Technology from "src/icons/Technology";
 import { ContributionWithStatus as ContributionType, ContributionStatusEnum } from "src/state";
 import ContributionStatus from "../../ContributionStatus";
 
-type Props = { contribution: ContributionType };
+type ContributionProps = Pick<ContributionType, "status" | "title" | "project" | "metadata">;
 
-const Contribution: FC<Props> = ({ contribution }) => {
+const Contribution: FC<ContributionProps> = ({ status, title, project, metadata }) => {
   const cardClassName =
-    contribution.status !== ContributionStatusEnum.OPEN
+    status !== ContributionStatusEnum.OPEN
       ? "bg-mid-blue/15 hover:bg-mid-blue/40"
       : "bg-mid-blue/30 hover:bg-mid-blue/40";
 
-  const cardContentClassName = contribution.status !== ContributionStatusEnum.OPEN ? "opacity-50" : "";
+  const cardContentClassName = status !== ContributionStatusEnum.OPEN ? "opacity-50" : "";
 
   return (
     <div
@@ -25,26 +25,26 @@ const Contribution: FC<Props> = ({ contribution }) => {
     >
       <div className={cn("h-full flex flex-col", cardContentClassName)}>
         <div className="h-[72px] grid grid-cols-2 items-center uppercase mx-8">
-          <ContributionStatus status={contribution.status} />
+          <ContributionStatus status={status} />
         </div>
         <div className="grow flex flex-col justify-center mb-8 ">
           <h2 className="font-alfreda text-3xl leading-[42px] text-center px-2 md:px-8 line-clamp-4 break-words">
-            {contribution.title}
+            {title}
           </h2>
         </div>
 
         <div className="flex flex-col items-center mb-4">
           <span className="text-light-purple/66 uppercase text-[10px] tracking-widest">Project</span>
-          <span>{contribution.project.title}</span>
+          <span>{project.title}</span>
         </div>
         <div className="relative h-[80px] grid grid-cols-2 items-center text-center text-xl bg-mid-blue/20 group-hover:bg-mid-blue/40">
           <div className="flex flex-col items-center">
             <Difficulty size={18} className="fill-light-blue" />
-            <div className="capitalize mt-2.5 font-medium">{contribution.metadata.difficulty || "-"}</div>
+            <div className="capitalize mt-2.5 font-medium">{metadata.difficulty || "-"}</div>
           </div>
           <div className="flex flex-col items-center">
             <Technology size={18} className="fill-light-blue" />
-            <div className="capitalize mt-2.5 font-medium">{contribution.metadata.technology || "-"}</div>
+            <div className="capitalize mt-2.5 font-medium">{metadata.technology || "-"}</div>
           </div>
           {renderDivider()}
         </div>

@@ -32,7 +32,7 @@ let ContributionList: FC<Props> = ({ className, contributions, dataTestId }) => 
           to={`/contributions/${contributions[index].id}`}
           data-testid={`contribution-link-${contributions[index].id}`}
         >
-          <Contribution contribution={contributions[index]} />
+          <Contribution {...contributions[index]} />
         </Link>
       )}
     />

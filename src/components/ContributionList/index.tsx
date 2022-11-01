@@ -40,7 +40,7 @@ let ContributionList: FC<Props> = props => {
           className="flex-1"
           data-testid={`contribution-link-${contributions[index].id}`}
         >
-          <Contribution contribution={contributions[index]} />
+          <Contribution {...contributions[index]} />
         </Link>
       )}
     />

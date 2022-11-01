@@ -7,14 +7,11 @@ import { ContributionWithStatus as ContributionType, ContributionStatusEnum } fr
 import ContributionStatus from "../../ContributionStatus";
 import Reward from "src/icons/Reward";
 
-type Props = { contribution: ContributionType };
+export type ContributionProps = Pick<ContributionType, "status" | "title" | "project">;
 
-const Contribution: FC<Props> = ({ contribution }) => {
+const Contribution: FC<ContributionProps> = ({ status, title, project }) => {
   const cardClassName =
-    contribution.status === ContributionStatusEnum.OPEN
-      ? "bg-black hover:opacity-70"
-      : "bg-black opacity-60 hover:opacity-40";
-
+    status === ContributionStatusEnum.OPEN ? "bg-black hover:opacity-70" : "bg-black opacity-60 hover:opacity-40";
   return (
     <div
       className={cn(
@@ -25,26 +22,23 @@ const Contribution: FC<Props> = ({ contribution }) => {
       <div className="h-full flex flex-col md:flex-row">
         <div className="grow flex flex-row flex-wrap md:flex-nowrap md:flex-col">
           <ContributionStatus
-            status={contribution.status}
+            status={status}
             className="mb-1.5 mt-0.5 order-1 md:order-none basis-6/12 md:basis-auto"
           />
           <div className="grow mt-[6px] order-3 md:order-none basis-full md:basis-auto">
             <div className="font-alfreda text-[20px] md:text-[28px] leading-[24px] md:leading-[32px] font-medium tracking-[0.4px] text-shadow-contribution-title line-clamp-2">
-              {contribution.title} As a user I want to create symmetrical contributions with a mirror mode and maybe
-              more one day
+              {title} As a user I want to create symmetrical contributions with a mirror mode and maybe more one day
             </div>
           </div>
           <div className="flex flex-row items-center order-2 md:order-none grow justify-end md:justify-start scale-80 md:scale-100">
-            {contribution.project.logo && (
-              <img height="28px" width="28px" src={contribution.project.logo} className="mr-[10px]" />
-            )}
+            {project.logo && <img height="28px" width="28px" src={project.logo} className="mr-[10px]" />}
             <span
               className={cn(
                 "text-white/80 font-normal text-[14px] basis-6/12 md:basis-auto line-clamp-1",
-                !contribution.project.logo ? "md:ml-[38px]" : undefined
+                !project.logo ? "md:ml-[38px]" : undefined
               )}
             >
-              {contribution.project.title}
+              {project.title}
             </span>
           </div>
         </div>

@@ -14,7 +14,7 @@ const defaultContribution: ContributionProps = {
   title: "Test: ",
   status: ContributionStatusEnum.OPEN,
   project: {
-    title: "title",
+    title: "OnlyDust",
     logo: "https://app.onlydust.xyz/assets/onlydust-logo.5f8cc594.png",
     members: [],
   },

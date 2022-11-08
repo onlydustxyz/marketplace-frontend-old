@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "postinstall": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=a21f70b49315"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
@@ -66,6 +67,7 @@
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
     "c8": "^7.12.0",
+    "chromatic": "^6.11.4",
     "commitlint": "^17.0.3",
     "cypress": "10.9.0",
     "eslint": "^8.17.0",
@@ -106,5 +108,7 @@
       "clover"
     ],
     "all": true
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "marketplace-frontend@0.1.1"
 }

@@ -18,7 +18,6 @@ const ProjectsPage = ({ displayFilters, closeFilters, toggleFilters, children }:
         >
           All projects
         </h1>
-
         <div
           className={cn(
             "w-[48px] h-[48px] md:w-[63px] md:h-[63px] flex items-center justify-center cursor-pointer transition-all duration-300",

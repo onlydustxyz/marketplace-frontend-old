@@ -26,6 +26,7 @@ export type Project = {
 export type ProjectWithAggregateContributions = Project & {
   openedContributionsAmount: number;
   activeContributionsAmount: number;
+  alreadyGrantedAmount?: number;
   statuses: Array<ContributionWithStatus["status"] | "gated">;
   technologies: ContributionWithStatus["metadata"]["technology"][];
   durations: ContributionWithStatus["metadata"]["duration"][];
